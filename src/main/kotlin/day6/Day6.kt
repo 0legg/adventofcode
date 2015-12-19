@@ -7,11 +7,16 @@ import someday.SomeDay
  */
 class Day6: SomeDay(6) {
     val commands = data.split('\n')
+
+    fun toPoints(command: String): List<Int> {
+        val matcher = "[\\D]*(\\d+),(\\d+)[\\D]*(\\d+),(\\d+)[\\D]*".toPattern().matcher(command)
+        matcher.find()
+        return (1..4).map { matcher.group(it).toInt() }
+    }
+
     override fun first(): String {
         return commands.fold(Array(1000) { Array(1000) { false }}) { acc, value ->
-            val matcher = "[\\D]*(\\d+),(\\d+)[\\D]*(\\d+),(\\d+)[\\D]*".toPattern().matcher(value)
-            matcher.find()
-            val points = (1..4).map { matcher.group(it).toInt() }
+            val points = toPoints(value)
             (points[0]..points[2]).forEach { row ->
                 (points[1]..points[3]).forEach { column ->
                     acc[row][column] = when {
@@ -25,9 +30,27 @@ class Day6: SomeDay(6) {
             acc
         }.sumBy { it.count { it } }.toString()
     }
+
+    override fun second(): String {
+        return commands.fold(Array(1000) { Array(1000) { 0 }}) { acc, value ->
+            val points = toPoints(value)
+            (points[0]..points[2]).forEach { row ->
+                (points[1]..points[3]).forEach { column ->
+                    acc[row][column] += when {
+                        value.startsWith("toggle") -> 2
+                        value.startsWith("turn on") -> 1
+                        value.startsWith("turn off") && acc[row][column] > 0 -> -1
+                        else -> 0
+                    }
+                }
+            }
+            acc
+        }.sumBy { it.sum() }.toString()
+    }
 }
 
 fun main(args: Array<String>) {
     val day = Day6()
     println(day.first())
+    println(day.second())
 }
