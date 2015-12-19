@@ -1,6 +1,7 @@
 package day3
 
 import someday.SomeDay
+import utils.scan
 
 /**
  * Created by olegg on 12/18/15.
@@ -18,14 +19,21 @@ class Day3: SomeDay(3) {
         )
     val moves = data.map { mapping[it] ?: Vector() }
 
+    fun visit(moves: List<Vector>): Set<Vector> {
+        return setOf(Vector()) + moves.scan(Vector()) { pos, move -> pos + move }
+    }
+
     override fun first(): String {
-        val visited = setOf(Vector()).toMutableSet()
-        moves.fold(Vector()) { pos, move -> val next = pos + move; visited += next; next }
-        return visited.size.toString()
+        return visit(moves).size.toString()
+    }
+
+    override fun second(): String {
+        return (visit(moves.filterIndexed { i, vector -> i % 2 == 0 }) + visit(moves.filterIndexed { i, vector -> i % 2 == 1 })).size.toString()
     }
 }
 
 fun main(args: Array<String>) {
     val day = Day3()
     println(day.first())
+    println(day.second())
 }
