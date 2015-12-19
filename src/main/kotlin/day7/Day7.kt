@@ -6,7 +6,7 @@ import someday.SomeDay
  * Created by olegg on 12/19/15.
  */
 class Day7: SomeDay(7) {
-    val source = data.split('\n').map {
+    val source = data.lines().map {
             val matcher = "^(.*) -> (.*)$".toPattern().matcher(it)
             matcher.find()
             matcher.group(2) to matcher.group(1)
