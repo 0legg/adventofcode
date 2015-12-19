@@ -8,11 +8,11 @@ abstract class SomeDay(val day: Int) {
         data = Fetcher.fetcher.fetchInput(day).execute().body()
     }
 
-    fun first(): String {
+    open fun first(): String {
         throw UnsupportedOperationException()
     }
 
-    fun second(): String {
+    open fun second(): String {
         throw UnsupportedOperationException()
     }
 }
