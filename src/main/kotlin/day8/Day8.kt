@@ -12,15 +12,28 @@ class Day8: SomeDay(8) {
             it
                     .replace("^\"".toRegex(), "")
                     .replace("\"$".toRegex(), "")
-                    .replace("\\\"", "#")
-                    .replace("\\\\", "#")
+                    .replace("\\\"", "\"")
+                    .replace("\\\\", "\\")
                     .replace("\\\\x[0-9a-f]{2}".toRegex(), "#")
                     .length
         }).toString()
+    }
+
+    override fun second(): String {
+        return (strings.sumBy {
+            it.map {
+                when (it) {
+                    '\"' -> "\\\""
+                    '\\' -> "\\\\"
+                    else -> it
+                }
+            }.joinToString(prefix = "\"", postfix = "\"", separator = "").length
+        } - strings.sumBy { it.length }).toString()
     }
 }
 
 fun main(args: Array<String>) {
     val day = Day8()
     println(day.first())
+    println(day.second())
 }
