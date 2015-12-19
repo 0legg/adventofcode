@@ -1,3 +1,5 @@
+package someday
+
 import com.squareup.okhttp.ResponseBody
 import retrofit.Call
 import retrofit.Converter
