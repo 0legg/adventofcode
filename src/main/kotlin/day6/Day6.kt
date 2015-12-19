@@ -6,7 +6,7 @@ import someday.SomeDay
  * Created by olegg on 12/19/15.
  */
 class Day6: SomeDay(6) {
-    val commands = data.split('\n')
+    val commands = data.lines()
 
     fun toPoints(command: String): List<Int> {
         val matcher = "[\\D]*(\\d+),(\\d+)[\\D]*(\\d+),(\\d+)[\\D]*".toPattern().matcher(command)

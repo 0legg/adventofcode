@@ -6,7 +6,7 @@ import someday.SomeDay
  * Created by olegg on 12/18/15.
  */
 class Day5: SomeDay(5) {
-    val strings = data.split('\n')
+    val strings = data.lines()
     override fun first(): String {
         return strings
                 .filter { it.count { it in "aeiou" } >= 3 }

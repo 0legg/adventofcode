@@ -6,7 +6,7 @@ import someday.SomeDay
  * Created by olegg on 12/18/15.
  */
 class Day2: SomeDay(2) {
-    val boxes = data.split('\n').map { it.split('x').map { it.toInt() }.sorted() }
+    val boxes = data.lines().map { it.split('x').map { it.toInt() }.sorted() }
 
     override fun first(): String {
         return boxes.sumBy { 3 * it[0] * it[1] + 2 * it[0] * it[2] + 2 * it[1] * it[2] }.toString()
