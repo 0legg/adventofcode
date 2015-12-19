@@ -16,3 +16,33 @@ public inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): L
     }
     return list
 }
+
+/**
+ * Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
+ */
+public inline fun <T, R> Sequence<T>.scan(initial: R, operation: (R, T) -> R): List<R> {
+    var accumulator = initial
+    var list = listOf<R>()
+    for (element in this) {
+        accumulator = operation(accumulator, element)
+        list += accumulator
+    }
+    return list
+}
+
+fun <T : Any> List<T>.permutations() : Sequence<List<T>> = if (size == 1) sequenceOf(this) else {
+    val iterator = iterator()
+    var head = iterator.next()
+    var permutations = (this - head).permutations().iterator()
+
+    fun nextPermutation(): List<T>? = if (permutations.hasNext()) listOf(head) + permutations.next() else {
+        if (iterator.hasNext()) {
+            head = iterator.next()
+            permutations = (this - head).permutations().iterator()
+            nextPermutation()
+        } else null
+    }
+
+    sequence { nextPermutation() }
+}
+
