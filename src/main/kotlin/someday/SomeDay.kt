@@ -7,7 +7,7 @@ public abstract class SomeDay(val day: Int) {
     val data: String
 
     init {
-        data = Fetcher.Companion.fetcher.fetchInput(day).execute().body()
+        data = Fetcher.Companion.fetcher.fetchInput(day).execute().body().trim()
     }
 
     open fun first(): String {
