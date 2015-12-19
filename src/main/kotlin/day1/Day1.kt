@@ -1,3 +1,7 @@
+package day1
+
+import someday.SomeDay
+
 /**
  * Created by olegg on 12/18/15.
  */

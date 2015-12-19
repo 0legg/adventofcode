@@ -1,11 +1,13 @@
+package someday
+
 /**
  * Created by olegg on 12/18/15.
  */
-abstract class SomeDay(val day: Int) {
+public abstract class SomeDay(val day: Int) {
     val data: String
 
     init {
-        data = Fetcher.fetcher.fetchInput(day).execute().body()
+        data = Fetcher.Companion.fetcher.fetchInput(day).execute().body()
     }
 
     open fun first(): String {
