@@ -1,6 +1,7 @@
 package day1
 
 import someday.SomeDay
+import utils.scan
 
 /**
  * Created by olegg on 12/18/15.
@@ -13,7 +14,7 @@ class Day1: SomeDay(1) {
     }
 
     override fun second(): String {
-        return (floors.mapIndexed { pos, value -> floors.subList(0, pos).sum() + value }.indexOfFirst { it < 0 } + 1).toString()
+        return (floors.scan(0) { acc, value -> acc + value }.indexOfFirst { it < 0 } + 1).toString()
     }
 }
 
