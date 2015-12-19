@@ -1,7 +1,6 @@
 package day5
 
 import someday.SomeDay
-import utils.scan
 
 /**
  * Created by olegg on 12/18/15.
@@ -9,9 +8,17 @@ import utils.scan
 class Day5: SomeDay(5) {
     val strings = data.split('\n')
     override fun first(): String {
-        return strings.filter { it.count { it in "aeiou" } >= 3 }
-                .filterNot { string -> listOf("ab", "cd", "pq", "xy").any { string.contains(it) } }
-                .filter { it.toList().scan(Pair(' ', ' ')) { acc, value -> Pair(acc.second, value) }.any { it.first == it.second } }
+        return strings
+                .filter { it.count { it in "aeiou" } >= 3 }
+                .filterNot { it.contains("ab|cd|pq|xy".toRegex()) }
+                .filter { it.contains("([a-z])\\1".toRegex()) }
+                .size.toString()
+    }
+
+    override fun second(): String {
+        return strings
+                .filter { it.contains("([a-z]).\\1".toRegex()) }
+                .filter { it.contains("([a-z]{2}).*\\1".toRegex()) }
                 .size.toString()
     }
 }
@@ -19,4 +26,5 @@ class Day5: SomeDay(5) {
 fun main(args: Array<String>) {
     val day = Day5()
     println(day.first())
+    println(day.second())
 }
