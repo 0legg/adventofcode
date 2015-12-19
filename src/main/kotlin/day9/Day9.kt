@@ -29,9 +29,21 @@ class Day9: SomeDay(9) {
                             .sumBy { it }
                 }.minBy { it }.toString()
     }
+
+    override fun second(): String {
+        return cities.permutations()
+                .map {
+                    it
+                            .scan(Pair("", "")) { acc, value -> Pair(acc.second, value) }
+                            .drop(1)
+                            .map { edges[it] ?: 0}
+                            .sumBy { it }
+                }.maxBy { it }.toString()
+    }
 }
 
 fun main(args: Array<String>) {
     val day = Day9()
     println(day.first())
+    println(day.second())
 }
