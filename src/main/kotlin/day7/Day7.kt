@@ -18,10 +18,10 @@ class Day7: SomeDay(7) {
     val rshiftPattern = "^(\\d+) RSHIFT (\\d+)$".toPattern()
     var varRegex = "[a-z]".toRegex()
 
-    override fun first(): String {
-        var state = source
+    fun measure(board: Map<String, String>, pin: String): String {
+        var state = board
         var resolved = mapOf<String, String>().toLinkedMap()
-        while (!resolved.contains("a")) {
+        while (!resolved.contains(pin)) {
             val temp = state.filterValues { !it.contains(varRegex) }.mapValues {
                 val notMatcher = notPattern.matcher(it.value)
                 val andMatcher = andPattern.matcher(it.value)
@@ -44,11 +44,20 @@ class Day7: SomeDay(7) {
                     } }
             resolved.putAll(temp)
         }
-        return resolved["a"] ?: ""
+        return resolved[pin] ?: ""
+    }
+
+    override fun first(): String {
+        return measure(source, "a")
+    }
+
+    override fun second(): String {
+        return measure(source + ("b" to measure(source, "a")), "a")
     }
 }
 
 fun main(args: Array<String>) {
     val day = Day7()
     println(day.first())
+    println(day.second())
 }
