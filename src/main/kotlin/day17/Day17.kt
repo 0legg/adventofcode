@@ -14,9 +14,16 @@ class Day17: SomeDay(17) {
             }
         }.last().toString()
     }
+
+    override fun second(): String {
+        return (0..(1.shl(containers.size) - 1)).map { value ->
+            containers.mapIndexed { index, container -> value.shr(index).and(1) * container }
+        }.filter { it.sum() == 150 }.groupBy { it.count { it != 0 } }.minBy { it.key }?.value?.size?.toString() ?: ""
+    }
 }
 
 fun main(args: Array<String>) {
     val day = Day17()
     println(day.first())
+    println(day.second())
 }
