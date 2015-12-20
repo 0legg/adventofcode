@@ -22,9 +22,17 @@ class Day13: SomeDay(13) {
                     it.reversed().scan(Pair("", it.first())) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 }
         }.max().toString()
     }
+
+    override fun second(): String {
+        return names.permutations().map {
+            it.scan(Pair("", "")) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 } +
+                    it.reversed().scan(Pair("", "")) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 }
+        }.max().toString()
+    }
 }
 
 fun main(args: Array<String>) {
     val day = Day13()
     println(day.first())
+    println(day.second())
 }
