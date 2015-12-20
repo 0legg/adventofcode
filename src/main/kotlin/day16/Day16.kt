@@ -24,11 +24,20 @@ class Day16: SomeDay(16) {
     )
 
     override fun first(): String {
-        return sues.filter { it.second.all { footprint[it.key] == it.value } }.map { it.first }.first().toString()
+        return sues.filter { it.second.all { it.value == footprint[it.key] } }.map { it.first }.first().toString()
+    }
+
+    override fun second(): String {
+        return sues.filter { it.second.all { when (it.key) {
+            "cats", "trees" -> (it.value > footprint[it.key] ?: 0)
+            "pomeranians", "goldfish"  -> (it.value < footprint[it.key] ?: 0)
+            else -> it.value == footprint[it.key]
+        } } }.map { it.first }.first().toString()
     }
 }
 
 fun main(args: Array<String>) {
     val day = Day16()
     println(day.first())
+    println(day.second())
 }
