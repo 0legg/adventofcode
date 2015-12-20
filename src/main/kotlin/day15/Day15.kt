@@ -24,6 +24,16 @@ class Day15: SomeDay(15) {
                 .map { it.fold(1) { acc, value -> acc * value } }
                 .max().toString()
     }
+
+    override fun second(): String {
+        val itemsValues = (0..3).map { value -> items.map { it[value] } }
+        val calories = items.map { it[4] }
+        return splitRange(items.size, spoons)
+                .filter { it.mapIndexed { index, value -> calories[index] * value }.sum() == 500 }
+                .map { split -> itemsValues.map { it.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0) } }
+                .map { it.fold(1) { acc, value -> acc * value } }
+                .max().toString()
+    }
 }
 
 fun splitRange(splits: Int, sum: Int): List<List<Int>> = if (splits == 1) listOf(listOf(sum)) else {
@@ -33,4 +43,5 @@ fun splitRange(splits: Int, sum: Int): List<List<Int>> = if (splits == 1) listOf
 fun main(args: Array<String>) {
     val day = Day15()
     println(day.first())
+    println(day.second())
 }
