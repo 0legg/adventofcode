@@ -19,16 +19,25 @@ class Day11: SomeDay(11) {
         }.first
     }
 
-    override fun first(): String {
-        return passwordList(data).drop(1)
+    fun password(password: String): String {
+        return passwordList(password).drop(1)
                 .filterNot { string -> "iol".any { string.contains(it) } }
                 .filter { string -> ('a'..'x').map { String(charArrayOf(it, it + 1, it + 2)) }.any { string.contains(it) } }
                 .filter { it.toList().series().filter { it.size > 1 }.flatMap { it }.joinToString(separator = "").length > 3 }
                 .first()
+    }
+
+    override fun first(): String {
+        return password(data)
+    }
+
+    override fun second(): String {
+        return password(password(data))
     }
 }
 
 fun main(args: Array<String>) {
     val day = Day11()
     println(day.first())
+    println(day.second())
 }
