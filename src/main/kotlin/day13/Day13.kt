@@ -11,8 +11,11 @@ class Day13: SomeDay(13) {
     val pattern = "^\\b(\\w+)\\b.*\\b(gain|lose) \\b(\\d+)\\b.*\\b(\\w+)\\b\\.$".toPattern()
     val edges = data.lines().map {
         val matcher = pattern.matcher(it)
-        matcher.matches()
-        Pair(matcher.group(1), matcher.group(4)) to matcher.group(3).toInt() * (if (matcher.group(2) == "gain") 1 else -1)
+        if (matcher.matches()) {
+            Pair(matcher.group(1), matcher.group(4)) to matcher.group(3).toInt() * (if (matcher.group(2) == "gain") 1 else -1)
+        } else {
+            Pair("", "") to 0
+        }
     }.toMap()
     val names = edges.keys.flatMap { listOf(it.first, it.second) }.distinct()
 

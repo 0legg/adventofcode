@@ -11,8 +11,11 @@ class Day14: SomeDay(14) {
     val pattern = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b.*\\b(\\d+)\\b.*".toPattern()
     val speeds = data.lines().map {
         val matcher = pattern.matcher(it)
-        matcher.matches()
-        Triple(matcher.group(1).toInt(), matcher.group(2).toInt(), matcher.group(2).toInt() + matcher.group(3).toInt())
+        if (matcher.matches()) {
+            Triple(matcher.group(1).toInt(), matcher.group(2).toInt(), matcher.group(2).toInt() + matcher.group(3).toInt())
+        } else {
+            Triple(0, 0, 0)
+        }
     }
 
     override fun first(): String {
