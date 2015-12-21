@@ -13,9 +13,18 @@ class Day20: SomeDay(20) {
             (1..Math.sqrt(house.toDouble()).toInt()).sumBy { if (house % it == 0) (it + house / it) * 10 else 0 } >= max
         }.toString()
     }
+
+    override fun second(): String {
+        return sequence(1) { it + 1 }.first { house ->
+            (1..Math.sqrt(house.toDouble()).toInt()).sumBy {
+                if (house % it == 0) 11 * listOf(it, house / it).filter { house <= it * 50 }.sum() else 0
+            } >= max
+        }.toString()
+    }
 }
 
 fun main(args: Array<String>) {
     val day = Day20()
     println(day.first())
+    println(day.second())
 }
