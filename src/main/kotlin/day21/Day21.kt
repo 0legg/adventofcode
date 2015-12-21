@@ -35,15 +35,24 @@ class Day21: SomeDay(21) {
             Triple(0, 0, 0)
     )
 
+    val ringSets = (rings.flatMap { first -> rings.map { Pair(first, it) } }.filter { it.first.first < it.second.first } + Pair(Triple(0, 0, 0), Triple(0, 0, 0)))
+    val ringBuilds = ringSets.map { Triple(it.first.first + it.second.first, it.first.second + it.second.second, it.first.third + it.second.third) }
+    val builds = weapons.flatMap { weapon -> armor.map { Triple(weapon.first + it.first, weapon.second + it.second, weapon.third + it.third) } }
+            .flatMap { set -> ringBuilds.map { Triple(set.first + it.first, set.second + it.second, set.third + it.third) } }.sortedBy { it.first }
+
     override fun first(): String {
-        val ringSets = (rings.flatMap { first -> rings.map { Pair(first, it) } }.filter { it.first.first < it.second.first } + Pair(Triple(0, 0, 0), Triple(0, 0, 0)))
-        val ringBuilds = ringSets.map { Triple(it.first.first + it.second.first, it.first.second + it.second.second, it.first.third + it.second.third) }
-        val builds = weapons.flatMap { weapon -> armor.map { Triple(weapon.first + it.first, weapon.second + it.second, weapon.third + it.third) } }
-                .flatMap { set -> ringBuilds.map { Triple(set.first + it.first, set.second + it.second, set.third + it.third) } }.sortedBy { it.first }
         return builds.first {
             val my = (it.second - boss[2]).coerceAtLeast(1)
             val his = (boss[1] - it.third).coerceAtLeast(1)
             (boss[0] + my - 1) / my <= (hp + his - 1) / his
+        }.first.toString()
+    }
+
+    override fun second(): String {
+        return builds.reversed().first {
+            val my = (it.second - boss[2]).coerceAtLeast(1)
+            val his = (boss[1] - it.third).coerceAtLeast(1)
+            (boss[0] + my - 1) / my > (hp + his - 1) / his
         }.first.toString()
     }
 }
@@ -51,4 +60,5 @@ class Day21: SomeDay(21) {
 fun main(args: Array<String>) {
     val day = Day21()
     println(day.first())
+    println(day.second())
 }
