@@ -22,12 +22,13 @@ class Day22: SomeDay(22) {
     val recharge = Spell(229, 5) { it.first.copy(third = it.first.third + 101) to it.second }
 
     val bossHit = Spell(0, 1) { it.first.copy(first = it.first.first - (it.second.second - it.first.second).coerceAtLeast(1) ) to it.second }
+    val hardBossHit = Spell(0, 1) { it.first.copy(first = it.first.first - (it.second.second - it.first.second).coerceAtLeast(1) - 1 ) to it.second }
 
     val spells = listOf(magicMissile, drain, shield, poison, recharge)
 
     data class Game(val me: Triple<Int, Int, Int>, val boss: Pair<Int, Int>, val spells: Map<Spell, Int> = mapOf(), val mana: Int = 0, val myMove: Boolean = true)
 
-    override fun first(): String {
+    fun countMana(mySpells: List<Spell>, bossSpells: List<Spell>): Int {
         val queue = linkedListOf(Game(me, boss))
         var best = Int.MAX_VALUE
         while (queue.isNotEmpty()) {
@@ -46,7 +47,7 @@ class Day22: SomeDay(22) {
                 continue
             }
             val activeSpells = game.spells.mapValues { it.value - 1 }.filterValues { it > 0 }
-            val cast = if (game.myMove) spells.filter { it.cost <= states.first.third }.filterNot { activeSpells.containsKey(it) }.filter { game.mana + it.cost < best } else listOf(bossHit)
+            val cast = if (game.myMove) mySpells.filter { it.cost <= states.first.third }.filterNot { activeSpells.containsKey(it) }.filter { game.mana + it.cost < best } else bossSpells
 
             queue += cast.map { game.copy(
                     me = states.first.copy(third = states.first.third - it.cost),
@@ -56,11 +57,20 @@ class Day22: SomeDay(22) {
                     myMove = !game.myMove
             ) }
         }
-        return best.toString()
+        return best
+    }
+
+    override fun first(): String {
+        return countMana(spells, listOf(bossHit)).toString()
+    }
+
+    override fun second(): String {
+        return countMana(spells, listOf(hardBossHit)).toString()
     }
 }
 
 fun main(args: Array<String>) {
     val day = Day22()
     println(day.first())
+    println(day.second())
 }
