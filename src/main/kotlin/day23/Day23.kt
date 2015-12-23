@@ -15,8 +15,8 @@ class Day23: SomeDay(23) {
     val jieMatcher = "^jie (\\w), ([+-]?\\d+)$".toRegex()
     val jioMatcher = "^jio (\\w), ([+-]?\\d+)$".toRegex()
 
-    override fun first(): String {
-        var state = Triple(0, 0, 0)
+    fun emulate(initialState: Triple<Int, Int, Int>): Triple<Int, Int, Int> {
+        var state = initialState
         while (state.third in commands.indices) {
             with (commands[state.third]) {
                 state = when {
@@ -71,11 +71,20 @@ class Day23: SomeDay(23) {
                 }
             }
         }
-        return state.second.toString()
+        return state
+    }
+
+    override fun first(): String {
+        return emulate(Triple(0, 0, 0)).second.toString()
+    }
+
+    override fun second(): String {
+        return emulate(Triple(1, 0, 0)).second.toString()
     }
 }
 
 fun main(args: Array<String>) {
     val day = Day23()
     println(day.first())
+    println(day.second())
 }
