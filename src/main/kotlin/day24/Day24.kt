@@ -18,6 +18,17 @@ class Day24: SomeDay(24) {
                 ?.min()
                 .toString()
     }
+
+    override fun second(): String {
+        val sum = weights.sum() / 4
+        return subsets(sum, weights)
+                .groupBy { it.size }
+                .minBy { it.key }
+                ?.value
+                ?.map { it.fold(1L, Long::times)}
+                ?.min()
+                .toString()
+    }
 }
 
 fun subsets(sum: Long, list: List<Long>): List<List<Long>> {
@@ -30,4 +41,5 @@ fun subsets(sum: Long, list: List<Long>): List<List<Long>> {
 fun main(args: Array<String>) {
     val day = Day24()
     println(day.first())
+    println(day.second())
 }
