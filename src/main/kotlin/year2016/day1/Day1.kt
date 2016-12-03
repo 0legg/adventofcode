@@ -32,9 +32,35 @@ class Day1 : DayOf2016(1) {
                 .let { "${abs(it.first) + abs(it.second)}" }
                 .toString()
     }
+
+    override fun second(): String {
+        var visited = hashSetOf(0 to 0)
+
+        data.split(", ")
+                .map { it[0] to it.substring(1).toInt() }
+                .fold(Triple(0, 0, 0)) { triple, command ->
+                    val dir = (triple.third + MOVES.size + (SHIFT[command.first] ?: 0)) % MOVES.size
+                    val steps = (1..command.second).map {
+                        triple.first + MOVES[dir].first * it to triple.second + MOVES[dir].second * it
+                    }
+                    val hq = steps.firstOrNull { visited.contains(it) }
+                    if (hq != null) {
+                        return "${abs(hq.first) + abs(hq.second)}"
+                    } else {
+                        visited.addAll(steps)
+                    }
+                    Triple(
+                            triple.first + MOVES[dir].first * command.second,
+                            triple.second + MOVES[dir].second * command.second,
+                            dir)
+                }
+
+        return "0"
+    }
 }
 
 fun main(args: Array<String>) {
     val day = Day1()
     println(day.first())
+    println(day.second())
 }
