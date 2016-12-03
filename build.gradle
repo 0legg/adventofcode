@@ -1,14 +1,14 @@
 group 'net.olegg.adventofcode'
-version '1.0.0'
+version '2.0.0'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.9'
+    gradleVersion = '3.2.1'
     distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
 }
 
 apply plugin: 'kotlin'
 buildscript {
-    ext.kotlin_version = '1.0.0-beta-3595'
+    ext.kotlin_version = '1.0.5-2'
     repositories {
         jcenter()
     }
@@ -21,7 +21,7 @@ repositories {
 }
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
-    compile 'com.beust:klaxon:0.20'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.beust:klaxon:0.24'
 }
 

@@ -45,7 +45,7 @@ public fun <T : Any> List<T>.permutations() : Sequence<List<T>> = if (size == 1)
         } else null
     }
 
-    sequence { nextPermutation() }
+    generateSequence { nextPermutation() }
 }
 
 public fun <T> Iterable<T>.series(): List<List<T>> {

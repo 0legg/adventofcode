@@ -11,7 +11,7 @@ class Day25: SomeDay(25) {
         if (matcher.find()) {
             val row = matcher.group(1).toInt()
             val column = matcher.group(2).toInt()
-            return sequence(Triple(1, 1, 20151125L)) {
+            return generateSequence(Triple(1, 1, 20151125L)) {
                 Triple(
                         if (it.first != 1) it.first - 1 else it.second + 1,
                         if (it.first != 1) it.second + 1 else 1,

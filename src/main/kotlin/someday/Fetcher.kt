@@ -1,12 +1,12 @@
 package someday
 
-import com.squareup.okhttp.ResponseBody
-import retrofit.Call
-import retrofit.Converter
-import retrofit.Retrofit
-import retrofit.http.GET
-import retrofit.http.Headers
-import retrofit.http.Path
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Converter
+import retrofit2.Retrofit
+import retrofit2.http.GET
+import retrofit2.http.Headers
+import retrofit2.http.Path
 import java.lang.reflect.Type
 
 /**
@@ -21,7 +21,7 @@ interface Fetcher {
         val fetcher  = Retrofit.Builder()
                 .baseUrl("http://adventofcode.com")
                 .addConverterFactory(object : Converter.Factory() {
-                    override fun fromResponseBody(type: Type?, annotations: Array<out Annotation>?) = Converter<ResponseBody, String> { it.string() }
+                    override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?) = Converter<ResponseBody, String> { it.string() }
                 })
                 .build()
                 .create(Fetcher::class.java)

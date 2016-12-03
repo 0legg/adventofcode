@@ -7,7 +7,7 @@ import utils.series
  * Created by olegg on 12/19/15.
  */
 class Day11: SomeDay(11) {
-    fun passwordList(password: String) = sequence(password) {
+    fun passwordList(password: String) = generateSequence(password) {
         it.toList().foldRight(Pair("", true)) { value, acc ->
             Pair(
                     (if (!acc.second) value else when (value) {

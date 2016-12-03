@@ -1,6 +1,7 @@
 package day19
 
 import someday.SomeDay
+import java.util.*
 import java.util.regex.Pattern
 
 /**
@@ -26,7 +27,7 @@ class Day19: SomeDay(19) {
     override fun second(): String {
         val reverse = transitions.map { it.second.toPattern() to it.first }
         val molecules = hashMapOf(molecule to 0)
-        val queue = linkedListOf(molecule)
+        val queue = LinkedList(listOf(molecule))
         while (!molecules.containsKey("e") && queue.isNotEmpty()) {
             val curr = queue.pop()
             val size = molecules.getOrDefault(curr, Int.MAX_VALUE)

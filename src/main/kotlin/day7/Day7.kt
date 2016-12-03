@@ -20,7 +20,7 @@ class Day7: SomeDay(7) {
 
     fun measure(board: Map<String, String>, pin: String): String {
         var state = board
-        var resolved = mapOf<String, String>().toLinkedMap()
+        var resolved = linkedMapOf<String, String>()
         while (!resolved.contains(pin)) {
             val temp = state.filterValues { !it.contains(varRegex) }.mapValues {
                 val notMatcher = notPattern.matcher(it.value)

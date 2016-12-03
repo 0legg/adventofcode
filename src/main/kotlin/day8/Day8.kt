@@ -25,7 +25,7 @@ class Day8: SomeDay(8) {
                 when (it) {
                     '\"' -> "\\\""
                     '\\' -> "\\\\"
-                    else -> it
+                    else -> "$it"
                 }
             }.joinToString(prefix = "\"", postfix = "\"", separator = "").length
         } - strings.sumBy { it.length }).toString()

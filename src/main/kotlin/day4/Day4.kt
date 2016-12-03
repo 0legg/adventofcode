@@ -10,11 +10,11 @@ import java.security.MessageDigest
  */
 class Day4: SomeDay(4) {
     override fun first(): String {
-        return sequence(1) { it + 1 }.first { (data + it.toString()).md5().startsWith("00000") }.toString()
+        return generateSequence(1) { it + 1 }.first { (data + it.toString()).md5().startsWith("00000") }.toString()
     }
 
     override fun second(): String {
-        return sequence(1) { it + 1 }.first { (data + it.toString()).md5().startsWith("000000") }.toString()
+        return generateSequence(1) { it + 1 }.first { (data + it.toString()).md5().startsWith("000000") }.toString()
     }
 }
 

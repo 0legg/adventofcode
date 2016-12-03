@@ -1,6 +1,7 @@
 package day22
 
 import someday.SomeDay
+import java.util.*
 
 /**
  * Created by olegg on 22/12/15.
@@ -29,7 +30,7 @@ class Day22: SomeDay(22) {
     data class Game(val me: Triple<Int, Int, Int>, val boss: Pair<Int, Int>, val spells: Map<Spell, Int> = mapOf(), val mana: Int = 0, val myMove: Boolean = true)
 
     fun countMana(mySpells: List<Spell>, bossSpells: List<Spell>): Int {
-        val queue = linkedListOf(Game(me, boss))
+        val queue = LinkedList(listOf(Game(me, boss)))
         var best = Int.MAX_VALUE
         while (queue.isNotEmpty()) {
             val game = queue.pop()

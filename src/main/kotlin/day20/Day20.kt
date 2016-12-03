@@ -9,13 +9,13 @@ class Day20: SomeDay(20) {
     val max = data.toInt()
 
     override fun first(): String {
-        return sequence(1) { it + 1 }.first { house ->
+        return generateSequence(1) { it + 1 }.first { house ->
             (1..Math.sqrt(house.toDouble()).toInt()).sumBy { if (house % it == 0) (it + house / it) * 10 else 0 } >= max
         }.toString()
     }
 
     override fun second(): String {
-        return sequence(1) { it + 1 }.first { house ->
+        return generateSequence(1) { it + 1 }.first { house ->
             (1..Math.sqrt(house.toDouble()).toInt()).sumBy {
                 if (house % it == 0) 11 * listOf(it, house / it).filter { house <= it * 50 }.sum() else 0
             } >= max

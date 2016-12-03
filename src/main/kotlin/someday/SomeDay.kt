@@ -3,7 +3,7 @@ package someday
 /**
  * Created by olegg on 12/18/15.
  */
-public abstract class SomeDay(val day: Int) {
+abstract class SomeDay(val day: Int) {
     val data: String
 
     init {
