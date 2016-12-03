@@ -1,6 +1,6 @@
 package year2016.day1
 
-import year2015.DayOf2016
+import year2016.DayOf2016
 import java.lang.Math.abs
 
 /**
