@@ -1,11 +1,11 @@
 package year2015.day17
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/20/15.
  */
-class Day17: SomeDay(17) {
+class Day17 : DayOf2015(17) {
     val containers = data.lines().map { it.toInt() }
     override fun first(): String {
         return containers.fold(listOf(1) + Array(150) { 0 }.toList()) { acc, container ->

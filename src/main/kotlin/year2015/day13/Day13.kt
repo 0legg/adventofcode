@@ -1,13 +1,13 @@
 package year2015.day13
 
-import someday.SomeDay
+import year2015.DayOf2015
 import utils.permutations
 import utils.scan
 
 /**
  * Created by olegg on 12/20/15.
  */
-class Day13: SomeDay(13) {
+class Day13 : DayOf2015(13) {
     val pattern = "^\\b(\\w+)\\b.*\\b(gain|lose) \\b(\\d+)\\b.*\\b(\\w+)\\b\\.$".toPattern()
     val edges = data.lines().map {
         val matcher = pattern.matcher(it)

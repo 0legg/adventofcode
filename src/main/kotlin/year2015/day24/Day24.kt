@@ -1,12 +1,12 @@
 package year2015.day24
 
-import someday.SomeDay
+import year2015.DayOf2015
 import utils.permutations
 
 /**
  * Created by olegg on 12/23/15.
  */
-class Day24: SomeDay(24) {
+class Day24 : DayOf2015(24) {
     val weights = data.lines().map { it.toLong() }
     override fun first(): String {
         val sum = weights.sum() / 3
@@ -14,7 +14,7 @@ class Day24: SomeDay(24) {
                 .groupBy { it.size }
                 .minBy { it.key }
                 ?.value
-                ?.map { it.fold(1L, Long::times)}
+                ?.map { it.fold(1L, Long::times) }
                 ?.min()
                 .toString()
     }
@@ -25,7 +25,7 @@ class Day24: SomeDay(24) {
                 .groupBy { it.size }
                 .minBy { it.key }
                 ?.value
-                ?.map { it.fold(1L, Long::times)}
+                ?.map { it.fold(1L, Long::times) }
                 ?.min()
                 .toString()
     }

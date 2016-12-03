@@ -1,11 +1,11 @@
 package year2015.day16
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/20/15.
  */
-class Day16: SomeDay(16) {
+class Day16 : DayOf2015(16) {
     val sues = data.lines().map {
         it.substring("Sue ".length, it.indexOf(':')).toInt() to it.substring(it.indexOf(':') + 1).trim().split(", ").map { val split = it.split(": "); split[0] to split[1].toInt() }.toMap()
     }
@@ -28,11 +28,15 @@ class Day16: SomeDay(16) {
     }
 
     override fun second(): String {
-        return sues.filter { it.second.all { when (it.key) {
-            "cats", "trees" -> (it.value > footprint[it.key] ?: 0)
-            "pomeranians", "goldfish"  -> (it.value < footprint[it.key] ?: 0)
-            else -> it.value == footprint[it.key]
-        } } }.map { it.first }.first().toString()
+        return sues.filter {
+            it.second.all {
+                when (it.key) {
+                    "cats", "trees" -> (it.value > footprint[it.key] ?: 0)
+                    "pomeranians", "goldfish" -> (it.value < footprint[it.key] ?: 0)
+                    else -> it.value == footprint[it.key]
+                }
+            }
+        }.map { it.first }.first().toString()
     }
 }
 

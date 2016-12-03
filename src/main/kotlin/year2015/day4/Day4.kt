@@ -1,6 +1,6 @@
 package year2015.day4
 
-import someday.SomeDay
+import year2015.DayOf2015
 import java.math.BigInteger
 import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
@@ -8,7 +8,7 @@ import java.security.MessageDigest
 /**
  * Created by olegg on 12/18/15.
  */
-class Day4: SomeDay(4) {
+class Day4 : DayOf2015(4) {
     override fun first(): String {
         return generateSequence(1) { it + 1 }.first { (data + it.toString()).md5().startsWith("00000") }.toString()
     }

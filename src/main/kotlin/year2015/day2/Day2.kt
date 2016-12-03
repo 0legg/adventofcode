@@ -1,11 +1,11 @@
 package year2015.day2
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/18/15.
  */
-class Day2: SomeDay(2) {
+class Day2 : DayOf2015(2) {
     val boxes = data.lines().map { it.split('x').map { it.toInt() }.sorted() }
 
     override fun first(): String {

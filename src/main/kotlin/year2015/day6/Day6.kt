@@ -1,11 +1,11 @@
 package year2015.day6
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/19/15.
  */
-class Day6: SomeDay(6) {
+class Day6 : DayOf2015(6) {
     val commands = data.lines()
 
     fun toPoints(command: String): List<Int> {
@@ -15,7 +15,7 @@ class Day6: SomeDay(6) {
     }
 
     override fun first(): String {
-        return commands.fold(Array(1000) { Array(1000) { false }}) { acc, value ->
+        return commands.fold(Array(1000) { Array(1000) { false } }) { acc, value ->
             val points = toPoints(value)
             (points[0]..points[2]).forEach { row ->
                 (points[1]..points[3]).forEach { column ->
@@ -32,7 +32,7 @@ class Day6: SomeDay(6) {
     }
 
     override fun second(): String {
-        return commands.fold(Array(1000) { Array(1000) { 0 }}) { acc, value ->
+        return commands.fold(Array(1000) { Array(1000) { 0 } }) { acc, value ->
             val points = toPoints(value)
             (points[0]..points[2]).forEach { row ->
                 (points[1]..points[3]).forEach { column ->

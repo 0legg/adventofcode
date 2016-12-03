@@ -1,11 +1,11 @@
 package year2015.day20
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 21/12/15.
  */
-class Day20: SomeDay(20) {
+class Day20 : DayOf2015(20) {
     val max = data.toInt()
 
     override fun first(): String {

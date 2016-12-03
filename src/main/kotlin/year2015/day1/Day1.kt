@@ -1,12 +1,12 @@
 package year2015.day1
 
-import someday.SomeDay
+import year2015.DayOf2015
 import utils.scan
 
 /**
  * Created by olegg on 12/18/15.
  */
-class Day1: SomeDay(1) {
+class Day1 : DayOf2015(1) {
     val floors = data.map { 1 - 2 * (it.minus('(')) }
 
     override fun first(): String {

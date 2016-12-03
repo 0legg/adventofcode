@@ -3,12 +3,12 @@ package year2015.day12
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/20/15.
  */
-class Day12: SomeDay(12) {
+class Day12 : DayOf2015(12) {
     val json = Parser().parse(data.byteInputStream()) as JsonObject
 
     fun sumRecursive(json: Any?): Int {

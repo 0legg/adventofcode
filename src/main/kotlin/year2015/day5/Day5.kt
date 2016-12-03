@@ -1,11 +1,11 @@
 package year2015.day5
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/18/15.
  */
-class Day5: SomeDay(5) {
+class Day5 : DayOf2015(5) {
     val strings = data.lines()
     override fun first(): String {
         return strings

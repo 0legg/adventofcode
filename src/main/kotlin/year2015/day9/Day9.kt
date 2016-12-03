@@ -1,13 +1,13 @@
 package year2015.day9
 
-import someday.SomeDay
+import year2015.DayOf2015
 import utils.permutations
 import utils.scan
 
 /**
  * Created by olegg on 12/19/15.
  */
-class Day9: SomeDay(9) {
+class Day9 : DayOf2015(9) {
     val pattern = "^\\b(\\w*)\\b to \\b(\\w*)\\b = (\\d*)$".toPattern()
     val edges = data.lines().flatMap {
         val matcher = pattern.matcher(it)
@@ -25,7 +25,7 @@ class Day9: SomeDay(9) {
                     it
                             .scan(Pair("", "")) { acc, value -> Pair(acc.second, value) }
                             .drop(1)
-                            .map { edges[it] ?: 0}
+                            .map { edges[it] ?: 0 }
                             .sumBy { it }
                 }.minBy { it }.toString()
     }
@@ -36,7 +36,7 @@ class Day9: SomeDay(9) {
                     it
                             .scan(Pair("", "")) { acc, value -> Pair(acc.second, value) }
                             .drop(1)
-                            .map { edges[it] ?: 0}
+                            .map { edges[it] ?: 0 }
                             .sumBy { it }
                 }.maxBy { it }.toString()
     }

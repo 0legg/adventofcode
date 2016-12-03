@@ -3,11 +3,11 @@ package someday
 /**
  * Created by olegg on 12/18/15.
  */
-abstract class SomeDay(val day: Int) {
+abstract class SomeDay(year: Int, val day: Int) {
     val data: String
 
     init {
-        data = Fetcher.Companion.fetcher.fetchInput(day).execute().body().trim()
+        data = Fetcher.Companion.fetcher.fetchInput(year, day).execute().body().trim()
     }
 
     open fun first(): String {

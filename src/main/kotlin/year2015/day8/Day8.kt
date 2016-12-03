@@ -1,11 +1,11 @@
 package year2015.day8
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/19/15.
  */
-class Day8: SomeDay(8) {
+class Day8 : DayOf2015(8) {
     val strings = data.lines()
     override fun first(): String {
         return (strings.sumBy { it.length } - strings.sumBy {

@@ -1,11 +1,11 @@
 package year2015.day21
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 21/12/15.
  */
-class Day21: SomeDay(21) {
+class Day21 : DayOf2015(21) {
     val hp = 100
     val boss = data.lines().map { it.substringAfterLast(": ").toInt() }
     val weapons = listOf(

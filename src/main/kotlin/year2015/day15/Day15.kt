@@ -1,11 +1,11 @@
 package year2015.day15
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/20/15.
  */
-class Day15: SomeDay(15) {
+class Day15 : DayOf2015(15) {
     val spoons = 100
     val pattern = ".* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.*".toPattern()
     val items = data.lines().map {

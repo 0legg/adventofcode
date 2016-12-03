@@ -11,9 +11,9 @@ import retrofit2.http.Path
  * Created by olegg on 12/18/15.
  */
 interface Fetcher {
-    @Headers("Cookie: session=53616c7465645f5f66a3274a71c532aad369ae139827e9b7e89c2f35d484c8acb8cd09e6f685e49c715e184cc7ff9355")
-    @GET("day/{day}/input")
-    fun fetchInput(@Path("day") day: Int): Call<String>
+    @Headers("Cookie: session=53616c7465645f5f310b83cb3f4bda451297cb2eea755f9c4c2c96d60464a7a7bdc7b60e9ca1eb6e313df542931107bb")
+    @GET("{year}/day/{day}/input")
+    fun fetchInput(@Path("year") year: Int, @Path("day") day: Int): Call<String>
 
     companion object {
         val fetcher  = Retrofit.Builder()

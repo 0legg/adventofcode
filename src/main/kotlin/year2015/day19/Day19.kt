@@ -1,13 +1,13 @@
 package year2015.day19
 
-import someday.SomeDay
+import year2015.DayOf2015
 import java.util.*
 import java.util.regex.Pattern
 
 /**
  * Created by olegg on 21/12/15.
  */
-class Day19: SomeDay(19) {
+class Day19 : DayOf2015(19) {
     val transitions = data.lines().dropLast(2).map { val split = it.split(" => "); Pair(split[0], split[1]) }
     val molecule = data.lines().last()
 

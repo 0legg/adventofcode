@@ -1,11 +1,11 @@
 package year2015.day18
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/21/15.
  */
-class Day18: SomeDay(18) {
+class Day18 : DayOf2015(18) {
     val size = 100
     val field = data.lines().mapIndexed { row, string ->
         string.mapIndexed { column, char -> if (char == '#') Pair(row, column) else null }
@@ -14,15 +14,15 @@ class Day18: SomeDay(18) {
     fun move(field: Set<Pair<Int, Int>>): Set<Pair<Int, Int>> {
         val neighbors = field.flatMap { cell -> (-1..1).flatMap { row -> (-1..1).map { column -> Pair(cell.first + row, cell.second + column) } }.filterNot { it == cell } }
                 .filter { it.first >= 0 }
-                .filter { it.first < size}
+                .filter { it.first < size }
                 .filter { it.second >= 0 }
-                .filter { it.second < size}
+                .filter { it.second < size }
                 .groupBy { it }
                 .mapValues { it.value.size }
                 .toList()
                 .partition { field.contains(it.first) }
 
-        return (neighbors.first.filter { it.second in 2..3 } + neighbors.second.filter{ it.second == 3 }).map { it.first }.toSet()
+        return (neighbors.first.filter { it.second in 2..3 } + neighbors.second.filter { it.second == 3 }).map { it.first }.toSet()
     }
 
     override fun first(): String {

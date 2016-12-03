@@ -1,12 +1,12 @@
 package year2015.day10
 
-import someday.SomeDay
+import year2015.DayOf2015
 import utils.series
 
 /**
  * Created by olegg on 12/19/15.
  */
-class Day10: SomeDay(10) {
+class Day10 : DayOf2015(10) {
     fun lookAndSay(source: String) = source.toList().series().map { "${it.size}${it.first()}" }.joinToString(separator = "")
 
     override fun first(): String {

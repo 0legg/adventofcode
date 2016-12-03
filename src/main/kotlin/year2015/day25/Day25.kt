@@ -1,11 +1,11 @@
 package year2015.day25
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 1/4/16.
  */
-class Day25: SomeDay(25) {
+class Day25 : DayOf2015(25) {
     override fun first(): String {
         val matcher = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b".toPattern().matcher(data)
         if (matcher.find()) {

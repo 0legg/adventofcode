@@ -1,6 +1,6 @@
 package year2015.day3
 
-import someday.SomeDay
+import year2015.DayOf2015
 import utils.scan
 
 /**
@@ -10,13 +10,13 @@ data class Vector(val x: Int = 0, val y: Int = 0) {
     operator fun plus(other: Vector) = Vector(x + other.x, y + other.y)
 }
 
-class Day3: SomeDay(3) {
+class Day3 : DayOf2015(3) {
     val mapping = mapOf(
             '<' to Vector(-1, 0),
             '>' to Vector(1, 0),
             '^' to Vector(0, 1),
             'v' to Vector(0, -1)
-        )
+    )
     val moves = data.map { mapping[it] ?: Vector() }
 
     fun visit(moves: List<Vector>): Set<Vector> {

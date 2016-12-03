@@ -1,16 +1,16 @@
 package year2015.day7
 
-import someday.SomeDay
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/19/15.
  */
-class Day7: SomeDay(7) {
+class Day7 : DayOf2015(7) {
     val source = data.lines().map {
-            val matcher = "^(.*) -> (.*)$".toPattern().matcher(it)
-            matcher.find()
-            matcher.group(2) to matcher.group(1)
-        }.toMap()
+        val matcher = "^(.*) -> (.*)$".toPattern().matcher(it)
+        matcher.find()
+        matcher.group(2) to matcher.group(1)
+    }.toMap()
     val notPattern = "^NOT (\\d+)$".toPattern()
     val andPattern = "^(\\d+) AND (\\d+)$".toPattern()
     val orPattern = "^(\\d+) OR (\\d+)$".toPattern()
@@ -39,9 +39,11 @@ class Day7: SomeDay(7) {
             }
 
             state = state.filterKeys { !temp.containsKey(it) }
-                    .mapValues { temp.toList().fold(it.value) { acc, value ->
-                        acc.replace("\\b${value.first}\\b".toRegex(), value.second)
-                    } }
+                    .mapValues {
+                        temp.toList().fold(it.value) { acc, value ->
+                            acc.replace("\\b${value.first}\\b".toRegex(), value.second)
+                        }
+                    }
             resolved.putAll(temp)
         }
         return resolved[pin] ?: ""
