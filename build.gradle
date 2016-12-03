@@ -9,6 +9,7 @@ task wrapper(type: Wrapper) {
 apply plugin: 'kotlin'
 buildscript {
     ext.kotlin_version = '1.0.5-2'
+    ext.retrofit_version = '2.1.0'
     repositories {
         jcenter()
     }
@@ -21,7 +22,8 @@ repositories {
 }
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-scalars:$retrofit_version"
     compile 'com.beust:klaxon:0.24'
 }
 
