@@ -7,12 +7,22 @@ import year2016.DayOf2016
  */
 class Day2 : DayOf2016(2) {
 
-    val KEYPAD = listOf(
+    val KEYPAD1 = listOf(
             "00000",
             "01230",
             "04560",
             "07890",
             "00000"
+    )
+
+    val KEYPAD2 = listOf(
+            "0000000",
+            "0001000",
+            "0023400",
+            "0567890",
+            "00ABC00",
+            "000D000",
+            "0000000"
     )
 
     val MOVES = mapOf(
@@ -28,10 +38,23 @@ class Day2 : DayOf2016(2) {
                 (MOVES[symbol] ?: (0 to 0)).let {
                     Pair(pair.first + it.first, pair.second + it.second)
                 }.let {
-                    if (KEYPAD[it.first][it.second] != '0') it else pair
+                    if (KEYPAD1[it.first][it.second] != '0') it else pair
                 }
             }
-            Triple(triple.first + "${KEYPAD[point.second][point.first]}", point.first, point.second)
+            Triple(triple.first + "${KEYPAD1[point.second][point.first]}", point.first, point.second)
+        }.first
+    }
+
+    override fun second(): String {
+        return data.split("\n").fold(Triple("", 2, 4)) { triple, command ->
+            val point = command.toCharArray().fold(triple.second to triple.third) { pair, symbol ->
+                (MOVES[symbol] ?: (0 to 0)).let {
+                    Pair(pair.first + it.first, pair.second + it.second)
+                }.let {
+                    if (KEYPAD2[it.first][it.second] != '0') it else pair
+                }
+            }
+            Triple(triple.first + "${KEYPAD2[point.second][point.first]}", point.first, point.second)
         }.first
     }
 }
@@ -39,4 +62,5 @@ class Day2 : DayOf2016(2) {
 fun main(args: Array<String>) {
     val day = Day2()
     println(day.first())
+    println(day.second())
 }
