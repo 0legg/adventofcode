@@ -17,4 +17,12 @@ abstract class SomeDay(year: Int, val day: Int) {
     open fun second(): String {
         throw UnsupportedOperationException()
     }
+
+    companion object{
+        fun mainify(clazz: Class<out SomeDay>) {
+            val day = clazz.newInstance()
+            println(day.first())
+            println(day.second())
+        }
+    }
 }
