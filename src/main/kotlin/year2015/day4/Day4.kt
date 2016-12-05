@@ -1,5 +1,6 @@
 package year2015.day4
 
+import utils.md5
 import year2015.DayOf2015
 import java.math.BigInteger
 import java.nio.charset.StandardCharsets
@@ -17,8 +18,6 @@ class Day4 : DayOf2015(4) {
         return generateSequence(1) { it + 1 }.first { (data + it.toString()).md5().startsWith("000000") }.toString()
     }
 }
-
-fun String.md5() = "%032x".format(BigInteger(1, MessageDigest.getInstance("MD5").digest(this.toByteArray(StandardCharsets.UTF_8))))
 
 fun main(args: Array<String>) {
     val day = Day4()
