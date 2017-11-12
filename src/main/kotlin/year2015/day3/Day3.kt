@@ -28,7 +28,7 @@ class Day3 : DayOf2015(3) {
     }
 
     override fun second(): String {
-        return (visit(moves.filterIndexed { i, vector -> i % 2 == 0 }) + visit(moves.filterIndexed { i, vector -> i % 2 == 1 })).size.toString()
+        return (visit(moves.filterIndexed { i, _ -> i % 2 == 0 }) + visit(moves.filterIndexed { i, _ -> i % 2 == 1 })).size.toString()
     }
 }
 

@@ -22,7 +22,7 @@ class Day4 : DayOf2016(4) {
                     .groupBy { it }
                     .mapValues { it.value.size }
                     .toList()
-                    .sortedWith(compareBy( { -it.second }, { it.first } ))
+                    .sortedWith(compareBy({ -it.second }, { it.first }))
                     .take(5)
                     .map { it.first }
                     .joinToString(separator = "")

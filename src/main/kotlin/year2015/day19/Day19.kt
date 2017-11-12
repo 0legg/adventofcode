@@ -1,7 +1,7 @@
 package year2015.day19
 
 import year2015.DayOf2015
-import java.util.*
+import java.util.LinkedList
 import java.util.regex.Pattern
 
 /**

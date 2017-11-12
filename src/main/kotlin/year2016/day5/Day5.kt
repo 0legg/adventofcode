@@ -10,7 +10,7 @@ import year2016.DayOf2016
 class Day5 : DayOf2016(5) {
     override fun first(): String {
         return generateSequence(0) { it + 1 }
-                .map{ "$data${it}".md5() }
+                .map { "$data$it".md5() }
                 .filter { it.startsWith("00000") }
                 .take(8)
                 .map { it[5] }
@@ -20,7 +20,7 @@ class Day5 : DayOf2016(5) {
     override fun second(): String {
         val map = hashMapOf<Char, Char>()
         return generateSequence(0) { it + 1 }
-                .map{ "$data${it}".md5() }
+                .map { "$data$it".md5() }
                 .filter { it.startsWith("00000") }
                 .filter { it[5] in '0'..'7' }
                 .map { it[5] to it[6] }

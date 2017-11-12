@@ -9,7 +9,7 @@ import year2016.DayOf2016
 class Day6 : DayOf2016(6) {
     override fun first(): String {
         return data.split("\n")
-                .flatMap { it.toCharArray().mapIndexed { i, c -> i to c  } }
+                .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
                 .groupBy { it.first }
                 .mapValues { it.value.map { it.second } }
                 .mapValues { it.value.groupBy { it } }
@@ -23,7 +23,7 @@ class Day6 : DayOf2016(6) {
 
     override fun second(): String {
         return data.split("\n")
-                .flatMap { it.toCharArray().mapIndexed { i, c -> i to c  } }
+                .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
                 .groupBy { it.first }
                 .mapValues { it.value.map { it.second } }
                 .mapValues { it.value.groupBy { it } }

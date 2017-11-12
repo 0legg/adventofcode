@@ -1,7 +1,6 @@
 package year2015.day24
 
 import year2015.DayOf2015
-import utils.permutations
 
 /**
  * Created by olegg on 12/23/15.
