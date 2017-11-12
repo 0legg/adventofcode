@@ -10,11 +10,11 @@ class Day10 : DayOf2015(10) {
     fun lookAndSay(source: String) = source.toList().series().map { "${it.size}${it.first()}" }.joinToString(separator = "")
 
     override fun first(): String {
-        return (1..40).fold(data) { acc, value -> lookAndSay(acc) }.length.toString()
+        return (1..40).fold(data) { acc, _ -> lookAndSay(acc) }.length.toString()
     }
 
     override fun second(): String {
-        return (1..50).fold(data) { acc, value -> lookAndSay(acc) }.length.toString()
+        return (1..50).fold(data) { acc, _ -> lookAndSay(acc) }.length.toString()
     }
 }
 
