@@ -7,7 +7,7 @@ abstract class SomeDay(year: Int, val day: Int) {
     val data: String
 
     init {
-        data = Fetcher.Companion.fetcher.fetchInput(year, day).execute().body().trim()
+        data = Fetcher.Companion.fetcher.fetchInput(year, day).execute().body()?.trim() ?: ""
     }
 
     open fun first(): String {
@@ -18,7 +18,7 @@ abstract class SomeDay(year: Int, val day: Int) {
         throw UnsupportedOperationException()
     }
 
-    companion object{
+    companion object {
         fun mainify(clazz: Class<out SomeDay>) {
             val day = clazz.newInstance()
             println(day.first())

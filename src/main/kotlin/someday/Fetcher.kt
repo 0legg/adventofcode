@@ -16,7 +16,7 @@ interface Fetcher {
     fun fetchInput(@Path("year") year: Int, @Path("day") day: Int): Call<String>
 
     companion object {
-        val fetcher  = Retrofit.Builder()
+        val fetcher = Retrofit.Builder()
                 .baseUrl("http://adventofcode.com")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build()

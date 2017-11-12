@@ -1,7 +1,5 @@
 package utils
 
-import java.util.*
-
 /**
  * Created by olegg on 12/18/15.
  */
@@ -32,7 +30,7 @@ public inline fun <T, R> Sequence<T>.scan(initial: R, operation: (R, T) -> R): L
     return list
 }
 
-public fun <T : Any> List<T>.permutations() : Sequence<List<T>> = if (size == 1) sequenceOf(this) else {
+public fun <T : Any> List<T>.permutations(): Sequence<List<T>> = if (size == 1) sequenceOf(this) else {
     val iterator = iterator()
     var head = iterator.next()
     var permutations = (this - head).permutations().iterator()

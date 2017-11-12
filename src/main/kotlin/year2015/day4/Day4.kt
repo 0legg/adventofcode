@@ -2,9 +2,6 @@ package year2015.day4
 
 import utils.md5
 import year2015.DayOf2015
-import java.math.BigInteger
-import java.nio.charset.StandardCharsets
-import java.security.MessageDigest
 
 /**
  * Created by olegg on 12/18/15.
