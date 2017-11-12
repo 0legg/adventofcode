@@ -33,4 +33,4 @@ class Day3 : DayOf2016(3) {
     }
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day3::class.java)
+fun main(args: Array<String>) = SomeDay.mainify(Day3::class)

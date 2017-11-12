@@ -1,5 +1,6 @@
 package year2015.day15
 
+import someday.SomeDay
 import year2015.DayOf2015
 
 /**
@@ -40,8 +41,4 @@ fun splitRange(splits: Int, sum: Int): List<List<Int>> = if (splits == 1) listOf
     (0..sum).flatMap { value -> splitRange(splits - 1, sum - value).map { listOf(value) + it } }
 }
 
-fun main(args: Array<String>) {
-    val day = Day15()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day15::class)

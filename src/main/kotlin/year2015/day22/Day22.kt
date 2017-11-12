@@ -1,5 +1,6 @@
 package year2015.day22
 
+import someday.SomeDay
 import year2015.DayOf2015
 import java.util.LinkedList
 
@@ -72,8 +73,4 @@ class Day22 : DayOf2015(22) {
     }
 }
 
-fun main(args: Array<String>) {
-    val day = Day22()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day22::class)

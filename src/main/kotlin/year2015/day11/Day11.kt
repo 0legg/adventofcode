@@ -1,7 +1,8 @@
 package year2015.day11
 
-import year2015.DayOf2015
+import someday.SomeDay
 import utils.series
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/19/15.
@@ -36,8 +37,4 @@ class Day11 : DayOf2015(11) {
     }
 }
 
-fun main(args: Array<String>) {
-    val day = Day11()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day11::class)

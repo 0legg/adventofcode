@@ -1,8 +1,9 @@
 package year2015.day9
 
-import year2015.DayOf2015
+import someday.SomeDay
 import utils.permutations
 import utils.scan
+import year2015.DayOf2015
 
 /**
  * Created by olegg on 12/19/15.
@@ -42,8 +43,4 @@ class Day9 : DayOf2015(9) {
     }
 }
 
-fun main(args: Array<String>) {
-    val day = Day9()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day9::class)

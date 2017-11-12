@@ -1,5 +1,6 @@
 package year2015.day4
 
+import someday.SomeDay
 import utils.md5
 import year2015.DayOf2015
 
@@ -16,8 +17,4 @@ class Day4 : DayOf2015(4) {
     }
 }
 
-fun main(args: Array<String>) {
-    val day = Day4()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day4::class)

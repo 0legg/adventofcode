@@ -1,5 +1,6 @@
 package year2015.day7
 
+import someday.SomeDay
 import year2015.DayOf2015
 
 /**
@@ -58,8 +59,4 @@ class Day7 : DayOf2015(7) {
     }
 }
 
-fun main(args: Array<String>) {
-    val day = Day7()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day7::class)

@@ -1,5 +1,6 @@
 package year2015.day19
 
+import someday.SomeDay
 import year2015.DayOf2015
 import java.util.LinkedList
 import java.util.regex.Pattern
@@ -39,8 +40,4 @@ class Day19 : DayOf2015(19) {
     }
 }
 
-fun main(args: Array<String>) {
-    val day = Day19()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day19::class)

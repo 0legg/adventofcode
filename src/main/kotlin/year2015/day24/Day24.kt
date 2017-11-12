@@ -1,5 +1,6 @@
 package year2015.day24
 
+import someday.SomeDay
 import year2015.DayOf2015
 
 /**
@@ -37,8 +38,4 @@ fun subsets(sum: Long, list: List<Long>): List<List<Long>> {
     return subsets(sum, list.drop(1)) + subsets(sum - list[0], list.drop(1)).map { listOf(list[0]) + it }
 }
 
-fun main(args: Array<String>) {
-    val day = Day24()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day24::class)

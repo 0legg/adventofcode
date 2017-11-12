@@ -1,5 +1,6 @@
 package year2015.day13
 
+import someday.SomeDay
 import year2015.DayOf2015
 import utils.permutations
 import utils.scan
@@ -34,8 +35,4 @@ class Day13 : DayOf2015(13) {
     }
 }
 
-fun main(args: Array<String>) {
-    val day = Day13()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day13::class)

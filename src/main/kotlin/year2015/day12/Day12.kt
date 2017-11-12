@@ -3,6 +3,7 @@ package year2015.day12
 import com.beust.klaxon.JsonArray
 import com.beust.klaxon.JsonObject
 import com.beust.klaxon.Parser
+import someday.SomeDay
 import year2015.DayOf2015
 
 /**
@@ -38,8 +39,5 @@ class Day12 : DayOf2015(12) {
     }
 }
 
-fun main(args: Array<String>) {
-    val day = Day12()
-    println(day.first())
-    println(day.second())
-}
+fun main(args: Array<String>) = SomeDay.mainify(Day12::class)
+
