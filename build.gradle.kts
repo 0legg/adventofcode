@@ -52,6 +52,7 @@ dependencies {
     compile(group = "com.squareup.retrofit2", name = "converter-scalars", version = Libs.retrofit)
     compile(group = "com.beust", name = "klaxon", version = Libs.klaxon)
 
+    testCompile(kotlin("test"))
     testCompile(group ="org.jetbrains.spek", name = "spek-api", version = Libs.spek)
     testRuntime(group ="org.jetbrains.spek", name = "spek-junit-platform-engine", version = Libs.spek)
 }
