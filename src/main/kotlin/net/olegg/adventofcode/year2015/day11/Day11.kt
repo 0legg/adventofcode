@@ -5,7 +5,7 @@ import net.olegg.adventofcode.utils.series
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * Created by olegg on 12/19/15.
+ * @see <a href="http://adventofcode.com/2015/day/11">Year 2015, Day 11</a>
  */
 class Day11 : DayOf2015(11) {
     fun passwordList(password: String) = generateSequence(password) {

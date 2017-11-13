@@ -5,12 +5,8 @@ import net.olegg.adventofcode.year2015.DayOf2015
 import net.olegg.adventofcode.utils.scan
 
 /**
- * Created by olegg on 12/18/15.
+ * @see <a href="http://adventofcode.com/2015/day/3">Year 2015, Day 3</a>
  */
-data class Vector(val x: Int = 0, val y: Int = 0) {
-    operator fun plus(other: Vector) = Vector(x + other.x, y + other.y)
-}
-
 class Day3 : DayOf2015(3) {
     val mapping = mapOf(
             '<' to Vector(-1, 0),
@@ -31,6 +27,10 @@ class Day3 : DayOf2015(3) {
     override fun second(): String {
         return (visit(moves.filterIndexed { i, _ -> i % 2 == 0 }) + visit(moves.filterIndexed { i, _ -> i % 2 == 1 })).size.toString()
     }
+}
+
+data class Vector(val x: Int = 0, val y: Int = 0) {
+    operator fun plus(other: Vector) = Vector(x + other.x, y + other.y)
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day3::class)

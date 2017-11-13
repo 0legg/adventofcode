@@ -5,7 +5,7 @@ import net.olegg.adventofcode.utils.md5
 import net.olegg.adventofcode.year2016.DayOf2016
 
 /**
- * Created by olegg on 12/4/16.
+ * @see <a href="http://adventofcode.com/2016/day/5">Year 2016, Day 5</a>
  */
 class Day5 : DayOf2016(5) {
     override fun first(): String {

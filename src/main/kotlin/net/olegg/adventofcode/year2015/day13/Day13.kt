@@ -6,7 +6,7 @@ import net.olegg.adventofcode.utils.permutations
 import net.olegg.adventofcode.utils.scan
 
 /**
- * Created by olegg on 12/20/15.
+ * @see <a href="http://adventofcode.com/2015/day/13">Year 2015, Day 13</a>
  */
 class Day13 : DayOf2015(13) {
     val pattern = "^\\b(\\w+)\\b.*\\b(gain|lose) \\b(\\d+)\\b.*\\b(\\w+)\\b\\.$".toPattern()
