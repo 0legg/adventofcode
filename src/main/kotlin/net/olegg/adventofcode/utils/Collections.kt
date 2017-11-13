@@ -1,13 +1,13 @@
 package net.olegg.adventofcode.utils
 
 /**
- * Created by olegg on 12/18/15.
+ * Extension functions and utility methods for collections.
  */
 
 /**
  * Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
  */
-public inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): List<R> {
+inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): List<R> {
     var accumulator = initial
     var list = listOf<R>()
     for (element in this) {
@@ -20,7 +20,7 @@ public inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): L
 /**
  * Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
  */
-public inline fun <T, R> Sequence<T>.scan(initial: R, operation: (R, T) -> R): List<R> {
+inline fun <T, R> Sequence<T>.scan(initial: R, operation: (R, T) -> R): List<R> {
     var accumulator = initial
     var list = listOf<R>()
     for (element in this) {
@@ -30,7 +30,10 @@ public inline fun <T, R> Sequence<T>.scan(initial: R, operation: (R, T) -> R): L
     return list
 }
 
-public fun <T : Any> List<T>.permutations(): Sequence<List<T>> = if (size == 1) sequenceOf(this) else {
+/**
+ * Generates the sequence of all permutations of items in current list.
+ */
+fun <T : Any> List<T>.permutations(): Sequence<List<T>> = if (size == 1) sequenceOf(this) else {
     val iterator = iterator()
     var head = iterator.next()
     var permutations = (this - head).permutations().iterator()
@@ -46,7 +49,10 @@ public fun <T : Any> List<T>.permutations(): Sequence<List<T>> = if (size == 1) 
     generateSequence { nextPermutation() }
 }
 
-public fun <T> Iterable<T>.series(): List<List<T>> {
+/**
+ * Splits iterable into list of subsequences such that each subsequence contains only equal items.
+ */
+fun <T> Iterable<T>.series(): List<List<T>> {
     var list = arrayListOf<ArrayList<T>>()
     var store = arrayListOf<T>()
     for (element in this) {

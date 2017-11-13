@@ -9,7 +9,7 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 
 /**
- * Created by olegg on 12/18/15.
+ * Network interface.
  */
 interface Fetcher {
     @Headers("Cookie: session=${BuildConfig.COOKIE}")

@@ -4,7 +4,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.primaryConstructor
 
 /**
- * Created by olegg on 12/18/15.
+ * Abstract class representing solution for [day]s problem in specified [year].
  */
 abstract class SomeDay(year: Int, val day: Int) {
     val data: String = Fetcher.Companion.fetcher.fetchInput(year, day).execute().body()?.trim() ?: ""
