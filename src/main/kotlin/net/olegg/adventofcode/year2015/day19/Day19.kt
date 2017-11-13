@@ -6,7 +6,7 @@ import java.util.LinkedList
 import java.util.regex.Pattern
 
 /**
- * Created by olegg on 21/12/15.
+ * @see <a href="http://adventofcode.com/2015/day/19">Year 2015, Day 19</a>
  */
 class Day19 : DayOf2015(19) {
     val transitions = data.lines().dropLast(2).map { val split = it.split(" => "); Pair(split[0], split[1]) }

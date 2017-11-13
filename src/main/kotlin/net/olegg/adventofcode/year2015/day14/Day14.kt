@@ -5,7 +5,7 @@ import net.olegg.adventofcode.utils.scan
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * Created by olegg on 12/20/15.
+ * @see <a href="http://adventofcode.com/2015/day/14">Year 2015, Day 14</a>
  */
 class Day14 : DayOf2015(14) {
     val time = 2503

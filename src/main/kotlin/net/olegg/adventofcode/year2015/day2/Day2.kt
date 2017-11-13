@@ -4,7 +4,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * Created by olegg on 12/18/15.
+ * @see <a href="http://adventofcode.com/2015/day/2">Year 2015, Day 2</a>
  */
 class Day2 : DayOf2015(2) {
     val boxes = data.lines().map { it.split('x').map { it.toInt() }.sorted() }

@@ -5,7 +5,7 @@ import net.olegg.adventofcode.year2015.DayOf2015
 import net.olegg.adventofcode.utils.scan
 
 /**
- * Created by olegg on 12/18/15.
+ * @see <a href="http://adventofcode.com/2015/day/1">Year 2015, Day 1</a>
  */
 class Day1 : DayOf2015(1) {
     val floors = data.map { 1 - 2 * (it.minus('(')) }

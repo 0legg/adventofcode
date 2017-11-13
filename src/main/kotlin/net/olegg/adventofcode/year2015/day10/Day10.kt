@@ -5,7 +5,7 @@ import net.olegg.adventofcode.year2015.DayOf2015
 import net.olegg.adventofcode.utils.series
 
 /**
- * Created by olegg on 12/19/15.
+ * @see <a href="http://adventofcode.com/2015/day/10">Year 2015, Day 10</a>
  */
 class Day10 : DayOf2015(10) {
     fun lookAndSay(source: String) = source.toList().series().map { "${it.size}${it.first()}" }.joinToString(separator = "")

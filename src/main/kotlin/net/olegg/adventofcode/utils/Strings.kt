@@ -1,10 +1,12 @@
 package net.olegg.adventofcode.utils
 
 import java.math.BigInteger
+import java.nio.charset.StandardCharsets
 import java.security.MessageDigest
 
 /**
- * Created by olegg on 12/4/16.
+ * Extension functions and utility methods for strings.
  */
 
-fun String.md5() = "%032x".format(BigInteger(1, MessageDigest.getInstance("MD5").digest(this.toByteArray(java.nio.charset.StandardCharsets.UTF_8))))
+fun String.md5() =
+        "%032x".format(BigInteger(1, MessageDigest.getInstance("MD5").digest(this.toByteArray(StandardCharsets.UTF_8))))

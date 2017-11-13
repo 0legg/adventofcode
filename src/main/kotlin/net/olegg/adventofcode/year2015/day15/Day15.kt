@@ -4,7 +4,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * Created by olegg on 12/20/15.
+ * @see <a href="http://adventofcode.com/2015/day/15">Year 2015, Day 15</a>
  */
 class Day15 : DayOf2015(15) {
     val spoons = 100

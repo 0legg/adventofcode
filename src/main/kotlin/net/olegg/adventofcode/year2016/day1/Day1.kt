@@ -5,7 +5,7 @@ import net.olegg.adventofcode.year2016.DayOf2016
 import java.lang.Math.abs
 
 /**
- * Created by olegg on 12/2/16.
+ * @see <a href="http://adventofcode.com/2016/day/1">Year 2016, Day 1</a>
  */
 class Day1 : DayOf2016(1) {
     val MOVES = listOf(

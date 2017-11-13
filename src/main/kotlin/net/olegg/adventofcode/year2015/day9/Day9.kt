@@ -6,7 +6,7 @@ import net.olegg.adventofcode.utils.scan
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * Created by olegg on 12/19/15.
+ * @see <a href="http://adventofcode.com/2015/day/9">Year 2015, Day 9</a>
  */
 class Day9 : DayOf2015(9) {
     val pattern = "^\\b(\\w*)\\b to \\b(\\w*)\\b = (\\d*)$".toPattern()

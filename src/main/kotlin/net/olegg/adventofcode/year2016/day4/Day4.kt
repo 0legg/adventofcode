@@ -5,7 +5,7 @@ import net.olegg.adventofcode.year2016.DayOf2016
 import kotlin.comparisons.compareBy
 
 /**
- * Created by olegg on 12/4/16.
+ * @see <a href="http://adventofcode.com/2016/day/4">Year 2016, Day 4</a>
  */
 class Day4 : DayOf2016(4) {
     val ROOM_PATTERN = "^(.+)-(\\d+)\\[(.+)\\]$".toPattern()
