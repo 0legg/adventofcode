@@ -8,13 +8,28 @@ import net.olegg.adventofcode.year2016.DayOf2016
  */
 class Day7 : DayOf2016(7) {
 
-    val abba = ".*([a-z])(?!\\1)([a-z])(\\2)(\\1).*".toRegex()
-    val xabba = ".*\\[[^\\]]*([a-z])(?!\\1)([a-z])(\\2)(\\1)[^\\[]*\\].*".toRegex()
+    val abba = ('a'..'z').flatMap { a -> ('a'..'z').filter { b -> a != b }.map { b -> "$a$b$b$a" } }
+    val ababab = ('a'..'z').flatMap { a -> ('a'..'z').filter { b -> a != b }.map { b -> "$a$b$a" to "$b$a$b" } }
+
+    fun splitAddresses(addresses: List<String>): List<Pair<List<String>, List<String>>> {
+        return addresses.map { it.split("[", "]") }
+                .map { it.mapIndexed { i, s -> i to s }.partition { it.first % 2 == 0 } }
+                .map { it.first.map { it.second } to it.second.map { it.second } }
+    }
 
     override fun first(): String {
-        return data.split("\n")
-                .filterNot { it.matches(xabba) }
-                .filter { it.matches(abba) }
+        return splitAddresses(data.lines())
+                .filterNot { it.second.any { substr -> abba.any { substr.contains(it) } } }
+                .filter { it.first.any { substr -> abba.any { substr.contains(it) } } }
+                .count()
+                .toString()
+    }
+
+    override fun second(): String {
+        return splitAddresses(data.lines())
+                .filter { split -> ababab.any { ab ->
+                    split.first.any { it.contains(ab.first) } && split.second.any { it.contains(ab.second) }
+                } }
                 .count()
                 .toString()
     }
