@@ -13,39 +13,44 @@ class Day8 : DayOf2016(8) {
     fun matrix(width: Int, height: Int) = Array(height) { Array(width) { false } }
 
     override fun first(): String {
-        val width = 50
-        val height = 6
+        return applyOperations(50, 6, data.lines())
+                .sumBy { it.count { it } }
+                .toString()
+    }
 
-        return data.lines()
-                .fold(matrix(width, height)) { screen, op ->
-                    val data = match2.matcher(op).let {
-                        it.find()
-                        return@let (it.group(1).toInt() to it.group(2).toInt())
-                    }
-                    screen.apply {
-                        when {
-                            op.startsWith("rect") -> {
-                                (0 until data.second).forEach { y ->
-                                    (0 until data.first).forEach { x ->
-                                        screen[y][x] = true
-                                    }
-                                }
-                            }
-                            op.startsWith("rotate row") -> {
-                                val row = Array(width) { false }
-                                (0 until width).forEach { row[(it + data.second) % width] = screen[data.first][it] }
-                                (0 until width).forEach { screen[data.first][it] = row[it] }
-                            }
-                            op.startsWith("rotate column") -> {
-                                val column = Array(height) { false }
-                                (0 until height).forEach { column[(it + data.second) % height] = screen[it][data.first] }
-                                (0 until height).forEach { screen[it][data.first] = column[it] }
+    override fun second(): String {
+        return applyOperations(50, 6, data.lines())
+                .joinToString(separator = "\n") { it.joinToString(separator = "") { if (it) "#" else "." } }
+    }
+
+    fun applyOperations(width: Int, height: Int, ops: List<String>): Array<Array<Boolean>> {
+        return ops.fold(matrix(width, height)) { screen, op ->
+            val data = match2.matcher(op).let {
+                it.find()
+                return@let (it.group(1).toInt() to it.group(2).toInt())
+            }
+            screen.apply {
+                when {
+                    op.startsWith("rect") -> {
+                        (0 until data.second).forEach { y ->
+                            (0 until data.first).forEach { x ->
+                                screen[y][x] = true
                             }
                         }
                     }
+                    op.startsWith("rotate row") -> {
+                        val row = Array(width) { false }
+                        (0 until width).forEach { row[(it + data.second) % width] = screen[data.first][it] }
+                        (0 until width).forEach { screen[data.first][it] = row[it] }
+                    }
+                    op.startsWith("rotate column") -> {
+                        val column = Array(height) { false }
+                        (0 until height).forEach { column[(it + data.second) % height] = screen[it][data.first] }
+                        (0 until height).forEach { screen[it][data.first] = column[it] }
+                    }
                 }
-                .sumBy { it.count { it } }
-                .toString()
+            }
+        }
     }
 }
 
