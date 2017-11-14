@@ -12,13 +12,13 @@ class Day8 : DayOf2016(8) {
 
     fun matrix(width: Int, height: Int) = Array(height) { Array(width) { false } }
 
-    override fun first(): String {
+    override fun first(data: String): String {
         return applyOperations(50, 6, data.lines())
                 .sumBy { it.count { it } }
                 .toString()
     }
 
-    override fun second(): String {
+    override fun second(data: String): String {
         return applyOperations(50, 6, data.lines())
                 .joinToString(separator = "\n") { it.joinToString(separator = "") { if (it) "#" else "." } }
     }

@@ -30,11 +30,11 @@ class Day12 : DayOf2015(12) {
         }
     }
 
-    override fun first(): String {
+    override fun first(data: String): String {
         return sumRecursive(json).toString()
     }
 
-    override fun second(): String {
+    override fun second(data: String): String {
         return sumRecursiveRed(json).toString()
     }
 }

@@ -9,11 +9,11 @@ import net.olegg.adventofcode.year2015.DayOf2015
 class Day2 : DayOf2015(2) {
     val boxes = data.lines().map { it.split('x').map { it.toInt() }.sorted() }
 
-    override fun first(): String {
+    override fun first(data: String): String {
         return boxes.sumBy { 3 * it[0] * it[1] + 2 * it[0] * it[2] + 2 * it[1] * it[2] }.toString()
     }
 
-    override fun second(): String {
+    override fun second(data: String): String {
         return boxes.sumBy { 2 * (it[0] + it[1]) + it[0] * it[1] * it[2] }.toString()
     }
 }

@@ -8,7 +8,7 @@ import net.olegg.adventofcode.year2016.DayOf2016
  * @see <a href="http://adventofcode.com/2016/day/5">Year 2016, Day 5</a>
  */
 class Day5 : DayOf2016(5) {
-    override fun first(): String {
+    override fun first(data: String): String {
         return generateSequence(0) { it + 1 }
                 .map { "$data$it".md5() }
                 .filter { it.startsWith("00000") }
@@ -17,7 +17,7 @@ class Day5 : DayOf2016(5) {
                 .joinToString(separator = "")
     }
 
-    override fun second(): String {
+    override fun second(data: String): String {
         val map = hashMapOf<Char, Char>()
         return generateSequence(0) { it + 1 }
                 .map { "$data$it".md5() }

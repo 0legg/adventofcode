@@ -9,19 +9,19 @@ import kotlin.reflect.full.primaryConstructor
 abstract class SomeDay(year: Int, val day: Int) {
     val data: String = Fetcher.Companion.fetcher.fetchInput(year, day).execute().body()?.trim() ?: ""
 
-    open fun first(): String {
+    open fun first(data: String): String {
         throw UnsupportedOperationException()
     }
 
-    open fun second(): String {
+    open fun second(data: String): String {
         throw UnsupportedOperationException()
     }
 
     companion object {
         fun mainify(clazz: KClass<out SomeDay>) {
             clazz.primaryConstructor?.call()?.apply {
-                println(first())
-                println(second())
+                println(first(data))
+                println(second(data))
             }
         }
     }
