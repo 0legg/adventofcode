@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.cli.jvm.main
 
 plugins {
-    kotlin("jvm") version "1.1.51"
+    kotlin("jvm") version "1.1.60"
     idea
     id("org.jmailen.kotlinter") version "1.5.0"
     id("de.fuerstenau.buildconfig") version "1.1.8"
