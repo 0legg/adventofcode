@@ -33,7 +33,7 @@ class Day2 : DayOf2016(2) {
             'R' to (1 to 0)
     )
 
-    override fun first(): String {
+    override fun first(data: String): String {
         return data.split("\n").fold(Triple("", 2, 2)) { triple, command ->
             val point = command.toCharArray().fold(triple.second to triple.third) { pair, symbol ->
                 (MOVES[symbol] ?: (0 to 0)).let {
@@ -46,7 +46,7 @@ class Day2 : DayOf2016(2) {
         }.first
     }
 
-    override fun second(): String {
+    override fun second(data: String): String {
         return data.split("\n").fold(Triple("", 2, 4)) { triple, command ->
             val point = command.toCharArray().fold(triple.second to triple.third) { pair, symbol ->
                 (MOVES[symbol] ?: (0 to 0)).let {

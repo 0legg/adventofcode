@@ -64,11 +64,11 @@ class Day22 : DayOf2015(22) {
         return best
     }
 
-    override fun first(): String {
+    override fun first(data: String): String {
         return countMana(spells, listOf(bossHit)).toString()
     }
 
-    override fun second(): String {
+    override fun second(data: String): String {
         return countMana(spells, listOf(hardBossHit)).toString()
     }
 }
