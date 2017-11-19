@@ -3,6 +3,9 @@ package net.olegg.adventofcode.year2016.day10
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2016.DayOf2016
 
+/**
+ * @see <a href="http://adventofcode.com/2016/day/10">Year 2016, Day 10</a>
+ */
 class Day10 : DayOf2016(10) {
     val valuePattern = "value (\\d+) goes to bot (\\d+)".toPattern()
     val givePattern = "bot (\\d+) gives low to (\\w+) (\\d+) and high to (\\w+) (\\d+)".toPattern()
