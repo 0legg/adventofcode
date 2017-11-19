@@ -1,6 +1,7 @@
 import org.junit.platform.gradle.plugin.EnginesExtension
 import org.junit.platform.gradle.plugin.FiltersExtension
 import org.junit.platform.gradle.plugin.JUnitPlatformExtension
+import org.jetbrains.kotlin.gradle.dsl.Coroutines
 
 buildscript {
     repositories {
@@ -31,6 +32,7 @@ object Libs {
     const val retrofit = "2.3.0"
     const val klaxon =  "0.32"
     const val spek = "1.1.5"
+    const val funktionale = "1.1"
 }
 
 configure<JUnitPlatformExtension> {
@@ -39,6 +41,10 @@ configure<JUnitPlatformExtension> {
             include("spek")
         }
     }
+}
+
+kotlin {
+    experimental.coroutines = Coroutines.ENABLE
 }
 
 buildConfig {
@@ -51,6 +57,7 @@ dependencies {
     compile(group = "com.squareup.retrofit2", name = "retrofit", version = Libs.retrofit)
     compile(group = "com.squareup.retrofit2", name = "converter-scalars", version = Libs.retrofit)
     compile(group = "com.beust", name = "klaxon", version = Libs.klaxon)
+    compile(group = "org.funktionale", name = "funktionale-memoization", version = Libs.funktionale)
 
     testCompile(kotlin("test"))
     testCompile(group ="org.jetbrains.spek", name = "spek-api", version = Libs.spek)
