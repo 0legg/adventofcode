@@ -58,7 +58,6 @@ class Day10 : DayOf2016(10) {
     override fun second(data: String): String {
         val bots = mutableMapOf<Int, MutableSet<Int>>()
         val actions = mutableMapOf<Int, Pair<Int, Int>>()
-        val search = setOf(17, 61)
 
         val commands = data.lines().partition { valuePattern.toRegex().matches(it) }
 
