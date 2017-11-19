@@ -8,13 +8,13 @@ import net.olegg.adventofcode.year2016.DayOf2016
  */
 class Day3 : DayOf2016(3) {
     override fun first(data: String): String {
-        return data.split("\n").map {
+        return data.lines().map {
             it.trim().split("\\s+".toRegex()).map { it.toInt() }.sorted()
         }.count { it[0] + it[1] > it[2] }.toString()
     }
 
     override fun second(data: String): String {
-        val rows = data.split("\n").map {
+        val rows = data.lines().map {
             it.trim().split("\\s+".toRegex()).map { it.toInt() }
         }
 

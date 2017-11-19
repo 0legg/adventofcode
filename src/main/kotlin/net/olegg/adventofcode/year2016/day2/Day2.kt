@@ -34,7 +34,7 @@ class Day2 : DayOf2016(2) {
     )
 
     override fun first(data: String): String {
-        return data.split("\n").fold(Triple("", 2, 2)) { triple, command ->
+        return data.lines().fold(Triple("", 2, 2)) { triple, command ->
             val point = command.toCharArray().fold(triple.second to triple.third) { pair, symbol ->
                 (MOVES[symbol] ?: (0 to 0)).let {
                     Pair(pair.first + it.first, pair.second + it.second)
@@ -47,7 +47,7 @@ class Day2 : DayOf2016(2) {
     }
 
     override fun second(data: String): String {
-        return data.split("\n").fold(Triple("", 2, 4)) { triple, command ->
+        return data.lines().fold(Triple("", 2, 4)) { triple, command ->
             val point = command.toCharArray().fold(triple.second to triple.third) { pair, symbol ->
                 (MOVES[symbol] ?: (0 to 0)).let {
                     Pair(pair.first + it.first, pair.second + it.second)
