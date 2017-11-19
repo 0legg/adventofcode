@@ -16,10 +16,19 @@ class Day18 : DayOf2016(18) {
     )
 
     override fun first(data: String): String {
-        return (1 until 40).fold(listOf(".$data.")) { acc, _ ->
-            val traps = patterns.flatMap { it.findAll(acc.last()).map { it.range.start + 1 }.toList() }
-            return@fold acc + acc.last().indices.map { if (traps.contains(it)) '^' else '.' }.joinToString(separator = "")
-        }.sumBy { it.count { it == '.' } - 2 }.toString()
+        return solve(data, 40).toString()
+    }
+
+    override fun second(data: String): String {
+        return solve(data, 400000).toString()
+    }
+
+    fun solve(data: String, rows: Int): Int {
+        return (1 until rows).fold(".$data." to data.count { it == '.' }) { acc, _ ->
+            val traps = patterns.flatMap { it.findAll(acc.first).map { it.range.start + 1 }.toList() }
+            val row = acc.first.indices.map { if (traps.contains(it)) '^' else '.' }.joinToString(separator = "")
+            return@fold row to acc.second + row.count { it == '.' } - 2
+        }.second
     }
 }
 
