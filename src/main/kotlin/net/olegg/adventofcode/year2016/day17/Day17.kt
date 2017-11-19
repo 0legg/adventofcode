@@ -9,7 +9,7 @@ import net.olegg.adventofcode.year2016.DayOf2016
  */
 class Day17 : DayOf2016(17) {
     override fun first(data: String): String {
-        val start = Triple(1, 1, data)
+        val start = Triple(1, 1, "")
         val moves = listOf(
                 Triple(0, -1, 'U'),
                 Triple(0, 1, 'D'),
@@ -23,7 +23,7 @@ class Day17 : DayOf2016(17) {
             val (x, y, tail) = queue.removeAt(0)
 
             val next = moves
-                    .zip(tail.md5().substring(0, 4).toUpperCase().toList())
+                    .zip("$data$tail".md5().substring(0, 4).toUpperCase().toList())
                     .filter { it.second in "BCDEF" }
                     .map { Triple(x + it.first.first, y + it.first.second, tail + it.first.third) }
                     .filter { it.first in 1..4 && it.second in 1..4 }
@@ -33,7 +33,40 @@ class Day17 : DayOf2016(17) {
             val found = next.find { it.first == 4 && it.second == 4 } != null
         } while (!found)
 
-        return queue.first { it.first == 4 && it.second == 4 }.third.substring(data.length)
+        return queue.first { it.first == 4 && it.second == 4 }.third
+    }
+
+    override fun second(data: String): String {
+        val start = Triple(1, 1, "")
+        val moves = listOf(
+                Triple(0, -1, 'U'),
+                Triple(0, 1, 'D'),
+                Triple(-1, 0, 'L'),
+                Triple(1, 0, 'R')
+        )
+
+        var best = 0
+        val queue = mutableListOf(start)
+
+        do {
+            val (x, y, tail) = queue.removeAt(0)
+
+            if (x == 4 && y == 4) {
+                best = maxOf(best, tail.length)
+                continue
+            }
+
+            val next = moves
+                    .zip("$data$tail".md5().substring(0, 4).toUpperCase().toList())
+                    .filter { it.second in "BCDEF" }
+                    .map { Triple(x + it.first.first, y + it.first.second, tail + it.first.third) }
+                    .filter { it.first in 1..4 && it.second in 1..4 }
+
+            queue.addAll(next)
+
+        } while (queue.isNotEmpty())
+
+        return best.toString()
     }
 }
 
