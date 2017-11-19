@@ -14,12 +14,23 @@ class Day15 : DayOf2016(15) {
             regex.find(it)?.groupValues?.let { Triple(it[1].toInt(), it[2].toInt(), it[4].toInt()) }
         }.filterNotNull()
 
+        return solve(discs).toString()
+    }
+
+    override fun second(data: String): String {
+        val discs = data.lines().filter { it.isNotBlank() }.map {
+            regex.find(it)?.groupValues?.let { Triple(it[1].toInt(), it[2].toInt(), it[4].toInt()) }
+        }.filterNotNull()
+
+        return solve(discs + listOf(Triple(discs.size + 1, 11, 0))).toString()
+    }
+
+    fun solve(discs: List<Triple<Int, Int, Int>>): Int {
         return generateSequence(0) { it + 1}
                 .filter { time ->
                     discs.all { (it.third + it.first + time) % it.second == 0 }
                 }
                 .first()
-                .toString()
     }
 }
 
