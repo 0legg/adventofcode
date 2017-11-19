@@ -6,7 +6,7 @@ import java.util.BitSet
 import java.util.LinkedList
 
 /**
- * @see <a href="http://adventofcode.com/2016/day/18">Year 2016, Day 18</a>
+ * @see <a href="http://adventofcode.com/2016/day/19">Year 2016, Day 19</a>
  */
 class Day19 : DayOf2016(19) {
     override fun first(data: String): String {
