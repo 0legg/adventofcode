@@ -21,6 +21,11 @@ class Day21 : DayOf2016(21) {
         return scramble("abcdefgh", ops)
     }
 
+    override fun second(data: String): String {
+        val ops = data.lines().filter { it.isNotBlank() }
+        return unscramble("fbgdceah", ops)
+    }
+
     fun scramble(password: String, operations: List<String>): String {
         return operations.fold(StringBuilder(password)) { acc, op ->
             return@fold acc.also {
@@ -72,6 +77,69 @@ class Day21 : DayOf2016(21) {
                             val char = acc[positions.first]
                             acc.deleteCharAt(positions.first)
                             acc.insert(positions.second, char)
+                        }
+                    }
+                    else -> {
+                        println("$op unsupported")
+                    }
+                }
+            }
+        }.toString()
+    }
+
+    fun unscramble(password: String, operations: List<String>): String {
+        return operations.foldRight(StringBuilder(password)) { op, acc ->
+            return@foldRight acc.also {
+                when {
+                    op.matches(sp) -> {
+                        sp.find(op)?.groupValues?.let { it[1].toInt() to it[2].toInt() }?.let { positions ->
+                            val chars = acc[positions.first] to acc[positions.second]
+                            acc[positions.first] = chars.second
+                            acc[positions.second] = chars.first
+                        }
+                    }
+                    op.matches(sl) -> {
+                        sl.find(op)?.groupValues?.let { it[1][0] to it[2][0] }?.let { chars ->
+                            val positions = acc.indexOf(chars.first) to acc.indexOf(chars.second)
+                            acc[positions.first] = chars.second
+                            acc[positions.second] = chars.first
+                        }
+                    }
+                    op.matches(rl) -> {
+                        rl.find(op)?.groupValues?.let { it[1].toInt() }?.let { shift ->
+                            val sub = acc.substring(0, acc.length - shift % acc.length)
+                            acc.delete(0, acc.length - shift % acc.length)
+                            acc.append(sub)
+                        }
+                    }
+                    op.matches(rr) -> {
+                        rr.find(op)?.groupValues?.let { it[1].toInt() }?.let { shift ->
+                            val sub = acc.substring(0, shift % acc.length)
+                            acc.delete(0, shift)
+                            acc.append(sub)
+                        }
+                    }
+                    op.matches(rb) -> {
+                        rb.find(op)?.groupValues?.let { it[1][0] }?.let { char ->
+                            val target = acc.indexOf(char)
+                            val source = acc.indices.first { target == (if (it >= 4) it + it + 2 else it + it + 1) % acc.length }
+                            val shift = (acc.length + target - source) % acc.length
+                            val sub = acc.substring(0, shift % acc.length)
+                            acc.delete(0, shift)
+                            acc.append(sub)
+                        }
+                    }
+                    op.matches(rp) -> {
+                        rp.find(op)?.groupValues?.let { it[1].toInt() to it[2].toInt() }?.let { positions ->
+                            val replacement = acc.substring(positions.first, positions.second + 1).reversed()
+                            acc.replace(positions.first, positions.second + 1, replacement)
+                        }
+                    }
+                    op.matches(mp) -> {
+                        mp.find(op)?.groupValues?.let { it[1].toInt() to it[2].toInt() }?.let { positions ->
+                            val char = acc[positions.second]
+                            acc.deleteCharAt(positions.second)
+                            acc.insert(positions.first, char)
                         }
                     }
                     else -> {
