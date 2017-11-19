@@ -26,7 +26,7 @@ class Day15 : DayOf2016(15) {
     }
 
     fun solve(discs: List<Triple<Int, Int, Int>>): Int {
-        return generateSequence(0) { it + 1}
+        return generateSequence(0) { it + 1 }
                 .filter { time ->
                     discs.all { (it.third + it.first + time) % it.second == 0 }
                 }
