@@ -8,7 +8,7 @@ import net.olegg.adventofcode.year2016.DayOf2016
  */
 class Day6 : DayOf2016(6) {
     override fun first(data: String): String {
-        return data.split("\n")
+        return data.lines()
                 .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
                 .groupBy { it.first }
                 .mapValues { it.value.map { it.second } }
@@ -22,7 +22,7 @@ class Day6 : DayOf2016(6) {
     }
 
     override fun second(data: String): String {
-        return data.split("\n")
+        return data.lines()
                 .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
                 .groupBy { it.first }
                 .mapValues { it.value.map { it.second } }
