@@ -1,3 +1,5 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package net.olegg.adventofcode.year2016
 
 import java.time.Duration
