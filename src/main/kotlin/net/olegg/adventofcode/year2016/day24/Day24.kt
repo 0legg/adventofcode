@@ -56,6 +56,46 @@ class Day24 : DayOf2016(24) {
                 .min()
                 .toString()
     }
+
+    override fun second(data: String): String {
+        val map = data.lines().map { it.toCharArray().toTypedArray() }
+
+        val locations = ('0' .. '7').map { index ->
+            map.mapIndexedNotNull { row, chars ->
+                if (chars.indexOf(index) != -1) chars.indexOf(index) to row else null
+            }
+        }.flatten()
+
+        val distances = (0 .. 7).map {
+            val start = locations[it]
+            val visit = mutableMapOf(start to 0)
+            val queue = LinkedList(listOf(start))
+
+            while (queue.isNotEmpty()) {
+                val (x, y) = queue.pop()
+                val steps = visit[x to y] ?: 0
+                moves
+                        .map { x + it.first to y + it.second }
+                        .filterNot { visit.containsKey(it) }
+                        .filterNot { map[it.second][it.first] == '#' }
+                        .apply {
+                            forEach { visit[it] = steps + 1 }
+                            queue.addAll(this)
+                        }
+            }
+
+            return@map locations.map { visit[it] }
+        }
+
+        return (1 .. 7).toList().permutations()
+                .map { listOf(0) + it + listOf(0) }
+                .map { it.fold(0 to 0) { acc, point ->
+                    point to acc.second + (distances[acc.first][point] ?: 0)
+                } }
+                .map { it.second }
+                .min()
+                .toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day24::class)
