@@ -14,6 +14,13 @@ class Day23 : DayOf2016(23) {
 
         return AsmBunny.eval(program, registers)[0].toString()
     }
+
+    override fun second(data: String): String {
+        val program = data.lines().filter { it.isNotBlank() }
+        val registers = IntArray(4).apply { this[0] = 12 }
+
+        return AsmBunny.eval(program, registers)[0].toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day23::class)

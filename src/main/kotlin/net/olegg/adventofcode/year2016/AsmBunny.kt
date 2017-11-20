@@ -1,12 +1,24 @@
 package net.olegg.adventofcode.year2016
 
+import java.time.Duration
+import java.time.Instant
+
 object AsmBunny {
     fun eval(program: List<String>, registers: IntArray): IntArray {
-        val code = program.toMutableList()
+        val code = program.map { it.split("\\s+".toRegex()).toMutableList() }.toMutableList()
         val output = registers.clone()
         var position = 0
+        var opcount = 0L
+        var prev = Instant.now()
         while (position in code.indices) {
-            val parsed = code[position].split("\\s+".toRegex())
+            opcount += 1
+            if (opcount % 100_000_000L == 0L) {
+                val curr = Instant.now()
+                println("opcount ${opcount / 1_000_000L}M, spent ${Duration.between(prev, curr).toMillis()}ms")
+                prev = curr
+            }
+
+            val parsed = code[position]
 
             position += if (validate(parsed)) when (parsed[0]) {
                 "cpy" -> { output[register(parsed[2])] = value(parsed[1], output); 1 }
@@ -16,13 +28,12 @@ object AsmBunny {
                 "tgl" -> {
                     val shift = value(parsed[1], output)
                     if (position + shift in code.indices) {
-                        val toggle = code[position + shift].split("\\s+".toRegex()).toMutableList()
+                        val toggle = code[position + shift]
                         toggle[0] = when (toggle.size) {
                             2 -> if (toggle[0] == "inc") "dec" else "inc"
                             3 -> if (toggle[0] == "jnz") "cpy" else "jnz"
                             else -> toggle[0]
                         }
-                        code[position + shift] = toggle.joinToString(separator = " ")
                     }
                     1
                 }
@@ -34,14 +45,14 @@ object AsmBunny {
         return output
     }
 
-    fun value(index: String, registers: IntArray) = when (index[0]) {
+    inline fun value(index: String, registers: IntArray) = when (index[0]) {
         in 'a'..'d' -> registers[register(index)]
         else -> index.toInt()
     }
 
-    fun register(register: String) = "abcd".indexOf(register)
+    inline fun register(register: String) = "abcd".indexOf(register)
 
-    fun validate(parsed: List<String>) = when (parsed[0]) {
+    inline fun validate(parsed: List<String>) = when (parsed[0]) {
         "cpy" -> parsed.size == 3 && register(parsed[2]) != -1
         "inc" -> parsed.size == 2 && register(parsed[1]) != -1
         "dec" -> parsed.size == 2 && register(parsed[1]) != -1
