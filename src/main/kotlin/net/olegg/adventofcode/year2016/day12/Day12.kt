@@ -22,8 +22,6 @@ class Day12 : DayOf2016(12) {
         AsmBunny.eval(program, registers)
         return registers[0].toString()
     }
-
-
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day12::class)
