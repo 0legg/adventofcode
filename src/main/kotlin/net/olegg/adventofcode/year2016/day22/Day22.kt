@@ -21,6 +21,19 @@ class Day22 : DayOf2016(22) {
 
         return pairs.size.toString()
     }
+
+    override fun second(data: String): String {
+        val machines = data.lines().filter { it.matches(pattern) }
+                .mapNotNull { pattern.find(it)?.groupValues?.let { it.subList(1, 6).map { it.toInt() } } }
+
+        return machines.groupBy { it[1] }.toSortedMap().map { (index, row) ->
+            row.sortedBy { it[0] }.map { when (it[3]) {
+                0 -> '_'
+                in 1 .. 100 -> '.'
+                else -> '#'
+            } }.joinToString(separator = "")
+        }.joinToString(separator = "\n")
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day22::class)
