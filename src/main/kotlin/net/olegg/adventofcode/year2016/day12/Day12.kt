@@ -11,16 +11,15 @@ class Day12 : DayOf2016(12) {
     override fun first(data: String): String {
         val program = data.lines().filter { it.isNotBlank() }
         val registers = IntArray(4)
-        AsmBunny.eval(program, registers)
-        return registers[0].toString()
+
+        return AsmBunny.eval(program, registers).first().toString()
     }
 
     override fun second(data: String): String {
         val program = data.lines().filter { it.isNotBlank() }
-        val registers = IntArray(4)
-        registers[AsmBunny.register("c")] = 1
-        AsmBunny.eval(program, registers)
-        return registers[0].toString()
+        val registers = IntArray(4).apply { this[2] = 1 }
+
+        return AsmBunny.eval(program, registers).first().toString()
     }
 }
 

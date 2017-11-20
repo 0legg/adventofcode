@@ -56,6 +56,7 @@ object AsmBunny {
                     1
                 }
             }
+            yieldAll(registers.toList())
         }
     }
 
