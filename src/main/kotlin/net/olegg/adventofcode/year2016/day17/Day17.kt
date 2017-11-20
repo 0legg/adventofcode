@@ -63,7 +63,6 @@ class Day17 : DayOf2016(17) {
                     .filter { it.first in 1..4 && it.second in 1..4 }
 
             queue.addAll(next)
-
         } while (queue.isNotEmpty())
 
         return best.toString()

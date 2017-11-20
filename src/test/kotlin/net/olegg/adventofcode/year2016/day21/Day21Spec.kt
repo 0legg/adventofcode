@@ -7,7 +7,7 @@ import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
 
 object Day21Spec : Spek({
-    val parseToList = { str: String ->  str.lines().filter { it.isNotBlank() }.map { it.trim() } }
+    val parseToList = { str: String -> str.lines().filter { it.isNotBlank() }.map { it.trim() } }
 
     given("Task 1") {
         val day = Day21()
