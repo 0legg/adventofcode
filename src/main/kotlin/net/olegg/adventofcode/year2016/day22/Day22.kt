@@ -26,7 +26,7 @@ class Day22 : DayOf2016(22) {
         val machines = data.lines().filter { it.matches(pattern) }
                 .mapNotNull { pattern.find(it)?.groupValues?.let { it.subList(1, 6).map { it.toInt() } } }
 
-        return machines.groupBy { it[1] }.toSortedMap().map { (index, row) ->
+        return machines.groupBy { it[1] }.toSortedMap().map { (_, row) ->
             row.sortedBy { it[0] }.map { when (it[3]) {
                 0 -> '_'
                 in 1 .. 100 -> '.'
