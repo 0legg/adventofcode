@@ -1,7 +1,5 @@
 package net.olegg.adventofcode.utils
 
-import kotlin.coroutines.experimental.buildSequence
-
 /**
  * Extension functions and utility methods for collections.
  */
@@ -67,21 +65,4 @@ fun <T> Iterable<T>.series(): List<List<T>> {
     }
 
     return list
-}
-
-inline fun <T> Sequence<T>.chunks(size: Int): Sequence<List<T>> {
-    val iter = this.iterator()
-    return buildSequence {
-        var item = mutableListOf<T>()
-        while (iter.hasNext()) {
-            item.add(iter.next())
-            if (item.size == size) {
-                yield(item)
-                item = mutableListOf<T>()
-            }
-        }
-        if (item.isNotEmpty()) {
-            yield(item)
-        }
-    }
 }

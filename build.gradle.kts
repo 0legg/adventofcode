@@ -2,6 +2,7 @@ import org.junit.platform.gradle.plugin.EnginesExtension
 import org.junit.platform.gradle.plugin.FiltersExtension
 import org.junit.platform.gradle.plugin.JUnitPlatformExtension
 import org.jetbrains.kotlin.gradle.dsl.Coroutines
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
@@ -13,7 +14,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "1.1.60"
+    kotlin("jvm") version "1.2.0"
     idea
     id("org.jmailen.kotlinter") version "1.5.0"
     id("de.fuerstenau.buildconfig") version "1.1.8"
@@ -47,12 +48,24 @@ kotlin {
     experimental.coroutines = Coroutines.ENABLE
 }
 
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+    allWarningsAsErrors = true
+}
+
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+    allWarningsAsErrors = true
+}
+
 buildConfig {
     buildConfigField("String", "COOKIE", project.findProperty("COOKIE")?.toString() ?: "Please provide cookie")
 }
 
 dependencies {
-    compile(kotlin("stdlib-jre8"))
+    compile(kotlin("stdlib-jdk8"))
     compile(kotlin("reflect"))
     compile(group = "com.squareup.retrofit2", name = "retrofit", version = Libs.retrofit)
     compile(group = "com.squareup.retrofit2", name = "converter-scalars", version = Libs.retrofit)
