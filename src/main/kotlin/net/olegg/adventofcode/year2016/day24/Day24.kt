@@ -49,10 +49,9 @@ class Day24 : DayOf2016(24) {
 
         return (1 .. 7).toList().permutations()
                 .map { listOf(0) + it }
-                .map { it.fold(0 to 0) { acc, point ->
-                    point to acc.second + (distances[acc.first][point] ?: 0)
+                .map { it.windowed(2).fold(0) { acc, points ->
+                    acc + (distances[points[0]][points[1]] ?: 0)
                 } }
-                .map { it.second }
                 .min()
                 .toString()
     }
@@ -89,10 +88,9 @@ class Day24 : DayOf2016(24) {
 
         return (1 .. 7).toList().permutations()
                 .map { listOf(0) + it + listOf(0) }
-                .map { it.fold(0 to 0) { acc, point ->
-                    point to acc.second + (distances[acc.first][point] ?: 0)
+                .map { it.windowed(2).fold(0) { acc, points ->
+                    acc + (distances[points[0]][points[1]] ?: 0)
                 } }
-                .map { it.second }
                 .min()
                 .toString()
     }
