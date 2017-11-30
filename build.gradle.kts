@@ -13,7 +13,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "1.1.60"
+    kotlin("jvm") version "1.2.0"
     idea
     id("org.jmailen.kotlinter") version "1.5.0"
     id("de.fuerstenau.buildconfig") version "1.1.8"
@@ -52,7 +52,7 @@ buildConfig {
 }
 
 dependencies {
-    compile(kotlin("stdlib-jre8"))
+    compile(kotlin("stdlib-jdk8"))
     compile(kotlin("reflect"))
     compile(group = "com.squareup.retrofit2", name = "retrofit", version = Libs.retrofit)
     compile(group = "com.squareup.retrofit2", name = "converter-scalars", version = Libs.retrofit)
