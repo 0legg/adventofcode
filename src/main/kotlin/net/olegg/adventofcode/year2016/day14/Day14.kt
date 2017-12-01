@@ -23,7 +23,7 @@ class Day14 : DayOf2016(14) {
 
     override fun second(data: String): String {
         val hash = { n: Int ->
-            (0 .. 2016).fold("$data$n") { acc, _ ->
+            (0..2016).fold("$data$n") { acc, _ ->
                 acc.md5()
             }
         }.memoize()
@@ -38,7 +38,7 @@ class Day14 : DayOf2016(14) {
                 val curr = hash(i)
                 match3.find(curr)?.let {
                     val next = it.groupValues[1].repeat(5)
-                    if ((i + 1 .. i + 1000).any { hash(it).contains(next) }) {
+                    if ((i + 1..i + 1000).any { hash(it).contains(next) }) {
                         yield(i)
                     }
                 }

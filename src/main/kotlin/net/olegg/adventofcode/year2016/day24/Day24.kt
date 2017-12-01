@@ -20,13 +20,13 @@ class Day24 : DayOf2016(24) {
     override fun first(data: String): String {
         val map = data.lines().map { it.toCharArray().toTypedArray() }
 
-        val locations = ('0' .. '7').map { index ->
+        val locations = ('0'..'7').map { index ->
             map.mapIndexedNotNull { row, chars ->
                 if (chars.indexOf(index) != -1) chars.indexOf(index) to row else null
             }
         }.flatten()
 
-        val distances = (0 .. 7).map {
+        val distances = (0..7).map {
             val start = locations[it]
             val visit = mutableMapOf(start to 0)
             val queue = LinkedList(listOf(start))
@@ -47,7 +47,7 @@ class Day24 : DayOf2016(24) {
             return@map locations.map { visit[it] }
         }
 
-        return (1 .. 7).toList().permutations()
+        return (1..7).toList().permutations()
                 .map { listOf(0) + it }
                 .map { it.windowed(2).fold(0) { acc, points ->
                     acc + (distances[points[0]][points[1]] ?: 0)
@@ -59,13 +59,13 @@ class Day24 : DayOf2016(24) {
     override fun second(data: String): String {
         val map = data.lines().map { it.toCharArray().toTypedArray() }
 
-        val locations = ('0' .. '7').map { index ->
+        val locations = ('0'..'7').map { index ->
             map.mapIndexedNotNull { row, chars ->
                 if (chars.indexOf(index) != -1) chars.indexOf(index) to row else null
             }
         }.flatten()
 
-        val distances = (0 .. 7).map {
+        val distances = (0..7).map {
             val start = locations[it]
             val visit = mutableMapOf(start to 0)
             val queue = LinkedList(listOf(start))
@@ -86,7 +86,7 @@ class Day24 : DayOf2016(24) {
             return@map locations.map { visit[it] }
         }
 
-        return (1 .. 7).toList().permutations()
+        return (1..7).toList().permutations()
                 .map { listOf(0) + it + listOf(0) }
                 .map { it.windowed(2).fold(0) { acc, points ->
                     acc + (distances[points[0]][points[1]] ?: 0)

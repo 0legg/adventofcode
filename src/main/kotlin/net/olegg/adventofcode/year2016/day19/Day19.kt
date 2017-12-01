@@ -25,7 +25,7 @@ class Day19 : DayOf2016(19) {
 
     override fun second(data: String): String {
         val count = data.toInt()
-        val elves = LinkedList((1 .. count).toList())
+        val elves = LinkedList((1..count).toList())
 
         var target = elves.listIterator(count / 2)
         target.next()
