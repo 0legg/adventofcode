@@ -16,6 +16,17 @@ class Day1 : DayOf2017(1) {
                 .sum()
                 .toString()
     }
+
+    override fun second(data: String): String {
+        val source = data.trim()
+        val shifted = data.substring(data.length / 2, data.length) + data.substring(0, data.length / 2)
+
+        return source.zip(shifted)
+                .filter { it.first == it.second }
+                .map { Character.digit(it.first, 10) }
+                .sum()
+                .toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day1::class)
