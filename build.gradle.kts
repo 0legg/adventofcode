@@ -16,7 +16,7 @@ buildscript {
 plugins {
     kotlin("jvm") version "1.2.0"
     idea
-    id("org.jmailen.kotlinter") version "1.5.0"
+    id("org.jmailen.kotlinter") version "1.6.0"
     id("de.fuerstenau.buildconfig") version "1.1.8"
 }
 
@@ -33,7 +33,7 @@ object Libs {
     const val retrofit = "2.3.0"
     const val klaxon =  "0.32"
     const val spek = "1.1.5"
-    const val funktionale = "1.1"
+    const val funktionale = "1.2"
 }
 
 configure<JUnitPlatformExtension> {
