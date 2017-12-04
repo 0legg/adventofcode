@@ -14,6 +14,15 @@ class Day4 : DayOf2017(4) {
                 .count()
                 .toString()
     }
+
+    override fun second(data: String): String {
+        return data.lines()
+                .map { it.split("\\s".toRegex()) }
+                .map { it.map { String(it.toCharArray().sortedArray()) } }
+                .filter { it.size == it.toSet().size }
+                .count()
+                .toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day4::class)
