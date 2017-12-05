@@ -1,2 +1,3 @@
-rootProject.name = 'adventofcode'
-
+gradle.rootProject {
+    setProperty("name", "adventofcode")
+}
