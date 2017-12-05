@@ -11,7 +11,7 @@ class Day3 : DayOf2017(3) {
     override fun first(data: String): String {
         val position = data.trim().toInt()
 
-        val square = (1 .. Int.MAX_VALUE step 2).first { it * it >= position }
+        val square = (1..Int.MAX_VALUE step 2).first { it * it >= position }
         val relative = position - (square - 2) * (square - 2)
         val diff = (relative - 1) % (square - 1)
 
@@ -26,7 +26,7 @@ class Day3 : DayOf2017(3) {
         var square = 0
         while (current.second < input) {
             val position = when {
-                current.first.second == -square  -> {
+                current.first.second == -square -> {
                     current.first.first + 1 to current.first.second
                 }
                 current.first.first == square && current.first.second < square -> {
@@ -47,7 +47,7 @@ class Day3 : DayOf2017(3) {
                 square += 1
             }
 
-            val value = (-1 .. 1).flatMap { x -> (-1 .. 1).map { y -> x to y } }
+            val value = (-1..1).flatMap { x -> (-1..1).map { y -> x to y } }
                     .mapNotNull { visited[position.first + it.first to position.second + it.second] }
                     .sum()
             current = position to value
