@@ -29,7 +29,7 @@ class Day22 : DayOf2016(22) {
         return machines.groupBy { it[1] }.toSortedMap().map { (_, row) ->
             row.sortedBy { it[0] }.map { when (it[3]) {
                 0 -> '_'
-                in 1 .. 100 -> '.'
+                in 1..100 -> '.'
                 else -> '#'
             } }.joinToString(separator = "")
         }.joinToString(separator = "\n")

@@ -29,7 +29,7 @@ class Day20 : DayOf2016(20) {
         val banned = TreeSet<LongRange>(compareBy({ it.start }, { it.endInclusive }))
         data.lines()
                 .filter { it.isNotBlank() }
-                .mapNotNull { regex.find(it)?.groupValues?.let { it[1].toLong() .. it[2].toLong() } }
+                .mapNotNull { regex.find(it)?.groupValues?.let { it[1].toLong()..it[2].toLong() } }
                 .forEach { mask ->
                     val join = banned.filter { mask.overlaps(it) } + listOf(mask)
                     banned.removeAll(join)

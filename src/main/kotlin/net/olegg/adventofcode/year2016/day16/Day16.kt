@@ -1,7 +1,6 @@
 package net.olegg.adventofcode.year2016.day16
 
 import net.olegg.adventofcode.someday.SomeDay
-import net.olegg.adventofcode.utils.chunks
 import net.olegg.adventofcode.year2016.DayOf2016
 
 /**
@@ -26,7 +25,7 @@ class Day16 : DayOf2016(16) {
 
         return generateSequence(curve) {
             it.asSequence()
-                    .chunks(2)
+                    .chunked(2)
                     .filter { it.isNotEmpty() }
                     .joinTo(StringBuilder(), separator = "") { if (it[0] == it[1]) "1" else "0" }
                     .toString()

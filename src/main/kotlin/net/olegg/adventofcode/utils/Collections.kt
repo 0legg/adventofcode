@@ -22,14 +22,14 @@ inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): List<R> 
 /**
  * Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
  */
-inline fun <T, R> Sequence<T>.scan(initial: R, operation: (R, T) -> R): List<R> {
-    var accumulator = initial
-    var list = listOf<R>()
-    for (element in this) {
-        accumulator = operation(accumulator, element)
-        list += accumulator
+inline fun <T, R> Sequence<T>.scan(initial: R, crossinline operation: (R, T) -> R): Sequence<R> {
+    return buildSequence {
+        var accumulator = initial
+        for (element in this@scan) {
+            accumulator = operation(accumulator, element)
+            yield(accumulator)
+        }
     }
-    return list
 }
 
 /**
@@ -67,21 +67,4 @@ fun <T> Iterable<T>.series(): List<List<T>> {
     }
 
     return list
-}
-
-inline fun <T> Sequence<T>.chunks(size: Int): Sequence<List<T>> {
-    val iter = this.iterator()
-    return buildSequence {
-        var item = mutableListOf<T>()
-        while (iter.hasNext()) {
-            item.add(iter.next())
-            if (item.size == size) {
-                yield(item)
-                item = mutableListOf<T>()
-            }
-        }
-        if (item.isNotEmpty()) {
-            yield(item)
-        }
-    }
 }
