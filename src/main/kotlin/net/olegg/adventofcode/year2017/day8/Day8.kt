@@ -34,6 +34,35 @@ class Day8 : DayOf2017(8) {
                 .max()
                 .toString()
     }
+
+    override fun second(data: String): String {
+        val registers = mutableMapOf<String, Int>()
+
+        return data.lines()
+                .map { it.split("\\s".toRegex()) }
+                .map { list ->
+                    val oldValue = registers[list[0]] ?: 0
+                    val shift = list[2].toInt() * (if (list[1] == "dec") -1 else 1)
+
+                    val cmp = registers[list[4]] ?: 0
+                    val apply = when(list[5]) {
+                        "<" -> cmp < list[6].toInt()
+                        ">" -> cmp > list[6].toInt()
+                        "<=" -> cmp <= list[6].toInt()
+                        ">=" -> cmp >= list[6].toInt()
+                        "==" -> cmp == list[6].toInt()
+                        "!=" -> cmp != list[6].toInt()
+                        else -> false
+                    }
+
+                    val newValue = if (apply) oldValue + shift else oldValue
+
+                    registers[list[0]] = newValue
+                    return@map newValue
+                }
+                .max()
+                .toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day8::class)
