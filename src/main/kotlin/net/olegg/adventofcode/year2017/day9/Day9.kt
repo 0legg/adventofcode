@@ -29,6 +29,25 @@ class Day9 : DayOf2017(9) {
                 .first
                 .toString()
     }
+
+    override fun second(data: String): String {
+        return data
+                .replace("!.".toRegex(), "")
+                .fold(Pair(0, State.NORMAL)) { acc, char ->
+                    when (acc.second) {
+                        State.GARBAGE -> when (char) {
+                            '>' -> acc.copy(second = State.NORMAL)
+                            else -> acc.copy(first = acc.first + 1)
+                        }
+                        State.NORMAL -> when (char) {
+                            '<' -> acc.copy(second = State.GARBAGE)
+                            else -> acc
+                        }
+                    }
+                }
+                .first
+                .toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day9::class)
