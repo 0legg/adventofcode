@@ -27,6 +27,28 @@ class Day11 : DayOf2017(11) {
                 }
                 .toString()
     }
+
+    override fun second(data: String): String {
+        return data.trimIndent()
+                .split(",")
+                .fold(Triple(0, 0, 0)) { acc, value ->
+                    val next = when (value) {
+                        "nw" -> acc.first - 1 to acc.second
+                        "n" -> acc.first to acc.second + 1
+                        "ne" -> acc.first + 1 to acc.second + 1
+                        "sw" -> acc.first - 1 to acc.second - 1
+                        "s" -> acc.first to acc.second - 1
+                        "se" -> acc.first + 1 to acc.second
+                        else -> acc.first to acc.second
+                    }
+
+                    val dist = listOf(acc.third, abs(next.first), abs(next.second), abs(next.first - next.second)).max()
+
+                    return@fold Triple(next.first, next.second, dist ?: 0)
+                }
+                .third
+                .toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day11::class)
