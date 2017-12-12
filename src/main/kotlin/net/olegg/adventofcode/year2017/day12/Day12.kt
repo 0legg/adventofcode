@@ -27,6 +27,33 @@ class Day12 : DayOf2017(12) {
 
         return visited.size.toString()
     }
+
+    override fun second(data: String): String {
+        val nodes = data.trimIndent()
+                .lines()
+                .map { it.replace("[<\\->,]".toRegex(), "")}
+                .map { it.split("\\s+".toRegex()).map { it.toInt() } }
+                .map { it[0] to it.subList(1, it.size).toSet() }
+                .toMap()
+                .toMutableMap()
+
+        var components = 0
+        while (nodes.isNotEmpty()) {
+            components += 1
+            val node = nodes.keys.first()
+            val visited = mutableSetOf(node)
+            val queue = ArrayDeque<Int>(listOf(node))
+            while (queue.isNotEmpty()) {
+                val curr = queue.pop()
+                val toVisit = (nodes[curr] ?: emptySet()) - visited
+                visited += toVisit
+                queue += toVisit
+            }
+            visited.forEach { nodes.remove(it) }
+        }
+
+        return components.toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day12::class)
