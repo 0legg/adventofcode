@@ -16,6 +16,18 @@ class Day13 : DayOf2017(13) {
                 .sum()
                 .toString()
     }
+
+    override fun second(data: String): String {
+        val filters = data.trimIndent()
+                .lines()
+                .map { it.split(": ").map { it.toInt() }.let { it[0] to it[1] } }
+
+        return generateSequence(0) { it + 1 }
+                .first { delay ->
+                    filters.none { (it.first + delay) % ((it.second - 1) * 2) == 0 }
+                }
+                .toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day13::class)
