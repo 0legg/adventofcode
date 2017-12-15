@@ -2,7 +2,6 @@ package net.olegg.adventofcode.year2017.day7
 
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2017.DayOf2017
-import java.util.ArrayDeque
 
 /**
  * @see <a href="http://adventofcode.com/2017/day/7">Year 2017, Day 7</a>
@@ -51,7 +50,6 @@ class Day7 : DayOf2017(7) {
             if (odd.size != 1) {
                 curr = odd.first().second.first().first
                 result = (disks[curr]?.first ?: 0) + odd.last().first - odd.first().first
-
             }
         } while (odd.size != 1)
 

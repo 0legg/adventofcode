@@ -17,7 +17,7 @@ class Day8 : DayOf2017(8) {
                     val shift = list[2].toInt() * (if (list[1] == "dec") -1 else 1)
 
                     val cmp = registers[list[4]] ?: 0
-                    val apply = when(list[5]) {
+                    val apply = when (list[5]) {
                         "<" -> cmp < list[6].toInt()
                         ">" -> cmp > list[6].toInt()
                         "<=" -> cmp <= list[6].toInt()
@@ -45,7 +45,7 @@ class Day8 : DayOf2017(8) {
                     val shift = list[2].toInt() * (if (list[1] == "dec") -1 else 1)
 
                     val cmp = registers[list[4]] ?: 0
-                    val apply = when(list[5]) {
+                    val apply = when (list[5]) {
                         "<" -> cmp < list[6].toInt()
                         ">" -> cmp > list[6].toInt()
                         "<=" -> cmp <= list[6].toInt()

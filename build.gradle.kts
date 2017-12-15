@@ -14,7 +14,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "1.2.0"
+    kotlin("jvm") version "1.2.10"
     idea
     id("org.jmailen.kotlinter") version "1.6.0"
     id("de.fuerstenau.buildconfig") version "1.1.8"
