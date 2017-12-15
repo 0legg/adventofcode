@@ -11,7 +11,7 @@ class Day12 : DayOf2017(12) {
     override fun first(data: String): String {
         val nodes = data.trimIndent()
                 .lines()
-                .map { it.replace("[<\\->,]".toRegex(), "")}
+                .map { it.replace("[<\\->,]".toRegex(), "") }
                 .map { it.split("\\s+".toRegex()).map { it.toInt() } }
                 .map { it[0] to it.subList(1, it.size).toSet() }
                 .toMap()
@@ -31,7 +31,7 @@ class Day12 : DayOf2017(12) {
     override fun second(data: String): String {
         val nodes = data.trimIndent()
                 .lines()
-                .map { it.replace("[<\\->,]".toRegex(), "")}
+                .map { it.replace("[<\\->,]".toRegex(), "") }
                 .map { it.split("\\s+".toRegex()).map { it.toInt() } }
                 .map { it[0] to it.subList(1, it.size).toSet() }
                 .toMap()
