@@ -19,6 +19,21 @@ class Day17 : DayOf2017(17) {
 
         return cycle[position % cycle.size].toString()
     }
+
+    override fun second(data: String): String {
+        val step = data.trimIndent().toInt()
+        var next = -1
+
+        (1..50_000_000).fold(0) { acc, value ->
+            val insert = (acc + step) % value
+            if (insert == 0) {
+                next = value
+            }
+            return@fold insert + 1
+        }
+
+        return next.toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day17::class)
