@@ -39,6 +39,41 @@ class Day20 : DayOf2017(20) {
                 ?.first
                 .toString()
     }
+
+    override fun second(data: String): String {
+        val points = data.trim().lines()
+                .map { it.replace("[pva=<> ]".toRegex(), "") }
+                .map { it.split(",").map { it.toLong() } }
+                .mapIndexed { index, list ->
+                    index to Triple(
+                        Triple(list[0], list[1], list[2]),
+                        Triple(list[3], list[4], list[5]),
+                        Triple(list[6], list[7], list[8])
+                ) }
+
+
+        return (0..1_000).fold(points) { acc, _ ->
+            acc.map {
+                val speed = Triple(
+                        it.second.second.first + it.second.third.first,
+                        it.second.second.second + it.second.third.second,
+                        it.second.second.third + it.second.third.third
+                )
+                val point = Triple(
+                        it.second.first.first + speed.first,
+                        it.second.first.second + speed.second,
+                        it.second.first.third + speed.third
+                )
+                return@map it.first to it.second.copy(first = point, second = speed)
+            }
+                    .groupBy { it.second.first }
+                    .filterValues { it.size == 1 }
+                    .values
+                    .flatten()
+        }
+                .count()
+                .toString()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day20::class)
