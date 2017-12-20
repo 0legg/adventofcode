@@ -3,7 +3,6 @@ package net.olegg.adventofcode.year2017.day18
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2017.DayOf2017
 import java.util.ArrayDeque
-import java.util.Queue
 
 /**
  * @see <a href="http://adventofcode.com/2017/day/18">Year 2017, Day 18</a>
