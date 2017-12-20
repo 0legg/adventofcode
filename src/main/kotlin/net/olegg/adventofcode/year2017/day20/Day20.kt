@@ -18,7 +18,6 @@ class Day20 : DayOf2017(20) {
                         Triple(it[6], it[7], it[8])
                 ) }
 
-
         return (0..1_000).fold(points) { acc, _ ->
             acc.map {
                 val speed = Triple(
@@ -46,11 +45,11 @@ class Day20 : DayOf2017(20) {
                 .map { it.split(",").map { it.toLong() } }
                 .mapIndexed { index, list ->
                     index to Triple(
-                        Triple(list[0], list[1], list[2]),
-                        Triple(list[3], list[4], list[5]),
-                        Triple(list[6], list[7], list[8])
-                ) }
-
+                            Triple(list[0], list[1], list[2]),
+                            Triple(list[3], list[4], list[5]),
+                            Triple(list[6], list[7], list[8])
+                    )
+                }
 
         return (0..1_000).fold(points) { acc, _ ->
             acc.map {
