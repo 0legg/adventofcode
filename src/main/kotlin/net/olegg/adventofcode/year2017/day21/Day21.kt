@@ -9,6 +9,14 @@ import net.olegg.adventofcode.year2017.DayOf2017
  */
 class Day21 : DayOf2017(21) {
     override fun first(data: String): String {
+        return countOn(data, 5).toString()
+    }
+
+    override fun second(data: String): String {
+        return countOn(data, 18).toString()
+    }
+
+    fun countOn(data: String, iterations: Int): Int {
         val ops = data.trim().lines()
                 .map { it.split(" => ") }
                 .map { it.map { it.split("/").map { it.toList() }.toList() } }
@@ -19,7 +27,7 @@ class Day21 : DayOf2017(21) {
 
         val start = ".#./..#/###".split("/").map { it.toList() }.toList()
 
-        return (0 until 5).fold(start) { acc, _ ->
+        return (0 until iterations).fold(start) { acc, _ ->
             sizes.firstOrNull { acc.size % it == 0 }?.let { size ->
                 val chunks = acc.size / size
                 acc.chunked(size).map { rows ->
@@ -36,7 +44,6 @@ class Day21 : DayOf2017(21) {
                 }.flatten()
             } ?: acc
         }.sumBy { it.count { it == '#' } }
-                .toString()
     }
 
     fun lex(grid: List<List<Char>>): List<List<Char>> {
