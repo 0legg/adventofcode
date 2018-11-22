@@ -1,18 +1,16 @@
 package net.olegg.adventofcode.year2016.day21
 
-import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.given
-import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.on
+import org.spekframework.spek2.Spek
+import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day21Spec : Spek({
-    val parseToList = { str: String -> str.lines().filter { it.isNotBlank() }.map { it.trim() } }
+    val parseToList = { str: String -> str.trimIndent().lines() }
 
-    given("Task 1") {
+    describe("Task 1") {
         val day = Day21()
 
-        on("abcde, no op") {
+        context("abcde, no op") {
             val result = day.scramble("abcde", listOf())
 
             it("should return abcde") {
@@ -20,7 +18,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("abcde, swap position") {
+        context("abcde, swap position") {
             val result = day.scramble("abcde", parseToList("""
                 swap position 4 with position 0
                 """))
@@ -30,7 +28,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("ebcda, swap letter") {
+        context("ebcda, swap letter") {
             val result = day.scramble("ebcda", parseToList("""
                 swap letter d with letter b
                 """))
@@ -40,7 +38,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("edcba, reverse") {
+        context("edcba, reverse") {
             val result = day.scramble("edcba", parseToList("""
                 reverse positions 0 through 4
                 """))
@@ -50,7 +48,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("abcde, rotate left") {
+        context("abcde, rotate left") {
             val result = day.scramble("abcde", parseToList("""
                 rotate left 1 step
                 """))
@@ -60,7 +58,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("abcde, rotate right") {
+        context("abcde, rotate right") {
             val result = day.scramble("abcde", parseToList("""
                 rotate right 1 step
                 """))
@@ -70,7 +68,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("bcdea, move position") {
+        context("bcdea, move position") {
             val result = day.scramble("bcdea", parseToList("""
                 move position 1 to position 4
                 """))
@@ -80,7 +78,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("bdeac, move position") {
+        context("bdeac, move position") {
             val result = day.scramble("bdeac", parseToList("""
                 move position 3 to position 0
                 """))
@@ -90,7 +88,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("abdec, rotate based on position") {
+        context("abdec, rotate based on position") {
             val result = day.scramble("abdec", parseToList("""
                 rotate based on position of letter b
                 """))
@@ -100,7 +98,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("ecabd, rotate based on position") {
+        context("ecabd, rotate based on position") {
             val result = day.scramble("ecabd", parseToList("""
                 rotate based on position of letter d
                 """))
@@ -110,7 +108,7 @@ object Day21Spec : Spek({
             }
         }
 
-        on("abcde, full test") {
+        context("abcde, full test") {
             val result = day.scramble("abcde", parseToList("""
                 swap position 4 with position 0
                 swap letter d with letter b

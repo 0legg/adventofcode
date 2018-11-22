@@ -53,20 +53,15 @@ object Libs {
     const val kotlin_test: String =
             "org.jetbrains.kotlin:kotlin-test:" + Versions.org_jetbrains_kotlin
 
-    /**
-     * [spek-api website](https://jetbrains.github.io/spek) */
-    const val spek_api: String = "org.jetbrains.spek:spek-api:" + Versions.org_jetbrains_spek
-
-    /**
-     * [spek-junit-platform-engine website](https://jetbrains.github.io/spek) */
-    const val spek_junit_platform_engine: String =
-            "org.jetbrains.spek:spek-junit-platform-engine:" + Versions.org_jetbrains_spek
-
     const val org_jmailen_kotlinter_gradle_plugin: String =
             "org.jmailen.kotlinter:org.jmailen.kotlinter.gradle.plugin:" + Versions.org_jmailen_kotlinter_gradle_plugin
 
-    /**
-     * [junit-platform-gradle-plugin website](http://junit.org/junit5/) */
-    const val junit_platform_gradle_plugin: String =
-            "org.junit.platform:junit-platform-gradle-plugin:" + Versions.junit_platform_gradle_plugin
+    const val spek_dsl_jvm: String =
+            "org.spekframework.spek2:spek-dsl-jvm:" + Versions.org_spekframework_spek2
+
+    const val spek_runner_junit5: String =
+            "org.spekframework.spek2:spek-runner-junit5:" + Versions.org_spekframework_spek2
+
+    const val spek_runtime_jvm: String =
+            "org.spekframework.spek2:spek-runtime-jvm:" + Versions.org_spekframework_spek2
 }

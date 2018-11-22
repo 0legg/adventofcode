@@ -21,11 +21,13 @@ object Versions {
 
     const val org_jetbrains_kotlin: String = "1.3.10" 
 
-    const val org_jetbrains_spek: String = "1.2.1" 
-
     const val org_jmailen_kotlinter_gradle_plugin: String = "1.20.1" 
 
-    const val junit_platform_gradle_plugin: String = "1.2.0" 
+    const val org_spekframework_spek2: String = "2.0.0-rc.1" 
+            /* Could not find any version that matches org.spekframework.spek2:spek-dsl-jvm:+.
+            Versions rejected by component selection rules: 2.0.0-rc.1
+            Searched in the following locations: https://jcenter.bintray.com/org/spekframework/spek2/spek-dsl-jvm/maven-metadata.xml 
+            .... */
 
     /**
      *
@@ -33,7 +35,7 @@ object Versions {
      *      ./gradle/wrapper/gradle-wrapper.properties
      */
     object Gradle {
-        const val runningVersion: String = "4.4"
+        const val runningVersion: String = "5.0-rc-4"
 
         const val currentVersion: String = "5.0"
 
