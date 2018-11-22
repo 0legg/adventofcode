@@ -61,7 +61,7 @@ class Day7 : DayOf2017(7) {
         val inter = curr.second
                 .fold(emptyMap<String, Int>()) { acc, value -> acc + getWeights(map, value) }
                 .let { children ->
-                    children + mapOf(root to curr.first + curr.second.map { children[it] ?: 0 }.sum() )
+                    children + mapOf(root to curr.first + curr.second.map { children[it] ?: 0 }.sum())
                 }
         return inter
     }

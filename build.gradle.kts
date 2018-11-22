@@ -1,7 +1,6 @@
 import org.junit.platform.gradle.plugin.EnginesExtension
 import org.junit.platform.gradle.plugin.FiltersExtension
 import org.junit.platform.gradle.plugin.JUnitPlatformExtension
-import org.jetbrains.kotlin.gradle.dsl.Coroutines
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -9,16 +8,15 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("org.junit.platform:junit-platform-gradle-plugin:1.0.2")
+        classpath("org.junit.platform:junit-platform-gradle-plugin:1.2.0")
     }
 }
 
 plugins {
-    kotlin("jvm") version "1.2.10"
-    idea
-    id("org.jmailen.kotlinter") version "1.6.0"
-    id("de.fuerstenau.buildconfig") version "1.1.8"
-    id("jmfayard.github.io.gradle-kotlin-dsl-libs") version "0.2.6"
+    kotlin("jvm").version(Versions.org_jetbrains_kotlin_jvm_gradle_plugin)
+    id("org.jmailen.kotlinter").version(Versions.org_jmailen_kotlinter_gradle_plugin)
+    id("de.fuerstenau.buildconfig").version(Versions.de_fuerstenau_buildconfig_gradle_plugin)
+    id("jmfayard.github.io.gradle-kotlin-dsl-libs").version(Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin)
 }
 
 apply {
@@ -36,10 +34,6 @@ configure<JUnitPlatformExtension> {
             include("spek")
         }
     }
-}
-
-kotlin {
-    experimental.coroutines = Coroutines.ENABLE
 }
 
 val compileKotlin: KotlinCompile by tasks

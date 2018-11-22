@@ -6,7 +6,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
 
-object Day12Spec : Spek ({
+object Day12Spec : Spek({
     given("Task 1") {
         val day = Day12()
 

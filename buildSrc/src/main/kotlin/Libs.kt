@@ -34,14 +34,14 @@ object Libs {
             "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:" + Versions.org_jetbrains_kotlin_jvm_gradle_plugin
 
     /**
-     * [kotlin-annotation-processing-gradle website](https://kotlinlang.org/) */
-    const val kotlin_annotation_processing_gradle: String =
-            "org.jetbrains.kotlin:kotlin-annotation-processing-gradle:" + Versions.org_jetbrains_kotlin
-
-    /**
      * [kotlin-reflect website](https://kotlinlang.org/) */
     const val kotlin_reflect: String =
             "org.jetbrains.kotlin:kotlin-reflect:" + Versions.org_jetbrains_kotlin
+
+    /**
+     * [kotlin-scripting-compiler-embeddable website](https://kotlinlang.org/) */
+    const val kotlin_scripting_compiler_embeddable: String =
+            "org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:" + Versions.org_jetbrains_kotlin
 
     /**
      * [kotlin-stdlib-jdk8 website](https://kotlinlang.org/) */
