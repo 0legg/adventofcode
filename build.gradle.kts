@@ -18,6 +18,7 @@ plugins {
     idea
     id("org.jmailen.kotlinter") version "1.6.0"
     id("de.fuerstenau.buildconfig") version "1.1.8"
+    id("jmfayard.github.io.gradle-kotlin-dsl-libs") version "0.2.6"
 }
 
 apply {
@@ -27,13 +28,6 @@ apply {
 repositories {
     jcenter()
     maven("http://dl.bintray.com/jetbrains/spek")
-}
-
-object Libs {
-    const val retrofit = "2.3.0"
-    const val klaxon =  "0.32"
-    const val spek = "1.1.5"
-    const val funktionale = "1.2"
 }
 
 configure<JUnitPlatformExtension> {
@@ -65,16 +59,16 @@ buildConfig {
 }
 
 dependencies {
-    compile(kotlin("stdlib-jdk8"))
-    compile(kotlin("reflect"))
-    compile(group = "com.squareup.retrofit2", name = "retrofit", version = Libs.retrofit)
-    compile(group = "com.squareup.retrofit2", name = "converter-scalars", version = Libs.retrofit)
-    compile(group = "com.beust", name = "klaxon", version = Libs.klaxon)
-    compile(group = "org.funktionale", name = "funktionale-memoization", version = Libs.funktionale)
+    compile(Libs.kotlin_stdlib_jdk8)
+    compile(Libs.kotlin_reflect)
+    compile(Libs.retrofit)
+    compile(Libs.converter_scalars)
+    compile(Libs.klaxon)
+    compile(Libs.funktionale_memoization)
 
-    testCompile(kotlin("test"))
-    testCompile(group ="org.jetbrains.spek", name = "spek-api", version = Libs.spek)
-    testRuntime(group ="org.jetbrains.spek", name = "spek-junit-platform-engine", version = Libs.spek)
+    testCompile(Libs.kotlin_test)
+    testCompile(Libs.spek_api)
+    testRuntime(Libs.spek_junit_platform_engine)
 }
 
 // extension for configuration
