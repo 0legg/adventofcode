@@ -22,6 +22,15 @@ object Libs {
     const val de_fuerstenau_buildconfig_gradle_plugin: String =
             "de.fuerstenau.buildconfig:de.fuerstenau.buildconfig.gradle.plugin:" + Versions.de_fuerstenau_buildconfig_gradle_plugin
 
+    const val detekt_cli: String =
+            "io.gitlab.arturbosch.detekt:detekt-cli:" + Versions.io_gitlab_arturbosch_detekt
+
+    const val detekt_formatting: String =
+            "io.gitlab.arturbosch.detekt:detekt-formatting:" + Versions.io_gitlab_arturbosch_detekt
+
+    const val io_gitlab_arturbosch_detekt_gradle_plugin: String =
+            "io.gitlab.arturbosch.detekt:io.gitlab.arturbosch.detekt.gradle.plugin:" + Versions.io_gitlab_arturbosch_detekt
+
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String =
             "jmfayard.github.io.gradle-kotlin-dsl-libs:jmfayard.github.io.gradle-kotlin-dsl-libs.gradle.plugin:" + Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin
 
@@ -53,15 +62,9 @@ object Libs {
     const val kotlin_test: String =
             "org.jetbrains.kotlin:kotlin-test:" + Versions.org_jetbrains_kotlin
 
-    const val org_jmailen_kotlinter_gradle_plugin: String =
-            "org.jmailen.kotlinter:org.jmailen.kotlinter.gradle.plugin:" + Versions.org_jmailen_kotlinter_gradle_plugin
-
     const val spek_dsl_jvm: String =
             "org.spekframework.spek2:spek-dsl-jvm:" + Versions.org_spekframework_spek2
 
     const val spek_runner_junit5: String =
             "org.spekframework.spek2:spek-runner-junit5:" + Versions.org_spekframework_spek2
-
-    const val spek_runtime_jvm: String =
-            "org.spekframework.spek2:spek-runtime-jvm:" + Versions.org_spekframework_spek2
 }

@@ -1,18 +1,18 @@
 package net.olegg.adventofcode.year2015.day19
 
-import net.olegg.adventofcode.someday.SomeDay
-import net.olegg.adventofcode.year2015.DayOf2015
 import java.util.LinkedList
 import java.util.regex.Pattern
+import net.olegg.adventofcode.someday.SomeDay
+import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
  * @see <a href="http://adventofcode.com/2015/day/19">Year 2015, Day 19</a>
  */
 class Day19 : DayOf2015(19) {
-    val transitions = data.lines().dropLast(2).map { val split = it.split(" => "); Pair(split[0], split[1]) }
-    val molecule = data.lines().last()
+    private val transitions = data.lines().dropLast(2).map { val split = it.split(" => "); Pair(split[0], split[1]) }
+    private val molecule = data.lines().last()
 
-    fun applyTransitions(molecule: String, transition: Pair<Pattern, String>): Set<String> {
+    private fun applyTransitions(molecule: String, transition: Pair<Pattern, String>): Set<String> {
         val matcher = transition.first.matcher(molecule)
         val result = hashSetOf<String>()
         while (matcher.find()) {
@@ -22,7 +22,11 @@ class Day19 : DayOf2015(19) {
     }
 
     override fun first(data: String): Any? {
-        return transitions.map { it.first.toPattern() to it.second }.flatMap { applyTransitions(molecule, it) }.toSet().size
+        return transitions
+                .map { it.first.toPattern() to it.second }
+                .flatMap { applyTransitions(molecule, it) }
+                .toSet()
+                .size
     }
 
     override fun second(data: String): Any? {

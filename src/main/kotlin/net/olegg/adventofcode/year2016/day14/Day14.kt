@@ -9,8 +9,9 @@ import org.funktionale.memoization.memoize
  * @see <a href="http://adventofcode.com/2016/day/14">Year 2016, Day 14</a>
  */
 class Day14 : DayOf2016(14) {
-
-    val match3 = "(.)(\\1)(\\1)".toRegex()
+    companion object {
+        val MATCH_3 = "(.)(\\1)(\\1)".toRegex()
+    }
 
     override fun first(data: String): Any? {
         val hash = { n: Int ->
@@ -35,14 +36,15 @@ class Day14 : DayOf2016(14) {
             var i = 0
             while (true) {
                 val curr = hash(i)
-                match3.find(curr)?.let {
-                    val next = it.groupValues[1].repeat(5)
-                    if ((i + 1..i + 1000).any { hash(it).contains(next) }) {
+                MATCH_3.find(curr)?.let { match ->
+                    val next = match.groupValues[1].repeat(5)
+                    if ((i + 1..i + 1000).any { value -> hash(value).contains(next) }) {
                         yield(i)
                     }
                 }
-                i += 1
-            } }
+                i++
+            }
+        }
                 .take(count)
                 .last()
     }

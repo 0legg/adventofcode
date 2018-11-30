@@ -16,17 +16,17 @@ class Day16 : DayOf2016(16) {
     }
 
     fun checksum(initial: String, length: Int): String {
-        val curve = generateSequence(initial) {
-            it + "0" + it.reversed().replace('0', '2').replace('1', '0').replace('2', '1')
-        }
+        val curve =
+                generateSequence(initial) { prev ->
+                    prev + "0" + prev.reversed().replace('0', '2').replace('1', '0').replace('2', '1')
+                }
                 .dropWhile { it.length <= length }
                 .first()
                 .substring(0, length)
 
-        return generateSequence(curve) {
-            it.asSequence()
+        return generateSequence(curve) { prev ->
+            prev.asSequence()
                     .chunked(2)
-                    .filter { it.isNotEmpty() }
                     .joinTo(StringBuilder(), separator = "") { if (it[0] == it[1]) "1" else "0" }
                     .toString()
         }

@@ -1,8 +1,8 @@
 package net.olegg.adventofcode.year2017.day18
 
+import java.util.ArrayDeque
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2017.DayOf2017
-import java.util.ArrayDeque
 
 /**
  * @see <a href="http://adventofcode.com/2017/day/18">Year 2017, Day 18</a>
@@ -10,7 +10,8 @@ import java.util.ArrayDeque
 class Day18 : DayOf2017(18) {
     override fun first(data: String): Any? {
         var sound = 0L
-        val ops = data.trimIndent()
+        val ops = data
+                .trimIndent()
                 .lines()
                 .map { it.split("\\s+".toRegex()).toList() }
 
@@ -24,7 +25,8 @@ class Day18 : DayOf2017(18) {
                 "set" -> regs[op[1]] = extract(regs, op[2])
                 "add" -> regs[op[1]] = extract(regs, op[1]) + extract(regs, op[2])
                 "mul" -> regs[op[1]] = extract(regs, op[1]) * extract(regs, op[2])
-                "mod" -> regs[op[1]] = (extract(regs, op[1]) % extract(regs, op[2]) + extract(regs, op[2])) % extract(regs, op[2])
+                "mod" -> regs[op[1]] = (extract(regs, op[1]) % extract(regs, op[2]) +
+                        extract(regs, op[2])) % extract(regs, op[2])
                 "rcv" -> if (extract(regs, op[1]) != 0L) return sound
                 "jgz" -> if (extract(regs, op[1]) > 0L) position += (extract(regs, op[2]) - 1).toInt()
             }
@@ -58,13 +60,14 @@ class Day18 : DayOf2017(18) {
                 "snd" -> {
                     stacks[1 - active].add(extract(regs[active], op[1]))
                     locked[1 - active] = false
-                    send[active] = send[active] + 1
+                    send[active]++
                     1
                 }
                 "set" -> { regs[active][op[1]] = extract(regs[active], op[2]); 1 }
                 "add" -> { regs[active][op[1]] = extract(regs[active], op[1]) + extract(regs[active], op[2]); 1 }
                 "mul" -> { regs[active][op[1]] = extract(regs[active], op[1]) * extract(regs[active], op[2]); 1 }
-                "mod" -> { regs[active][op[1]] = (extract(regs[active], op[1]) % extract(regs[active], op[2]) + extract(regs[active], op[2])) % extract(regs[active], op[2]); 1 }
+                "mod" -> { regs[active][op[1]] = (extract(regs[active], op[1]) % extract(regs[active], op[2]) +
+                        extract(regs[active], op[2])) % extract(regs[active], op[2]); 1 }
                 "rcv" -> if (stacks[active].isNotEmpty()) {
                     regs[active][op[1]] = stacks[active].pollFirst()
                     1

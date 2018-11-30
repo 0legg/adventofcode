@@ -1,8 +1,8 @@
 package net.olegg.adventofcode.year2016.day20
 
+import java.util.TreeSet
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2016.DayOf2016
-import java.util.TreeSet
 
 /**
  * @see <a href="http://adventofcode.com/2016/day/20">Year 2016, Day 20</a>
@@ -35,7 +35,11 @@ class Day20 : DayOf2016(20) {
                     banned.removeAll(join)
 
                     banned.add(join.fold(LongRange.EMPTY) { acc, next ->
-                        if (acc.isEmpty()) next else minOf(acc.start, next.start)..maxOf(acc.endInclusive, next.endInclusive)
+                        if (acc.isEmpty()) {
+                            next
+                        } else {
+                            minOf(acc.start, next.start)..maxOf(acc.endInclusive, next.endInclusive)
+                        }
                     })
                 }
         return banned

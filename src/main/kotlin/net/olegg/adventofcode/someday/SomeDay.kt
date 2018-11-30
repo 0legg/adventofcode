@@ -2,6 +2,7 @@ package net.olegg.adventofcode.someday
 
 import kotlin.reflect.KClass
 import kotlin.reflect.full.primaryConstructor
+import kotlin.system.measureTimeMillis
 
 /**
  * Abstract class representing solution for [day]s problem in specified [year].
@@ -21,8 +22,16 @@ abstract class SomeDay(val year: Int, val day: Int) {
         fun mainify(clazz: KClass<out SomeDay>) {
             clazz.primaryConstructor?.call()?.apply {
                 println("Year $year, day $day")
-                println("First: ${first(data)?.toString() ?: "unsolved"}")
-                println("Second: ${second(data)?.toString() ?: "unsolved"}")
+                measureTimeMillis {
+                    println("First: ${first(data)?.toString() ?: "unsolved"}")
+                }.run {
+                    println("Time: ${this}ms")
+                }
+                measureTimeMillis {
+                    println("Second: ${second(data)?.toString() ?: "unsolved"}")
+                }.run {
+                    println("Time: ${this}ms")
+                }
             }
         }
     }

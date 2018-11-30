@@ -1,19 +1,23 @@
 package net.olegg.adventofcode.year2017.day24
 
-import net.olegg.adventofcode.someday.SomeDay
-import net.olegg.adventofcode.year2017.DayOf2017
 import java.util.ArrayDeque
 import java.util.BitSet
 import kotlin.math.max
+import net.olegg.adventofcode.someday.SomeDay
+import net.olegg.adventofcode.year2017.DayOf2017
 
 /**
  * @see <a href="http://adventofcode.com/2017/day/24">Year 2017, Day 24</a>
  */
 class Day24 : DayOf2017(24) {
     override fun first(data: String): Any? {
-        val ports = data.trim().lines()
+        val ports = data
+                .trim()
+                .lines()
                 .map { it.split("/") }
-                .mapIndexed { index, value -> Triple((value.min()?.toInt() ?: 0), (value.max()?.toInt() ?: 0), index) }
+                .mapIndexed { index, value ->
+                    Triple((value.min()?.toInt() ?: 0), (value.max()?.toInt() ?: 0), index)
+                }
 
         var best = 0
         val queue = ArrayDeque(ports.filter { it.first == 0 || it.second == 0 }
@@ -28,7 +32,8 @@ class Day24 : DayOf2017(24) {
         while (queue.isNotEmpty()) {
             val curr = queue.pop()
             best = max(best, curr.second)
-            ports.filter { !curr.third[it.third] }
+            ports
+                    .filter { !curr.third[it.third] }
                     .filter { it.first == curr.first || it.second == curr.first }
                     .map { port ->
                         val next = if (port.first == curr.first) port.second else port.first
@@ -39,9 +44,9 @@ class Day24 : DayOf2017(24) {
                         )
                     }
                     .filterNot { (it.first to it.third) in visited }
-                    .forEach {
-                        visited.add(it.first to it.third)
-                        queue.push(it)
+                    .forEach { port ->
+                        visited.add(port.first to port.third)
+                        queue.push(port)
                     }
         }
 
@@ -77,9 +82,9 @@ class Day24 : DayOf2017(24) {
                         )
                     }
                     .filterNot { (it.first to it.third) in visited }
-                    .forEach {
-                        visited.add(it.first to it.third)
-                        queue.push(it)
+                    .forEach { port ->
+                        visited.add(port.first to port.third)
+                        queue.push(port)
                     }
         }
 

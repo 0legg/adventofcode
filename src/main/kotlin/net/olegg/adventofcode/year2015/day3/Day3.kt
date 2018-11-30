@@ -1,8 +1,8 @@
 package net.olegg.adventofcode.year2015.day3
 
 import net.olegg.adventofcode.someday.SomeDay
-import net.olegg.adventofcode.year2015.DayOf2015
 import net.olegg.adventofcode.utils.scan
+import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
  * @see <a href="http://adventofcode.com/2015/day/3">Year 2015, Day 3</a>
@@ -25,7 +25,8 @@ class Day3 : DayOf2015(3) {
     }
 
     override fun second(data: String): Any? {
-        return (visit(moves.filterIndexed { i, _ -> i % 2 == 0 }) + visit(moves.filterIndexed { i, _ -> i % 2 == 1 })).size
+        return (visit(moves.filterIndexed { i, _ -> i % 2 == 0 }) +
+                visit(moves.filterIndexed { i, _ -> i % 2 == 1 })).size
     }
 }
 

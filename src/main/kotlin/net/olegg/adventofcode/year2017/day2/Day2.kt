@@ -16,8 +16,14 @@ class Day2 : DayOf2017(2) {
 
     override fun second(data: String): Any? {
         return data.lines()
-                .map { it.split("\\s".toRegex()).map { it.toInt() } }
-                .map { list -> list.flatMap { first -> list.filter { first % it == 0 }.filter { it != first }.map { first to it } } }
+                .map { line -> line.split("\\s".toRegex()).map { it.toInt() } }
+                .map { list ->
+                    list.flatMap { first ->
+                        list.filter { first % it == 0 }
+                                .filter { it != first }
+                                .map { first to it }
+                    }
+                }
                 .map { it.first() }
                 .map { it.first / it.second }
                 .sum()

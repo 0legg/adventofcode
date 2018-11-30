@@ -34,30 +34,24 @@ class Day3 : DayOf2018(3) {
                 .lines()
                 .mapNotNull { Request.fromString(it) }
 
-        requests.forEach { request ->
-            if (requests.none { it.intersects(request) }) {
-                return request.id
-            }
-        }
-
-        return null
+        return requests
+                .first { request -> requests.none { it.intersects(request) } }
+                .id
     }
 
     data class Request(
-            val id: Int,
-            val left: Int,
-            val top: Int,
-            val width: Int,
-            val height: Int
+        val id: Int,
+        val left: Int,
+        val top: Int,
+        val width: Int,
+        val height: Int
     ) {
         companion object {
-            private val PATTERN = "#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)".toPattern()
+            private val PATTERN = "#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)".toRegex()
 
             fun fromString(data: String): Request? {
-                val matcher = PATTERN.matcher(data)
-                return if (matcher.matches()) {
-                    val matches = matcher.toMatchResult()
-                    val tokens = (1..matches.groupCount()).map { matches.group(it) }.map { it.toInt() }
+                return PATTERN.matchEntire(data)?.let { match ->
+                    val tokens = match.destructured.toList().map { it.toInt() }
                     Request(
                             id = tokens[0],
                             left = tokens[1],
@@ -65,19 +59,16 @@ class Day3 : DayOf2018(3) {
                             width = tokens[3],
                             height = tokens[4]
                     )
-                } else {
-                    null
                 }
             }
         }
 
         fun intersects(other: Request): Boolean {
-            if (id == other.id) return false
-            if (left + width <= other.left) return false
-            if (other.left + other.width <= left) return false
-            if (top + height <= other.top) return false
-            if (other.top + other.height <= top) return false
-            return true
+            return !((id == other.id) ||
+                (left + width <= other.left) ||
+                (other.left + other.width <= left) ||
+                (top + height <= other.top) ||
+                (other.top + other.height <= top))
         }
     }
 }

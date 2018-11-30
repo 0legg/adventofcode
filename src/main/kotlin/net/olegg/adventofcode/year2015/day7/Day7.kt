@@ -7,41 +7,62 @@ import net.olegg.adventofcode.year2015.DayOf2015
  * @see <a href="http://adventofcode.com/2015/day/7">Year 2015, Day 7</a>
  */
 class Day7 : DayOf2015(7) {
-    val source = data.lines().map {
-        val matcher = "^(.*) -> (.*)$".toPattern().matcher(it)
-        matcher.find()
-        matcher.group(2) to matcher.group(1)
-    }.toMap()
-    val notPattern = "^NOT (\\d+)$".toPattern()
-    val andPattern = "^(\\d+) AND (\\d+)$".toPattern()
-    val orPattern = "^(\\d+) OR (\\d+)$".toPattern()
-    val lshiftPattern = "^(\\d+) LSHIFT (\\d+)$".toPattern()
-    val rshiftPattern = "^(\\d+) RSHIFT (\\d+)$".toPattern()
-    var varRegex = "[a-z]".toRegex()
+    companion object {
+        private val COMMAND_PATTERN = "^(.*) -> (.*)$".toRegex()
+        private val NOT_PATTERN = "^NOT (\\d+)$".toRegex()
+        private val AND_PATTERN = "^(\\d+) AND (\\d+)$".toRegex()
+        private val OR_PATTERN = "^(\\d+) OR (\\d+)$".toRegex()
+        private val LSHIFT_PATTERN = "^(\\d+) LSHIFT (\\d+)$".toRegex()
+        private val RSHIFT_PATTERN = "^(\\d+) RSHIFT (\\d+)$".toRegex()
+        private var VAR_PATTERN = "[a-z]".toRegex()
+    }
+
+    val source = data
+            .trim()
+            .lines()
+            .mapNotNull { line ->
+                COMMAND_PATTERN.matchEntire(line)?.let { match ->
+                    val (command, wire) = match.destructured
+                    return@let wire to command
+                }
+            }
+            .toMap()
 
     fun measure(board: Map<String, String>, pin: String): String {
         var state = board
-        var resolved = linkedMapOf<String, String>()
+        val resolved = linkedMapOf<String, String>()
         while (!resolved.contains(pin)) {
-            val temp = state.filterValues { !it.contains(varRegex) }.mapValues {
-                val notMatcher = notPattern.matcher(it.value)
-                val andMatcher = andPattern.matcher(it.value)
-                val orMatcher = orPattern.matcher(it.value)
-                val lshiftMatcher = lshiftPattern.matcher(it.value)
-                val rshiftMatcher = rshiftPattern.matcher(it.value)
-                (0xffff and when {
-                    notMatcher.matches() -> notMatcher.group(1).toInt().inv()
-                    andMatcher.matches() -> andMatcher.group(1).toInt() and andMatcher.group(2).toInt()
-                    orMatcher.matches() -> orMatcher.group(1).toInt() or orMatcher.group(2).toInt()
-                    lshiftMatcher.matches() -> lshiftMatcher.group(1).toInt() shl lshiftMatcher.group(2).toInt()
-                    rshiftMatcher.matches() -> rshiftMatcher.group(1).toInt() shr rshiftMatcher.group(2).toInt()
-                    else -> it.value.toInt()
-                }).toString()
-            }
+            val temp = state
+                    .filterValues { !it.contains(VAR_PATTERN) }
+                    .mapValues { (_, value) ->
+                        NOT_PATTERN.matchEntire(value)?.let { match ->
+                            val (first) = match.destructured
+                            first.toInt().inv()
+                        }
+                        ?: AND_PATTERN.matchEntire(value)?.let { match ->
+                            val (first, second) = match.destructured
+                            first.toInt() and second.toInt()
+                        }
+                        ?: OR_PATTERN.matchEntire(value)?.let { match ->
+                            val (first, second) = match.destructured
+                            first.toInt() or second.toInt()
+                        }
+                        ?: LSHIFT_PATTERN.matchEntire(value)?.let { match ->
+                            val (first, second) = match.destructured
+                            first.toInt() shl second.toInt()
+                        }
+                        ?: RSHIFT_PATTERN.matchEntire(value)?.let { match ->
+                            val (first, second) = match.destructured
+                            first.toInt() shr second.toInt()
+                        }
+                        ?: value.toInt()
+                    }
+                    .mapValues { (0xFFFF and it.value).toString() }
 
-            state = state.filterKeys { !temp.containsKey(it) }
-                    .mapValues {
-                        temp.toList().fold(it.value) { acc, value ->
+            state = state
+                    .filterKeys { !temp.containsKey(it) }
+                    .mapValues { (_, command) ->
+                        temp.toList().fold(command) { acc, value ->
                             acc.replace("\\b${value.first}\\b".toRegex(), value.second)
                         }
                     }

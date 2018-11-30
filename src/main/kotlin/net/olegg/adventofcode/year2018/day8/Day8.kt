@@ -1,9 +1,9 @@
 package net.olegg.adventofcode.year2018.day8
 
-import net.olegg.adventofcode.someday.SomeDay
-import net.olegg.adventofcode.year2018.DayOf2018
 import java.util.ArrayDeque
 import java.util.Deque
+import net.olegg.adventofcode.someday.SomeDay
+import net.olegg.adventofcode.year2018.DayOf2018
 
 /**
  * @see <a href="http://adventofcode.com/2018/day/8">Year 2018, Day 8</a>

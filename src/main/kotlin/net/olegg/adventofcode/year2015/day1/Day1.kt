@@ -1,8 +1,8 @@
 package net.olegg.adventofcode.year2015.day1
 
 import net.olegg.adventofcode.someday.SomeDay
-import net.olegg.adventofcode.year2015.DayOf2015
 import net.olegg.adventofcode.utils.scan
+import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
  * @see <a href="http://adventofcode.com/2015/day/1">Year 2015, Day 1</a>

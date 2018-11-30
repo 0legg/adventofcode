@@ -1,12 +1,11 @@
 package net.olegg.adventofcode.year2018.day4
 
-import net.olegg.adventofcode.someday.SomeDay
-import net.olegg.adventofcode.utils.scan
-import net.olegg.adventofcode.year2018.DayOf2018
-import java.lang.Exception
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import net.olegg.adventofcode.someday.SomeDay
+import net.olegg.adventofcode.utils.scan
+import net.olegg.adventofcode.year2018.DayOf2018
 
 /**
  * @see <a href="http://adventofcode.com/2018/day/4">Year 2018, Day 4</a>
@@ -29,12 +28,14 @@ class Day4 : DayOf2018(4) {
                 .filterNotNull()
                 .groupBy { it.first }
 
-        val sleeper = sleeps.maxBy { entry -> entry.value.sumBy { it.second.until(it.third, ChronoUnit.MINUTES).toInt() } }
+        val sleeper = sleeps.maxBy { entry ->
+            entry.value.sumBy { it.second.until(it.third, ChronoUnit.MINUTES).toInt() }
+        }
 
         return sleeper?.let { best ->
             val minutes = IntArray(60)
             best.value.forEach { (_, prev, curr) ->
-                (prev.minute until curr.minute).forEach { minutes[it] += 1}
+                (prev.minute until curr.minute).forEach { minutes[it] += 1 }
             }
 
             return@let best.key * (minutes.withIndex().maxBy { it.value }?.index ?: 0)
@@ -61,7 +62,7 @@ class Day4 : DayOf2018(4) {
         val freqs = sleeps.mapValues { entry ->
             val minutes = IntArray(60)
             entry.value.forEach { (_, prev, curr) ->
-                (prev.minute until curr.minute).forEach { minutes[it] += 1}
+                (prev.minute until curr.minute).forEach { minutes[it] += 1 }
             }
             return@mapValues minutes
         }
@@ -107,7 +108,7 @@ class Day4 : DayOf2018(4) {
                 return if (time.hour == 23) time.plusDays(1).truncatedTo(ChronoUnit.DAYS) else time
             }
         }
-        
+
         enum class Type {
             AWAKE,
             SLEEP

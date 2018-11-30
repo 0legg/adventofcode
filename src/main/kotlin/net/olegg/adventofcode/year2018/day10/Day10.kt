@@ -32,13 +32,10 @@ class Day10 : DayOf2018(10) {
 
         val coords = points.map { it.first }
 
-        val (xmin, xmax) = coords
-                .map { it.first }
-                .let { (it.min() ?: 0) to (it.max() ?: 0) }
-
-        val (ymin, ymax) = coords
-                .map { it.second }
-                .let { (it.min() ?: 0) to (it.max() ?: 0) }
+        val xmin = coords.map { it.first }.min() ?: 0
+        val xmax = coords.map { it.first }.max() ?: 0
+        val ymin = coords.map { it.second }.min() ?: 0
+        val ymax = coords.map { it.second }.max() ?: 0
 
         val builder = StringBuilder("\n")
         (ymin..ymax).forEach { y ->

@@ -7,49 +7,51 @@ import net.olegg.adventofcode.year2016.DayOf2016
  * @see <a href="http://adventofcode.com/2016/day/10">Year 2016, Day 10</a>
  */
 class Day10 : DayOf2016(10) {
-    val valuePattern = "value (\\d+) goes to bot (\\d+)".toPattern()
-    val givePattern = "bot (\\d+) gives low to (\\w+) (\\d+) and high to (\\w+) (\\d+)".toPattern()
+    companion object {
+        private val VALUE_PATTERN = "value (\\d+) goes to bot (\\d+)".toRegex()
+        private val GIVE_PATTERN = "bot (\\d+) gives low to (\\w+) (\\d+) and high to (\\w+) (\\d+)".toRegex()
+    }
 
     override fun first(data: String): Any? {
         val bots = mutableMapOf<Int, MutableSet<Int>>()
         val actions = mutableMapOf<Int, Pair<Int, Int>>()
         val search = setOf(17, 61)
 
-        val commands = data.lines().partition { valuePattern.toRegex().matches(it) }
+        val (values, gives) = data.lines().partition { VALUE_PATTERN.matches(it) }
 
-        commands.first.forEach {
-            with(valuePattern.matcher(it)) {
-                if (find()) {
-                    bots.putIfAbsent(group(2).toInt(), mutableSetOf())
-                    bots.getOrDefault(group(2).toInt(), mutableSetOf()) += group(1).toInt()
-                }
+        values.forEach { command ->
+            VALUE_PATTERN.matchEntire(command)?.let { match ->
+                val (value, id) = match.destructured
+                bots.getOrPut(id.toInt()) { mutableSetOf() } += value.toInt()
             }
         }
 
-        commands.second.forEach {
-            with(givePattern.matcher(it)) {
-                if (find()) {
-                    actions[group(1).toInt()] = Pair(
-                            if (group(2) == "output") -group(3).toInt() - 1 else group(3).toInt(),
-                            if (group(4) == "output") -group(5).toInt() - 1 else group(5).toInt())
-                }
+        gives.forEach { command ->
+            GIVE_PATTERN.matchEntire(command)?.let { match ->
+                val (id, lowType, lowId, highType, highId) = match.destructured
+                actions[id.toInt()] = Pair(
+                        if (lowType == "output") -lowId.toInt() - 1 else lowId.toInt(),
+                        if (highType == "output") -highId.toInt() - 1 else highId.toInt())
             }
         }
 
-        while (!bots.containsValue(search)) {
+        while (search !in bots.values) {
             val active = bots.filter { it.value.size == 2 }
-            active.forEach { bot ->
-                actions[bot.key]?.let { action ->
-                    bots.putIfAbsent(action.first, mutableSetOf())
-                    bot.value.min()?.let { bots.getOrDefault(action.first, mutableSetOf()) += it }
-                    bots.putIfAbsent(action.second, mutableSetOf())
-                    bot.value.max()?.let { bots.getOrDefault(action.second, mutableSetOf()) += it }
-                }
-            }
-            active.keys.filter { it >= 0 }.forEach {
-                bots.remove(it)
-                actions.remove(it)
-            }
+            active
+                    .map { bot -> actions.getOrDefault(bot.key, 0 to 0) to bot.value }
+                    .forEach { (action, value) ->
+                        val min = value.min() ?: Int.MIN_VALUE
+                        val max = value.max() ?: Int.MAX_VALUE
+                        bots.getOrPut(action.first) { mutableSetOf() } += min
+                        bots.getOrPut(action.second) { mutableSetOf() } += max
+                    }
+
+            active.keys
+                    .filter { it >= 0 }
+                    .forEach { id ->
+                        bots.remove(id)
+                        actions.remove(id)
+                    }
         }
 
         return bots.filter { it.value == search }.keys.joinToString()
@@ -59,44 +61,46 @@ class Day10 : DayOf2016(10) {
         val bots = mutableMapOf<Int, MutableSet<Int>>()
         val actions = mutableMapOf<Int, Pair<Int, Int>>()
 
-        val commands = data.lines().partition { valuePattern.toRegex().matches(it) }
+        val (values, gives) = data.lines().partition { VALUE_PATTERN.matches(it) }
 
-        commands.first.forEach {
-            with(valuePattern.matcher(it)) {
-                if (find()) {
-                    bots.putIfAbsent(group(2).toInt(), mutableSetOf())
-                    bots.getOrDefault(group(2).toInt(), mutableSetOf()) += group(1).toInt()
-                }
+        values.forEach { command ->
+            VALUE_PATTERN.matchEntire(command)?.let { match ->
+                val (value, id) = match.destructured
+                bots.getOrPut(id.toInt()) { mutableSetOf() } += value.toInt()
             }
         }
 
-        commands.second.forEach {
-            with(givePattern.matcher(it)) {
-                if (find()) {
-                    actions[group(1).toInt()] = Pair(
-                            if (group(2) == "output") -group(3).toInt() - 1 else group(3).toInt(),
-                            if (group(4) == "output") -group(5).toInt() - 1 else group(5).toInt())
-                }
+        gives.forEach { command ->
+            GIVE_PATTERN.matchEntire(command)?.let { match ->
+                val (id, lowType, lowId, highType, highId) = match.destructured
+                actions[id.toInt()] = Pair(
+                        if (lowType == "output") -lowId.toInt() - 1 else lowId.toInt(),
+                        if (highType == "output") -highId.toInt() - 1 else highId.toInt())
             }
         }
 
-        while (bots.count { it.value.size == 2 } > 0 && actions.isNotEmpty()) {
+        while (bots.any { it.value.size == 2 } && actions.isNotEmpty()) {
             val active = bots.filter { it.value.size == 2 }
-            active.forEach { bot ->
-                actions[bot.key]?.let { action ->
-                    bots.putIfAbsent(action.first, mutableSetOf())
-                    bot.value.min()?.let { bots.getOrDefault(action.first, mutableSetOf()) += it }
-                    bots.putIfAbsent(action.second, mutableSetOf())
-                    bot.value.max()?.let { bots.getOrDefault(action.second, mutableSetOf()) += it }
-                }
-            }
-            active.keys.filter { it >= 0 }.forEach {
-                bots.remove(it)
-                actions.remove(it)
-            }
+            active
+                    .map { bot -> actions.getOrDefault(bot.key, 0 to 0) to bot.value }
+                    .forEach { (action, value) ->
+                        val min = value.min() ?: Int.MIN_VALUE
+                        val max = value.max() ?: Int.MAX_VALUE
+                        bots.getOrPut(action.first) { mutableSetOf() } += min
+                        bots.getOrPut(action.second) { mutableSetOf() } += max
+                    }
+
+            active.keys
+                    .filter { it >= 0 }
+                    .forEach { id ->
+                        bots.remove(id)
+                        actions.remove(id)
+                    }
         }
 
-        return ((bots[-1]?.sum() ?: 0) * (bots[-2]?.sum() ?: 0) * (bots[-3]?.sum() ?: 0)).toString()
+        return (-3..-1)
+                .map { bots[it].orEmpty().sum() }
+                .reduce { a, b -> a * b }
     }
 }
 

@@ -29,11 +29,11 @@ class Day24 : DayOf2015(24) {
     }
 }
 
-fun subsets(sum: Long, list: List<Long>): List<List<Long>> {
-    if (sum < 0L) return listOf()
-    if (sum == 0L) return listOf(listOf())
-    if (list.size == 1) return if (sum == list[0]) listOf(list) else listOf()
-    return subsets(sum, list.drop(1)) + subsets(sum - list[0], list.drop(1)).map { listOf(list[0]) + it }
+fun subsets(sum: Long, list: List<Long>): List<List<Long>> = when {
+    (sum < 0L) -> listOf()
+    (sum == 0L) -> listOf(listOf())
+    (list.size == 1) -> if (sum == list[0]) listOf(list) else listOf()
+    else -> subsets(sum, list.drop(1)) + subsets(sum - list[0], list.drop(1)).map { listOf(list[0]) + it }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day24::class)

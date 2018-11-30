@@ -50,7 +50,7 @@ object AsmBunny {
                     "out" -> {
                         yield(value(parsed[1], registers)); 1
                     }
-                    else -> throw RuntimeException("unimplemented")
+                    else -> TODO("unimplemented")
                 } else {
                     1
                 }

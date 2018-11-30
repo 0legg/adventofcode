@@ -7,48 +7,53 @@ import net.olegg.adventofcode.year2016.DayOf2016
  * @see <a href="http://adventofcode.com/2016/day/8">Year 2016, Day 8</a>
  */
 class Day8 : DayOf2016(8) {
-
-    val match2 = "[^\\d]*([\\d]+)[^\\d]*(\\d+)[^\\d]*".toPattern()
-
-    fun matrix(width: Int, height: Int) = Array(height) { Array(width) { false } }
+    companion object {
+        val PATTERN = "([^\\d]*)([\\d]+)[^\\d]*(\\d+)[^\\d]*".toRegex()
+    }
 
     override fun first(data: String): Any? {
-        return applyOperations(50, 6, data.lines())
-                .sumBy { it.count { it } }
+
+        return applyOperations(50, 6, data.trim().lines())
+                .sumBy { row -> row.count { it } }
     }
 
     override fun second(data: String): Any? {
-        return applyOperations(50, 6, data.lines())
-                .joinToString(separator = "\n") { it.joinToString(separator = "") { if (it) "#" else "." } }
+        return applyOperations(50, 6, data.trim().lines())
+                .joinToString(separator = "\n", prefix = "\n") { row ->
+                    row.joinToString(separator = "") { if (it) "#" else "." }
+                }
     }
 
-    fun applyOperations(width: Int, height: Int, ops: List<String>): Array<Array<Boolean>> {
-        return ops.fold(matrix(width, height)) { screen, op ->
-            val data = match2.matcher(op).let {
-                it.find()
-                return@let (it.group(1).toInt() to it.group(2).toInt())
-            }
-            screen.apply {
-                when {
-                    op.startsWith("rect") -> {
-                        (0 until data.second).forEach { y ->
-                            (0 until data.first).forEach { x ->
-                                screen[y][x] = true
-                            }
+    private fun applyOperations(width: Int, height: Int, ops: List<String>): Array<BooleanArray> {
+        val screen = Array(height) { BooleanArray(width) }
+        ops
+                .mapNotNull { PATTERN.matchEntire(it) }
+                .map { Triple(it.groupValues[1], it.groupValues[2].toInt(), it.groupValues[3].toInt()) }
+                .forEach { (command, first, second) ->
+                    when (command) {
+                        "rect " ->
+                            (0 until second).forEach { y -> screen[y].fill(true, 0, first) }
+                        "rotate row y=" -> {
+                            val row = BooleanArray(width)
+                            (0 until width).forEach { row[(it + second) % width] = screen[first][it] }
+                            (0 until width).forEach { screen[first][it] = row[it] }
+                        }
+                        "rotate column x=" -> {
+                            val column = BooleanArray(height)
+                            (0 until height).forEach { column[(it + second) % height] = screen[it][first] }
+                            (0 until height).forEach { screen[it][first] = column[it] }
                         }
                     }
-                    op.startsWith("rotate row") -> {
-                        val row = Array(width) { false }
-                        (0 until width).forEach { row[(it + data.second) % width] = screen[data.first][it] }
-                        (0 until width).forEach { screen[data.first][it] = row[it] }
-                    }
-                    op.startsWith("rotate column") -> {
-                        val column = Array(height) { false }
-                        (0 until height).forEach { column[(it + data.second) % height] = screen[it][data.first] }
-                        (0 until height).forEach { screen[it][data.first] = column[it] }
-                    }
                 }
-            }
+
+        return screen
+    }
+
+    class Screen(width: Int, height: Int) {
+        val data = Array(height) { BooleanArray(width) }
+
+        fun fill(width: Int, height: Int) {
+            (0 until height).forEach { y -> data[y].fill(true, 0, width) }
         }
     }
 }

@@ -1,24 +1,26 @@
 package net.olegg.adventofcode.year2016.day1
 
+import java.lang.Math.abs
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2016.DayOf2016
-import java.lang.Math.abs
 
 /**
  * @see <a href="http://adventofcode.com/2016/day/1">Year 2016, Day 1</a>
  */
 class Day1 : DayOf2016(1) {
-    val MOVES = listOf(
-            0 to 1,
-            1 to 0,
-            0 to -1,
-            -1 to 0
-    )
+    companion object {
+        val MOVES = listOf(
+                0 to 1,
+                1 to 0,
+                0 to -1,
+                -1 to 0
+        )
 
-    val SHIFT = mapOf(
-            'L' to -1,
-            'R' to 1
-    )
+        val SHIFT = mapOf(
+                'L' to -1,
+                'R' to 1
+        )
+    }
 
     override fun first(data: String): Any? {
         return data.split(", ")

@@ -8,12 +8,24 @@ import net.olegg.adventofcode.year2015.DayOf2015
  */
 class Day18 : DayOf2015(18) {
     val size = 100
-    val field = data.lines().mapIndexed { row, string ->
-        string.mapIndexed { column, char -> if (char == '#') Pair(row, column) else null }
-    }.flatMap { it }.filterNotNull().toSet()
+    val field = data
+            .lines()
+            .mapIndexed { row, string ->
+                string.mapIndexed { column, char -> if (char == '#') Pair(row, column) else null }
+            }
+            .flatten()
+            .filterNotNull()
+            .toSet()
 
     fun move(field: Set<Pair<Int, Int>>): Set<Pair<Int, Int>> {
-        val neighbors = field.flatMap { cell -> (-1..1).flatMap { row -> (-1..1).map { column -> Pair(cell.first + row, cell.second + column) } }.filterNot { it == cell } }
+        val neighbors = field
+                .flatMap { cell ->
+                    (-1..1).flatMap { row ->
+                        (-1..1).map { column ->
+                            Pair(cell.first + row, cell.second + column)
+                        }
+                    }.filterNot { it == cell }
+                }
                 .filter { it.first >= 0 }
                 .filter { it.first < size }
                 .filter { it.second >= 0 }
@@ -23,7 +35,9 @@ class Day18 : DayOf2015(18) {
                 .toList()
                 .partition { field.contains(it.first) }
 
-        return (neighbors.first.filter { it.second in 2..3 } + neighbors.second.filter { it.second == 3 }).map { it.first }.toSet()
+        return (neighbors.first.filter { it.second in 2..3 } + neighbors.second.filter { it.second == 3 })
+                .map { it.first }
+                .toSet()
     }
 
     override fun first(data: String): Any? {

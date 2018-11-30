@@ -1,8 +1,8 @@
 package net.olegg.adventofcode.year2018.day6
 
+import kotlin.math.abs
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2018.DayOf2018
-import kotlin.math.abs
 
 /**
  * @see <a href="http://adventofcode.com/2018/day/6">Year 2018, Day 6</a>
@@ -18,10 +18,11 @@ class Day6 : DayOf2018(6) {
                 .trim()
                 .lines()
                 .mapNotNull { line ->
-                    PATTERN.matchEntire(line)?.let { match ->
-                        val (x, y) = match.destructured.toList().map { it.toInt() }
-                        return@let x to y
-                    }
+                    PATTERN.matchEntire(line)
+                            ?.destructured
+                            ?.toList()
+                            ?.map { it.toInt() }
+                            ?.let { it.first() to it.last() }
                 }
 
         val left = points.minBy { it.first }?.first ?: Int.MIN_VALUE
@@ -34,7 +35,7 @@ class Day6 : DayOf2018(6) {
                     (left..right).mapNotNull { x ->
                         val dist = points.map { abs(x - it.first) + abs(y - it.second) }
                         val best = dist.min() ?: 0
-                        return@mapNotNull if (dist.count { it == best } == 1) dist.indexOfFirst { it == best } else null
+                        if (dist.count { it == best } == 1) dist.indexOfFirst { it == best } else null
                     }
                 }
 
@@ -53,10 +54,11 @@ class Day6 : DayOf2018(6) {
                 .trim()
                 .lines()
                 .mapNotNull { line ->
-                    PATTERN.matchEntire(line)?.let { match ->
-                        val (x, y) = match.destructured.toList().map { it.toInt() }
-                        return@let x to y
-                    }
+                    PATTERN.matchEntire(line)
+                            ?.destructured
+                            ?.toList()
+                            ?.map { it.toInt() }
+                            ?.let { it.first() to it.last() }
                 }
 
         val left = points.minBy { it.first }?.first ?: Int.MIN_VALUE

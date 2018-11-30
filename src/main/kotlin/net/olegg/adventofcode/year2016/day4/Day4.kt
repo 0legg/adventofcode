@@ -2,23 +2,28 @@ package net.olegg.adventofcode.year2016.day4
 
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2016.DayOf2016
-import kotlin.comparisons.compareBy
 
 /**
  * @see <a href="http://adventofcode.com/2016/day/4">Year 2016, Day 4</a>
  */
 class Day4 : DayOf2016(4) {
-    val ROOM_PATTERN = "^(.+)-(\\d+)\\[(.+)\\]$".toPattern()
-    override fun first(data: String): Any? {
-        val rooms = data.lines().map {
-            ROOM_PATTERN.matcher(it).let {
-                it.find()
-                Triple(it.group(1).replace("-", ""), it.group(2).toInt(), it.group(3))
-            }
-        }
+    companion object {
+        val ROOM_PATTERN = "^(.+)-(\\d+)\\[(.+)\\]$".toRegex()
+    }
 
-        return rooms.filter {
-            it.third == it.first.toCharArray()
+    override fun first(data: String): Any? {
+        val rooms = data
+                .trim()
+                .lines()
+                .mapNotNull { line ->
+                    ROOM_PATTERN.matchEntire(line)?.let { match ->
+                        val (name, id, checksum) = match.destructured
+                        Triple(name.replace("-", ""), id.toInt(), checksum)
+                    }
+                }
+
+        return rooms.filter { room ->
+            room.third == room.first
                     .groupBy { it }
                     .mapValues { it.value.size }
                     .toList()
@@ -30,16 +35,26 @@ class Day4 : DayOf2016(4) {
     }
 
     override fun second(data: String): Any? {
-        val rooms = data.lines().map {
-            ROOM_PATTERN.matcher(it).let {
-                it.find()
-                Triple(it.group(1), it.group(2).toInt(), it.group(3))
-            }
-        }
+        val rooms = data
+                .trim()
+                .lines()
+                .mapNotNull { line ->
+                    ROOM_PATTERN.matchEntire(line)?.let { match ->
+                        val (name, id, _) = match.destructured
+                        Pair(name, id.toInt())
+                    }
+                }
 
-        return rooms.map { triple -> triple.first.toCharArray().map {
-            if (it == '-') ' ' else ((it.toInt() - 'a'.toInt() + triple.second) % 26 + 'a'.toInt()).toChar()
-        }.joinToString(separator = "") to triple.second }.joinToString(separator = "\n")
+        val a = 'a'.toInt()
+
+        return rooms
+                .map { (name, id) ->
+                    name.map { char ->
+                        if (char == '-') ' ' else ((char.toInt() - a + id) % 26 + a).toChar()
+                    }
+                    .joinToString(separator = "") to id
+                }
+                .joinToString(separator = "\n")
     }
 }
 

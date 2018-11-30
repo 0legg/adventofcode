@@ -5,7 +5,8 @@ package net.olegg.adventofcode.utils
  */
 
 /**
- * Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
+ * Accumulates value starting with [initial] value and applying [operation] from left to right
+ * to current accumulator value and each element.
  */
 inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): List<R> {
     var accumulator = initial
@@ -18,7 +19,8 @@ inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): List<R> 
 }
 
 /**
- * Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
+ * Accumulates value starting with [initial] value and applying [operation] from left to right
+ * to current accumulator value and each element.
  */
 inline fun <T, R> Sequence<T>.scan(initial: R, crossinline operation: (R, T) -> R): Sequence<R> {
     return sequence {

@@ -13,15 +13,17 @@ object Versions {
 
     const val de_fuerstenau_buildconfig_gradle_plugin: String = "1.1.8" 
 
+    const val io_gitlab_arturbosch_detekt: String = "1.0.0-RC11" 
+            /* Could not find io.gitlab.arturbosch.detekt:detekt-cli:1.0.0-RC11. 
+            .... */
+
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6" 
 
     const val funktionale_memoization: String = "1.2" 
 
-    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.10" 
+    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.11" //available: "1.3.11"
 
-    const val org_jetbrains_kotlin: String = "1.3.10" 
-
-    const val org_jmailen_kotlinter_gradle_plugin: String = "1.20.1" 
+    const val org_jetbrains_kotlin: String = "1.3.11"
 
     const val org_spekframework_spek2: String = "2.0.0-rc.1" 
             /* Could not find any version that matches org.spekframework.spek2:spek-dsl-jvm:+.
@@ -35,11 +37,11 @@ object Versions {
      *      ./gradle/wrapper/gradle-wrapper.properties
      */
     object Gradle {
-        const val runningVersion: String = "5.0-rc-4"
+        const val runningVersion: String = "5.0"
 
         const val currentVersion: String = "5.0"
 
-        const val nightlyVersion: String = "5.1-20181201000046+0000"
+        const val nightlyVersion: String = "5.2-20181208000047+0000"
 
         const val releaseCandidate: String = ""
     }

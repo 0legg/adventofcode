@@ -1,8 +1,8 @@
 package net.olegg.adventofcode.year2017.day3
 
+import kotlin.math.abs
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2017.DayOf2017
-import kotlin.math.abs
 
 /**
  * @see <a href="http://adventofcode.com/2017/day/3">Year 2017, Day 3</a>

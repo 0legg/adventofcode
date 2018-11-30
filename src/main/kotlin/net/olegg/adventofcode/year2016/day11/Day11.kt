@@ -1,115 +1,124 @@
 package net.olegg.adventofcode.year2016.day11
 
+import java.util.ArrayDeque
+import java.util.BitSet
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2016.DayOf2016
-import java.util.BitSet
 
 /**
  * @see <a href="http://adventofcode.com/2016/day/11">Year 2016, Day 11</a>
  */
 class Day11 : DayOf2016(11) {
-    val generatorPattern = "(\\w+) generator".toRegex()
-    val microchipPattern = "(\\w+)-compatible microchip".toRegex()
+    companion object {
+        private val GEN_PATTERN = "(\\w+) generator".toRegex()
+        private val CHIP_PATTERN = "(\\w+)-compatible microchip".toRegex()
+    }
 
     override fun first(data: String): Any? {
-        val initial = data.lines().filter { it.isNotBlank() }.map {
-            generatorPattern.findAll(it).map { it.value[0] }.toSet() to microchipPattern.findAll(it).map { it.value[0] }.toSet()
-        }
+        val initial = data
+                .trim()
+                .lines()
+                .map { floor ->
+                    Pair(
+                            GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
+                            CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet()
+                    )
+                }
 
         return countSteps(initial)
     }
 
     override fun second(data: String): Any? {
-        val initial = data.lines().filter { it.isNotBlank() }.map {
-            generatorPattern.findAll(it).map { it.value[0] }.toSet() to microchipPattern.findAll(it).map { it.value[0] }.toSet()
-        }
-                .mapIndexed { i, floor ->
-                    when (i) {
-                        0 -> (floor.first + setOf('e', 'd') to floor.second + setOf('e', 'd'))
-                        else -> floor
-                    }
+        val initial = data
+                .trim()
+                .lines()
+                .map { floor ->
+                    Pair(
+                            GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
+                            CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet()
+                    )
                 }
 
-        return countSteps(initial)
+        val fixed = initial.mapIndexed { i, floor ->
+            when (i) {
+                0 -> (floor.first + setOf('e', 'd') to floor.second + setOf('e', 'd'))
+                else -> floor
+            }
+        }
+
+        return countSteps(fixed)
     }
 
-    fun countSteps(input: List<Pair<Set<Char>, Set<Char>>>): Int {
+    private fun countSteps(input: List<Pair<Set<Char>, Set<Char>>>): Int {
         val types = input.flatMap { it.first + it.second }.distinct().sorted()
+        val indexed = input.map { (gen, chip) ->
+            Pair(gen.map { types.indexOf(it) }.toSet(), chip.map { types.indexOf(it) }.toSet())
+        }
         val bits = (types.size * 2 + 1) * 2
-        val initial = compress(input, 0, types)
+        val initial = compress(indexed, 0, types.size)
         val all = (1 shl bits) - 1
-        val queue = listOf(initial to 0).toMutableList()
+        val queue = ArrayDeque(listOf(initial to 0))
         val known = BitSet(1 shl bits)
         known.set(initial)
 
+        val elevatorMoves = (0..3).map { curr -> listOf(curr - 1, curr + 1).filter { next -> next in 0..3 } }
+
         do {
-            val (floors, elevator, steps) = decompress(queue.removeAt(0), types)
-            val genMoves = floors[elevator].first.flatMap { a -> floors[elevator].first.map { b -> setOf(a, b) } }.distinct() + listOf(emptySet())
-            val chipMoves = floors[elevator].second.flatMap { a -> floors[elevator].second.map { b -> setOf(a, b) } }.distinct() + listOf(emptySet())
-            val moves = genMoves.flatMap { gen -> chipMoves.map { chip -> gen to chip } }
-                    .filter { it.first.size + it.second.size in 1..2 }
-                    .filterNot { it.first.size == 1 && it.second.size == 1 && it.first.first() != it.second.first() }
-            val nextFloors = listOf(elevator - 1, elevator + 1).filter { it in 0..3 }
+            val (floors, elevator, steps) = decompress(queue.poll(), types.size)
+            val (gens, chips) = floors[elevator]
+            val allMoves = gens.flatMap { a -> gens.map { b -> setOf(a, b) to emptySet<Int>() } } +
+                    chips.flatMap { a -> chips.map { b -> emptySet<Int>() to setOf(a, b) } } +
+                    gens.intersect(chips).map { setOf(it) to setOf(it) }
+            val moves = allMoves.distinct()
+            val nextFloors = elevatorMoves[elevator]
 
             nextFloors.flatMap { next ->
-                moves.map { move ->
-                    floors.mapIndexed { i, floor ->
-                        when (i) {
-                            elevator -> (floor.first - move.first) to (floor.second - move.second)
-                            next -> (floor.first + move.first) to (floor.second + move.second)
-                            else -> floor
-                        }
+                moves.map { (genMove, chipMove) ->
+                    floors.toMutableList().also { fl ->
+                        fl[elevator] = fl[elevator].copy(fl[elevator].first - genMove, fl[elevator].second - chipMove)
+                        fl[next] = fl[next].copy(fl[next].first + genMove, fl[next].second + chipMove)
                     } to next
                 }
             }
                     .distinctBy { it.first }
-                    .filterNot {
-                        it.first.any {
-                            it.first.isNotEmpty() && it.second.isNotEmpty() && (it.second - it.first).isNotEmpty()
+                    .filterNot { (floors, _) ->
+                        floors.any { (gens, chips) ->
+                            gens.isNotEmpty() && (chips - gens).isNotEmpty()
                         }
                     }
-                    .map { compress(it.first, it.second, types) }
-                    .filterNot { known.get(it) }
-                    .forEach {
-                        known.set(it)
-                        queue.add(it to steps + 1)
+                    .map { compress(it.first, it.second, types.size) }
+                    .filterNot { state -> known.get(state) }
+                    .forEach { state ->
+                        known.set(state)
+                        queue.offer(state to steps + 1)
                     }
         } while (!known.get(all))
 
         return queue.first { it.first == all }.second
     }
 
-    fun compress(state: List<Pair<Set<Char>, Set<Char>>>, elevator: Int, types: List<Char>): Day11State {
-        val floors = IntArray(types.size * 2 + 1)
-        floors[0] = elevator
+    fun compress(state: List<Pair<Set<Int>, Set<Int>>>, elevator: Int, types: Int): Day11State {
+        val data = IntArray(types * 2 + 1)
+        data[0] = elevator
         state.forEachIndexed { floor, pair ->
-            pair.first.forEach {
-                floors[types.indexOf(it) * 2 + 1] = floor
-            }
-            pair.second.forEach {
-                floors[types.indexOf(it) * 2 + 2] = floor
-            }
+            pair.first.forEach { data[it * 2 + 1] = floor }
+            pair.second.forEach { data[it * 2 + 2] = floor }
         }
 
-        return floors.foldIndexed(0) { index: Int, acc: Int, i: Int -> acc or (i shl (index * 2)) }
+        return data.foldIndexed(0) { index: Int, acc: Int, i: Int -> acc or (i shl (index * 2)) }
     }
 
-    fun decompress(compressed: Pair<Day11State, Int>, types: List<Char>): Triple<List<Pair<Set<Char>, Set<Char>>>, Int, Int> {
-        val decompressed = listOf(
-                mutableSetOf<Char>() to mutableSetOf<Char>(),
-                mutableSetOf<Char>() to mutableSetOf<Char>(),
-                mutableSetOf<Char>() to mutableSetOf<Char>(),
-                mutableSetOf<Char>() to mutableSetOf<Char>()
-        )
-
-        types.forEachIndexed { index, char ->
-            decompressed[compressed.first[index * 2 + 1]].first += char
-            decompressed[compressed.first[index * 2 + 2]].second += char
+    fun decompress(compressed: Pair<Day11State, Int>, types: Int): Triple<List<Pair<Set<Int>, Set<Int>>>, Int, Int> {
+        val decompressed = List(4) { mutableSetOf<Int>() to mutableSetOf<Int>() }
+        val elevator = compressed.first and 3
+        (0 until types).forEach { index ->
+            decompressed[compressed.first[index * 2 + 1]].first += index
+            decompressed[compressed.first[index * 2 + 2]].second += index
         }
 
         return Triple(
                 decompressed,
-                compressed.first[0],
+                elevator,
                 compressed.second
         )
     }

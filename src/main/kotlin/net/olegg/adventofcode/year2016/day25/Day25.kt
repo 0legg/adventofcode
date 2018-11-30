@@ -9,17 +9,19 @@ import net.olegg.adventofcode.year2016.DayOf2016
  */
 class Day25 : DayOf2016(25) {
     override fun first(data: String): Any? {
-        val program = data.lines().filter { it.isNotBlank() }
+        val program = data.trim().lines()
 
         return generateSequence(0) { it + 1 }
-                .map {
-                    val registers = IntArray(4).apply { this[0] = it }
-                    return@map it to AsmBunny.eval(program, registers)
+                .map { value ->
+                    val registers = IntArray(4).also { it[0] = value }
+                    return@map value to AsmBunny.eval(program, registers)
                 }
-                .filter {
-                    it.second.take(1000).mapIndexed { index, value -> index % 2 == value % 2 }.all { it }
+                .first { (_, signal) ->
+                    signal
+                            .take(1000)
+                            .mapIndexed { index, value -> index % 2 == value % 2 }
+                            .all { it }
                 }
-                .first()
                 .first
     }
 }

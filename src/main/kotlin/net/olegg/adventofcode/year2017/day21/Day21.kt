@@ -17,9 +17,11 @@ class Day21 : DayOf2017(21) {
     }
 
     fun countOn(data: String, iterations: Int): Int {
-        val ops = data.trim().lines()
+        val ops = data
+                .trim()
+                .lines()
                 .map { it.split(" => ") }
-                .map { it.map { it.split("/").map { it.toList() }.toList() } }
+                .map { part -> part.map { row -> row.split("/").map { it.toList() }.toList() } }
                 .map { lex(it.first()) to it.last() }
                 .toMap()
 
@@ -27,26 +29,32 @@ class Day21 : DayOf2017(21) {
 
         val start = ".#./..#/###".split("/").map { it.toList() }.toList()
 
-        return (0 until iterations).fold(start) { acc, _ ->
-            sizes.firstOrNull { acc.size % it == 0 }?.let { size ->
-                val chunks = acc.size / size
-                acc.chunked(size).map { rows ->
-                    val perRow = rows.map { it.chunked(size) }
-                    return@map (0 until chunks).map { cols ->
-                        lex(perRow.map { it[cols] })
-                    }
-                }.map {
-                    it.map { ops[it] ?: ops.entries.first { it.key.size == size }.value }
-                }.map { rows ->
-                    (0 until size + 1).map { row ->
-                        rows.map { it[row] }.flatten()
-                    }
-                }.flatten()
-            } ?: acc
-        }.sumBy { it.count { it == '#' } }
+        return (0 until iterations)
+                .fold(start) { acc, _ ->
+                    sizes.firstOrNull { acc.size % it == 0 }
+                            ?.let { size ->
+                                val chunks = acc.size / size
+                                acc.chunked(size)
+                                        .map { rows ->
+                                            val perRow = rows.map { it.chunked(size) }
+                                            return@map (0 until chunks).map { cols ->
+                                                lex(perRow.map { it[cols] })
+                                            }
+                                        }.map { rows ->
+                                            rows.map { row ->
+                                                ops[row] ?: ops.entries.first { it.key.size == size }.value
+                                            }
+                                        }.map { rows ->
+                                            (0..size).map { row ->
+                                                rows.flatMap { it[row] }
+                                            }
+                                        }.flatten()
+                            } ?: acc
+                        }
+                .sumBy { row -> row.count { it == '#' } }
     }
 
-    fun lex(grid: List<List<Char>>): List<List<Char>> {
+    private fun lex(grid: List<List<Char>>): List<List<Char>> {
         val size = grid.size
 
         val flips = setOf(
@@ -56,18 +64,21 @@ class Day21 : DayOf2017(21) {
                 grid.reversed().map { it.reversed() }
         )
 
-        val rotations = flips.map {
-            (0..3).scan(it) { acc, _ ->
-                (0 until size).map { first ->
-                    (0 until size).map { second ->
-                        acc[second][first]
-                    }.toList()
-                }.toList()
-            }.toSet()
-        }.flatten().toSet()
+        val rotations = flips
+                .map { flip ->
+                    (0..3).scan(flip) { acc, _ ->
+                        (0 until size).map { first ->
+                            (0 until size).map { second ->
+                                acc[second][first]
+                            }
+                        }
+                    }.toSet()
+                }
+                .flatten()
+                .toSet()
 
         return rotations
-                .sortedBy { it.joinToString(separator = "") { it.joinToString(separator = "") } }
+                .sortedBy { rot -> rot.joinToString(separator = "") { it.joinToString(separator = "") } }
                 .first()
     }
 }
