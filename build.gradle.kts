@@ -1,95 +1,49 @@
-import org.junit.platform.gradle.plugin.EnginesExtension
-import org.junit.platform.gradle.plugin.FiltersExtension
-import org.junit.platform.gradle.plugin.JUnitPlatformExtension
-import org.jetbrains.kotlin.gradle.dsl.Coroutines
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath("org.junit.platform:junit-platform-gradle-plugin:1.0.2")
-    }
-}
-
 plugins {
-    kotlin("jvm") version "1.2.10"
-    idea
-    id("org.jmailen.kotlinter") version "1.6.0"
-    id("de.fuerstenau.buildconfig") version "1.1.8"
+    kotlin("jvm").version(Versions.org_jetbrains_kotlin_jvm_gradle_plugin)
+    id("org.jmailen.kotlinter").version(Versions.org_jmailen_kotlinter_gradle_plugin)
+    id("de.fuerstenau.buildconfig").version(Versions.de_fuerstenau_buildconfig_gradle_plugin)
+    id("jmfayard.github.io.gradle-kotlin-dsl-libs").version(Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin)
 }
 
-apply {
-    plugin("org.junit.platform.gradle.plugin")
-}
+group = "net.olegg.adventofcode"
+version = "3.0.0"
 
 repositories {
     jcenter()
-    maven("http://dl.bintray.com/jetbrains/spek")
-}
-
-object Libs {
-    const val retrofit = "2.3.0"
-    const val klaxon =  "0.32"
-    const val spek = "1.1.5"
-    const val funktionale = "1.2"
-}
-
-configure<JUnitPlatformExtension> {
-    filters {
-        engines {
-            include("spek")
-        }
-    }
-}
-
-kotlin {
-    experimental.coroutines = Coroutines.ENABLE
-}
-
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-    allWarningsAsErrors = true
-}
-
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-    allWarningsAsErrors = true
 }
 
 buildConfig {
     buildConfigField("String", "COOKIE", project.findProperty("COOKIE")?.toString() ?: "Please provide cookie")
 }
 
+configure<JavaPluginConvention> {
+	sourceCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.withType<Test> {
+	useJUnitPlatform {
+		includeEngines("spek2")
+	}
+}
+
+tasks.withType<KotlinCompile> {
+	kotlinOptions {
+		jvmTarget = "1.8"
+        allWarningsAsErrors = true
+	}
+}
+
 dependencies {
-    compile(kotlin("stdlib-jdk8"))
-    compile(kotlin("reflect"))
-    compile(group = "com.squareup.retrofit2", name = "retrofit", version = Libs.retrofit)
-    compile(group = "com.squareup.retrofit2", name = "converter-scalars", version = Libs.retrofit)
-    compile(group = "com.beust", name = "klaxon", version = Libs.klaxon)
-    compile(group = "org.funktionale", name = "funktionale-memoization", version = Libs.funktionale)
+    implementation(Libs.kotlin_stdlib_jdk8)
+    implementation(Libs.kotlin_reflect)
+    implementation(Libs.retrofit)
+    implementation(Libs.converter_scalars)
+    implementation(Libs.klaxon)
+    implementation(Libs.funktionale_memoization)
 
-    testCompile(kotlin("test"))
-    testCompile(group ="org.jetbrains.spek", name = "spek-api", version = Libs.spek)
-    testRuntime(group ="org.jetbrains.spek", name = "spek-junit-platform-engine", version = Libs.spek)
+    testImplementation(Libs.kotlin_test)
+    testImplementation(Libs.spek_dsl_jvm)
+    testRuntimeOnly(Libs.spek_runner_junit5)
 }
-
-// extension for configuration
-fun JUnitPlatformExtension.filters(setup: FiltersExtension.() -> Unit) {
-    when (this) {
-        is ExtensionAware -> extensions.getByType(FiltersExtension::class.java).setup()
-        else -> throw Exception("${this::class} must be an instance of ExtensionAware")
-    }
-}
-fun FiltersExtension.engines(setup: EnginesExtension.() -> Unit) {
-    when (this) {
-        is ExtensionAware -> extensions.getByType(EnginesExtension::class.java).setup()
-        else -> throw Exception("${this::class} must be an instance of ExtensionAware")
-    }
-}
-
-group = "net.olegg.adventofcode"
-version = "3.0.0"

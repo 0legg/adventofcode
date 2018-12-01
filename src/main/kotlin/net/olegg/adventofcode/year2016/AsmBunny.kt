@@ -4,11 +4,10 @@ package net.olegg.adventofcode.year2016
 
 import java.time.Duration
 import java.time.Instant
-import kotlin.coroutines.experimental.buildSequence
 
 object AsmBunny {
     fun eval(program: List<String>, registers: IntArray): Sequence<Int> {
-        return buildSequence {
+        return sequence {
             val code = program.map { it.split("\\s+".toRegex()).toMutableList() }.toMutableList()
             var position = 0
             var opcount = 0L

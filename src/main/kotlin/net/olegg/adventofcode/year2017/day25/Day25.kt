@@ -49,14 +49,14 @@ class Day25 : DayOf2017(25) {
     }
 
     data class State(
-            val name: String,
-            val actions: Map<Int, Action>
+        val name: String,
+        val actions: Map<Int, Action>
     )
 
     data class Action(
-            val write: Int,
-            val shift: Int,
-            val state: String
+        val write: Int,
+        val shift: Int,
+        val state: String
     )
 }
 
