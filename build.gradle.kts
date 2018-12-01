@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm").version(Versions.org_jetbrains_kotlin_jvm_gradle_plugin)
+    idea
     id("org.jmailen.kotlinter").version(Versions.org_jmailen_kotlinter_gradle_plugin)
     id("de.fuerstenau.buildconfig").version(Versions.de_fuerstenau_buildconfig_gradle_plugin)
     id("jmfayard.github.io.gradle-kotlin-dsl-libs").version(Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin)

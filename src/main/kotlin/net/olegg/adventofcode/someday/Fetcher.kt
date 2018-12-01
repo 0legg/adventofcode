@@ -18,7 +18,7 @@ interface Fetcher {
 
     companion object {
         val fetcher = Retrofit.Builder()
-                .baseUrl("http://adventofcode.com")
+                .baseUrl("https://adventofcode.com")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build()
                 .create(Fetcher::class.java)
