@@ -16,6 +16,22 @@ class Day2 : DayOf2018(2) {
 
         return freqs.count { it.containsValue(2) } * freqs.count { it.containsValue(3) }
     }
+
+    override fun second(data: String): Any? {
+        val names = data
+                .trim()
+                .lines()
+
+        names.forEach { first ->
+            names.forEach { second ->
+                val diff = first.filterIndexed { pos, char -> second[pos] == char }
+                if (diff.length == first.length - 1) {
+                    return diff
+                }
+            }
+        }
+        return null
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day2::class)
