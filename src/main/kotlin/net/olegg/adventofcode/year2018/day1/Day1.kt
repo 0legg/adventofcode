@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2018.DayOf2018
  * @see <a href="http://adventofcode.com/2018/day/1">Year 2018, Day 1</a>
  */
 class Day1 : DayOf2018(1) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data
                 .trim()
                 .lines()
@@ -17,7 +17,7 @@ class Day1 : DayOf2018(1) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val shifts = data
             .trim()
             .lines()

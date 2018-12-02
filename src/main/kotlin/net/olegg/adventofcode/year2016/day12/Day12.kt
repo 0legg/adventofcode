@@ -8,14 +8,14 @@ import net.olegg.adventofcode.year2016.DayOf2016
  * @see <a href="http://adventofcode.com/2016/day/12">Year 2016, Day 12</a>
  */
 class Day12 : DayOf2016(12) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val program = data.lines().filter { it.isNotBlank() }
         val registers = IntArray(4)
 
         return AsmBunny.eval(program, registers).first().toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val program = data.lines().filter { it.isNotBlank() }
         val registers = IntArray(4).apply { this[2] = 1 }
 

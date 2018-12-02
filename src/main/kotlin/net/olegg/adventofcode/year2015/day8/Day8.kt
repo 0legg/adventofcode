@@ -8,7 +8,7 @@ import net.olegg.adventofcode.year2015.DayOf2015
  */
 class Day8 : DayOf2015(8) {
     val strings = data.lines()
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return (strings.sumBy { it.length } - strings.sumBy {
             it
                     .replace("^\"".toRegex(), "")
@@ -20,7 +20,7 @@ class Day8 : DayOf2015(8) {
         }).toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return (strings.sumBy {
             it.map {
                 when (it) {

@@ -8,7 +8,7 @@ import java.util.ArrayDeque
  * @see <a href="http://adventofcode.com/2017/day/14">Year 2017, Day 14</a>
  */
 class Day14 : DayOf2017(14) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val key = data.trimIndent()
         return (0..127).map { "$key-$it" }
                 .map {
@@ -32,7 +32,7 @@ class Day14 : DayOf2017(14) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val key = data.trimIndent()
 
         val vector = listOf(

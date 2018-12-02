@@ -12,7 +12,7 @@ class Day14 : DayOf2016(14) {
 
     val match3 = "(.)(\\1)(\\1)".toRegex()
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val hash = { n: Int ->
             "$data$n".md5()
         }.memoize()
@@ -20,7 +20,7 @@ class Day14 : DayOf2016(14) {
         return solve(64, hash).toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val hash = { n: Int ->
             (0..2016).fold("$data$n") { acc, _ ->
                 acc.md5()

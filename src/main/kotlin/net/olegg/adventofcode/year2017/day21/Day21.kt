@@ -8,11 +8,11 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/21">Year 2017, Day 21</a>
  */
 class Day21 : DayOf2017(21) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return countOn(data, 5).toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return countOn(data, 18).toString()
     }
 

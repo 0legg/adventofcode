@@ -8,7 +8,7 @@ import java.math.BigInteger
  * @see <a href="http://adventofcode.com/2017/day/23">Year 2017, Day 23</a>
  */
 class Day23 : DayOf2017(23) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val ops = data.trimIndent()
                 .lines()
                 .map { it.split("\\s+".toRegex()).toList() }
@@ -31,7 +31,7 @@ class Day23 : DayOf2017(23) {
         return muls.toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val ops = data.trimIndent()
                 .lines()
                 .map { it.split("\\s+".toRegex()).toList() }

@@ -8,7 +8,7 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/5">Year 2017, Day 5</a>
  */
 class Day5 : DayOf2017(5) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val values = data.lines()
                 .map { it.toInt() }
                 .toTypedArray()
@@ -25,7 +25,7 @@ class Day5 : DayOf2017(5) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val values = data.lines()
                 .map { it.toInt() }
                 .toTypedArray()

@@ -8,7 +8,7 @@ import java.util.ArrayDeque
  * @see <a href="http://adventofcode.com/2017/day/18">Year 2017, Day 18</a>
  */
 class Day18 : DayOf2017(18) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         var sound = 0L
         val ops = data.trimIndent()
                 .lines()
@@ -34,7 +34,7 @@ class Day18 : DayOf2017(18) {
         return "-1"
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val regs = Array(2) { mutableMapOf("p" to it.toLong()) }
         val stacks = Array(2) { ArrayDeque<Long>() }
         val position = Array(2) { 0 }

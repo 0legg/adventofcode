@@ -18,7 +18,7 @@ class Day15 : DayOf2015(15) {
         }
     }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val itemsValues = (0..3).map { value -> items.map { it[value] } }
         return splitRange(items.size, spoons)
                 .map { split -> itemsValues.map { it.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0) } }
@@ -26,7 +26,7 @@ class Day15 : DayOf2015(15) {
                 .max().toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val itemsValues = (0..3).map { value -> items.map { it[value] } }
         val calories = items.map { it[4] }
         return splitRange(items.size, spoons)

@@ -12,7 +12,7 @@ class Day9 : DayOf2017(9) {
         NORMAL
     }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data
                 .replace("!.".toRegex(), "")
                 .fold(Triple(0, 0, State.NORMAL)) { acc, char ->
@@ -30,7 +30,7 @@ class Day9 : DayOf2017(9) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return data
                 .replace("!.".toRegex(), "")
                 .fold(Pair(0, State.NORMAL)) { acc, char ->

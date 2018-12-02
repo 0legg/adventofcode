@@ -9,7 +9,7 @@ import net.olegg.adventofcode.year2016.DayOf2016
 class Day22 : DayOf2016(22) {
     val pattern = "/dev/grid/node-x(\\d+)-y(\\d+)\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)%".toRegex()
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val machines = data.lines().filter { it.matches(pattern) }
                 .mapNotNull { pattern.find(it)?.groupValues?.let { it.subList(1, 6).map { it.toInt() } } }
 
@@ -22,7 +22,7 @@ class Day22 : DayOf2016(22) {
         return pairs.size.toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val machines = data.lines().filter { it.matches(pattern) }
                 .mapNotNull { pattern.find(it)?.groupValues?.let { it.subList(1, 6).map { it.toInt() } } }
 

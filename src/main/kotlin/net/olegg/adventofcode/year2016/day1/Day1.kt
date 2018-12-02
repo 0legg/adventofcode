@@ -20,7 +20,7 @@ class Day1 : DayOf2016(1) {
             'R' to 1
     )
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data.split(", ")
                 .map { it[0] to it.substring(1).toInt() }
                 .fold(Triple(0, 0, 0)) { triple, command ->
@@ -34,7 +34,7 @@ class Day1 : DayOf2016(1) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         var visited = hashSetOf(0 to 0)
 
         data.split(", ")

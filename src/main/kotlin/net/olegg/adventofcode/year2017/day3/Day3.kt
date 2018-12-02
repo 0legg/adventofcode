@@ -8,7 +8,7 @@ import kotlin.math.abs
  * @see <a href="http://adventofcode.com/2017/day/3">Year 2017, Day 3</a>
  */
 class Day3 : DayOf2017(3) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val position = data.trim().toInt()
 
         val square = (1..Int.MAX_VALUE step 2).first { it * it >= position }
@@ -18,7 +18,7 @@ class Day3 : DayOf2017(3) {
         return ((square / 2) + abs(diff - (square / 2 - 1))).toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val visited = mutableMapOf((0 to 0) to 1)
         val input = data.trim().toInt()
 

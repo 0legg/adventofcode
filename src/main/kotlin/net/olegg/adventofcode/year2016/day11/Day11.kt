@@ -11,7 +11,7 @@ class Day11 : DayOf2016(11) {
     val generatorPattern = "(\\w+) generator".toRegex()
     val microchipPattern = "(\\w+)-compatible microchip".toRegex()
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val initial = data.lines().filter { it.isNotBlank() }.map {
             generatorPattern.findAll(it).map { it.value[0] }.toSet() to microchipPattern.findAll(it).map { it.value[0] }.toSet()
         }
@@ -19,7 +19,7 @@ class Day11 : DayOf2016(11) {
         return countSteps(initial).toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val initial = data.lines().filter { it.isNotBlank() }.map {
             generatorPattern.findAll(it).map { it.value[0] }.toSet() to microchipPattern.findAll(it).map { it.value[0] }.toSet()
         }

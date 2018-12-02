@@ -12,7 +12,7 @@ class Day25 : DayOf2017(25) {
     val statePattern = "In state ([A-Z]+):".toRegex()
     val actionPattern = "If the current value is ([0-9]+)[^-]+- Write the value ([0-9]+)[^-]+- Move one slot to the ([a-z]+)[^-]+- Continue with state ([A-Z]+)\\.".toRegex()
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val sections = data.trim().split("\n\n")
 
         val (state, iterations) = headerPattern.find(sections[0])?.destructured?.let {

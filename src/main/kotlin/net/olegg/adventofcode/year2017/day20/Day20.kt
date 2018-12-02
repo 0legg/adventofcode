@@ -8,7 +8,7 @@ import kotlin.math.abs
  * @see <a href="http://adventofcode.com/2017/day/20">Year 2017, Day 20</a>
  */
 class Day20 : DayOf2017(20) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val points = data.trim().lines()
                 .map { it.replace("[pva=<> ]".toRegex(), "") }
                 .map { it.split(",").map { it.toLong() } }
@@ -39,7 +39,7 @@ class Day20 : DayOf2017(20) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val points = data.trim().lines()
                 .map { it.replace("[pva=<> ]".toRegex(), "") }
                 .map { it.split(",").map { it.toLong() } }

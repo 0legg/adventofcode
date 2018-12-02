@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/6">Year 2017, Day 6</a>
  */
 class Day6 : DayOf2017(6) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val blocks = data.split("\\s+".toRegex())
                 .map { it.toInt() }
 
@@ -33,7 +33,7 @@ class Day6 : DayOf2017(6) {
         return steps.toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val blocks = data.split("\\s+".toRegex())
                 .map { it.toInt() }
 

@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/8">Year 2017, Day 8</a>
  */
 class Day8 : DayOf2017(8) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val registers = mutableMapOf<String, Int>()
 
         data.lines()
@@ -35,7 +35,7 @@ class Day8 : DayOf2017(8) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val registers = mutableMapOf<String, Int>()
 
         return data.lines()

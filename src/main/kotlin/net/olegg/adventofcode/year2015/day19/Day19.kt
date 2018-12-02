@@ -21,11 +21,11 @@ class Day19 : DayOf2015(19) {
         return result
     }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return transitions.map { it.first.toPattern() to it.second }.flatMap { applyTransitions(molecule, it) }.toSet().size.toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val reverse = transitions.map { it.second.toPattern() to it.first }
         val molecules = hashMapOf(molecule to 0)
         val queue = LinkedList(listOf(molecule))

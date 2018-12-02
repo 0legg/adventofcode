@@ -15,11 +15,11 @@ class Day18 : DayOf2016(18) {
             "\\.\\.\\^".toRegex()
     )
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return solve(data, 40).toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return solve(data, 400000).toString()
     }
 

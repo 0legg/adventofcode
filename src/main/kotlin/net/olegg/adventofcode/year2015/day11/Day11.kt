@@ -28,11 +28,11 @@ class Day11 : DayOf2015(11) {
                 .first()
     }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return password(data)
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return password(password(data))
     }
 }

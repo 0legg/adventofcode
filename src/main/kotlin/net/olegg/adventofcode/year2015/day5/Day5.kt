@@ -8,7 +8,7 @@ import net.olegg.adventofcode.year2015.DayOf2015
  */
 class Day5 : DayOf2015(5) {
     val strings = data.lines()
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return strings
                 .filter { it.count { it in "aeiou" } >= 3 }
                 .filterNot { it.contains("ab|cd|pq|xy".toRegex()) }
@@ -16,7 +16,7 @@ class Day5 : DayOf2015(5) {
                 .size.toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return strings
                 .filter { it.contains("([a-z]).\\1".toRegex()) }
                 .filter { it.contains("([a-z]{2}).*\\1".toRegex()) }

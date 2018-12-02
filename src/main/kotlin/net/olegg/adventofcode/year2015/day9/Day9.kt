@@ -20,7 +20,7 @@ class Day9 : DayOf2015(9) {
     }.toMap()
     val cities = edges.keys.flatMap { listOf(it.first, it.second) }.distinct()
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return cities.permutations()
                 .map {
                     it
@@ -31,7 +31,7 @@ class Day9 : DayOf2015(9) {
                 }.minBy { it }.toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return cities.permutations()
                 .map {
                     it

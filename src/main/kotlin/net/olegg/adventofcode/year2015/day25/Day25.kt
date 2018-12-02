@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2015.DayOf2015
  * @see <a href="http://adventofcode.com/2015/day/25">Year 2015, Day 25</a>
  */
 class Day25 : DayOf2015(25) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val matcher = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b".toPattern().matcher(data)
         if (matcher.find()) {
             val row = matcher.group(1).toInt()

@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/2">Year 2017, Day 2</a>
  */
 class Day2 : DayOf2017(2) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data.lines()
                 .map { it.split("\\s".toRegex()).map { it.toInt() } }
                 .map { (it.max() ?: 0) - (it.min() ?: 0) }
@@ -15,7 +15,7 @@ class Day2 : DayOf2017(2) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return data.lines()
                 .map { it.split("\\s".toRegex()).map { it.toInt() } }
                 .map { list -> list.flatMap { first -> list.filter { first % it == 0 }.filter { it != first }.map { first to it } } }

@@ -41,7 +41,7 @@ class Day21 : DayOf2015(21) {
     val builds = weapons.flatMap { weapon -> armor.map { Triple(weapon.first + it.first, weapon.second + it.second, weapon.third + it.third) } }
             .flatMap { set -> ringBuilds.map { Triple(set.first + it.first, set.second + it.second, set.third + it.third) } }.sortedBy { it.first }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return builds.first {
             val my = (it.second - boss[2]).coerceAtLeast(1)
             val his = (boss[1] - it.third).coerceAtLeast(1)
@@ -49,7 +49,7 @@ class Day21 : DayOf2015(21) {
         }.first.toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return builds.reversed().first {
             val my = (it.second - boss[2]).coerceAtLeast(1)
             val his = (boss[1] - it.third).coerceAtLeast(1)

@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/22">Year 2017, Day 22</a>
  */
 class Day22 : DayOf2017(22) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val vectors = listOf(
                 -1 to 0,
                 0 to 1,
@@ -35,7 +35,7 @@ class Day22 : DayOf2017(22) {
         }.third.toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val vectors = listOf(
                 -1 to 0,
                 0 to 1,

@@ -16,12 +16,12 @@ class Day21 : DayOf2016(21) {
     val rp = "reverse positions (\\d+) through (\\d+)".toRegex()
     val mp = "move position (\\d+) to position (\\d+)".toRegex()
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val ops = data.lines().filter { it.isNotBlank() }
         return scramble("abcdefgh", ops)
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val ops = data.lines().filter { it.isNotBlank() }
         return unscramble("fbgdceah", ops)
     }

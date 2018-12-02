@@ -20,14 +20,14 @@ class Day13 : DayOf2015(13) {
     }.toMap()
     val names = edges.keys.flatMap { listOf(it.first, it.second) }.distinct()
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return names.permutations().map {
             it.scan(Pair("", it.last())) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 } +
                     it.reversed().scan(Pair("", it.first())) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 }
         }.max().toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return names.permutations().map {
             it.scan(Pair("", "")) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 } +
                     it.reversed().scan(Pair("", "")) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 }

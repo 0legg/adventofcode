@@ -20,11 +20,11 @@ class Day3 : DayOf2015(3) {
         return setOf(Vector()) + moves.scan(Vector()) { pos, move -> pos + move }
     }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return visit(moves).size.toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return (visit(moves.filterIndexed { i, _ -> i % 2 == 0 }) + visit(moves.filterIndexed { i, _ -> i % 2 == 1 })).size.toString()
     }
 }
