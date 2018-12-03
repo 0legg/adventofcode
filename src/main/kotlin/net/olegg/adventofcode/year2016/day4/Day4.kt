@@ -9,7 +9,7 @@ import kotlin.comparisons.compareBy
  */
 class Day4 : DayOf2016(4) {
     val ROOM_PATTERN = "^(.+)-(\\d+)\\[(.+)\\]$".toPattern()
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val rooms = data.lines().map {
             ROOM_PATTERN.matcher(it).let {
                 it.find()
@@ -26,10 +26,10 @@ class Day4 : DayOf2016(4) {
                     .take(5)
                     .map { it.first }
                     .joinToString(separator = "")
-        }.sumBy { it.second }.toString()
+        }.sumBy { it.second }
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val rooms = data.lines().map {
             ROOM_PATTERN.matcher(it).let {
                 it.find()

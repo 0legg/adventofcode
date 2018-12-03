@@ -8,7 +8,7 @@ import kotlin.math.abs
  * @see <a href="http://adventofcode.com/2017/day/11">Year 2017, Day 11</a>
  */
 class Day11 : DayOf2017(11) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data.trimIndent()
                 .split(",")
                 .fold(0 to 0) { acc, value ->
@@ -25,10 +25,9 @@ class Day11 : DayOf2017(11) {
                 .let {
                     listOf(abs(it.first), abs(it.second), abs(it.first - it.second)).max()
                 }
-                .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return data.trimIndent()
                 .split(",")
                 .fold(Triple(0, 0, 0)) { acc, value ->
@@ -47,7 +46,6 @@ class Day11 : DayOf2017(11) {
                     return@fold Triple(next.first, next.second, dist ?: 0)
                 }
                 .third
-                .toString()
     }
 }
 

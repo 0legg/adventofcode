@@ -10,7 +10,7 @@ import kotlin.math.max
  * @see <a href="http://adventofcode.com/2017/day/24">Year 2017, Day 24</a>
  */
 class Day24 : DayOf2017(24) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val ports = data.trim().lines()
                 .map { it.split("/") }
                 .mapIndexed { index, value -> Triple((value.min()?.toInt() ?: 0), (value.max()?.toInt() ?: 0), index) }
@@ -45,10 +45,10 @@ class Day24 : DayOf2017(24) {
                     }
         }
 
-        return best.toString()
+        return best
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val ports = data.trim().lines()
                 .map { it.split("/") }
                 .mapIndexed { index, value -> Triple((value.min()?.toInt() ?: 0), (value.max()?.toInt() ?: 0), index) }
@@ -83,7 +83,7 @@ class Day24 : DayOf2017(24) {
                     }
         }
 
-        return best.second.toString()
+        return best.second
     }
 }
 

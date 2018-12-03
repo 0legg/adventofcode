@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/7">Year 2017, Day 7</a>
  */
 class Day7 : DayOf2017(7) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data.lines()
                 .map { it.split("\\s".toRegex()).map { it.replace(",", "") } }
                 .fold(emptySet<String>() to emptySet<String>()) { acc, list ->
@@ -20,7 +20,7 @@ class Day7 : DayOf2017(7) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val disks = data.lines()
                 .map { it.trim() }
                 .filter { it.isNotBlank() }
@@ -53,7 +53,7 @@ class Day7 : DayOf2017(7) {
             }
         } while (odd.size != 1)
 
-        return result.toString()
+        return result
     }
 
     private fun getWeights(map: Map<String, Pair<Int, List<String>>>, root: String): Map<String, Int> {

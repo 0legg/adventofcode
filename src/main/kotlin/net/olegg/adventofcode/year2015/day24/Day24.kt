@@ -8,7 +8,7 @@ import net.olegg.adventofcode.year2015.DayOf2015
  */
 class Day24 : DayOf2015(24) {
     val weights = data.lines().map { it.toLong() }
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val sum = weights.sum() / 3
         return subsets(sum, weights)
                 .groupBy { it.size }
@@ -16,10 +16,9 @@ class Day24 : DayOf2015(24) {
                 ?.value
                 ?.map { it.fold(1L, Long::times) }
                 ?.min()
-                .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val sum = weights.sum() / 4
         return subsets(sum, weights)
                 .groupBy { it.size }
@@ -27,7 +26,6 @@ class Day24 : DayOf2015(24) {
                 ?.value
                 ?.map { it.fold(1L, Long::times) }
                 ?.min()
-                .toString()
     }
 }
 

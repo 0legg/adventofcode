@@ -24,11 +24,11 @@ class Day16 : DayOf2015(16) {
             "perfumes" to 1
     )
 
-    override fun first(data: String): String {
-        return sues.filter { it.second.all { it.value == footprint[it.key] } }.map { it.first }.first().toString()
+    override fun first(data: String): Any? {
+        return sues.filter { it.second.all { it.value == footprint[it.key] } }.map { it.first }.first()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return sues.filter {
             it.second.all {
                 when (it.key) {
@@ -37,7 +37,7 @@ class Day16 : DayOf2015(16) {
                     else -> it.value == footprint[it.key]
                 }
             }
-        }.map { it.first }.first().toString()
+        }.map { it.first }.first()
     }
 }
 

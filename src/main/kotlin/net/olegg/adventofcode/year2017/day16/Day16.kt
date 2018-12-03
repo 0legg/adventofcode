@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/16">Year 2017, Day 16</a>
  */
 class Day16 : DayOf2017(16) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data.trimIndent()
                 .split(",")
                 .fold(StringBuilder("abcdefghijklmnop")) { acc, op ->
@@ -38,7 +38,7 @@ class Day16 : DayOf2017(16) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val dance = data.trimIndent().split(",")
 
         var curr = "abcdefghijklmnop" to 0
