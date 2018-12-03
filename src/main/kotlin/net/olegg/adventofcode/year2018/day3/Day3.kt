@@ -28,6 +28,21 @@ class Day3 : DayOf2018(3) {
         return field.sumBy { row -> row.count { it > 1 } }
     }
 
+    override fun second(data: String): Any? {
+        val requests = data
+                .trim()
+                .lines()
+                .mapNotNull { Request.fromString(it) }
+
+        requests.forEach { request ->
+            if (requests.none { it.intersects(request) }) {
+                return request.id
+            }
+        }
+
+        return null
+    }
+
     data class Request(
             val id: Int,
             val left: Int,
@@ -54,6 +69,15 @@ class Day3 : DayOf2018(3) {
                     null
                 }
             }
+        }
+
+        fun intersects(other: Request): Boolean {
+            if (id == other.id) return false
+            if (left + width <= other.left) return false
+            if (other.left + other.width <= left) return false
+            if (top + height <= other.top) return false
+            if (other.top + other.height <= top) return false
+            return true
         }
     }
 }
