@@ -27,12 +27,12 @@ class Day18 : DayOf2015(18) {
     }
 
     override fun first(data: String): Any? {
-        return (1..size).fold(field) { field, _ -> move(field) }.size.toString()
+        return (1..size).fold(field) { field, _ -> move(field) }.size
     }
 
     override fun second(data: String): Any? {
         val corners = setOf(Pair(0, 0), Pair(0, size - 1), Pair(size - 1, 0), Pair(size - 1, size - 1))
-        return (1..size).fold(field + corners) { field, _ -> move(field) + corners }.size.toString()
+        return (1..size).fold(field + corners) { field, _ -> move(field) + corners }.size
     }
 }
 

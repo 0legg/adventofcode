@@ -11,12 +11,12 @@ class Day9 : DayOf2016(9) {
 
     override fun first(data: String): Any? {
         val input = data.replace("\\s".toRegex(), "")
-        return measure(input, 0, input.length, false).toString()
+        return measure(input, 0, input.length, false)
     }
 
     override fun second(data: String): Any? {
         val input = data.replace("\\s".toRegex(), "")
-        return measure(input, 0, input.length, true).toString()
+        return measure(input, 0, input.length, true)
     }
 
     fun measure(data: String, start: Int, end: Int, unfold: Boolean): Long {

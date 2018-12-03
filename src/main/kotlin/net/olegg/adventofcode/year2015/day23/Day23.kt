@@ -84,11 +84,11 @@ class Day23 : DayOf2015(23) {
     }
 
     override fun first(data: String): Any? {
-        return emulate(Triple(0, 0, 0)).second.toString()
+        return emulate(Triple(0, 0, 0)).second
     }
 
     override fun second(data: String): Any? {
-        return emulate(Triple(1, 0, 0)).second.toString()
+        return emulate(Triple(1, 0, 0)).second
     }
 }
 

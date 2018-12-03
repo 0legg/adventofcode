@@ -25,7 +25,6 @@ class Day11 : DayOf2017(11) {
                 .let {
                     listOf(abs(it.first), abs(it.second), abs(it.first - it.second)).max()
                 }
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -47,7 +46,6 @@ class Day11 : DayOf2017(11) {
                     return@fold Triple(next.first, next.second, dist ?: 0)
                 }
                 .third
-                .toString()
     }
 }
 

@@ -14,7 +14,6 @@ class Day1 : DayOf2018(1) {
                 .map { it.removePrefix("+") }
                 .map { it.toInt() }
                 .sum()
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -27,13 +26,13 @@ class Day1 : DayOf2018(1) {
         (0..1_000_000_000).fold(0L to mutableSetOf(0L)) { (prev, history), i ->
             val next = prev + shifts[i % shifts.size]
             if (next in history) {
-                return "$next"
+                return next
             }
             history.add(next)
             return@fold (next to history)
         }
 
-        return ""
+        return null
     }
 }
 

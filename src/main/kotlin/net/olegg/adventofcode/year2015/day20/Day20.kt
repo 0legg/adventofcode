@@ -12,7 +12,7 @@ class Day20 : DayOf2015(20) {
     override fun first(data: String): Any? {
         return generateSequence(1) { it + 1 }.first { house ->
             (1..Math.sqrt(house.toDouble()).toInt()).sumBy { if (house % it == 0) (it + house / it) * 10 else 0 } >= max
-        }.toString()
+        }
     }
 
     override fun second(data: String): Any? {
@@ -20,7 +20,7 @@ class Day20 : DayOf2015(20) {
             (1..Math.sqrt(house.toDouble()).toInt()).sumBy {
                 if (house % it == 0) 11 * listOf(it, house / it).filter { house <= it * 50 }.sum() else 0
             } >= max
-        }.toString()
+        }
     }
 }
 

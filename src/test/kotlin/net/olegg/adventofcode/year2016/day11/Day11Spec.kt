@@ -16,7 +16,7 @@ object Day11Spec : Spek({
                        |The fourth floor contains nothing relevant.""".trimMargin())
 
             it("should return 11") {
-                assertEquals("11", result, "4 items")
+                assertEquals(11, result, "4 items")
             }
         }
     }

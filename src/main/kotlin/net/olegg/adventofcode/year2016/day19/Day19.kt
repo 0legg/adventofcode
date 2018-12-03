@@ -20,7 +20,7 @@ class Day19 : DayOf2016(19) {
             position = maxOf(elves.nextSetBit(next + 1), elves.nextSetBit(0))
         }
 
-        return (position + 1).toString()
+        return (position + 1)
     }
 
     override fun second(data: String): Any? {
@@ -43,7 +43,7 @@ class Day19 : DayOf2016(19) {
             target = elves.listIterator()
         }
 
-        return (target.next()).toString()
+        return target.next()
     }
 }
 

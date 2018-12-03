@@ -11,11 +11,11 @@ class Day1 : DayOf2015(1) {
     val floors = data.map { 1 - 2 * (it.minus('(')) }
 
     override fun first(data: String): Any? {
-        return floors.sum().toString()
+        return floors.sum()
     }
 
     override fun second(data: String): Any? {
-        return (floors.scan(0) { acc, value -> acc + value }.indexOfFirst { it < 0 } + 1).toString()
+        return floors.scan(0) { acc, value -> acc + value }.indexOfFirst { it < 0 } + 1
     }
 }
 

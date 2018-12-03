@@ -53,7 +53,7 @@ class Day7 : DayOf2017(7) {
             }
         } while (odd.size != 1)
 
-        return result.toString()
+        return result
     }
 
     private fun getWeights(map: Map<String, Pair<Int, List<String>>>, root: String): Map<String, Int> {

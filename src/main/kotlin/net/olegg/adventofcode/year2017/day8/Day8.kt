@@ -30,9 +30,7 @@ class Day8 : DayOf2017(8) {
                     registers[list[0]] = if (apply) oldValue + shift else oldValue
                 }
 
-        return registers.values
-                .max()
-                .toString()
+        return registers.values.max()
     }
 
     override fun second(data: String): Any? {
@@ -61,7 +59,6 @@ class Day8 : DayOf2017(8) {
                     return@map newValue
                 }
                 .max()
-                .toString()
     }
 }
 

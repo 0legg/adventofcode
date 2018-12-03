@@ -14,7 +14,6 @@ class Day1 : DayOf2017(1) {
                 .filter { it[0] == it[1] }
                 .map { Character.digit(it[0], 10) }
                 .sum()
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -25,7 +24,6 @@ class Day1 : DayOf2017(1) {
                 .filter { it.first == it.second }
                 .map { Character.digit(it.first, 10) }
                 .sum()
-                .toString()
     }
 }
 

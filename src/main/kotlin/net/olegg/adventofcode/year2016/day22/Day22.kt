@@ -19,7 +19,7 @@ class Day22 : DayOf2016(22) {
                     .map { b -> a to b }
         }
 
-        return pairs.size.toString()
+        return pairs.size
     }
 
     override fun second(data: String): Any? {

@@ -22,7 +22,6 @@ class Day7 : DayOf2016(7) {
                 .filterNot { it.second.any { substr -> abba.any { substr.contains(it) } } }
                 .filter { it.first.any { substr -> abba.any { substr.contains(it) } } }
                 .count()
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -31,7 +30,6 @@ class Day7 : DayOf2016(7) {
                     split.first.any { it.contains(ab.first) } && split.second.any { it.contains(ab.second) }
                 } }
                 .count()
-                .toString()
     }
 }
 

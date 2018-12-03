@@ -13,16 +13,16 @@ class Day20 : DayOf2016(20) {
     override fun first(data: String): Any? {
         val banned = createBlacklist(data)
 
-        return (if (banned.first().start > 0) 0 else banned.first().endInclusive + 1).toString()
+        return if (banned.first().start > 0) 0 else banned.first().endInclusive + 1
     }
 
     override fun second(data: String): Any? {
         val banned = createBlacklist(data)
 
-        return (banned.fold((-1L..-1L) to 0L) { acc, range ->
+        return banned.fold((-1L..-1L) to 0L) { acc, range ->
                     range to acc.second + (range.start - acc.first.endInclusive - 1)
                 }.second +
-                ((1L shl 32) - banned.last().endInclusive - 1)).toString()
+                ((1L shl 32) - banned.last().endInclusive - 1)
     }
 
     fun createBlacklist(data: String): TreeSet<LongRange> {

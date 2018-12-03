@@ -10,7 +10,7 @@ class Day3 : DayOf2016(3) {
     override fun first(data: String): Any? {
         return data.lines().map {
             it.trim().split("\\s+".toRegex()).map { it.toInt() }.sorted()
-        }.count { it[0] + it[1] > it[2] }.toString()
+        }.count { it[0] + it[1] > it[2] }
     }
 
     override fun second(data: String): Any? {
@@ -29,7 +29,7 @@ class Day3 : DayOf2016(3) {
                 .flatten()
                 .map { it.sorted() }
 
-        return columns.count { it[0] + it[1] > it[2] }.toString()
+        return columns.count { it[0] + it[1] > it[2] }
     }
 }
 

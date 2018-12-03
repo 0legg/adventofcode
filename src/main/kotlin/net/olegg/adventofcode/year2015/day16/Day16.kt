@@ -25,7 +25,7 @@ class Day16 : DayOf2015(16) {
     )
 
     override fun first(data: String): Any? {
-        return sues.filter { it.second.all { it.value == footprint[it.key] } }.map { it.first }.first().toString()
+        return sues.filter { it.second.all { it.value == footprint[it.key] } }.map { it.first }.first()
     }
 
     override fun second(data: String): Any? {
@@ -37,7 +37,7 @@ class Day16 : DayOf2015(16) {
                     else -> it.value == footprint[it.key]
                 }
             }
-        }.map { it.first }.first().toString()
+        }.map { it.first }.first()
     }
 }
 

@@ -18,7 +18,6 @@ class Day15 : DayOf2017(15) {
         return genA.zip(genB)
                 .take(40_000_000)
                 .count { (it.first and 65535) == (it.second and 65535) }
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -34,7 +33,6 @@ class Day15 : DayOf2017(15) {
         return genA.zip(genB)
                 .take(5_000_000)
                 .count { (it.first and 65535) == (it.second and 65535) }
-                .toString()
     }
 }
 

@@ -29,7 +29,7 @@ class Day6 : DayOf2015(6) {
                 }
             }
             acc
-        }.sumBy { it.count { it } }.toString()
+        }.sumBy { it.count { it } }
     }
 
     override fun second(data: String): Any? {
@@ -46,7 +46,7 @@ class Day6 : DayOf2015(6) {
                 }
             }
             acc
-        }.sumBy { it.sum() }.toString()
+        }.sumBy { it.sum() }
     }
 }
 

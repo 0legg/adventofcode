@@ -16,7 +16,7 @@ class Day11 : DayOf2016(11) {
             generatorPattern.findAll(it).map { it.value[0] }.toSet() to microchipPattern.findAll(it).map { it.value[0] }.toSet()
         }
 
-        return countSteps(initial).toString()
+        return countSteps(initial)
     }
 
     override fun second(data: String): Any? {
@@ -30,7 +30,7 @@ class Day11 : DayOf2016(11) {
                     }
                 }
 
-        return countSteps(initial).toString()
+        return countSteps(initial)
     }
 
     fun countSteps(input: List<Pair<Set<Char>, Set<Char>>>): Int {

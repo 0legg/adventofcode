@@ -21,11 +21,11 @@ class Day3 : DayOf2015(3) {
     }
 
     override fun first(data: String): Any? {
-        return visit(moves).size.toString()
+        return visit(moves).size
     }
 
     override fun second(data: String): Any? {
-        return (visit(moves.filterIndexed { i, _ -> i % 2 == 0 }) + visit(moves.filterIndexed { i, _ -> i % 2 == 1 })).size.toString()
+        return (visit(moves.filterIndexed { i, _ -> i % 2 == 0 }) + visit(moves.filterIndexed { i, _ -> i % 2 == 1 })).size
     }
 }
 

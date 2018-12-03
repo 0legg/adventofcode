@@ -20,9 +20,9 @@ class Day25 : DayOf2015(25) {
                 )
             }.first {
                 it.first == row && it.second == column
-            }.third.toString()
+            }.third
         }
-        return ""
+        return null
     }
 }
 

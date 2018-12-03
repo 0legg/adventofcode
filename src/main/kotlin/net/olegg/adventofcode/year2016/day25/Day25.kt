@@ -21,7 +21,6 @@ class Day25 : DayOf2016(25) {
                 }
                 .first()
                 .first
-                .toString()
     }
 }
 

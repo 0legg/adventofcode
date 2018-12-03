@@ -12,7 +12,6 @@ class Day2 : DayOf2017(2) {
                 .map { it.split("\\s".toRegex()).map { it.toInt() } }
                 .map { (it.max() ?: 0) - (it.min() ?: 0) }
                 .sum()
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -22,7 +21,6 @@ class Day2 : DayOf2017(2) {
                 .map { it.first() }
                 .map { it.first / it.second }
                 .sum()
-                .toString()
     }
 }
 

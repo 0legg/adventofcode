@@ -45,7 +45,7 @@ class Day24 : DayOf2017(24) {
                     }
         }
 
-        return best.toString()
+        return best
     }
 
     override fun second(data: String): Any? {
@@ -83,7 +83,7 @@ class Day24 : DayOf2017(24) {
                     }
         }
 
-        return best.second.toString()
+        return best.second
     }
 }
 

@@ -13,14 +13,14 @@ class Day5 : DayOf2015(5) {
                 .filter { it.count { it in "aeiou" } >= 3 }
                 .filterNot { it.contains("ab|cd|pq|xy".toRegex()) }
                 .filter { it.contains("([a-z])\\1".toRegex()) }
-                .size.toString()
+                .size
     }
 
     override fun second(data: String): Any? {
         return strings
                 .filter { it.contains("([a-z]).\\1".toRegex()) }
                 .filter { it.contains("([a-z]{2}).*\\1".toRegex()) }
-                .size.toString()
+                .size
     }
 }
 

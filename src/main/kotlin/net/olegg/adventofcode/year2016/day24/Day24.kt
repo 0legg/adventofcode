@@ -53,7 +53,6 @@ class Day24 : DayOf2016(24) {
                     acc + (distances[points[0]][points[1]] ?: 0)
                 } }
                 .min()
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -92,7 +91,6 @@ class Day24 : DayOf2016(24) {
                     acc + (distances[points[0]][points[1]] ?: 0)
                 } }
                 .min()
-                .toString()
     }
 }
 

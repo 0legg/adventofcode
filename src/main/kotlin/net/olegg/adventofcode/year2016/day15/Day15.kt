@@ -14,7 +14,7 @@ class Day15 : DayOf2016(15) {
             regex.find(it)?.groupValues?.let { Triple(it[1].toInt(), it[2].toInt(), it[4].toInt()) }
         }.filterNotNull()
 
-        return solve(discs).toString()
+        return solve(discs)
     }
 
     override fun second(data: String): Any? {
@@ -22,7 +22,7 @@ class Day15 : DayOf2016(15) {
             regex.find(it)?.groupValues?.let { Triple(it[1].toInt(), it[2].toInt(), it[4].toInt()) }
         }.filterNotNull()
 
-        return solve(discs + listOf(Triple(discs.size + 1, 11, 0))).toString()
+        return solve(discs + listOf(Triple(discs.size + 1, 11, 0)))
     }
 
     fun solve(discs: List<Triple<Int, Int, Int>>): Int {

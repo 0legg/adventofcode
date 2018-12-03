@@ -23,7 +23,7 @@ class Day15 : DayOf2015(15) {
         return splitRange(items.size, spoons)
                 .map { split -> itemsValues.map { it.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0) } }
                 .map { it.fold(1) { acc, value -> acc * value } }
-                .max().toString()
+                .max()
     }
 
     override fun second(data: String): Any? {
@@ -33,7 +33,7 @@ class Day15 : DayOf2015(15) {
                 .filter { it.mapIndexed { index, value -> calories[index] * value }.sum() == 500 }
                 .map { split -> itemsValues.map { it.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0) } }
                 .map { it.fold(1) { acc, value -> acc * value } }
-                .max().toString()
+                .max()
     }
 }
 

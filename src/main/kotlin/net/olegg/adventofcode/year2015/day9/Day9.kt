@@ -28,7 +28,7 @@ class Day9 : DayOf2015(9) {
                             .drop(1)
                             .map { edges[it] ?: 0 }
                             .sumBy { it }
-                }.minBy { it }.toString()
+                }.minBy { it }
     }
 
     override fun second(data: String): Any? {
@@ -39,7 +39,7 @@ class Day9 : DayOf2015(9) {
                             .drop(1)
                             .map { edges[it] ?: 0 }
                             .sumBy { it }
-                }.maxBy { it }.toString()
+                }.maxBy { it }
     }
 }
 

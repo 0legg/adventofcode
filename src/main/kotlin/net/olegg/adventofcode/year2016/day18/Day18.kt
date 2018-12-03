@@ -16,11 +16,11 @@ class Day18 : DayOf2016(18) {
     )
 
     override fun first(data: String): Any? {
-        return solve(data, 40).toString()
+        return solve(data, 40)
     }
 
     override fun second(data: String): Any? {
-        return solve(data, 400000).toString()
+        return solve(data, 400000)
     }
 
     fun solve(data: String, rows: Int): Int {

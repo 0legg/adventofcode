@@ -22,7 +22,7 @@ class Day19 : DayOf2015(19) {
     }
 
     override fun first(data: String): Any? {
-        return transitions.map { it.first.toPattern() to it.second }.flatMap { applyTransitions(molecule, it) }.toSet().size.toString()
+        return transitions.map { it.first.toPattern() to it.second }.flatMap { applyTransitions(molecule, it) }.toSet().size
     }
 
     override fun second(data: String): Any? {
@@ -36,7 +36,7 @@ class Day19 : DayOf2015(19) {
             next.filterNot { molecules.containsKey(it) }.forEach { queue.addFirst(it) }
             molecules += next.map { it to (molecules.getOrDefault(it, Int.MAX_VALUE)).coerceAtMost(size + 1) }.toMap()
         }
-        return molecules.getOrDefault("e", Int.MAX_VALUE).toString()
+        return molecules.getOrDefault("e", Int.MAX_VALUE)
     }
 }
 

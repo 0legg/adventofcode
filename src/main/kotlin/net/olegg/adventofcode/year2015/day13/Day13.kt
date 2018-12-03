@@ -24,14 +24,14 @@ class Day13 : DayOf2015(13) {
         return names.permutations().map {
             it.scan(Pair("", it.last())) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 } +
                     it.reversed().scan(Pair("", it.first())) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 }
-        }.max().toString()
+        }.max()
     }
 
     override fun second(data: String): Any? {
         return names.permutations().map {
             it.scan(Pair("", "")) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 } +
                     it.reversed().scan(Pair("", "")) { acc, value -> Pair(acc.second, value) }.sumBy { edges[it] ?: 0 }
-        }.max().toString()
+        }.max()
     }
 }
 

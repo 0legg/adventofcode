@@ -17,7 +17,7 @@ class Day17 : DayOf2017(17) {
             return@fold insert + 1
         }
 
-        return cycle[position % cycle.size].toString()
+        return cycle[position % cycle.size]
     }
 
     override fun second(data: String): Any? {
@@ -32,7 +32,7 @@ class Day17 : DayOf2017(17) {
             return@fold insert + 1
         }
 
-        return next.toString()
+        return next
     }
 }
 

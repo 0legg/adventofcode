@@ -28,7 +28,7 @@ class Day23 : DayOf2017(23) {
             position += 1
         }
 
-        return muls.toString()
+        return muls
     }
 
     override fun second(data: String): Any? {
@@ -50,7 +50,7 @@ class Day23 : DayOf2017(23) {
             position += 1
         }
 
-        return extract(regs, "h").toString()
+        return extract(regs, "h")
     }
 
     private fun extract(map: Map<String, BigInteger>, field: String): BigInteger {

@@ -20,16 +20,16 @@ class Day14 : DayOf2015(14) {
     }
 
     override fun first(data: String): Any? {
-        return (speeds.map {
+        return speeds.map {
             ((time / it.third) * it.second +
                     (time % it.third).coerceAtMost(it.second)) * it.first
-        }.max() ?: 0).toString()
+        }.max()
     }
 
     override fun second(data: String): Any? {
         val distances = speeds.map { speed -> (0..time - 1).scan(0) { acc, value -> if (value % speed.third < speed.second) acc + speed.first else acc } }
         val timestamps = (0..time - 1).map { second -> distances.map { it[second] } }.map { list -> list.map { if (it == list.max()) 1 else 0 } }
-        return speeds.indices.map { speed -> timestamps.map { it[speed] } }.map { it.sum() }.max().toString()
+        return speeds.indices.map { speed -> timestamps.map { it[speed] } }.map { it.sum() }.max()
     }
 }
 

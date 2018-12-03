@@ -16,7 +16,6 @@ class Day24 : DayOf2015(24) {
                 ?.value
                 ?.map { it.fold(1L, Long::times) }
                 ?.min()
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -27,7 +26,6 @@ class Day24 : DayOf2015(24) {
                 ?.value
                 ?.map { it.fold(1L, Long::times) }
                 ?.min()
-                .toString()
     }
 }
 

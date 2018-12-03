@@ -45,7 +45,7 @@ class Day25 : DayOf2017(25) {
             return@fold action.state to acc.second + action.shift
         }
 
-        return tape.values.sum().toString()
+        return tape.values.sum()
     }
 
     data class State(

@@ -15,7 +15,6 @@ class Day8 : DayOf2016(8) {
     override fun first(data: String): Any? {
         return applyOperations(50, 6, data.lines())
                 .sumBy { it.count { it } }
-                .toString()
     }
 
     override fun second(data: String): Any? {

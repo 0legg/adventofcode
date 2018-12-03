@@ -15,7 +15,7 @@ class Day3 : DayOf2017(3) {
         val relative = position - (square - 2) * (square - 2)
         val diff = (relative - 1) % (square - 1)
 
-        return ((square / 2) + abs(diff - (square / 2 - 1))).toString()
+        return (square / 2) + abs(diff - (square / 2 - 1))
     }
 
     override fun second(data: String): Any? {
@@ -54,7 +54,7 @@ class Day3 : DayOf2017(3) {
             visited += current
         }
 
-        return current.second.toString()
+        return current.second
     }
 }
 

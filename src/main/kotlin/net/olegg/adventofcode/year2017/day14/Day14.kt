@@ -29,7 +29,6 @@ class Day14 : DayOf2017(14) {
                             .sum()
                 }
                 .sum()
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -85,7 +84,7 @@ class Day14 : DayOf2017(14) {
             }
         }
 
-        return regions.toString()
+        return regions
     }
 }
 

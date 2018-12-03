@@ -9,7 +9,7 @@ package net.olegg.adventofcode.utils
  */
 inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): List<R> {
     var accumulator = initial
-    var list = mutableListOf<R>()
+    var list = listOf<R>()
     for (element in this) {
         accumulator = operation(accumulator, element)
         list += accumulator

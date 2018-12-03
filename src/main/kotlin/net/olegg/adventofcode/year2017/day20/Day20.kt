@@ -36,7 +36,6 @@ class Day20 : DayOf2017(20) {
                 .mapIndexed { index, triple -> index to triple }
                 .minBy { abs(it.second.first.first) + abs(it.second.first.second) + abs(it.second.first.third) }
                 ?.first
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -71,7 +70,6 @@ class Day20 : DayOf2017(20) {
                     .flatten()
         }
                 .count()
-                .toString()
     }
 }
 

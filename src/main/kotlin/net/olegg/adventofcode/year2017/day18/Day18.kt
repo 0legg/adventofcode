@@ -25,13 +25,13 @@ class Day18 : DayOf2017(18) {
                 "add" -> regs[op[1]] = extract(regs, op[1]) + extract(regs, op[2])
                 "mul" -> regs[op[1]] = extract(regs, op[1]) * extract(regs, op[2])
                 "mod" -> regs[op[1]] = (extract(regs, op[1]) % extract(regs, op[2]) + extract(regs, op[2])) % extract(regs, op[2])
-                "rcv" -> if (extract(regs, op[1]) != 0L) return sound.toString()
+                "rcv" -> if (extract(regs, op[1]) != 0L) return sound
                 "jgz" -> if (extract(regs, op[1]) > 0L) position += (extract(regs, op[2]) - 1).toInt()
             }
             position += 1
         }
 
-        return "-1"
+        return null
     }
 
     override fun second(data: String): Any? {
@@ -78,7 +78,7 @@ class Day18 : DayOf2017(18) {
             }
         }
 
-        return send[1].toString()
+        return send[1]
     }
 
     private fun extract(map: Map<String, Long>, field: String): Long {

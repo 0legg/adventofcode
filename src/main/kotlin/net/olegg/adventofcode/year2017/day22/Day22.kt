@@ -32,7 +32,7 @@ class Day22 : DayOf2017(22) {
                     (acc.first.first + vectors[dir].first to acc.first.second + vectors[dir].second),
                     dir,
                     if (curr) acc.third else acc.third + 1)
-        }.third.toString()
+        }.third
     }
 
     override fun second(data: String): Any? {
@@ -66,7 +66,7 @@ class Day22 : DayOf2017(22) {
                     (acc.first.first + vectors[dir].first to acc.first.second + vectors[dir].second),
                     dir,
                     if (curr == 1) acc.third + 1 else acc.third)
-        }.third.toString()
+        }.third
     }
 }
 

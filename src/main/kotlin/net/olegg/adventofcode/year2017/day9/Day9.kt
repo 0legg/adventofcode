@@ -27,7 +27,6 @@ class Day9 : DayOf2017(9) {
             }
         }
                 .first
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -46,7 +45,6 @@ class Day9 : DayOf2017(9) {
                     }
                 }
                 .first
-                .toString()
     }
 }
 

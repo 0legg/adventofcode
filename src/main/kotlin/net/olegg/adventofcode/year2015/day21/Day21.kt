@@ -46,7 +46,7 @@ class Day21 : DayOf2015(21) {
             val my = (it.second - boss[2]).coerceAtLeast(1)
             val his = (boss[1] - it.third).coerceAtLeast(1)
             (boss[0] + my - 1) / my <= (hp + his - 1) / his
-        }.first.toString()
+        }.first
     }
 
     override fun second(data: String): Any? {
@@ -54,7 +54,7 @@ class Day21 : DayOf2015(21) {
             val my = (it.second - boss[2]).coerceAtLeast(1)
             val his = (boss[1] - it.third).coerceAtLeast(1)
             (boss[0] + my - 1) / my > (hp + his - 1) / his
-        }.first.toString()
+        }.first
     }
 }
 

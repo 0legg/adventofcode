@@ -9,11 +9,11 @@ import net.olegg.adventofcode.year2017.DayOf2017
  */
 class Day21 : DayOf2017(21) {
     override fun first(data: String): Any? {
-        return countOn(data, 5).toString()
+        return countOn(data, 5)
     }
 
     override fun second(data: String): Any? {
-        return countOn(data, 18).toString()
+        return countOn(data, 18)
     }
 
     fun countOn(data: String, iterations: Int): Int {

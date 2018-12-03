@@ -17,7 +17,7 @@ class Day14 : DayOf2016(14) {
             "$data$n".md5()
         }.memoize()
 
-        return solve(64, hash).toString()
+        return solve(64, hash)
     }
 
     override fun second(data: String): Any? {
@@ -27,7 +27,7 @@ class Day14 : DayOf2016(14) {
             }
         }.memoize()
 
-        return solve(64, hash).toString()
+        return solve(64, hash)
     }
 
     fun solve(count: Int, hash: (Int) -> String): Int {

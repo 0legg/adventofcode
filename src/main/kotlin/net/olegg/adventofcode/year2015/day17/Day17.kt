@@ -13,13 +13,13 @@ class Day17 : DayOf2015(17) {
             acc.mapIndexed { index, value ->
                 if (index < container) value else value + acc[index - container]
             }
-        }.last().toString()
+        }.last()
     }
 
     override fun second(data: String): Any? {
         return (0..(1.shl(containers.size) - 1)).map { value ->
             containers.mapIndexed { index, container -> value.shr(index).and(1) * container }
-        }.filter { it.sum() == 150 }.groupBy { it.count { it != 0 } }.minBy { it.key }?.value?.size?.toString() ?: ""
+        }.filter { it.sum() == 150 }.groupBy { it.count { it != 0 } }.minBy { it.key }?.value?.size
     }
 }
 

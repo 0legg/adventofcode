@@ -30,8 +30,7 @@ class Day1 : DayOf2016(1) {
                             triple.second + MOVES[dir].second * command.second,
                             dir)
                 }
-                .let { "${abs(it.first) + abs(it.second)}" }
-                .toString()
+                .let { abs(it.first) + abs(it.second) }
     }
 
     override fun second(data: String): Any? {
@@ -46,7 +45,7 @@ class Day1 : DayOf2016(1) {
                     }
                     val hq = steps.firstOrNull { visited.contains(it) }
                     if (hq != null) {
-                        return "${abs(hq.first) + abs(hq.second)}"
+                        return abs(hq.first) + abs(hq.second)
                     } else {
                         visited.addAll(steps)
                     }
@@ -56,7 +55,7 @@ class Day1 : DayOf2016(1) {
                             dir)
                 }
 
-        return "0"
+        return null
     }
 }
 

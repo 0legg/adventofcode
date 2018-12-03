@@ -25,7 +25,7 @@ class Day12 : DayOf2017(12) {
             queue += toVisit
         }
 
-        return visited.size.toString()
+        return visited.size
     }
 
     override fun second(data: String): Any? {
@@ -52,7 +52,7 @@ class Day12 : DayOf2017(12) {
             visited.forEach { nodes.remove(it) }
         }
 
-        return components.toString()
+        return components
     }
 }
 

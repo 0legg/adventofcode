@@ -26,7 +26,7 @@ class Day4 : DayOf2016(4) {
                     .take(5)
                     .map { it.first }
                     .joinToString(separator = "")
-        }.sumBy { it.second }.toString()
+        }.sumBy { it.second }
     }
 
     override fun second(data: String): Any? {

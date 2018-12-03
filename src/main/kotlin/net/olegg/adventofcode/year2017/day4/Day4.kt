@@ -12,7 +12,6 @@ class Day4 : DayOf2017(4) {
                 .map { it.split("\\s".toRegex()) }
                 .filter { it.size == it.toSet().size }
                 .count()
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -21,7 +20,6 @@ class Day4 : DayOf2017(4) {
                 .map { it.map { String(it.toCharArray().sortedArray()) } }
                 .filter { it.size == it.toSet().size }
                 .count()
-                .toString()
     }
 }
 

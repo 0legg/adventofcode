@@ -30,7 +30,7 @@ class Day6 : DayOf2017(6) {
                         (if ((position + bonus >= curr.size) && (index in 0..(position + bonus) % curr.size)) 1 else 0)
             }
         }
-        return steps.toString()
+        return steps
     }
 
     override fun second(data: String): Any? {
@@ -56,7 +56,7 @@ class Day6 : DayOf2017(6) {
                         (if ((position + bonus >= curr.size) && (index in 0..(position + bonus) % curr.size)) 1 else 0)
             }
         }
-        return (steps - (seen[curr] ?: 0)).toString()
+        return steps - (seen[curr] ?: 0)
     }
 }
 

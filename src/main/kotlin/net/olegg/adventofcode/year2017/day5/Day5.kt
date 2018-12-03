@@ -22,7 +22,6 @@ class Day5 : DayOf2017(5) {
         }
                 .first { it.second !in values.indices }
                 .third
-                .toString()
     }
 
     override fun second(data: String): Any? {
@@ -39,7 +38,6 @@ class Day5 : DayOf2017(5) {
         }
                 .first { it.second !in values.indices }
                 .third
-                .toString()
     }
 }
 

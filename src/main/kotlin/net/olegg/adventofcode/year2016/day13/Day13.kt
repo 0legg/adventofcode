@@ -37,7 +37,7 @@ class Day13 : DayOf2016(13) {
             }
         } while (!known.contains(target))
 
-        return known[target].toString()
+        return known[target]
     }
 
     override fun second(data: String): Any? {
@@ -68,7 +68,7 @@ class Day13 : DayOf2016(13) {
             }
         } while (queue.first().third <= 50)
 
-        return known.filterValues { it <= 50 }.size.toString()
+        return known.filterValues { it <= 50 }.size
     }
 
     fun isOpen(x: Int, y: Int, fav: Int) =
