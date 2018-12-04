@@ -3,6 +3,7 @@ package net.olegg.adventofcode.year2018.day4
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.utils.scan
 import net.olegg.adventofcode.year2018.DayOf2018
+import java.lang.Exception
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -40,6 +41,38 @@ class Day4 : DayOf2018(4) {
         }
     }
 
+    override fun second(data: String): Any? {
+        val events = data
+                .trim()
+                .lines()
+                .mapNotNull { Event.fromString(it) }
+                .sortedBy { it.time }
+                .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
+                    if (event.id == -1) event.copy(id = prev.id) else event
+                }
+
+        val sleeps = events
+                .zipWithNext { prev, curr ->
+                    if (prev.type == Event.Type.SLEEP) Triple(prev.id, prev.time, curr.time) else null
+                }
+                .filterNotNull()
+                .groupBy { it.first }
+
+        val freqs = sleeps.mapValues { entry ->
+            val minutes = IntArray(60)
+            entry.value.forEach { (_, prev, curr) ->
+                (prev.minute until curr.minute).forEach { minutes[it] += 1}
+            }
+            return@mapValues minutes
+        }
+
+        return freqs
+                .maxBy { it.value.max() ?: 0 }
+                ?.let { sleeper ->
+                    sleeper.key * (sleeper.value.withIndex().maxBy { it.value }?.index ?: 0)
+                }
+    }
+
     data class Event(val id: Int, val time: LocalDateTime, val type: Type) {
         companion object {
             private val SHIFT_PATTERN = "\\[(.*)\\] Guard #(\\d+) begins shift".toPattern()
@@ -71,7 +104,6 @@ class Day4 : DayOf2018(4) {
 
             private fun parseTime(token: String): LocalDateTime {
                 val time = LocalDateTime.parse(token, FORMATTER)
-
                 return if (time.hour == 23) time.plusDays(1).truncatedTo(ChronoUnit.DAYS) else time
             }
         }
