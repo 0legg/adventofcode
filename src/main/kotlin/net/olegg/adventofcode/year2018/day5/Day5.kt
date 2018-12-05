@@ -18,6 +18,25 @@ class Day5 : DayOf2018(5) {
 
         return curr.length
     }
+
+    override fun second(data: String): Any? {
+        val bad = ('a'..'z').map { a -> "$a${a.toUpperCase()}" } +
+                ('A'..'Z').map { a -> "$a${a.toLowerCase()}" }
+
+        val source = data.trim()
+        val filtered = ('a'..'z').map { a -> source.replace("$a", "").replace("${a.toUpperCase()}", "") }
+
+        return filtered
+                .map { polymer ->
+                    var curr = polymer
+                    do {
+                        val prev = curr
+                        curr = bad.fold(curr) { acc, token -> acc.replace(token, "") }
+                    } while (prev != curr)
+                    return@map curr.length
+                }
+                .min()
+    }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day5::class)
