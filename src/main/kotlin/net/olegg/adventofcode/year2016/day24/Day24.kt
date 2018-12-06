@@ -17,7 +17,7 @@ class Day24 : DayOf2016(24) {
             -1 to 0
     )
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val map = data.lines().map { it.toCharArray().toTypedArray() }
 
         val locations = ('0'..'7').map { index ->
@@ -53,10 +53,9 @@ class Day24 : DayOf2016(24) {
                     acc + (distances[points[0]][points[1]] ?: 0)
                 } }
                 .min()
-                .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val map = data.lines().map { it.toCharArray().toTypedArray() }
 
         val locations = ('0'..'7').map { index ->
@@ -92,7 +91,6 @@ class Day24 : DayOf2016(24) {
                     acc + (distances[points[0]][points[1]] ?: 0)
                 } }
                 .min()
-                .toString()
     }
 }
 

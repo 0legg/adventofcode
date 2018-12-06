@@ -17,21 +17,19 @@ class Day7 : DayOf2016(7) {
                 .map { it.first.map { it.second } to it.second.map { it.second } }
     }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return splitAddresses(data.lines())
                 .filterNot { it.second.any { substr -> abba.any { substr.contains(it) } } }
                 .filter { it.first.any { substr -> abba.any { substr.contains(it) } } }
                 .count()
-                .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return splitAddresses(data.lines())
                 .filter { split -> ababab.any { ab ->
                     split.first.any { it.contains(ab.first) } && split.second.any { it.contains(ab.second) }
                 } }
                 .count()
-                .toString()
     }
 }
 

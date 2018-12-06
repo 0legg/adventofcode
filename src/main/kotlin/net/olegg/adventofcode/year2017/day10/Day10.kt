@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/10">Year 2017, Day 10</a>
  */
 class Day10 : DayOf2017(10) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data.trimIndent()
                 .split(",")
                 .map { it.toInt() }
@@ -22,7 +22,7 @@ class Day10 : DayOf2017(10) {
                 .toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return data.trimIndent()
                 .map { it.toInt() }
                 .let { it + listOf(17, 31, 73, 47, 23) }

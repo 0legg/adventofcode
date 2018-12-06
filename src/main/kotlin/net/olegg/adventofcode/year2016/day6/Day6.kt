@@ -7,7 +7,7 @@ import net.olegg.adventofcode.year2016.DayOf2016
  * @see <a href="http://adventofcode.com/2016/day/6">Year 2016, Day 6</a>
  */
 class Day6 : DayOf2016(6) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data.lines()
                 .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
                 .groupBy { it.first }
@@ -21,7 +21,7 @@ class Day6 : DayOf2016(6) {
                 .joinToString(separator = "")
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return data.lines()
                 .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
                 .groupBy { it.first }

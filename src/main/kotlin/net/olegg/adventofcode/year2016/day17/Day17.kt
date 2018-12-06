@@ -8,7 +8,7 @@ import net.olegg.adventofcode.year2016.DayOf2016
  * @see <a href="http://adventofcode.com/2016/day/17">Year 2016, Day 17</a>
  */
 class Day17 : DayOf2016(17) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val start = Triple(1, 1, "")
         val moves = listOf(
                 Triple(0, -1, 'U'),
@@ -36,7 +36,7 @@ class Day17 : DayOf2016(17) {
         return queue.first { it.first == 4 && it.second == 4 }.third
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val start = Triple(1, 1, "")
         val moves = listOf(
                 Triple(0, -1, 'U'),

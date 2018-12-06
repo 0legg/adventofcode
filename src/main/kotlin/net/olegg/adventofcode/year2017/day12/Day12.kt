@@ -8,7 +8,7 @@ import java.util.ArrayDeque
  * @see <a href="http://adventofcode.com/2017/day/12">Year 2017, Day 12</a>
  */
 class Day12 : DayOf2017(12) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val nodes = data.trimIndent()
                 .lines()
                 .map { it.replace("[<\\->,]".toRegex(), "") }
@@ -25,10 +25,10 @@ class Day12 : DayOf2017(12) {
             queue += toVisit
         }
 
-        return visited.size.toString()
+        return visited.size
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val nodes = data.trimIndent()
                 .lines()
                 .map { it.replace("[<\\->,]".toRegex(), "") }
@@ -52,7 +52,7 @@ class Day12 : DayOf2017(12) {
             visited.forEach { nodes.remove(it) }
         }
 
-        return components.toString()
+        return components
     }
 }
 

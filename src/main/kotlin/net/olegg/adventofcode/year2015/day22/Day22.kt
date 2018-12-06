@@ -14,8 +14,11 @@ class Day22 : DayOf2015(22) {
     val me = Triple(hp, armor, mana)
     val boss = with(data.lines().map { it.substringAfterLast(": ").toInt() }) { get(0) to get(1) }
 
-    data class Spell(val cost: Int, val duration: Int,
-                     val action: (Pair<Triple<Int, Int, Int>, Pair<Int, Int>>) -> Pair<Triple<Int, Int, Int>, Pair<Int, Int>>)
+    data class Spell(
+        val cost: Int,
+        val duration: Int,
+        val action: (Pair<Triple<Int, Int, Int>, Pair<Int, Int>>) -> Pair<Triple<Int, Int, Int>, Pair<Int, Int>>
+    )
 
     val magicMissile = Spell(53, 1) { it.first to it.second.copy(first = it.second.first - 4) }
     val drain = Spell(73, 1) { it.first.copy(first = it.first.first + 2) to it.second.copy(first = it.second.first - 2) }
@@ -64,11 +67,11 @@ class Day22 : DayOf2015(22) {
         return best
     }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return countMana(spells, listOf(bossHit)).toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return countMana(spells, listOf(hardBossHit)).toString()
     }
 }

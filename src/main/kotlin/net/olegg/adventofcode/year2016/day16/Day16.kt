@@ -7,11 +7,11 @@ import net.olegg.adventofcode.year2016.DayOf2016
  * @see <a href="http://adventofcode.com/2016/day/16">Year 2016, Day 16</a>
  */
 class Day16 : DayOf2016(16) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return checksum(data, 272)
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return checksum(data, 35651584)
     }
 

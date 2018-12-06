@@ -50,11 +50,11 @@ class Day7 : DayOf2015(7) {
         return resolved[pin] ?: ""
     }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return measure(source, "a")
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return measure(source + ("b" to measure(source, "a")), "a")
     }
 }

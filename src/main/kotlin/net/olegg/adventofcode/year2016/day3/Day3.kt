@@ -7,13 +7,13 @@ import net.olegg.adventofcode.year2016.DayOf2016
  * @see <a href="http://adventofcode.com/2016/day/3">Year 2016, Day 3</a>
  */
 class Day3 : DayOf2016(3) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return data.lines().map {
             it.trim().split("\\s+".toRegex()).map { it.toInt() }.sorted()
-        }.count { it[0] + it[1] > it[2] }.toString()
+        }.count { it[0] + it[1] > it[2] }
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val rows = data.lines().map {
             it.trim().split("\\s+".toRegex()).map { it.toInt() }
         }
@@ -29,7 +29,7 @@ class Day3 : DayOf2016(3) {
                 .flatten()
                 .map { it.sorted() }
 
-        return columns.count { it[0] + it[1] > it[2] }.toString()
+        return columns.count { it[0] + it[1] > it[2] }
     }
 }
 

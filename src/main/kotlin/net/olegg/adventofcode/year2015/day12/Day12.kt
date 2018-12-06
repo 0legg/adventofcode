@@ -10,7 +10,7 @@ import net.olegg.adventofcode.year2015.DayOf2015
  * @see <a href="http://adventofcode.com/2015/day/12">Year 2015, Day 12</a>
  */
 class Day12 : DayOf2015(12) {
-    val json = Parser().parse(data.byteInputStream()) as JsonObject
+    val json = Parser.default(streaming = true).parse(data.byteInputStream()) as JsonObject
 
     fun sumRecursive(json: Any?): Int {
         return when (json) {
@@ -30,11 +30,11 @@ class Day12 : DayOf2015(12) {
         }
     }
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         return sumRecursive(json).toString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         return sumRecursiveRed(json).toString()
     }
 }

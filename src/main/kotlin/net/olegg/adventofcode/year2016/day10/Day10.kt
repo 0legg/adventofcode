@@ -10,7 +10,7 @@ class Day10 : DayOf2016(10) {
     val valuePattern = "value (\\d+) goes to bot (\\d+)".toPattern()
     val givePattern = "bot (\\d+) gives low to (\\w+) (\\d+) and high to (\\w+) (\\d+)".toPattern()
 
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val bots = mutableMapOf<Int, MutableSet<Int>>()
         val actions = mutableMapOf<Int, Pair<Int, Int>>()
         val search = setOf(17, 61)
@@ -55,7 +55,7 @@ class Day10 : DayOf2016(10) {
         return bots.filter { it.value == search }.keys.joinToString()
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val bots = mutableMapOf<Int, MutableSet<Int>>()
         val actions = mutableMapOf<Int, Pair<Int, Int>>()
 

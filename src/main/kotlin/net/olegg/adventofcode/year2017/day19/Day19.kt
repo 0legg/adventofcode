@@ -8,7 +8,7 @@ import kotlin.math.abs
  * @see <a href="http://adventofcode.com/2017/day/19">Year 2017, Day 19</a>
  */
 class Day19 : DayOf2017(19) {
-    override fun first(data: String): String {
+    override fun first(data: String): Any? {
         val vector = listOf(
                 -1 to 0,
                 1 to 0,
@@ -39,10 +39,10 @@ class Day19 : DayOf2017(19) {
                 pos = -1 to -1
             }
         }
-        return result.toString()
+        return result
     }
 
-    override fun second(data: String): String {
+    override fun second(data: String): Any? {
         val vector = listOf(
                 -1 to 0,
                 1 to 0,
@@ -70,7 +70,7 @@ class Day19 : DayOf2017(19) {
                 pos = -1 to -1
             }
         }
-        return steps.toString()
+        return steps
     }
 
     fun fit(map: List<List<Any>>, pos: Pair<Int, Int>) = pos.second in map.indices && pos.first in map[pos.second].indices

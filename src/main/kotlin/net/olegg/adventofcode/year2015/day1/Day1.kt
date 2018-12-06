@@ -10,12 +10,12 @@ import net.olegg.adventofcode.utils.scan
 class Day1 : DayOf2015(1) {
     val floors = data.map { 1 - 2 * (it.minus('(')) }
 
-    override fun first(data: String): String {
-        return floors.sum().toString()
+    override fun first(data: String): Any? {
+        return floors.sum()
     }
 
-    override fun second(data: String): String {
-        return (floors.scan(0) { acc, value -> acc + value }.indexOfFirst { it < 0 } + 1).toString()
+    override fun second(data: String): Any? {
+        return floors.scan(0) { acc, value -> acc + value }.indexOfFirst { it < 0 } + 1
     }
 }
 

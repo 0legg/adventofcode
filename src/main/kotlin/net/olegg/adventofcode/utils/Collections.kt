@@ -1,7 +1,5 @@
 package net.olegg.adventofcode.utils
 
-import kotlin.coroutines.experimental.buildSequence
-
 /**
  * Extension functions and utility methods for collections.
  */
@@ -23,7 +21,7 @@ inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): List<R> 
  * Accumulates value starting with [initial] value and applying [operation] from left to right to current accumulator value and each element.
  */
 inline fun <T, R> Sequence<T>.scan(initial: R, crossinline operation: (R, T) -> R): Sequence<R> {
-    return buildSequence {
+    return sequence {
         var accumulator = initial
         for (element in this@scan) {
             accumulator = operation(accumulator, element)
