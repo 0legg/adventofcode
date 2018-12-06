@@ -10,6 +10,7 @@ import kotlin.math.abs
 class Day6 : DayOf2018(6) {
     companion object {
         private val PATTERN = "(\\d+), (\\d+)".toRegex()
+        private val TOTAL = 10000
     }
 
     override fun first(data: String): Any? {
@@ -45,6 +46,33 @@ class Day6 : DayOf2018(6) {
                 }
                 .maxBy { it.value }
                 ?.value
+    }
+
+    override fun second(data: String): Any? {
+        val points = data
+                .trim()
+                .lines()
+                .mapNotNull { line ->
+                    PATTERN.matchEntire(line)?.let { match ->
+                        val (x, y) = match.destructured.toList().map { it.toInt() }
+                        return@let x to y
+                    }
+                }
+
+        val left = points.minBy { it.first }?.first ?: Int.MIN_VALUE
+        val top = points.minBy { it.second }?.second ?: Int.MIN_VALUE
+        val right = points.maxBy { it.first }?.first ?: Int.MAX_VALUE
+        val bottom = points.maxBy { it.second }?.second ?: Int.MAX_VALUE
+
+        val padding = TOTAL / points.size + 1
+
+        return (top - padding..bottom + padding)
+                .flatMap { y ->
+                    (left - padding..right + padding).map { x ->
+                        points.sumBy { abs(x - it.first) + abs(y - it.second) }
+                    }
+                }
+                .count { it < TOTAL }
     }
 }
 
