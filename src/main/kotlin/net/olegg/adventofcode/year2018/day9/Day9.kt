@@ -2,6 +2,7 @@ package net.olegg.adventofcode.year2018.day9
 
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2018.DayOf2018
+import java.util.LinkedList
 
 /**
  * @see <a href="http://adventofcode.com/2018/day/9">Year 2018, Day 9</a>
@@ -15,23 +16,47 @@ class Day9 : DayOf2018(9) {
         val (players, points) = PATTERN.matchEntire(data.trim())?.destructured?.toList()?.map { it.toInt() }
                 ?: throw IllegalArgumentException()
 
-        val result = IntArray(players)
-        val loop = mutableListOf(0)
-        var position = 0
+        return play(players, points).max()
+    }
+
+    override fun second(data: String): Any? {
+        val (players, points) = PATTERN.matchEntire(data.trim())?.destructured?.toList()?.map { it.toInt() }
+                ?: throw IllegalArgumentException()
+
+        return play(players, points * 100).max()
+    }
+
+    private fun play(players: Int, points: Int): List<Long> {
+        val result = LongArray(players)
+        val loop = LinkedList(listOf(0))
+        var iterator = loop.listIterator()
 
         (1..points).forEach { marble ->
             if (marble % 23 == 0) {
                 val player = (marble - 1) % players
-                result[player] += marble
-                position = (position + loop.size - 7) % loop.size
-                result[player] += loop.removeAt(position)
+                result[player] += marble.toLong()
+                repeat(7) {
+                    if (!iterator.hasPrevious()) {
+                        iterator = loop.listIterator(loop.size)
+                    }
+                    iterator.previous()
+                }
+                result[player] += iterator.previous().toLong()
+                iterator.remove()
+                if (!iterator.hasNext()) {
+                    iterator = loop.listIterator()
+                }
+                iterator.next()
             } else {
-                position = (position + 1) % loop.size + 1
-                loop.add(position, marble)
+                if (!iterator.hasNext()) {
+                    iterator = loop.listIterator()
+                }
+                iterator.next()
+                iterator.add(marble)
             }
         }
 
-        return result.max()
+        return result.toList()
     }
 }
 
