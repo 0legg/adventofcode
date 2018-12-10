@@ -8,38 +8,38 @@ import net.olegg.adventofcode.year2015.DayOf2015
  * @see <a href="http://adventofcode.com/2015/day/13">Year 2015, Day 13</a>
  */
 class Day13 : DayOf2015(13) {
-    companion object {
-        val PATTERN = "^\\b(\\w+)\\b.*\\b(gain|lose) \\b(\\d+)\\b.*\\b(\\w+)\\b\\.$".toRegex()
-    }
+  companion object {
+    val PATTERN = "^\\b(\\w+)\\b.*\\b(gain|lose) \\b(\\d+)\\b.*\\b(\\w+)\\b\\.$".toRegex()
+  }
 
-    val edges = data.trim().lines().mapNotNull { line ->
-        PATTERN.matchEntire(line)?.let { match ->
-            val (name, type, amount, otherName) = match.destructured
-            Pair(name, otherName) to amount.toInt() * (if (type == "gain") 1 else -1)
+  val edges = data.trim().lines().mapNotNull { line ->
+    PATTERN.matchEntire(line)?.let { match ->
+      val (name, type, amount, otherName) = match.destructured
+      Pair(name, otherName) to amount.toInt() * (if (type == "gain") 1 else -1)
+    }
+  }.toMap()
+  val names = edges.keys.flatMap { listOf(it.first, it.second) }.distinct()
+
+  override fun first(data: String): Any? {
+    return names
+        .permutations()
+        .map { it + it.first() }
+        .map { order ->
+          order.zipWithNext().sumBy { edges[it] ?: 0 } +
+              order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
         }
-    }.toMap()
-    val names = edges.keys.flatMap { listOf(it.first, it.second) }.distinct()
+        .max()
+  }
 
-    override fun first(data: String): Any? {
-        return names
-                .permutations()
-                .map { it + it.first() }
-                .map { order ->
-                    order.zipWithNext().sumBy { edges[it] ?: 0 } +
-                            order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
-                }
-                .max()
-    }
-
-    override fun second(data: String): Any? {
-        return names
-                .permutations()
-                .map { order ->
-                    order.zipWithNext().sumBy { edges[it] ?: 0 } +
-                            order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
-                }
-                .max()
-    }
+  override fun second(data: String): Any? {
+    return names
+        .permutations()
+        .map { order ->
+          order.zipWithNext().sumBy { edges[it] ?: 0 } +
+              order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
+        }
+        .max()
+  }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day13::class)
