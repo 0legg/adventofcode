@@ -11,6 +11,7 @@ class Day10 : DayOf2018(10) {
         private val PATTERN = "position=<\\s*(-?\\d+),\\s*(-?\\d+)> velocity=<\\s*(-?\\d+),\\s*(-?\\d+)>".toRegex()
         private const val HEIGHT = 16
     }
+
     override fun first(data: String): Any? {
         var points = data
                 .trim()
@@ -48,6 +49,28 @@ class Day10 : DayOf2018(10) {
         }
 
         return builder.toString()
+    }
+
+    override fun second(data: String): Any? {
+        var points = data
+                .trim()
+                .lines()
+                .mapNotNull { line ->
+                    PATTERN.find(line)?.let { match ->
+                        val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
+                        return@let (x to y) to (vx to vy)
+                    }
+                }
+        var seconds = 0
+        do {
+            seconds++
+            points = points.map { it.copy(first = it.first + it.second) }
+            val height = points
+                    .map { it.first.second }
+                    .let { (it.max() ?: 0) - (it.min() ?: 0) }
+        } while (height > HEIGHT)
+
+        return seconds
     }
 }
 
