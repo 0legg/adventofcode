@@ -24,7 +24,7 @@ class Day11 : DayOf2018(11) {
     return (1..298).flatMap { y ->
       (1..298).map { x ->
         val sum = (-1..1).sumBy { dy -> (-1..1).sumBy { dx -> grid[y + dy][x + dx] } }
-        (x to y) to  sum
+        (x to y) to sum
       }
     }
         .maxBy { it.second }
