@@ -8,12 +8,24 @@ import net.olegg.adventofcode.year2018.DayOf2018
  */
 class Day12 : DayOf2018(12) {
   override fun first(data: String): Any? {
-    val initialState = data
+    return solve(data, 20)
+  }
+
+  override fun second(data: String): Any? {
+    return solve(data, 50_000_000_000L)
+  }
+
+  private fun solve(data: String, gens: Long): Long {
+    val initialStateRaw = data
         .lines()[0]
         .substringAfter(": ")
-        .mapIndexed { index, c -> index to c }
-        .filter { it.second == '#' }
-        .toMap()
+
+    val initialShift = initialStateRaw.indexOf('#').toLong()
+    val initialState = initialStateRaw.trim('.') to (0L to initialShift)
+
+    val padding = "...."
+
+    val states = mutableMapOf(initialState)
 
     val rules = data
         .trim()
@@ -25,22 +37,39 @@ class Day12 : DayOf2018(12) {
         }
         .toMap()
 
-    val finalState = (1..20)
-        .fold(initialState) { state, _ ->
-          val from = (state.keys.min() ?: 0) - 4
-          val to = (state.keys.max() ?: 0) + 4
+    val finalState = (1..gens).fold(initialState) { state, gen ->
+      val tempState = padding + state.first + padding
+      val newStateRaw = tempState
+          .windowed(size = 5)
+          .map { rules.getOrDefault(it, '.') }
+          .joinToString(separator = "")
+      val shift = newStateRaw.indexOf('#') + state.second.second - 2
+      val newState = newStateRaw.trim('.') to (gen to shift)
+      if (newState.first in states) {
+        val (oldGen, oldShift) = states[newState.first] ?: (0L to 0L)
+        val cycle = gen - oldGen
+        val cycleShift = shift - oldShift
+        val aggregateShift = shift + cycleShift * ((gens - gen) / cycle)
+        val tail = (gens - gen) % cycle
+        val finalValue = states.entries
+            .find { it.value.first == oldGen + tail }
+            ?.toPair()
+            ?: "" to (0L to 0L)
+        println("$gen $cycle, $cycleShift")
 
-          return@fold (from..to)
-              .map { index ->
-                val around = (index - 2..index + 2).map { state.getOrDefault(it, '.') }.joinToString(separator = "")
-                return@map index to rules.getOrDefault(around, '.')
-              }
-              .filter { it.second == '#' }
-              .toMap()
-        }
+        val final = finalValue.first to (gens to aggregateShift + finalValue.second.second - oldShift)
+        return final
+            .first
+            .mapIndexed { index, c -> if (c == '#') index + final.second.second else 0L }
+            .sum()
+      }
+      states += newState
+      return@fold newState
+    }
 
     return finalState
-        .keys
+        .first
+        .mapIndexed { index, c -> if (c == '#') index + finalState.second.second else 0L }
         .sum()
   }
 }
