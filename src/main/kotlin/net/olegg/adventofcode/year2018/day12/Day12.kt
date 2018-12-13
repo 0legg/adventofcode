@@ -32,8 +32,7 @@ class Day12 : DayOf2018(12) {
         .lines()
         .drop(2)
         .map { line ->
-          val (from, to) = line.split(" => ".toRegex())
-          return@map from to to[0]
+          line.split(" => ".toRegex()).let { it.first() to it.last() }
         }
         .toMap()
 
@@ -55,7 +54,6 @@ class Day12 : DayOf2018(12) {
             .find { it.value.first == oldGen + tail }
             ?.toPair()
             ?: "" to (0L to 0L)
-        println("$gen $cycle, $cycleShift")
 
         val final = finalValue.first to (gens to aggregateShift + finalValue.second.second - oldShift)
         return final
@@ -64,7 +62,7 @@ class Day12 : DayOf2018(12) {
             .sum()
       }
       states += newState
-      return@fold newState
+      newState
     }
 
     return finalState
