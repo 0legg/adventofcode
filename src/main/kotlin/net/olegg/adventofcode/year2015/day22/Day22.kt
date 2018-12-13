@@ -1,10 +1,10 @@
 package net.olegg.adventofcode.year2015.day22
 
-import net.olegg.adventofcode.someday.SomeDay
-import net.olegg.adventofcode.year2015.DayOf2015
-import java.util.*
+import java.util.ArrayDeque
 import kotlin.math.max
 import kotlin.math.min
+import net.olegg.adventofcode.someday.SomeDay
+import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
  * @see <a href="http://adventofcode.com/2015/day/22">Year 2015, Day 22</a>

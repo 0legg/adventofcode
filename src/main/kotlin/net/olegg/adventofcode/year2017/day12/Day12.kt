@@ -1,8 +1,8 @@
 package net.olegg.adventofcode.year2017.day12
 
+import java.util.ArrayDeque
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2017.DayOf2017
-import java.util.*
 
 /**
  * @see <a href="http://adventofcode.com/2017/day/12">Year 2017, Day 12</a>
@@ -17,7 +17,7 @@ class Day12 : DayOf2017(12) {
         .toMap()
 
     val visited = mutableSetOf(0)
-    val queue = ArrayDeque<Int>(listOf(0))
+    val queue = ArrayDeque(listOf(0))
     while (queue.isNotEmpty()) {
       val curr = queue.pop()
       val toVisit = (nodes[curr] ?: emptySet()) - visited

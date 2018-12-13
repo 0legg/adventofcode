@@ -1,11 +1,11 @@
 package net.olegg.adventofcode.year2018.day4
 
-import net.olegg.adventofcode.someday.SomeDay
-import net.olegg.adventofcode.utils.scan
-import net.olegg.adventofcode.year2018.DayOf2018
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import net.olegg.adventofcode.someday.SomeDay
+import net.olegg.adventofcode.utils.scan
+import net.olegg.adventofcode.year2018.DayOf2018
 
 /**
  * @see <a href="http://adventofcode.com/2018/day/4">Year 2018, Day 4</a>

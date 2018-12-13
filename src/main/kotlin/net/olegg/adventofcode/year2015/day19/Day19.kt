@@ -1,9 +1,9 @@
 package net.olegg.adventofcode.year2015.day19
 
+import java.util.ArrayDeque
+import java.util.regex.Pattern
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
-import java.util.*
-import java.util.regex.Pattern
 
 /**
  * @see <a href="http://adventofcode.com/2015/day/19">Year 2015, Day 19</a>
@@ -32,12 +32,12 @@ class Day19 : DayOf2015(19) {
   override fun second(data: String): Any? {
     val reverse = transitions.map { it.second.toPattern() to it.first }
     val molecules = hashMapOf(molecule to 0)
-    val queue = LinkedList(listOf(molecule))
+    val queue = ArrayDeque(listOf(molecule))
     while (!molecules.containsKey("e") && queue.isNotEmpty()) {
       val curr = queue.pop()
       val size = molecules.getOrDefault(curr, Int.MAX_VALUE)
       val next = reverse.flatMap { applyTransitions(curr, it) }.sortedBy { it.length }.take(2) // greedy approach
-      next.filterNot { molecules.containsKey(it) }.forEach { queue.addFirst(it) }
+      next.filterNot { molecules.containsKey(it) }.forEach { queue.push(it) }
       molecules += next.map { it to (molecules.getOrDefault(it, Int.MAX_VALUE)).coerceAtMost(size + 1) }.toMap()
     }
     return molecules.getOrDefault("e", Int.MAX_VALUE)
