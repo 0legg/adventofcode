@@ -1,6 +1,7 @@
 package net.olegg.adventofcode.year2016.day24
 
 import java.util.ArrayDeque
+import java.util.LinkedList
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.utils.permutations
 import net.olegg.adventofcode.year2016.DayOf2016
