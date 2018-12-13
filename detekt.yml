@@ -212,10 +212,10 @@ formatting:
     active: true
     autoCorrect: true
   Indentation:
-    active: true
+    active: false
     autoCorrect: true
     indentSize: 2
-    continuationIndentSize: 2
+    continuationIndentSize: 4
   MaximumLineLength:
     active: true
     maxLineLength: 120
