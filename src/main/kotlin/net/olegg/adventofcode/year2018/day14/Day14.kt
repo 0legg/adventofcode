@@ -23,6 +23,33 @@ class Day14 : DayOf2018(14) {
     }
     return recipes.subList(rounds, rounds + 10).joinToString(separator = "")
   }
+
+  override fun second(data: String): Any? {
+    val tail = data.trim()
+
+    val recipes = mutableListOf(3, 7)
+    val builder = StringBuilder("37")
+
+    (1..1_000_000_000).fold(0 to 1) { (first, second), _ ->
+      val next = recipes[first] + recipes[second]
+      if (next > 9) {
+        recipes += (next / 10)
+        builder.append(next / 10)
+        if (builder.endsWith(tail)) {
+          return builder.length - tail.length
+        }
+      }
+      recipes += (next % 10)
+      builder.append(next % 10)
+      if (builder.endsWith(tail)) {
+        return builder.length - tail.length
+      }
+      val (newFirst, newSecond) = (first + recipes[first] + 1) % recipes.size to (second + recipes[second] + 1) % recipes.size
+      return@fold (newFirst to newSecond)
+    }
+
+    return null
+  }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day14::class)
