@@ -34,6 +34,43 @@ class Day16 : DayOf2018(16) {
         .count { it >= 3 }
   }
 
+  override fun second(data: String): Any? {
+    val (firstPart, secondPart) = data.split("\n\n\n\n")
+    val inputs = firstPart
+        .split("\n\n")
+        .map { sample ->
+          val (beforeRaw, commandRaw, afterRaw) = sample.split("\n")
+          val before = REGS_PATTERN.find(beforeRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
+          val command = OPS_PATTERN.find(commandRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
+          val after = REGS_PATTERN.find(afterRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
+
+          return@map Triple(before, command, after)
+        }
+
+    val possible = List(16) { Ops.values().toMutableSet() }
+    inputs.forEach {  (before, command, after) ->
+      possible[command[0]].removeAll { op ->
+        op.apply(before, command[1], command[2], command[3]) != after
+      }
+
+      if (possible[command[0]].size == 1) {
+        val op = possible[command[0]].first()
+        possible
+            .filterIndexed { index, _ -> index != command[0] }
+            .forEach { it.remove(op) }
+      }
+    }
+    val ops = possible.map { it.first() }
+
+    val program = secondPart
+        .split("\n")
+        .mapNotNull { line -> OPS_PATTERN.find(line)?.destructured?.toList()?.map { it.toInt() } }
+
+    return program.fold(listOf(0, 0, 0, 0)) { acc, command ->
+      ops[command[0]].apply(acc, command[1], command[2], command[3])
+    }[0]
+  }
+
   enum class Ops {
     ADDR {
       override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
