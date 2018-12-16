@@ -56,20 +56,8 @@ class Day13 : DayOf2018(13) {
             val (vx, vy) = train.second
             val turn = train.third
             val (nvx, nvy, nt) = when (tracks[y][x]) {
-              '\\' -> when (vx to vy) {
-                (-1 to 0) -> Triple(0, -1, turn)
-                (0 to 1) -> Triple(1, 0, turn)
-                (1 to 0) -> Triple(0, 1, turn)
-                (0 to -1) -> Triple(-1, 0, turn)
-                else -> Triple(vx, vy, turn)
-              }
-              '/' -> when (vx to vy) {
-                (-1 to 0) -> Triple(0, 1, turn)
-                (0 to 1) -> Triple(-1, 0, turn)
-                (1 to 0) -> Triple(0, -1, turn)
-                (0 to -1) -> Triple(1, 0, turn)
-                else -> Triple(vx, vy, turn)
-              }
+              '\\' -> Triple(vy, vx, turn)
+              '/' -> Triple(-vy, -vx, turn)
               '+' -> when (turn % 3) {
                 0 -> {
                   val (tx, ty) = MOVES[(MOVES.indexOf(vx to vy) + 1) % 4]
@@ -80,7 +68,7 @@ class Day13 : DayOf2018(13) {
                   val (tx, ty) = MOVES[(MOVES.indexOf(vx to vy) + 3) % 4]
                   Triple(tx, ty, turn + 1)
                 }
-                else -> Triple(vx, vy, turn + 1)
+                else -> Triple(vx, vy, turn)
               }
               else -> Triple(vx, vy, turn)
             }
@@ -90,7 +78,7 @@ class Day13 : DayOf2018(13) {
               return "${newTrain.first},${newTrain.second}"
             }
 
-            return@mapIndexed Triple(newTrain, (nvx to nvy), nt)
+            Triple(newTrain, (nvx to nvy), nt)
           }
 
       val newCoords = newState.map { it.first }
@@ -100,7 +88,7 @@ class Day13 : DayOf2018(13) {
         }
       }
 
-      return@fold newState.sortedWith(compareBy({ it.first.second }, { it.first.first }))
+      newState.sortedWith(compareBy({ it.first.second }, { it.first.first }))
     }
 
     return null
@@ -148,20 +136,8 @@ class Day13 : DayOf2018(13) {
               val (vx, vy) = train.second
               val turn = train.third
               val (nvx, nvy, nt) = when (tracks[y][x]) {
-                '\\' -> when (vx to vy) {
-                  (-1 to 0) -> Triple(0, -1, turn)
-                  (0 to 1) -> Triple(1, 0, turn)
-                  (1 to 0) -> Triple(0, 1, turn)
-                  (0 to -1) -> Triple(-1, 0, turn)
-                  else -> Triple(vx, vy, turn)
-                }
-                '/' -> when (vx to vy) {
-                  (-1 to 0) -> Triple(0, 1, turn)
-                  (0 to 1) -> Triple(-1, 0, turn)
-                  (1 to 0) -> Triple(0, -1, turn)
-                  (0 to -1) -> Triple(1, 0, turn)
-                  else -> Triple(vx, vy, turn)
-                }
+                '\\' -> Triple(vy, vx, turn)
+                '/' -> Triple(-vy, -vx, turn)
                 '+' -> when (turn % 3) {
                   0 -> {
                     val (tx, ty) = MOVES[(MOVES.indexOf(vx to vy) + 1) % 4]
@@ -172,7 +148,7 @@ class Day13 : DayOf2018(13) {
                     val (tx, ty) = MOVES[(MOVES.indexOf(vx to vy) + 3) % 4]
                     Triple(tx, ty, turn + 1)
                   }
-                  else -> Triple(vx, vy, turn + 1)
+                  else -> Triple(vx, vy, turn)
                 }
                 else -> Triple(vx, vy, turn)
               }
@@ -193,7 +169,7 @@ class Day13 : DayOf2018(13) {
         return "${newTrain.first},${newTrain.second}"
       }
 
-      return@fold newState.sortedWith(compareBy({ it.first.second }, { it.first.first }))
+      newState.sortedWith(compareBy({ it.first.second }, { it.first.first }))
     }
 
     return null

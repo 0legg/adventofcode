@@ -18,7 +18,8 @@ class Day14 : DayOf2018(14) {
         recipes += (next / 10)
       }
       recipes += (next % 10)
-      val (newFirst, newSecond) = (first + recipes[first] + 1) % recipes.size to (second + recipes[second] + 1) % recipes.size
+      val (newFirst, newSecond) =
+          (first + recipes[first] + 1) % recipes.size to (second + recipes[second] + 1) % recipes.size
       return@fold (newFirst to newSecond)
     }
     return recipes.subList(rounds, rounds + 10).joinToString(separator = "")
@@ -44,7 +45,8 @@ class Day14 : DayOf2018(14) {
       if (builder.endsWith(tail)) {
         return builder.length - tail.length
       }
-      val (newFirst, newSecond) = (first + recipes[first] + 1) % recipes.size to (second + recipes[second] + 1) % recipes.size
+      val (newFirst, newSecond) =
+          (first + recipes[first] + 1) % recipes.size to (second + recipes[second] + 1) % recipes.size
       return@fold (newFirst to newSecond)
     }
 

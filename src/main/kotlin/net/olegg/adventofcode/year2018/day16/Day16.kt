@@ -48,7 +48,7 @@ class Day16 : DayOf2018(16) {
         }
 
     val possible = List(16) { Ops.values().toMutableSet() }
-    inputs.forEach {  (before, command, after) ->
+    inputs.forEach { (before, command, after) ->
       possible[command[0]].removeAll { op ->
         op.apply(before, command[1], command[2], command[3]) != after
       }
