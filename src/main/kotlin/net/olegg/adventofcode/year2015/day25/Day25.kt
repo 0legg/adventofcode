@@ -7,23 +7,19 @@ import net.olegg.adventofcode.year2015.DayOf2015
  * @see <a href="http://adventofcode.com/2015/day/25">Year 2015, Day 25</a>
  */
 class Day25 : DayOf2015(25) {
-    override fun first(data: String): Any? {
-        val matcher = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b".toPattern().matcher(data)
-        if (matcher.find()) {
-            val row = matcher.group(1).toInt()
-            val column = matcher.group(2).toInt()
-            return generateSequence(Triple(1, 1, 20151125L)) {
-                Triple(
-                        if (it.first != 1) it.first - 1 else it.second + 1,
-                        if (it.first != 1) it.second + 1 else 1,
-                        (it.third * 252533L) % 33554393L
-                )
-            }.first {
-                it.first == row && it.second == column
-            }.third
+  companion object {
+    val PATTERN = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b".toRegex()
+  }
+
+  override fun first(data: String): Any? {
+    return PATTERN
+        .find(data)
+        ?.let { match ->
+          val (row, column) = match.destructured.toList().map { it.toInt() }
+          val pos = (row + column - 1) * (row + column - 2) / 2 + column
+          return@let (1 until pos).fold(20151125L) { acc, _ -> (acc * 252533L) % 33554393L }
         }
-        return null
-    }
+  }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day25::class)

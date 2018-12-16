@@ -3,9 +3,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm").version(Versions.org_jetbrains_kotlin_jvm_gradle_plugin)
     idea
-    id("org.jmailen.kotlinter").version(Versions.org_jmailen_kotlinter_gradle_plugin)
     id("de.fuerstenau.buildconfig").version(Versions.de_fuerstenau_buildconfig_gradle_plugin)
     id("jmfayard.github.io.gradle-kotlin-dsl-libs").version(Versions.jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin)
+    id("io.gitlab.arturbosch.detekt").version(Versions.io_gitlab_arturbosch_detekt)
 }
 
 group = "net.olegg.adventofcode"
@@ -17,6 +17,10 @@ repositories {
 
 buildConfig {
     buildConfigField("String", "COOKIE", project.findProperty("COOKIE")?.toString() ?: "Please provide cookie")
+}
+
+detekt {
+    config = files("detekt.yml")        
 }
 
 configure<JavaPluginConvention> {
@@ -43,6 +47,8 @@ dependencies {
     implementation(Libs.converter_scalars)
     implementation(Libs.klaxon)
     implementation(Libs.funktionale_memoization)
+
+    detektPlugins(Libs.detekt_formatting)
 
     testImplementation(Libs.kotlin_test)
     testImplementation(Libs.spek_dsl_jvm)

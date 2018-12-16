@@ -7,57 +7,63 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/25">Year 2017, Day 25</a>
  */
 class Day25 : DayOf2017(25) {
+  companion object {
+    val HEADER_PATTERN = ("Begin in state ([A-Z]+)\\.\\n" +
+        "Perform a diagnostic checksum after ([0-9]+) steps\\.").toRegex()
+    val STATE_PATTERN = "In state ([A-Z]+):".toRegex()
+    val ACTION_PATTERN = ("If the current value is ([0-9]+)[^-]+" +
+        "- Write the value ([0-9]+)[^-]+" +
+        "- Move one slot to the ([a-z]+)[^-]+" +
+        "- Continue with state ([A-Z]+)\\.").toRegex()
+  }
 
-    val headerPattern = "Begin in state ([A-Z]+)\\.\\nPerform a diagnostic checksum after ([0-9]+) steps.".toRegex()
-    val statePattern = "In state ([A-Z]+):".toRegex()
-    val actionPattern = "If the current value is ([0-9]+)[^-]+- Write the value ([0-9]+)[^-]+- Move one slot to the ([a-z]+)[^-]+- Continue with state ([A-Z]+)\\.".toRegex()
+  override fun first(data: String): Any? {
+    val sections = data.trim().split("\n\n")
 
-    override fun first(data: String): Any? {
-        val sections = data.trim().split("\n\n")
+    val (initialState, iterations) = HEADER_PATTERN.find(sections[0])?.destructured
+        ?: throw IllegalArgumentException()
 
-        val (state, iterations) = headerPattern.find(sections[0])?.destructured?.let {
-            it.component1() to it.component2().toInt()
-        } ?: ("A" to 0)
-
-        val states = sections.slice(1 until sections.size).map { section ->
-            val name = statePattern.find(section)?.destructured?.component1() ?: "A"
-            val actions = actionPattern.findAll(section, section.indexOf("\n")).map {
-                with(it.destructured) {
-                    component1().toInt() to Action(
-                            write = component2().toInt(),
-                            shift = if (component3() == "left") -1 else 1,
-                            state = component4()
-                    )
-                }
-            }.toMap()
-
-            return@map State(name, actions)
+    val states = sections
+        .drop(1)
+        .map { section ->
+          State(
+              name = STATE_PATTERN.find(section)?.destructured?.component1() ?: "A",
+              actions = ACTION_PATTERN
+                  .findAll(section, section.indexOf("\n"))
+                  .map { match ->
+                    val (value, write, shift, state) = match.destructured
+                    value.toInt() to Action(write.toInt(), if (shift == "left") -1 else 1, state)
+                  }
+                  .toMap()
+          )
         }
-                .map { it.name to it }
-                .toMap()
+        .associateBy { it.name }
 
-        val tape = mutableMapOf<Int, Int>()
+    val tape = mutableMapOf<Int, Int>()
 
-        (0 until iterations).fold(state to 0) { acc, _ ->
-            val curr = tape.getOrDefault(acc.second, 0)
-            val action = states[acc.first]?.actions?.get(curr) ?: return@fold acc
-            tape[acc.second] = action.write
-            return@fold action.state to acc.second + action.shift
+    (0 until iterations.toInt())
+        .fold(initialState to 0) { (state, shift), _ ->
+          states[state]
+              ?.actions
+              ?.get(tape[shift] ?: 0)
+              ?.also { action -> tape[shift] = action.write }
+              ?.let { action -> action.state to shift + action.shift }
+              ?: (state to shift)
         }
 
-        return tape.values.sum()
-    }
+    return tape.values.sum()
+  }
 
-    data class State(
-        val name: String,
-        val actions: Map<Int, Action>
-    )
+  data class State(
+      val name: String,
+      val actions: Map<Int, Action>
+  )
 
-    data class Action(
-        val write: Int,
-        val shift: Int,
-        val state: String
-    )
+  data class Action(
+      val write: Int,
+      val shift: Int,
+      val state: String
+  )
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day25::class)

@@ -7,33 +7,33 @@ import net.olegg.adventofcode.year2017.DayOf2017
  * @see <a href="http://adventofcode.com/2017/day/17">Year 2017, Day 17</a>
  */
 class Day17 : DayOf2017(17) {
-    override fun first(data: String): Any? {
-        val cycle = mutableListOf(0)
-        val step = data.trimIndent().toInt()
+  override fun first(data: String): Any? {
+    val cycle = mutableListOf(0)
+    val step = data.trimIndent().toInt()
 
-        val position = (1..2017).fold(0) { acc, value ->
-            val insert = (acc + step) % cycle.size
-            cycle.add(insert, value)
-            return@fold insert + 1
-        }
-
-        return cycle[position % cycle.size]
+    val position = (1..2017).fold(0) { acc, value ->
+      val insert = (acc + step) % cycle.size
+      cycle.add(insert, value)
+      return@fold insert + 1
     }
 
-    override fun second(data: String): Any? {
-        val step = data.trimIndent().toInt()
-        var next = -1
+    return cycle[position % cycle.size]
+  }
 
-        (1..50_000_000).fold(0) { acc, value ->
-            val insert = (acc + step) % value
-            if (insert == 0) {
-                next = value
-            }
-            return@fold insert + 1
-        }
+  override fun second(data: String): Any? {
+    val step = data.trimIndent().toInt()
+    var next = -1
 
-        return next
+    (1..50_000_000).fold(0) { acc, value ->
+      val insert = (acc + step) % value
+      if (insert == 0) {
+        next = value
+      }
+      return@fold insert + 1
     }
+
+    return next
+  }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day17::class)

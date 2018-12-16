@@ -9,4 +9,4 @@ import java.security.MessageDigest
  */
 
 fun String.md5() =
-        "%032x".format(BigInteger(1, MessageDigest.getInstance("MD5").digest(this.toByteArray(StandardCharsets.UTF_8))))
+    "%032x".format(BigInteger(1, MessageDigest.getInstance("MD5").digest(this.toByteArray(StandardCharsets.UTF_8))))
