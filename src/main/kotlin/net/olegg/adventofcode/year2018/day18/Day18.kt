@@ -26,8 +26,22 @@ class Day18 : DayOf2018(18) {
         .lines()
         .map { it.toList() }
 
-    val after = (1..10).fold(map) { acc, _ ->
-      acc.mapIndexed { y, row ->
+    return solve(map, 10)
+  }
+
+  override fun second(data: String): Any? {
+    val map = data
+        .trim()
+        .lines()
+        .map { it.toList() }
+
+    return solve(map, 1000000000)
+  }
+
+  private fun solve(map: List<List<Char>>, minutes: Int): Int {
+    val cache = mutableMapOf(map.joinToString(separator = "") { it.joinToString(separator = "") } to 0)
+    val after = (1..minutes).fold(map) { acc, round ->
+      val curr = acc.mapIndexed { y, row ->
         row.mapIndexed { x, c ->
           val adjacent = MOVE
               .map { it.first + x to it.second + y }
@@ -42,6 +56,22 @@ class Day18 : DayOf2018(18) {
           }
         }
       }
+
+      val footprint = curr.joinToString(separator = "") { it.joinToString(separator = "") }
+      cache[footprint]?.let { head ->
+        val cycle = round - head
+        val tail = (minutes - head) % cycle
+        val target = head + tail
+        val final = cache
+            .filterValues { it == target }
+            .keys
+            .first()
+
+        return final.count { it == '#' } * final.count { it == '|' }
+      }
+
+      cache[footprint] = round
+      return@fold curr
     }
 
     return after.sumBy { row -> row.count { it == '#' } } * after.sumBy { row -> row.count { it == '|' } }
