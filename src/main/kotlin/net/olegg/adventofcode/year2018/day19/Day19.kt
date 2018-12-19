@@ -2,9 +2,10 @@ package net.olegg.adventofcode.year2018.day19
 
 import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2018.DayOf2018
+import java.lang.Thread.sleep
 
 /**
- * @see <a href="http://adventofcode.com/2018/day/19">Year 2018, Day 19</a>
+ * See [Year 2018, Day 19](https://adventofcode.com/2018/day/19)
  */
 class Day19 : DayOf2018(19) {
   companion object {
@@ -12,6 +13,14 @@ class Day19 : DayOf2018(19) {
   }
 
   override fun first(data: String): Any? {
+    return solve(data, listOf(0, 0, 0, 0, 0, 0))
+  }
+
+  override fun second(data: String): Any? {
+    return solve(data, listOf(1, 0, 0, 0, 0, 0))
+  }
+
+  private fun solve(data: String, registers: List<Long>): Long {
     val pointer = data
         .trim()
         .lines()
@@ -28,106 +37,100 @@ class Day19 : DayOf2018(19) {
           }
         }
 
-    (0..1_000_000_000).fold(listOf(0, 0, 0, 0, 0, 0)) { acc, _ ->
-      val instruction = acc[pointer]
+    val regs = registers.toLongArray()
+
+    (0..1_000_000_000_000L).forEach { _ ->
+      val instruction = regs[pointer].toInt()
       if (instruction !in program.indices) {
-        return acc[0]
+        return regs[0]
       }
-      val command = program[instruction]
-      return@fold command.apply(acc).mapIndexed { index, value -> if (index == pointer) value + 1 else value }
+      program[instruction].apply(regs)
+      regs[pointer]++
     }
 
-    return null
+    return 0
   }
 
   enum class Ops {
     ADDR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] + regs[b] else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = regs[a] + regs[b]
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] + regs[$b]"
     },
     ADDI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] + b else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = regs[a] + b
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] + $b"
     },
     MULR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] * regs[b] else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = regs[a] * regs[b]
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] * regs[$b]"
     },
     MULI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] * b else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = regs[a] * b
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] * $b"
     },
     BANR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] and regs[b] else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = regs[a] and regs[b]
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] & regs[$b]"
     },
     BANI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] and b else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = regs[a] and b.toLong()
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] & $b"
     },
     BORR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] or regs[b] else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = regs[a] or regs[b]
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] | regs[$b]"
     },
     BORI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] or b else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = regs[a] or b.toLong()
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] | $b"
     },
     SETR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = regs[a]
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a]"
     },
     SETI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) a else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = a.toLong()
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = $a"
     },
     GTIR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (a > regs[b]) 1 else 0 } else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = if (a > regs[b]) 1L else 0L
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = $a > regs[$b]"
     },
     GTRI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (regs[a] > b) 1 else 0 } else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = if (regs[a] > b) 1L else 0L
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] > $b"
     },
     GTRR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (regs[a] > regs[b]) 1 else 0 } else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = if (regs[a] > regs[b]) 1L else 0L
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] > regs[$b]"
     },
     EQIR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (a == regs[b]) 1 else 0 } else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = if (a.toLong() == regs[b]) 1L else 0L
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = $a == regs[$b]"
     },
     EQRI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (regs[a] == b) 1 else 0 } else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = if (regs[a] == b.toLong()) 1L else 0L
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] == $b"
     },
     EQRR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (regs[a] == regs[b]) 1 else 0 } else value }
-      }
+      override fun apply(regs: LongArray, a: Int, b: Int) = if (regs[a] == regs[b]) 1L else 0L
+      override fun stringify(a: Int, b: Int, c: Int) = "regs[$c] = regs[$a] == regs[$b]"
     };
 
-    abstract fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int>
+    abstract fun apply(regs: LongArray, a: Int, b: Int): Long
+
+    abstract fun stringify(a: Int, b: Int, c: Int): String
   }
 
   data class Command(val op: Ops, val a: Int, val b: Int, val c: Int) {
-    fun apply(regs: List<Int>): List<Int> = op.apply(regs, a, b, c)
+    fun apply(regs: LongArray) {
+      regs[c] = op.apply(regs, a, b)
+    }
+
+    override fun toString(): String {
+      return op.stringify(a, b, c)
+    }
   }
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day19::class)
+fun main() = SomeDay.mainify(Day19::class)
