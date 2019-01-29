@@ -24,6 +24,16 @@ class Day17 : DayOf2018(17) {
     }
   }
 
+  override fun second(data: String): Any? {
+    val (xs, ys, map) = fill(data)
+
+    return ys.sumBy { y ->
+      xs.count { x ->
+        map[y][x] == '~'
+      }
+    }
+  }
+
   private fun fill(data: String): Triple<IntRange, IntRange, List<MutableList<Char>>> {
     val start = 500 to 0
     val clay = data
