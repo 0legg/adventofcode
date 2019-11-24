@@ -1,11 +1,12 @@
 package net.olegg.adventofcode.year2016.day21
 
+import net.olegg.adventofcode.year2016.day21.Day21.Op.Companion.fromString
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day21Spec : Spek({
-  val parseToList = { str: String -> str.trimIndent().lines() }
+  val parseToList = { str: String -> str.trimIndent().lines().mapNotNull { fromString(it) } }
 
   describe("Task 1") {
     val day = Day21()
