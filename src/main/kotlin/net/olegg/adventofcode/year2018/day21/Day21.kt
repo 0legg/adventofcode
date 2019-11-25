@@ -33,14 +33,53 @@ class Day21 : DayOf2018(21) {
     println(program.mapIndexed { index, command -> "%1$-2d: $command".format(index) }.joinToString("\n"))
 
     val regs = longArrayOf(0L, 0L, 0L, 0L, 0L, 0L)
-    (0..1_000_000_000_000L).forEach { step ->
-      println("$step -> [${regs.joinToString()}]")
+    (0..1_000_000_000_000L).forEach { _ ->
       val instruction = regs[pointer].toInt()
       if (instruction !in program.indices) {
-        return "Halt!"
+        return -1
       }
       if (instruction == 28) {
-        return regs.joinToString()
+        return regs[5]
+      }
+      program[instruction].apply(regs)
+      regs[pointer]++
+    }
+
+    return 0
+  }
+
+  override fun second(data: String): Any? {
+    val pointer = data
+        .trim()
+        .lines()
+        .first()
+        .let { it.split(" ")[1].toIntOrNull() ?: 0 }
+    val program = data
+        .trim()
+        .lines()
+        .drop(1)
+        .mapNotNull { line ->
+          OPS_PATTERN.matchEntire(line)?.let { match ->
+            val (opRaw, aRaw, bRaw, cRaw) = match.destructured
+            return@mapNotNull Command(Ops.valueOf(opRaw.toUpperCase()), aRaw.toInt(), bRaw.toInt(), cRaw.toInt())
+          }
+        }
+
+    println(program.mapIndexed { index, command -> "%1$-2d: $command".format(index) }.joinToString("\n"))
+
+    val exit = mutableMapOf<Long, Long>()
+    val regs = longArrayOf(0L, 0L, 0L, 0L, 0L, 0L)
+    (0..1_000_000_000_000L).forEach { step ->
+      if (step % 100_000_000L == 0L) {
+        println("$step -> [${regs.joinToString()}]")
+      }
+      val instruction = regs[pointer].toInt()
+      if (instruction !in program.indices) {
+        return -1
+      }
+      if (instruction == 28 && regs[5] !in exit) {
+        exit[regs[5]] = step
+        println("Exiting with ${regs[5]} at $step")
       }
       program[instruction].apply(regs)
       regs[pointer]++
