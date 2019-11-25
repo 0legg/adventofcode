@@ -5,11 +5,11 @@ import org.spekframework.spek2.style.specification.describe
 import kotlin.test.assertEquals
 
 object Day12Spec : Spek({
-    describe("Task 1") {
-        val day = Day12()
+  describe("Task 1") {
+    val day = Day12()
 
-        context("sample input") {
-            val result = day.first("""
+    context("sample input") {
+      val result = day.first("""
                 |cpy 41 a
                 |inc a
                 |inc a
@@ -18,9 +18,9 @@ object Day12Spec : Spek({
                 |dec a
                 |""".trimMargin())
 
-            it("should return 42") {
-                assertEquals("42", result, "Wrong output for sample")
-            }
-        }
+      it("should return 42") {
+        assertEquals("42", result, "Wrong output for sample")
+      }
     }
+  }
 })

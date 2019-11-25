@@ -9,43 +9,45 @@ import org.funktionale.memoization.memoize
  * @see <a href="http://adventofcode.com/2016/day/14">Year 2016, Day 14</a>
  */
 class Day14 : DayOf2016(14) {
+  companion object {
+    val MATCH_3 = "(.)(\\1)(\\1)".toRegex()
+  }
 
-    val match3 = "(.)(\\1)(\\1)".toRegex()
+  override fun first(data: String): Any? {
+    val hash = { n: Int ->
+      "$data$n".md5()
+    }.memoize()
 
-    override fun first(data: String): Any? {
-        val hash = { n: Int ->
-            "$data$n".md5()
-        }.memoize()
+    return solve(64, hash)
+  }
 
-        return solve(64, hash)
+  override fun second(data: String): Any? {
+    val hash = { n: Int ->
+      (0..2016).fold("$data$n") { acc, _ ->
+        acc.md5()
+      }
+    }.memoize()
+
+    return solve(64, hash)
+  }
+
+  fun solve(count: Int, hash: (Int) -> String): Int {
+    return sequence {
+      var i = 0
+      while (true) {
+        val curr = hash(i)
+        MATCH_3.find(curr)?.let { match ->
+          val next = match.groupValues[1].repeat(5)
+          if ((i + 1..i + 1000).any { value -> hash(value).contains(next) }) {
+            yield(i)
+          }
+        }
+        i++
+      }
     }
-
-    override fun second(data: String): Any? {
-        val hash = { n: Int ->
-            (0..2016).fold("$data$n") { acc, _ ->
-                acc.md5()
-            }
-        }.memoize()
-
-        return solve(64, hash)
-    }
-
-    fun solve(count: Int, hash: (Int) -> String): Int {
-        return sequence {
-            var i = 0
-            while (true) {
-                val curr = hash(i)
-                match3.find(curr)?.let {
-                    val next = it.groupValues[1].repeat(5)
-                    if ((i + 1..i + 1000).any { hash(it).contains(next) }) {
-                        yield(i)
-                    }
-                }
-                i += 1
-            } }
-                .take(count)
-                .last()
-    }
+        .take(count)
+        .last()
+  }
 }
 
 fun main(args: Array<String>) = SomeDay.mainify(Day14::class)
