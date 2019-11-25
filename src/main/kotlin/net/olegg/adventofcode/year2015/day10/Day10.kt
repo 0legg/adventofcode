@@ -5,7 +5,7 @@ import net.olegg.adventofcode.utils.series
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/10">Year 2015, Day 10</a>
+ * See [Year 2015, Day 10](https://adventofcode.com/2015/day/10)
  */
 class Day10 : DayOf2015(10) {
   fun lookAndSay(source: String) = source

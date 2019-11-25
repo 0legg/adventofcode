@@ -5,7 +5,7 @@ import net.olegg.adventofcode.utils.scan
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/3">Year 2015, Day 3</a>
+ * See [Year 2015, Day 3](https://adventofcode.com/2015/day/3)
  */
 class Day3 : DayOf2015(3) {
   val mapping = mapOf(

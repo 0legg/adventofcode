@@ -4,7 +4,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/5">Year 2015, Day 5</a>
+ * See [Year 2015, Day 5](https://adventofcode.com/2015/day/5)
  */
 class Day5 : DayOf2015(5) {
   val strings = data.lines()

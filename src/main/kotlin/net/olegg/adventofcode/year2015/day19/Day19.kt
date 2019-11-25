@@ -6,7 +6,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/19">Year 2015, Day 19</a>
+ * See [Year 2015, Day 19](https://adventofcode.com/2015/day/19)
  */
 class Day19 : DayOf2015(19) {
   private val transitions = data.lines().dropLast(2).map { val split = it.split(" => "); Pair(split[0], split[1]) }

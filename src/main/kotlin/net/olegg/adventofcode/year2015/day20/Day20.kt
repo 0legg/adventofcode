@@ -4,7 +4,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/20">Year 2015, Day 20</a>
+ * See [Year 2015, Day 20](https://adventofcode.com/2015/day/20)
  */
 class Day20 : DayOf2015(20) {
   val max = data.toInt()

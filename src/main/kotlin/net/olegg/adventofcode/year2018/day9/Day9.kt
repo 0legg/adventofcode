@@ -5,7 +5,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2018.DayOf2018
 
 /**
- * @see <a href="http://adventofcode.com/2018/day/9">Year 2018, Day 9</a>
+ * See [Year 2018, Day 9](https://adventofcode.com/2018/day/9)
  */
 class Day9 : DayOf2018(9) {
   companion object {

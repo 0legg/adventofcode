@@ -5,7 +5,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2016.DayOf2016
 
 /**
- * @see <a href="http://adventofcode.com/2016/day/20">Year 2016, Day 20</a>
+ * See [Year 2016, Day 20](https://adventofcode.com/2016/day/20)
  */
 class Day20 : DayOf2016(20) {
   val regex = "(\\d+)-(\\d+)".toRegex()

@@ -4,7 +4,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2018.DayOf2018
 
 /**
- * @see <a href="http://adventofcode.com/2018/day/2">Year 2018, Day 2</a>
+ * See [Year 2018, Day 2](https://adventofcode.com/2018/day/2)
  */
 class Day2 : DayOf2018(2) {
   override fun first(data: String): Any? {
