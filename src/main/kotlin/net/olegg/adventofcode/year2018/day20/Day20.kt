@@ -21,6 +21,16 @@ class Day20 : DayOf2018(20) {
   override fun first(data: String): Any? {
     val route = data.trim('^', '$', ' ', '\n')
 
+    return visitAll(route).values.max()
+  }
+
+  override fun second(data: String): Any? {
+    val route = data.trim('^', '$', ' ', '\n')
+
+    return visitAll(route).count { it.value >= 1000 }
+  }
+
+  private fun visitAll(route: String): Map<Pair<Int, Int>, Int> {
     val stack = ArrayDeque(listOf(START))
     val edges = mutableSetOf<Pair<Pair<Int, Int>, Pair<Int, Int>>>()
     val verts = mutableSetOf<Pair<Int, Int>>()
@@ -57,7 +67,7 @@ class Day20 : DayOf2018(20) {
       visited += nexts.map { it to dist }
     }
 
-    return visited.values.max()
+    return visited
   }
 }
 
