@@ -1,7 +1,9 @@
 package net.olegg.adventofcode.year2018.day16
 
 import net.olegg.adventofcode.someday.SomeDay
+import net.olegg.adventofcode.year2018.Command
 import net.olegg.adventofcode.year2018.DayOf2018
+import net.olegg.adventofcode.year2018.Ops
 
 /**
  * See [Year 2018, Day 16](https://adventofcode.com/2018/day/16)
@@ -10,6 +12,7 @@ class Day16 : DayOf2018(16) {
   companion object {
     private val REGS_PATTERN = ".*\\[(\\d+), (\\d+), (\\d+), (\\d+)]".toRegex()
     private val OPS_PATTERN = "(\\d+) (\\d+) (\\d+) (\\d+)".toRegex()
+    private val EMPTY = listOf(0L, 0L, 0L, 0L)
   }
 
   override fun first(data: String): Any? {
@@ -18,9 +21,9 @@ class Day16 : DayOf2018(16) {
         .split("\n\n")
         .map { sample ->
           val (beforeRaw, commandRaw, afterRaw) = sample.split("\n")
-          val before = REGS_PATTERN.find(beforeRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
+          val before = REGS_PATTERN.find(beforeRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
           val command = OPS_PATTERN.find(commandRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
-          val after = REGS_PATTERN.find(afterRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
+          val after = REGS_PATTERN.find(afterRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
 
           return@map Triple(before, command, after)
         }
@@ -28,7 +31,10 @@ class Day16 : DayOf2018(16) {
     return inputs
         .map { (before, command, after) ->
           Ops.values().count { op ->
-            op.apply(before, command[1], command[2], command[3]) == after
+            val beforeArray = before.toLongArray()
+            val vmcommand = Command(op, command[1], command[2], command[3])
+            vmcommand.apply(beforeArray)
+            return@count beforeArray.toList() == after
           }
         }
         .count { it >= 3 }
@@ -40,9 +46,9 @@ class Day16 : DayOf2018(16) {
         .split("\n\n")
         .map { sample ->
           val (beforeRaw, commandRaw, afterRaw) = sample.split("\n")
-          val before = REGS_PATTERN.find(beforeRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
+          val before = REGS_PATTERN.find(beforeRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
           val command = OPS_PATTERN.find(commandRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
-          val after = REGS_PATTERN.find(afterRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
+          val after = REGS_PATTERN.find(afterRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
 
           return@map Triple(before, command, after)
         }
@@ -50,7 +56,10 @@ class Day16 : DayOf2018(16) {
     val possible = List(16) { Ops.values().toMutableSet() }
     inputs.forEach { (before, command, after) ->
       possible[command[0]].removeAll { op ->
-        op.apply(before, command[1], command[2], command[3]) != after
+        val beforeArray = before.toLongArray()
+        val vmcommand = Command(op, command[1], command[2], command[3])
+        vmcommand.apply(beforeArray)
+        return@removeAll beforeArray.toList() != after
       }
 
       if (possible[command[0]].size == 1) {
@@ -66,94 +75,13 @@ class Day16 : DayOf2018(16) {
         .split("\n")
         .mapNotNull { line -> OPS_PATTERN.find(line)?.destructured?.toList()?.map { it.toInt() } }
 
-    return program.fold(listOf(0, 0, 0, 0)) { acc, command ->
-      ops[command[0]].apply(acc, command[1], command[2], command[3])
-    }[0]
-  }
+    val regs = EMPTY.toLongArray()
+    program.forEach { command ->
+      val vmcommand = Command(ops[command[0]], command[1], command[2], command[3])
+      vmcommand.apply(regs)
+    }
 
-  enum class Ops {
-    ADDR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] + regs[b] else value }
-      }
-    },
-    ADDI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] + b else value }
-      }
-    },
-    MULR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] * regs[b] else value }
-      }
-    },
-    MULI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] * b else value }
-      }
-    },
-    BANR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] and regs[b] else value }
-      }
-    },
-    BANI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] and b else value }
-      }
-    },
-    BORR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] or regs[b] else value }
-      }
-    },
-    BORI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] or b else value }
-      }
-    },
-    SETR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) regs[a] else value }
-      }
-    },
-    SETI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) a else value }
-      }
-    },
-    GTIR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (a > regs[b]) 1 else 0 } else value }
-      }
-    },
-    GTRI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (regs[a] > b) 1 else 0 } else value }
-      }
-    },
-    GTRR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (regs[a] > regs[b]) 1 else 0 } else value }
-      }
-    },
-    EQIR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (a == regs[b]) 1 else 0 } else value }
-      }
-    },
-    EQRI {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (regs[a] == b) 1 else 0 } else value }
-      }
-    },
-    EQRR {
-      override fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int> {
-        return regs.mapIndexed { index, value -> if (index == c) { if (regs[a] == regs[b]) 1 else 0 } else value }
-      }
-    };
-
-    abstract fun apply(regs: List<Int>, a: Int, b: Int, c: Int): List<Int>
+    return regs[0]
   }
 }
 
