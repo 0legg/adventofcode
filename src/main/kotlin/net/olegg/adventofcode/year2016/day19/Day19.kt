@@ -47,4 +47,4 @@ class Day19 : DayOf2016(19) {
   }
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day19::class)
+fun main() = SomeDay.mainify(Day19::class)

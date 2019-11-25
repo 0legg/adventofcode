@@ -79,4 +79,4 @@ class Day19 : DayOf2017(19) {
       pos.second in map.indices && pos.first in map[pos.second].indices
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day19::class)
+fun main() = SomeDay.mainify(Day19::class)

@@ -36,4 +36,4 @@ fun subsets(sum: Long, list: List<Long>): List<List<Long>> = when {
   else -> subsets(sum, list.drop(1)) + subsets(sum - list[0], list.drop(1)).map { listOf(list[0]) + it }
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day24::class)
+fun main() = SomeDay.mainify(Day24::class)

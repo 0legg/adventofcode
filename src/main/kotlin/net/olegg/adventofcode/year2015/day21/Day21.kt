@@ -66,4 +66,4 @@ class Day21 : DayOf2015(21) {
 operator fun Triple<Int, Int, Int>.plus(other: Triple<Int, Int, Int>) =
     Triple(first + other.first, second + other.second, third + other.third)
 
-fun main(args: Array<String>) = SomeDay.mainify(Day21::class)
+fun main() = SomeDay.mainify(Day21::class)

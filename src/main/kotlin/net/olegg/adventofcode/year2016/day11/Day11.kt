@@ -128,4 +128,4 @@ typealias Day11State = Int
 
 operator fun Day11State.get(index: Int) = (this shr (index * 2)) and 3
 
-fun main(args: Array<String>) = SomeDay.mainify(Day11::class)
+fun main() = SomeDay.mainify(Day11::class)

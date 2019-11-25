@@ -71,4 +71,4 @@ class Day13 : DayOf2016(13) {
       Integer.bitCount(x * x + 3 * x + 2 * x * y + y + y * y + fav) % 2 == 0
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day13::class)
+fun main() = SomeDay.mainify(Day13::class)

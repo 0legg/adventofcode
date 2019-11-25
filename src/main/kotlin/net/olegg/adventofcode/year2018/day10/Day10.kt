@@ -73,4 +73,4 @@ class Day10 : DayOf2018(10) {
 
 operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>) = first + other.first to second + other.second
 
-fun main(args: Array<String>) = SomeDay.mainify(Day10::class)
+fun main() = SomeDay.mainify(Day10::class)
