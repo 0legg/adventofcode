@@ -14,13 +14,38 @@ class Day24 : DayOf2018(24) {
         .map { it.lines().drop(1) }
         .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
 
-    var board = immune + infection
+    return solve(immune + infection).sumBy { it.units.toInt() }
+  }
+
+  override fun second(data: String): Any? {
+    val (immune, infection) = data
+        .trim()
+        .split("\n\n")
+        .map { it.lines().drop(1) }
+        .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
+
+    generateSequence(0) { it + 1 }.forEach { boost ->
+      val boosted = immune.map { it.copy(attack = it.attack + boost) }
+
+      val result = solve(boosted + infection)
+      when {
+        result.isEmpty() -> println("Boost $boost, stalemate")
+        result.first().system == immune.first().system -> return result.sumBy { it.units.toInt() }
+        else -> println("Boost $boost, ${result.sumBy { it.units.toInt() }} units remaining")
+      }
+    }
+
+    return -1
+  }
+
+  private fun solve(initialBoard: List<Group>): List<Group> {
+    val board = initialBoard.map { it.copy() }.toMutableList()
     while (board.distinctBy { it.system }.size == 2) {
       val attacks = mutableMapOf<Pair<Int, Int>, Group?>()
 
       board
           .sortedWith(
-              compareByDescending<Group>{ it.power() }
+              compareByDescending<Group> { it.power() }
                   .thenByDescending { it.initiative }
           )
           .forEach { group ->
@@ -40,19 +65,26 @@ class Day24 : DayOf2018(24) {
                 ?.let { attacks[group.system to group.index] = it.first }
           }
 
-      board
+      val killed = board
           .sortedByDescending { it.initiative }
-          .forEach { group ->
-            if (group.units > 0) {
-              attacks[group.system to group.index]?.let { target ->
-                target.units -= group.damage(target) / target.hit
-              }
-            }
+          .mapNotNull { group ->
+            group.takeIf { it.units > 0 }
+                ?.let {
+                  attacks[group.system to group.index]?.let { target ->
+                    (group.damage(target) / target.hit).also {
+                      target.units -= it
+                    }
+                  }
+                }
           }
+          .sum()
 
-      board = board.filter { it.units > 0 }
+      if (killed == 0L) {
+        return emptyList()
+      }
+      board.removeIf { it.units <= 0 }
     }
-    return board.filter { it.units > 0 }.sumBy { it.units.toInt() }
+    return board
   }
 
   data class Group(
