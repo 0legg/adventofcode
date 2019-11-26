@@ -5,7 +5,7 @@ import net.olegg.adventofcode.utils.scan
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/3">Year 2015, Day 3</a>
+ * See [Year 2015, Day 3](https://adventofcode.com/2015/day/3)
  */
 class Day3 : DayOf2015(3) {
   val mapping = mapOf(
@@ -34,4 +34,4 @@ data class Vector(val x: Int = 0, val y: Int = 0) {
   operator fun plus(other: Vector) = Vector(x + other.x, y + other.y)
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day3::class)
+fun main() = SomeDay.mainify(Day3::class)

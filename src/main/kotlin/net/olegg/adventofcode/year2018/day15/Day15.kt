@@ -5,7 +5,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2018.DayOf2018
 
 /**
- * @see <a href="http://adventofcode.com/2018/day/15">Year 2018, Day 15</a>
+ * See [Year 2018, Day 15](https://adventofcode.com/2018/day/15)
  */
 class Day15 : DayOf2018(15) {
   companion object {
@@ -288,4 +288,4 @@ class Day15 : DayOf2018(15) {
   )
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day15::class)
+fun main() = SomeDay.mainify(Day15::class)

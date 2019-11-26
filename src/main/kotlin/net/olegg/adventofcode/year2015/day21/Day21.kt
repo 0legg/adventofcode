@@ -4,7 +4,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/21">Year 2015, Day 21</a>
+ * See [Year 2015, Day 21](https://adventofcode.com/2015/day/21)
  */
 class Day21 : DayOf2015(21) {
   private val hp = 100
@@ -66,4 +66,4 @@ class Day21 : DayOf2015(21) {
 operator fun Triple<Int, Int, Int>.plus(other: Triple<Int, Int, Int>) =
     Triple(first + other.first, second + other.second, third + other.third)
 
-fun main(args: Array<String>) = SomeDay.mainify(Day21::class)
+fun main() = SomeDay.mainify(Day21::class)

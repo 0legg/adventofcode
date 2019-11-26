@@ -7,7 +7,7 @@ import net.olegg.adventofcode.utils.permutations
 import net.olegg.adventofcode.year2016.DayOf2016
 
 /**
- * @see <a href="http://adventofcode.com/2016/day/24">Year 2016, Day 24</a>
+ * See [Year 2016, Day 24](https://adventofcode.com/2016/day/24)
  */
 class Day24 : DayOf2016(24) {
 
@@ -103,4 +103,4 @@ class Day24 : DayOf2016(24) {
   }
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day24::class)
+fun main() = SomeDay.mainify(Day24::class)

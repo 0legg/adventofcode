@@ -4,7 +4,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/24">Year 2015, Day 24</a>
+ * See [Year 2015, Day 24](https://adventofcode.com/2015/day/24)
  */
 class Day24 : DayOf2015(24) {
   val weights = data.lines().map { it.toLong() }
@@ -36,4 +36,4 @@ fun subsets(sum: Long, list: List<Long>): List<List<Long>> = when {
   else -> subsets(sum, list.drop(1)) + subsets(sum - list[0], list.drop(1)).map { listOf(list[0]) + it }
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day24::class)
+fun main() = SomeDay.mainify(Day24::class)

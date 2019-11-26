@@ -5,7 +5,7 @@ import net.olegg.adventofcode.utils.scan
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/1">Year 2015, Day 1</a>
+ * See [Year 2015, Day 1](https://adventofcode.com/2015/day/1)
  */
 class Day1 : DayOf2015(1) {
   val floors = data.map { 1 - 2 * (it.minus('(')) }
@@ -19,4 +19,4 @@ class Day1 : DayOf2015(1) {
   }
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day1::class)
+fun main() = SomeDay.mainify(Day1::class)

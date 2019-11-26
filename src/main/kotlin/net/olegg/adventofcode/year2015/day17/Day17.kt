@@ -4,7 +4,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/17">Year 2015, Day 17</a>
+ * See [Year 2015, Day 17](https://adventofcode.com/2015/day/17)
  */
 class Day17 : DayOf2015(17) {
   val containers = data.lines().map { it.toInt() }
@@ -23,4 +23,4 @@ class Day17 : DayOf2015(17) {
   }
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day17::class)
+fun main() = SomeDay.mainify(Day17::class)

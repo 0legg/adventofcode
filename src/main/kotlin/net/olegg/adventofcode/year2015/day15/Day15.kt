@@ -4,7 +4,7 @@ import net.olegg.adventofcode.someday.SomeDay
 import net.olegg.adventofcode.year2015.DayOf2015
 
 /**
- * @see <a href="http://adventofcode.com/2015/day/15">Year 2015, Day 15</a>
+ * See [Year 2015, Day 15](https://adventofcode.com/2015/day/15)
  */
 class Day15 : DayOf2015(15) {
   companion object {
@@ -51,4 +51,4 @@ fun splitRange(splits: Int, sum: Int): List<List<Int>> = if (splits == 1) listOf
   (0..sum).flatMap { value -> splitRange(splits - 1, sum - value).map { listOf(value) + it } }
 }
 
-fun main(args: Array<String>) = SomeDay.mainify(Day15::class)
+fun main() = SomeDay.mainify(Day15::class)
