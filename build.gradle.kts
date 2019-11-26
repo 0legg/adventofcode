@@ -8,8 +8,8 @@ plugins {
   id("io.gitlab.arturbosch.detekt").version(Versions.io_gitlab_arturbosch_detekt)
 }
 
-group = "net.olegg.adventofcode"
-version = "3.0.0"
+group = "net.olegg.aoc"
+version = "2019.0.0"
 
 repositories {
   jcenter()
