@@ -9,7 +9,7 @@ object Day21Spec : Spek({
   val parseToList = { str: String -> str.trimIndent().lines().mapNotNull { fromString(it) } }
 
   describe("Task 1") {
-    val day = Day21()
+    val day = Day21
 
     context("abcde, no op") {
       val result = day.scramble("abcde", listOf())

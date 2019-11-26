@@ -6,7 +6,7 @@ import net.olegg.aoc.year2017.DayOf2017
 /**
  * See [Year 2017, Day 8](https://adventofcode.com/2017/day/8)
  */
-class Day8 : DayOf2017(8) {
+object Day8 : DayOf2017(8) {
   override fun first(data: String): Any? {
     val registers = mutableMapOf<String, Int>()
 
@@ -62,4 +62,4 @@ class Day8 : DayOf2017(8) {
   }
 }
 
-fun main() = SomeDay.mainify(Day8::class)
+fun main() = SomeDay.mainify(Day8)

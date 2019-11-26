@@ -8,7 +8,7 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 19](https://adventofcode.com/2016/day/19)
  */
-class Day19 : DayOf2016(19) {
+object Day19 : DayOf2016(19) {
   override fun first(data: String): Any? {
     val count = data.toInt()
     val elves = BitSet(count)
@@ -47,4 +47,4 @@ class Day19 : DayOf2016(19) {
   }
 }
 
-fun main() = SomeDay.mainify(Day19::class)
+fun main() = SomeDay.mainify(Day19)

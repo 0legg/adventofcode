@@ -6,16 +6,14 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 7](https://adventofcode.com/2015/day/7)
  */
-class Day7 : DayOf2015(7) {
-  companion object {
-    private val COMMAND_PATTERN = "^(.*) -> (.*)$".toRegex()
-    private val NOT_PATTERN = "^NOT (\\d+)$".toRegex()
-    private val AND_PATTERN = "^(\\d+) AND (\\d+)$".toRegex()
-    private val OR_PATTERN = "^(\\d+) OR (\\d+)$".toRegex()
-    private val LSHIFT_PATTERN = "^(\\d+) LSHIFT (\\d+)$".toRegex()
-    private val RSHIFT_PATTERN = "^(\\d+) RSHIFT (\\d+)$".toRegex()
-    private var VAR_PATTERN = "[a-z]".toRegex()
-  }
+object Day7 : DayOf2015(7) {
+  private val COMMAND_PATTERN = "^(.*) -> (.*)$".toRegex()
+  private val NOT_PATTERN = "^NOT (\\d+)$".toRegex()
+  private val AND_PATTERN = "^(\\d+) AND (\\d+)$".toRegex()
+  private val OR_PATTERN = "^(\\d+) OR (\\d+)$".toRegex()
+  private val LSHIFT_PATTERN = "^(\\d+) LSHIFT (\\d+)$".toRegex()
+  private val RSHIFT_PATTERN = "^(\\d+) RSHIFT (\\d+)$".toRegex()
+  private var VAR_PATTERN = "[a-z]".toRegex()
 
   val source = data
       .trim()
@@ -80,4 +78,4 @@ class Day7 : DayOf2015(7) {
   }
 }
 
-fun main() = SomeDay.mainify(Day7::class)
+fun main() = SomeDay.mainify(Day7)

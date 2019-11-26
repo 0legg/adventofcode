@@ -6,7 +6,7 @@ import net.olegg.aoc.year2017.DayOf2017
 /**
  * See [Year 2017, Day 10](https://adventofcode.com/2017/day/10)
  */
-class Day10 : DayOf2017(10) {
+object Day10 : DayOf2017(10) {
   override fun first(data: String): Any? {
     return data
         .trim()
@@ -48,4 +48,4 @@ class Day10 : DayOf2017(10) {
   }
 }
 
-fun main() = SomeDay.mainify(Day10::class)
+fun main() = SomeDay.mainify(Day10)

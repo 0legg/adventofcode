@@ -6,17 +6,15 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 23](https://adventofcode.com/2015/day/23)
  */
-class Day23 : DayOf2015(23) {
+object Day23 : DayOf2015(23) {
   private val commands = data.trim().lines()
 
-  companion object {
-    private val HLF_MATCHER = "^hlf (\\w)$".toRegex()
-    private val TPL_MATCHER = "^tpl (\\w)$".toRegex()
-    private val INC_MATCHER = "^inc (\\w)$".toRegex()
-    private val JMP_MATCHER = "^jmp ([+-]?\\d+)$".toRegex()
-    private val JIE_MATCHER = "^jie (\\w), ([+-]?\\d+)$".toRegex()
-    private val JIO_MATCHER = "^jio (\\w), ([+-]?\\d+)$".toRegex()
-  }
+  private val HLF_MATCHER = "^hlf (\\w)$".toRegex()
+  private val TPL_MATCHER = "^tpl (\\w)$".toRegex()
+  private val INC_MATCHER = "^inc (\\w)$".toRegex()
+  private val JMP_MATCHER = "^jmp ([+-]?\\d+)$".toRegex()
+  private val JIE_MATCHER = "^jie (\\w), ([+-]?\\d+)$".toRegex()
+  private val JIO_MATCHER = "^jio (\\w), ([+-]?\\d+)$".toRegex()
 
   fun emulate(initialState: Triple<Int, Int, Int>): Triple<Int, Int, Int> {
     var state = initialState
@@ -86,4 +84,4 @@ class Day23 : DayOf2015(23) {
   }
 }
 
-fun main() = SomeDay.mainify(Day23::class)
+fun main() = SomeDay.mainify(Day23)

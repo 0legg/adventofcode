@@ -8,7 +8,7 @@ import kotlin.math.absoluteValue
 /**
  * See [Year 2018, Day 25](https://adventofcode.com/2018/day/25)
  */
-class Day25 : DayOf2018(25) {
+object Day25 : DayOf2018(25) {
   override fun first(data: String): Any? {
     val points = data.trim()
         .lines()
@@ -30,4 +30,4 @@ class Day25 : DayOf2018(25) {
   }
 }
 
-fun main() = SomeDay.mainify(Day25::class)
+fun main() = SomeDay.mainify(Day25)

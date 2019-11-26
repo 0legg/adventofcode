@@ -6,7 +6,7 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 18](https://adventofcode.com/2016/day/18)
  */
-class Day18 : DayOf2016(18) {
+object Day18 : DayOf2016(18) {
 
   val patterns = listOf(
       "\\^\\^\\.".toRegex(),
@@ -32,4 +32,4 @@ class Day18 : DayOf2016(18) {
   }
 }
 
-fun main() = SomeDay.mainify(Day18::class)
+fun main() = SomeDay.mainify(Day18)

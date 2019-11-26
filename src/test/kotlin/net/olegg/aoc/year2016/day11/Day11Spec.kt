@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 object Day11Spec : Spek({
   describe("Task 1") {
-    val day = Day11()
+    val day = Day11
 
     context("small task") {
       val result = day.first(

@@ -7,7 +7,7 @@ import java.util.PriorityQueue
 /**
  * See [Year 2018, Day 22](https://adventofcode.com/2018/day/22)
  */
-class Day22 : DayOf2018(22) {
+object Day22 : DayOf2018(22) {
   override fun first(data: String): Any? {
     val (depthLine, targetLine) = data.trim().lines().map { it.substringAfter(": ") }
     val depth = depthLine.toInt()
@@ -86,4 +86,4 @@ class Day22 : DayOf2018(22) {
   private data class Config(val x: Int, val y: Int, val tool: Tool)
 }
 
-fun main() = SomeDay.mainify(Day22::class)
+fun main() = SomeDay.mainify(Day22)

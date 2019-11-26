@@ -6,7 +6,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 5](https://adventofcode.com/2015/day/5)
  */
-class Day5 : DayOf2015(5) {
+object Day5 : DayOf2015(5) {
   val strings = data.lines()
   override fun first(data: String): Any? {
     return strings
@@ -24,4 +24,4 @@ class Day5 : DayOf2015(5) {
   }
 }
 
-fun main() = SomeDay.mainify(Day5::class)
+fun main() = SomeDay.mainify(Day5)

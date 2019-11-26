@@ -7,7 +7,7 @@ import net.olegg.aoc.year2017.DayOf2017
 /**
  * See [Year 2017, Day 20](https://adventofcode.com/2017/day/20)
  */
-class Day20 : DayOf2017(20) {
+object Day20 : DayOf2017(20) {
   override fun first(data: String): Any? {
     val points = data.trim().lines()
         .map { line -> line.replace("[pva=<> ]".toRegex(), "") }
@@ -77,4 +77,4 @@ class Day20 : DayOf2017(20) {
   }
 }
 
-fun main() = SomeDay.mainify(Day20::class)
+fun main() = SomeDay.mainify(Day20)

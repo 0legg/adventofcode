@@ -6,7 +6,7 @@ import net.olegg.aoc.year2017.DayOf2017
 /**
  * See [Year 2017, Day 9](https://adventofcode.com/2017/day/9)
  */
-class Day9 : DayOf2017(9) {
+object Day9 : DayOf2017(9) {
   enum class State {
     GARBAGE,
     NORMAL
@@ -48,4 +48,4 @@ class Day9 : DayOf2017(9) {
   }
 }
 
-fun main() = SomeDay.mainify(Day9::class)
+fun main() = SomeDay.mainify(Day9)

@@ -6,11 +6,9 @@ import net.olegg.aoc.year2018.DayOf2018
 /**
  * See [Year 2018, Day 10](https://adventofcode.com/2018/day/10)
  */
-class Day10 : DayOf2018(10) {
-  companion object {
-    private val PATTERN = "position=<\\s*(-?\\d+),\\s*(-?\\d+)> velocity=<\\s*(-?\\d+),\\s*(-?\\d+)>".toRegex()
-    private const val HEIGHT = 16
-  }
+object Day10 : DayOf2018(10) {
+  private val PATTERN = "position=<\\s*(-?\\d+),\\s*(-?\\d+)> velocity=<\\s*(-?\\d+),\\s*(-?\\d+)>".toRegex()
+  private const val HEIGHT = 16
 
   override fun first(data: String): Any? {
     var points = data
@@ -73,4 +71,4 @@ class Day10 : DayOf2018(10) {
 
 operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>) = first + other.first to second + other.second
 
-fun main() = SomeDay.mainify(Day10::class)
+fun main() = SomeDay.mainify(Day10)

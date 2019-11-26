@@ -6,7 +6,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 21](https://adventofcode.com/2015/day/21)
  */
-class Day21 : DayOf2015(21) {
+object Day21 : DayOf2015(21) {
   private val hp = 100
   private val boss = data.trim().lines().map { it.substringAfterLast(": ").toInt() }
   private val weapons = listOf(
@@ -66,4 +66,4 @@ class Day21 : DayOf2015(21) {
 operator fun Triple<Int, Int, Int>.plus(other: Triple<Int, Int, Int>) =
     Triple(first + other.first, second + other.second, third + other.third)
 
-fun main() = SomeDay.mainify(Day21::class)
+fun main() = SomeDay.mainify(Day21)

@@ -8,10 +8,8 @@ import org.funktionale.memoization.memoize
 /**
  * See [Year 2016, Day 14](https://adventofcode.com/2016/day/14)
  */
-class Day14 : DayOf2016(14) {
-  companion object {
-    val MATCH_3 = "(.)(\\1)(\\1)".toRegex()
-  }
+object Day14 : DayOf2016(14) {
+  private val MATCH_3 = "(.)(\\1)(\\1)".toRegex()
 
   override fun first(data: String): Any? {
     val hash = { n: Int ->
@@ -50,4 +48,4 @@ class Day14 : DayOf2016(14) {
   }
 }
 
-fun main() = SomeDay.mainify(Day14::class)
+fun main() = SomeDay.mainify(Day14)

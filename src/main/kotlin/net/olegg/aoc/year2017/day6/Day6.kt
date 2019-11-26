@@ -6,7 +6,7 @@ import net.olegg.aoc.year2017.DayOf2017
 /**
  * See [Year 2017, Day 6](https://adventofcode.com/2017/day/6)
  */
-class Day6 : DayOf2017(6) {
+object Day6 : DayOf2017(6) {
   override fun first(data: String): Any? {
     val blocks = data.split("\\s+".toRegex())
         .map { it.toInt() }
@@ -60,4 +60,4 @@ class Day6 : DayOf2017(6) {
   }
 }
 
-fun main() = SomeDay.mainify(Day6::class)
+fun main() = SomeDay.mainify(Day6)

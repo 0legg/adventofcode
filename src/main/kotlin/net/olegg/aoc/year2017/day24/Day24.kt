@@ -9,7 +9,7 @@ import net.olegg.aoc.year2017.DayOf2017
 /**
  * See [Year 2017, Day 24](https://adventofcode.com/2017/day/24)
  */
-class Day24 : DayOf2017(24) {
+object Day24 : DayOf2017(24) {
   override fun first(data: String): Any? {
     val ports = data
         .trim()
@@ -92,4 +92,4 @@ class Day24 : DayOf2017(24) {
   }
 }
 
-fun main() = SomeDay.mainify(Day24::class)
+fun main() = SomeDay.mainify(Day24)

@@ -6,7 +6,7 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 7](https://adventofcode.com/2016/day/7)
  */
-class Day7 : DayOf2016(7) {
+object Day7 : DayOf2016(7) {
 
   val abba = ('a'..'z').flatMap { a -> ('a'..'z').filter { b -> a != b }.map { b -> "$a$b$b$a" } }
   val ababab = ('a'..'z').flatMap { a -> ('a'..'z').filter { b -> a != b }.map { b -> "$a$b$a" to "$b$a$b" } }
@@ -35,4 +35,4 @@ class Day7 : DayOf2016(7) {
   }
 }
 
-fun main() = SomeDay.mainify(Day7::class)
+fun main() = SomeDay.mainify(Day7)

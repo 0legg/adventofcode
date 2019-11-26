@@ -6,7 +6,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 2](https://adventofcode.com/2015/day/2)
  */
-class Day2 : DayOf2015(2) {
+object Day2 : DayOf2015(2) {
   val boxes = data.lines().map { it.split('x').map { it.toInt() }.sorted() }
 
   override fun first(data: String): Any? {
@@ -18,4 +18,4 @@ class Day2 : DayOf2015(2) {
   }
 }
 
-fun main() = SomeDay.mainify(Day2::class)
+fun main() = SomeDay.mainify(Day2)

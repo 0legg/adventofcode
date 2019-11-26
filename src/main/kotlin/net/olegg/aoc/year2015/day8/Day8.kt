@@ -6,7 +6,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 8](https://adventofcode.com/2015/day/8)
  */
-class Day8 : DayOf2015(8) {
+object Day8 : DayOf2015(8) {
   private val strings = data.trim().lines()
   override fun first(data: String): Any? {
     return strings.sumBy { it.length } -
@@ -37,4 +37,4 @@ class Day8 : DayOf2015(8) {
   }
 }
 
-fun main() = SomeDay.mainify(Day8::class)
+fun main() = SomeDay.mainify(Day8)

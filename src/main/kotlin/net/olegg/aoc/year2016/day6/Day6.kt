@@ -6,7 +6,7 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 6](https://adventofcode.com/2016/day/6)
  */
-class Day6 : DayOf2016(6) {
+object Day6 : DayOf2016(6) {
   override fun first(data: String): Any? {
     return data.lines()
         .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
@@ -36,4 +36,4 @@ class Day6 : DayOf2016(6) {
   }
 }
 
-fun main() = SomeDay.mainify(Day6::class)
+fun main() = SomeDay.mainify(Day6)

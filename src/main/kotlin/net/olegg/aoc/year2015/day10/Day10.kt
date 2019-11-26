@@ -7,7 +7,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 10](https://adventofcode.com/2015/day/10)
  */
-class Day10 : DayOf2015(10) {
+object Day10 : DayOf2015(10) {
   fun lookAndSay(source: String) = source
       .toList()
       .series()
@@ -22,4 +22,4 @@ class Day10 : DayOf2015(10) {
   }
 }
 
-fun main() = SomeDay.mainify(Day10::class)
+fun main() = SomeDay.mainify(Day10)

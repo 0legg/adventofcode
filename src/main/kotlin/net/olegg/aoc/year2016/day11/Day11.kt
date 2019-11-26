@@ -8,11 +8,9 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 11](https://adventofcode.com/2016/day/11)
  */
-class Day11 : DayOf2016(11) {
-  companion object {
-    private val GEN_PATTERN = "(\\w+) generator".toRegex()
-    private val CHIP_PATTERN = "(\\w+)-compatible microchip".toRegex()
-  }
+object Day11 : DayOf2016(11) {
+  private val GEN_PATTERN = "(\\w+) generator".toRegex()
+  private val CHIP_PATTERN = "(\\w+)-compatible microchip".toRegex()
 
   override fun first(data: String): Any? {
     val initial = data
@@ -128,4 +126,4 @@ typealias Day11State = Int
 
 operator fun Day11State.get(index: Int) = (this shr (index * 2)) and 3
 
-fun main() = SomeDay.mainify(Day11::class)
+fun main() = SomeDay.mainify(Day11)

@@ -7,7 +7,7 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 5](https://adventofcode.com/2016/day/5)
  */
-class Day5 : DayOf2016(5) {
+object Day5 : DayOf2016(5) {
   override fun first(data: String): Any? {
     return generateSequence(0) { it + 1 }
         .map { "$data$it".md5() }
@@ -34,4 +34,4 @@ class Day5 : DayOf2016(5) {
   }
 }
 
-fun main() = SomeDay.mainify(Day5::class)
+fun main() = SomeDay.mainify(Day5)

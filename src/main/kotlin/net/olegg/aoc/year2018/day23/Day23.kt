@@ -8,10 +8,8 @@ import kotlin.math.abs
 /**
  * See [Year 2018, Day 23](https://adventofcode.com/2018/day/23)
  */
-class Day23 : DayOf2018(23) {
-  companion object {
-    private val PATTERN = "pos=<(-?\\d+),(-?\\d+),(-?\\d+)>, r=(-?\\d+)".toRegex()
-  }
+object Day23 : DayOf2018(23) {
+  private val PATTERN = "pos=<(-?\\d+),(-?\\d+),(-?\\d+)>, r=(-?\\d+)".toRegex()
 
   override fun first(data: String): Any? {
     val bots = data
@@ -133,4 +131,4 @@ class Day23 : DayOf2018(23) {
   }
 }
 
-fun main() = SomeDay.mainify(Day23::class)
+fun main() = SomeDay.mainify(Day23)

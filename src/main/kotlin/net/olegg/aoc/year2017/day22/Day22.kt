@@ -6,7 +6,7 @@ import net.olegg.aoc.year2017.DayOf2017
 /**
  * See [Year 2017, Day 22](https://adventofcode.com/2017/day/22)
  */
-class Day22 : DayOf2017(22) {
+object Day22 : DayOf2017(22) {
   override fun first(data: String): Any? {
     val vectors = listOf(
         -1 to 0,
@@ -70,4 +70,4 @@ class Day22 : DayOf2017(22) {
   }
 }
 
-fun main() = SomeDay.mainify(Day22::class)
+fun main() = SomeDay.mainify(Day22)

@@ -7,20 +7,18 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 1](https://adventofcode.com/2016/day/1)
  */
-class Day1 : DayOf2016(1) {
-  companion object {
-    val MOVES = listOf(
-        0 to 1,
-        1 to 0,
-        0 to -1,
-        -1 to 0
-    )
+object Day1 : DayOf2016(1) {
+  val MOVES = listOf(
+      0 to 1,
+      1 to 0,
+      0 to -1,
+      -1 to 0
+  )
 
-    val SHIFT = mapOf(
-        'L' to -1,
-        'R' to 1
-    )
-  }
+  val SHIFT = mapOf(
+      'L' to -1,
+      'R' to 1
+  )
 
   override fun first(data: String): Any? {
     return data.split(", ")
@@ -61,4 +59,4 @@ class Day1 : DayOf2016(1) {
   }
 }
 
-fun main() = SomeDay.mainify(Day1::class)
+fun main() = SomeDay.mainify(Day1)

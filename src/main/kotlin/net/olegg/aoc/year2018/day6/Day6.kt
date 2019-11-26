@@ -7,11 +7,9 @@ import net.olegg.aoc.year2018.DayOf2018
 /**
  * See [Year 2018, Day 6](https://adventofcode.com/2018/day/6)
  */
-class Day6 : DayOf2018(6) {
-  companion object {
-    private val PATTERN = "(\\d+), (\\d+)".toRegex()
-    private val TOTAL = 10000
-  }
+object Day6 : DayOf2018(6) {
+  private val PATTERN = "(\\d+), (\\d+)".toRegex()
+  private const val TOTAL = 10000
 
   override fun first(data: String): Any? {
     val points = data
@@ -78,4 +76,4 @@ class Day6 : DayOf2018(6) {
   }
 }
 
-fun main() = SomeDay.mainify(Day6::class)
+fun main() = SomeDay.mainify(Day6)

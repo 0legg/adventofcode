@@ -6,7 +6,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 20](https://adventofcode.com/2015/day/20)
  */
-class Day20 : DayOf2015(20) {
+object Day20 : DayOf2015(20) {
   val max = data.toInt()
 
   override fun first(data: String): Any? {
@@ -24,4 +24,4 @@ class Day20 : DayOf2015(20) {
   }
 }
 
-fun main() = SomeDay.mainify(Day20::class)
+fun main() = SomeDay.mainify(Day20)

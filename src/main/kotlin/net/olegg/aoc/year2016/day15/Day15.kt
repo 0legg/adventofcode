@@ -6,7 +6,7 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 15](https://adventofcode.com/2016/day/15)
  */
-class Day15 : DayOf2016(15) {
+object Day15 : DayOf2016(15) {
   val regex = "Disc #(\\d+) has (\\d+) positions; at time=(\\d+), it is at position (\\d+).".toRegex()
 
   override fun first(data: String): Any? {
@@ -34,4 +34,4 @@ class Day15 : DayOf2016(15) {
   }
 }
 
-fun main() = SomeDay.mainify(Day15::class)
+fun main() = SomeDay.mainify(Day15)

@@ -6,11 +6,9 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 15](https://adventofcode.com/2015/day/15)
  */
-class Day15 : DayOf2015(15) {
-  companion object {
-    private const val spoons = 100
-    private val PATTERN = ".* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.*".toRegex()
-  }
+object Day15 : DayOf2015(15) {
+  private const val spoons = 100
+  private val PATTERN = ".* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.*".toRegex()
 
   val items = data
       .lines()
@@ -51,4 +49,4 @@ fun splitRange(splits: Int, sum: Int): List<List<Int>> = if (splits == 1) listOf
   (0..sum).flatMap { value -> splitRange(splits - 1, sum - value).map { listOf(value) + it } }
 }
 
-fun main() = SomeDay.mainify(Day15::class)
+fun main() = SomeDay.mainify(Day15)

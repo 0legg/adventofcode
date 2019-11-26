@@ -6,11 +6,9 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 10](https://adventofcode.com/2016/day/10)
  */
-class Day10 : DayOf2016(10) {
-  companion object {
-    private val VALUE_PATTERN = "value (\\d+) goes to bot (\\d+)".toRegex()
-    private val GIVE_PATTERN = "bot (\\d+) gives low to (\\w+) (\\d+) and high to (\\w+) (\\d+)".toRegex()
-  }
+object Day10 : DayOf2016(10) {
+  private val VALUE_PATTERN = "value (\\d+) goes to bot (\\d+)".toRegex()
+  private val GIVE_PATTERN = "bot (\\d+) gives low to (\\w+) (\\d+) and high to (\\w+) (\\d+)".toRegex()
 
   override fun first(data: String): Any? {
     val bots = mutableMapOf<Int, MutableSet<Int>>()
@@ -104,4 +102,4 @@ class Day10 : DayOf2016(10) {
   }
 }
 
-fun main() = SomeDay.mainify(Day10::class)
+fun main() = SomeDay.mainify(Day10)

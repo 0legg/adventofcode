@@ -6,10 +6,8 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 16](https://adventofcode.com/2015/day/16)
  */
-class Day16 : DayOf2015(16) {
-  companion object {
-    val PATTERN = "^Sue (\\d+): (?:([a-z]+): (\\d+)(?:, )?)*$".toRegex()
-  }
+object Day16 : DayOf2015(16) {
+  val PATTERN = "^Sue (\\d+): (?:([a-z]+): (\\d+)(?:, )?)*$".toRegex()
 
   val sues = data
       .trim()
@@ -61,4 +59,4 @@ class Day16 : DayOf2015(16) {
   }
 }
 
-fun main() = SomeDay.mainify(Day16::class)
+fun main() = SomeDay.mainify(Day16)

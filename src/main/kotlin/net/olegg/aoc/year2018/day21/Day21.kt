@@ -8,10 +8,8 @@ import net.olegg.aoc.year2018.Ops
 /**
  * See [Year 2018, Day 21](https://adventofcode.com/2018/day/21)
  */
-class Day21 : DayOf2018(21) {
-  companion object {
-    private val OPS_PATTERN = "(\\w+) (\\d+) (\\d+) (\\d+)".toRegex()
-  }
+object Day21 : DayOf2018(21) {
+  private val OPS_PATTERN = "(\\w+) (\\d+) (\\d+) (\\d+)".toRegex()
 
   override fun first(data: String): Any? {
     val pointer = data
@@ -89,4 +87,4 @@ class Day21 : DayOf2018(21) {
   }
 }
 
-fun main() = SomeDay.mainify(Day21::class)
+fun main() = SomeDay.mainify(Day21)

@@ -7,7 +7,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 3](https://adventofcode.com/2015/day/3)
  */
-class Day3 : DayOf2015(3) {
+object Day3 : DayOf2015(3) {
   val mapping = mapOf(
       '<' to Vector(-1, 0),
       '>' to Vector(1, 0),
@@ -34,4 +34,4 @@ data class Vector(val x: Int = 0, val y: Int = 0) {
   operator fun plus(other: Vector) = Vector(x + other.x, y + other.y)
 }
 
-fun main() = SomeDay.mainify(Day3::class)
+fun main() = SomeDay.mainify(Day3)

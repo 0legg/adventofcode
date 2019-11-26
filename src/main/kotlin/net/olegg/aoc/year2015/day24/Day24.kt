@@ -6,7 +6,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 24](https://adventofcode.com/2015/day/24)
  */
-class Day24 : DayOf2015(24) {
+object Day24 : DayOf2015(24) {
   val weights = data.lines().map { it.toLong() }
   override fun first(data: String): Any? {
     val sum = weights.sum() / 3
@@ -36,4 +36,4 @@ fun subsets(sum: Long, list: List<Long>): List<List<Long>> = when {
   else -> subsets(sum, list.drop(1)) + subsets(sum - list[0], list.drop(1)).map { listOf(list[0]) + it }
 }
 
-fun main() = SomeDay.mainify(Day24::class)
+fun main() = SomeDay.mainify(Day24)

@@ -8,12 +8,10 @@ import net.olegg.aoc.year2018.Ops
 /**
  * See [Year 2018, Day 16](https://adventofcode.com/2018/day/16)
  */
-class Day16 : DayOf2018(16) {
-  companion object {
-    private val REGS_PATTERN = ".*\\[(\\d+), (\\d+), (\\d+), (\\d+)]".toRegex()
-    private val OPS_PATTERN = "(\\d+) (\\d+) (\\d+) (\\d+)".toRegex()
-    private val EMPTY = listOf(0L, 0L, 0L, 0L)
-  }
+object Day16 : DayOf2018(16) {
+  private val REGS_PATTERN = ".*\\[(\\d+), (\\d+), (\\d+), (\\d+)]".toRegex()
+  private val OPS_PATTERN = "(\\d+) (\\d+) (\\d+) (\\d+)".toRegex()
+  private val EMPTY = listOf(0L, 0L, 0L, 0L)
 
   override fun first(data: String): Any? {
     val firstPart = data.split("\n\n\n\n")[0]
@@ -85,4 +83,4 @@ class Day16 : DayOf2018(16) {
   }
 }
 
-fun main() = SomeDay.mainify(Day16::class)
+fun main() = SomeDay.mainify(Day16)

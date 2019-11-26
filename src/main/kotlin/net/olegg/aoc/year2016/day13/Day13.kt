@@ -7,15 +7,13 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 13](https://adventofcode.com/2016/day/13)
  */
-class Day13 : DayOf2016(13) {
-  companion object {
-    private val MOVES = listOf(
-        0 to 1,
-        0 to -1,
-        1 to 0,
-        -1 to 0
-    )
-  }
+object Day13 : DayOf2016(13) {
+  private val MOVES = listOf(
+      0 to 1,
+      0 to -1,
+      1 to 0,
+      -1 to 0
+  )
 
   override fun first(data: String): Any? {
     val fav = data.trim().toInt()
@@ -71,4 +69,4 @@ class Day13 : DayOf2016(13) {
       Integer.bitCount(x * x + 3 * x + 2 * x * y + y + y * y + fav) % 2 == 0
 }
 
-fun main() = SomeDay.mainify(Day13::class)
+fun main() = SomeDay.mainify(Day13)

@@ -7,7 +7,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 1](https://adventofcode.com/2015/day/1)
  */
-class Day1 : DayOf2015(1) {
+object Day1 : DayOf2015(1) {
   val floors = data.map { 1 - 2 * (it.minus('(')) }
 
   override fun first(data: String): Any? {
@@ -19,4 +19,4 @@ class Day1 : DayOf2015(1) {
   }
 }
 
-fun main() = SomeDay.mainify(Day1::class)
+fun main() = SomeDay.mainify(Day1)

@@ -8,7 +8,7 @@ import kotlin.test.DefaultAsserter.assertEquals
 object Day9Spec : Spek({
 
   describe("Task 1") {
-    val day = Day9()
+    val day = Day9
 
     context("ADVENT") {
       val result = day.first("ADVENT")
@@ -54,7 +54,7 @@ object Day9Spec : Spek({
   }
 
   describe("Task 2") {
-    val day = Day9()
+    val day = Day9
 
     context("(3x3)XYZ") {
       val result = day.second("(3x3)XYZ")

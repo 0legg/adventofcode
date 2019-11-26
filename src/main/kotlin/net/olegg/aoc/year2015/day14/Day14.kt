@@ -7,11 +7,9 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 14](https://adventofcode.com/2015/day/14)
  */
-class Day14 : DayOf2015(14) {
-  companion object {
-    const val TIME = 2503
-    val LINE_PATTERN = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b.*\\b(\\d+)\\b.*".toRegex()
-  }
+object Day14 : DayOf2015(14) {
+  const val TIME = 2503
+  val LINE_PATTERN = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b.*\\b(\\d+)\\b.*".toRegex()
 
   private val speeds = data
       .trim()
@@ -55,4 +53,4 @@ class Day14 : DayOf2015(14) {
   }
 }
 
-fun main() = SomeDay.mainify(Day14::class)
+fun main() = SomeDay.mainify(Day14)

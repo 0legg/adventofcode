@@ -1,7 +1,5 @@
 package net.olegg.aoc.someday
 
-import kotlin.reflect.KClass
-import kotlin.reflect.full.primaryConstructor
 import kotlin.system.measureTimeMillis
 
 /**
@@ -19,8 +17,8 @@ abstract class SomeDay(val year: Int, val day: Int) {
   }
 
   companion object {
-    fun mainify(clazz: KClass<out SomeDay>) {
-      clazz.primaryConstructor?.call()?.apply {
+    fun mainify(someday: SomeDay) {
+      with(someday) {
         println("Year $year, day $day")
         measureTimeMillis {
           println("First: ${first(data)?.toString() ?: "unsolved"}")

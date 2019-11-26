@@ -8,7 +8,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 19](https://adventofcode.com/2015/day/19)
  */
-class Day19 : DayOf2015(19) {
+object Day19 : DayOf2015(19) {
   private val transitions = data.lines().dropLast(2).map { val split = it.split(" => "); Pair(split[0], split[1]) }
   private val molecule = data.lines().last()
 
@@ -44,4 +44,4 @@ class Day19 : DayOf2015(19) {
   }
 }
 
-fun main() = SomeDay.mainify(Day19::class)
+fun main() = SomeDay.mainify(Day19)

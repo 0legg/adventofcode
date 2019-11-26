@@ -7,10 +7,8 @@ import net.olegg.aoc.year2018.DayOf2018
 /**
  * See [Year 2018, Day 9](https://adventofcode.com/2018/day/9)
  */
-class Day9 : DayOf2018(9) {
-  companion object {
-    private val PATTERN = "(\\d++) players; last marble is worth (\\d++) points".toRegex()
-  }
+object Day9 : DayOf2018(9) {
+  private val PATTERN = "(\\d++) players; last marble is worth (\\d++) points".toRegex()
 
   override fun first(data: String): Any? {
     val (players, points) = PATTERN.matchEntire(data.trim())?.destructured?.toList()?.map { it.toInt() }
@@ -60,4 +58,4 @@ class Day9 : DayOf2018(9) {
   }
 }
 
-fun main() = SomeDay.mainify(Day9::class)
+fun main() = SomeDay.mainify(Day9)

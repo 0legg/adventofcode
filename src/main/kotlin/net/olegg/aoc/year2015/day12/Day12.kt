@@ -9,7 +9,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 12](https://adventofcode.com/2015/day/12)
  */
-class Day12 : DayOf2015(12) {
+object Day12 : DayOf2015(12) {
   val json = Parser.default(streaming = true).parse(data.byteInputStream()) as JsonObject
 
   fun sumRecursive(json: Any?): Int {
@@ -39,4 +39,4 @@ class Day12 : DayOf2015(12) {
   }
 }
 
-fun main() = SomeDay.mainify(Day12::class)
+fun main() = SomeDay.mainify(Day12)

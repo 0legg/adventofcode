@@ -9,7 +9,7 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 24](https://adventofcode.com/2016/day/24)
  */
-class Day24 : DayOf2016(24) {
+object Day24 : DayOf2016(24) {
 
   private val moves = listOf(
       0 to 1,
@@ -103,4 +103,4 @@ class Day24 : DayOf2016(24) {
   }
 }
 
-fun main() = SomeDay.mainify(Day24::class)
+fun main() = SomeDay.mainify(Day24)

@@ -6,16 +6,14 @@ import net.olegg.aoc.year2017.DayOf2017
 /**
  * See [Year 2017, Day 25](https://adventofcode.com/2017/day/25)
  */
-class Day25 : DayOf2017(25) {
-  companion object {
-    val HEADER_PATTERN = ("Begin in state ([A-Z]+)\\.\\n" +
-        "Perform a diagnostic checksum after ([0-9]+) steps\\.").toRegex()
-    val STATE_PATTERN = "In state ([A-Z]+):".toRegex()
-    val ACTION_PATTERN = ("If the current value is ([0-9]+)[^-]+" +
-        "- Write the value ([0-9]+)[^-]+" +
-        "- Move one slot to the ([a-z]+)[^-]+" +
-        "- Continue with state ([A-Z]+)\\.").toRegex()
-  }
+object Day25 : DayOf2017(25) {
+  private val HEADER_PATTERN = ("Begin in state ([A-Z]+)\\.\\n" +
+       "Perform a diagnostic checksum after ([0-9]+) steps\\.").toRegex()
+  private val STATE_PATTERN = "In state ([A-Z]+):".toRegex()
+  private val ACTION_PATTERN = ("If the current value is ([0-9]+)[^-]+" +
+      "- Write the value ([0-9]+)[^-]+" +
+      "- Move one slot to the ([a-z]+)[^-]+" +
+      "- Continue with state ([A-Z]+)\\.").toRegex()
 
   override fun first(data: String): Any? {
     val sections = data.trim().split("\n\n")
@@ -66,4 +64,4 @@ class Day25 : DayOf2017(25) {
   )
 }
 
-fun main() = SomeDay.mainify(Day25::class)
+fun main() = SomeDay.mainify(Day25)

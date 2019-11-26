@@ -6,7 +6,7 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 16](https://adventofcode.com/2016/day/16)
  */
-class Day16 : DayOf2016(16) {
+object Day16 : DayOf2016(16) {
   override fun first(data: String): Any? {
     return checksum(data, 272)
   }
@@ -34,4 +34,4 @@ class Day16 : DayOf2016(16) {
   }
 }
 
-fun main() = SomeDay.mainify(Day16::class)
+fun main() = SomeDay.mainify(Day16)

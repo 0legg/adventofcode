@@ -6,7 +6,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 6](https://adventofcode.com/2015/day/6)
  */
-class Day6 : DayOf2015(6) {
+object Day6 : DayOf2015(6) {
   val commands = data.lines()
 
   fun toPoints(command: String): List<Int> {
@@ -50,4 +50,4 @@ class Day6 : DayOf2015(6) {
   }
 }
 
-fun main() = SomeDay.mainify(Day6::class)
+fun main() = SomeDay.mainify(Day6)

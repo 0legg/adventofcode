@@ -8,11 +8,9 @@ import net.olegg.aoc.year2018.DayOf2018
 /**
  * See [Year 2018, Day 17](https://adventofcode.com/2018/day/17)
  */
-class Day17 : DayOf2018(17) {
-  companion object {
-    private val PATTERN = "(\\w)=(\\d+), (\\w)=(\\d+)..(\\d+)".toRegex()
-    private val WATER = listOf('~', '|')
-  }
+object Day17 : DayOf2018(17) {
+  private val PATTERN = "(\\w)=(\\d+), (\\w)=(\\d+)..(\\d+)".toRegex()
+  private val WATER = listOf('~', '|')
 
   override fun first(data: String): Any? {
     val (xs, ys, map) = fill(data)
@@ -130,4 +128,4 @@ class Day17 : DayOf2018(17) {
   }
 }
 
-fun main() = SomeDay.mainify(Day17::class)
+fun main() = SomeDay.mainify(Day17)

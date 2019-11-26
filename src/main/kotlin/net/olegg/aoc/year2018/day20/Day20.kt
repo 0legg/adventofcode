@@ -7,16 +7,14 @@ import java.util.ArrayDeque
 /**
  * See [Year 2018, Day 20](https://adventofcode.com/2018/day/20)
  */
-class Day20 : DayOf2018(20) {
-  companion object {
-    private val START = 0 to 0
-    private val MOVES = mapOf(
-        'W' to (-1 to 0),
-        'E' to (1 to 0),
-        'N' to (0 to -1),
-        'S' to (0 to 1)
-    ).withDefault { 0 to 0 }
-  }
+object Day20 : DayOf2018(20) {
+  private val START = 0 to 0
+  private val MOVES = mapOf(
+      'W' to (-1 to 0),
+      'E' to (1 to 0),
+      'N' to (0 to -1),
+      'S' to (0 to 1)
+  ).withDefault { 0 to 0 }
 
   override fun first(data: String): Any? {
     val route = data.trim('^', '$', ' ', '\n')
@@ -71,4 +69,4 @@ class Day20 : DayOf2018(20) {
   }
 }
 
-fun main() = SomeDay.mainify(Day20::class)
+fun main() = SomeDay.mainify(Day20)

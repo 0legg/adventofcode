@@ -7,10 +7,8 @@ import net.olegg.aoc.year2018.DayOf2018
 /**
  * See [Year 2018, Day 7](https://adventofcode.com/2018/day/7)
  */
-class Day7 : DayOf2018(7) {
-  companion object {
-    private val PATTERN = "Step (\\w) must be finished before step (\\w) can begin\\.".toRegex()
-  }
+object Day7 : DayOf2018(7) {
+  private val PATTERN = "Step (\\w) must be finished before step (\\w) can begin\\.".toRegex()
 
   override fun first(data: String): Any? {
     val edges = data
@@ -102,4 +100,4 @@ class Day7 : DayOf2018(7) {
   }
 }
 
-fun main() = SomeDay.mainify(Day7::class)
+fun main() = SomeDay.mainify(Day7)

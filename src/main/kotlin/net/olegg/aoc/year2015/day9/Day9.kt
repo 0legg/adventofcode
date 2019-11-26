@@ -7,10 +7,8 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 9](https://adventofcode.com/2015/day/9)
  */
-class Day9 : DayOf2015(9) {
-  companion object {
-    private val PATTERN = "^\\b(\\w*)\\b to \\b(\\w*)\\b = (\\d*)$".toRegex()
-  }
+object Day9 : DayOf2015(9) {
+  private val PATTERN = "^\\b(\\w*)\\b to \\b(\\w*)\\b = (\\d*)$".toRegex()
 
   private val edges = data
       .trim()
@@ -48,4 +46,4 @@ class Day9 : DayOf2015(9) {
   }
 }
 
-fun main() = SomeDay.mainify(Day9::class)
+fun main() = SomeDay.mainify(Day9)

@@ -6,10 +6,8 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 22](https://adventofcode.com/2016/day/22)
  */
-class Day22 : DayOf2016(22) {
-  companion object {
-    val pattern = "/dev/grid/node-x(\\d+)-y(\\d+)\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)%".toRegex()
-  }
+object Day22 : DayOf2016(22) {
+  val pattern = "/dev/grid/node-x(\\d+)-y(\\d+)\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)%".toRegex()
 
   override fun first(data: String): Any? {
     val machines = data
@@ -59,4 +57,4 @@ class Day22 : DayOf2016(22) {
   }
 }
 
-fun main() = SomeDay.mainify(Day22::class)
+fun main() = SomeDay.mainify(Day22)

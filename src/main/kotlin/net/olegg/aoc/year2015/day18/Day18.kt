@@ -6,7 +6,7 @@ import net.olegg.aoc.year2015.DayOf2015
 /**
  * See [Year 2015, Day 18](https://adventofcode.com/2015/day/18)
  */
-class Day18 : DayOf2015(18) {
+object Day18 : DayOf2015(18) {
   val size = 100
   val field = data
       .lines()
@@ -50,4 +50,4 @@ class Day18 : DayOf2015(18) {
   }
 }
 
-fun main() = SomeDay.mainify(Day18::class)
+fun main() = SomeDay.mainify(Day18)

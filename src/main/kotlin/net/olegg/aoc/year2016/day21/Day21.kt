@@ -6,16 +6,14 @@ import net.olegg.aoc.year2016.DayOf2016
 /**
  * See [Year 2016, Day 21](https://adventofcode.com/2016/day/21)
  */
-class Day21 : DayOf2016(21) {
-  companion object {
-    private val SP_PATTERN = "swap position (\\d+) with position (\\d+)".toRegex()
-    private val SL_PATTERN = "swap letter (\\w) with letter (\\w)".toRegex()
-    private val RL_PATTERN = "rotate left (\\d+) steps?".toRegex()
-    private val RR_PATTERN = "rotate right (\\d+) steps?".toRegex()
-    private val RB_PATTERN = "rotate based on position of letter (\\w)".toRegex()
-    private val RP_PATTERN = "reverse positions (\\d+) through (\\d+)".toRegex()
-    private val MP_PATTERN = "move position (\\d+) to position (\\d+)".toRegex()
-  }
+object Day21 : DayOf2016(21) {
+  private val SP_PATTERN = "swap position (\\d+) with position (\\d+)".toRegex()
+  private val SL_PATTERN = "swap letter (\\w) with letter (\\w)".toRegex()
+  private val RL_PATTERN = "rotate left (\\d+) steps?".toRegex()
+  private val RR_PATTERN = "rotate right (\\d+) steps?".toRegex()
+  private val RB_PATTERN = "rotate based on position of letter (\\w)".toRegex()
+  private val RP_PATTERN = "reverse positions (\\d+) through (\\d+)".toRegex()
+  private val MP_PATTERN = "move position (\\d+) to position (\\d+)".toRegex()
 
   sealed class Op {
     data class SwapPosition(val from: Int, val to: Int) : Op() {
@@ -187,4 +185,4 @@ class Day21 : DayOf2016(21) {
   }
 }
 
-fun main() = SomeDay.mainify(Day21::class)
+fun main() = SomeDay.mainify(Day21)
