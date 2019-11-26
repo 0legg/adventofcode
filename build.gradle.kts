@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.olegg.adventofcode"
-version = "3.0.0"
+version = "2019.0.0"
 
 repositories {
   jcenter()
