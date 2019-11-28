@@ -18,20 +18,20 @@ object Versions {
 
     const val com_squareup_retrofit2: String = "2.6.2"
 
-    const val org_jetbrains_kotlin: String = "1.3.60"
+    const val org_jetbrains_kotlin: String = "1.3.61"
 
     const val de_fayard_buildsrcversions_gradle_plugin: String = "0.7.0"
 
     const val de_fuerstenau_buildconfig_gradle_plugin: String = "1.1.8"
 
-    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.60"
+    const val org_jetbrains_kotlin_jvm_gradle_plugin: String = "1.3.61"
 
     const val funktionale_memoization: String = "1.2"
 
     const val klaxon: String = "5.2"
 
     /**
-     * Current version: "6.0"
+     * Current version: "6.0.1"
      * See issue 19: How to update Gradle itself?
      * https://github.com/jmfayard/buildSrcVersions/issues/19
      */
