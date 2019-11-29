@@ -18,7 +18,7 @@ object Day5 : DayOf2016(5) {
   }
 
   override fun second(data: String): Any? {
-    val map = hashMapOf<Char, Char>()
+    val map = mutableMapOf<Char, Char>()
     return generateSequence(0) { it + 1 }
         .map { "$data$it".md5() }
         .filter { it.startsWith("00000") }

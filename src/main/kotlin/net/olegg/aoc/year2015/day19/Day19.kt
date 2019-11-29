@@ -14,7 +14,7 @@ object Day19 : DayOf2015(19) {
 
   private fun applyTransitions(molecule: String, transition: Pair<Pattern, String>): Set<String> {
     val matcher = transition.first.matcher(molecule)
-    val result = hashSetOf<String>()
+    val result = mutableSetOf<String>()
     while (matcher.find()) {
       result.add(molecule.replaceRange(matcher.start(), matcher.end(), transition.second))
     }
@@ -31,7 +31,7 @@ object Day19 : DayOf2015(19) {
 
   override fun second(data: String): Any? {
     val reverse = transitions.map { it.second.toPattern() to it.first }
-    val molecules = hashMapOf(molecule to 0)
+    val molecules = mutableMapOf(molecule to 0)
     val queue = ArrayDeque(listOf(molecule))
     while (!molecules.containsKey("e") && queue.isNotEmpty()) {
       val curr = queue.pop()
