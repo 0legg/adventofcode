@@ -10,8 +10,10 @@ object Day8 : DayOf2017(8) {
   override fun first(data: String): Any? {
     val registers = mutableMapOf<String, Int>()
 
-    data.lines()
-        .map { it.split("\\s".toRegex()) }
+    data
+        .trim()
+        .lines()
+        .map { it.split(" ") }
         .forEach { list ->
           val oldValue = registers[list[0]] ?: 0
           val shift = list[2].toInt() * (if (list[1] == "dec") -1 else 1)
@@ -36,8 +38,10 @@ object Day8 : DayOf2017(8) {
   override fun second(data: String): Any? {
     val registers = mutableMapOf<String, Int>()
 
-    return data.lines()
-        .map { it.split("\\s".toRegex()) }
+    return data
+        .trim()
+        .lines()
+        .map { it.split(" ") }
         .map { list ->
           val oldValue = registers[list[0]] ?: 0
           val shift = list[2].toInt() * (if (list[1] == "dec") -1 else 1)

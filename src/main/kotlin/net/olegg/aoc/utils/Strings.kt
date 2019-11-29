@@ -8,5 +8,11 @@ import java.security.MessageDigest
  * Extension functions and utility methods for strings.
  */
 
-fun String.md5() =
-    "%032x".format(BigInteger(1, MessageDigest.getInstance("MD5").digest(this.toByteArray(StandardCharsets.UTF_8))))
+fun String.md5(): String =
+    "%032x".format(BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray(StandardCharsets.UTF_8))))
+
+fun String?.parseInts(delimiters: String = " ", radix: Int = 10): List<Int> =
+    this?.split(delimiters)?.mapNotNull { it.toIntOrNull(radix) }.orEmpty()
+
+fun String?.parseLongs(delimiters: String = " ", radix: Int = 10): List<Long> =
+    this?.split(delimiters)?.mapNotNull { it.toLongOrNull(radix) }.orEmpty()

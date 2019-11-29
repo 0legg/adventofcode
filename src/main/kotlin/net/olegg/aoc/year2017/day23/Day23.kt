@@ -9,9 +9,10 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day23 : DayOf2017(23) {
   override fun first(data: String): Any? {
-    val ops = data.trimIndent()
+    val ops = data
+        .trim()
         .lines()
-        .map { it.split("\\s+".toRegex()).toList() }
+        .map { it.split(" ") }
 
     var position = 0
     val regs = mutableMapOf<String, BigInteger>()
@@ -34,9 +35,10 @@ object Day23 : DayOf2017(23) {
   }
 
   override fun second(data: String): Any? {
-    val ops = data.trimIndent()
+    val ops = data
+        .trim()
         .lines()
-        .map { it.split("\\s+".toRegex()).toList() }
+        .map { it.split(" ") }
 
     var position = 0
     val regs = mutableMapOf("a" to BigInteger.ONE)

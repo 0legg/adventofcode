@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2017.day10
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2017.DayOf2017
 
 /**
@@ -10,8 +11,7 @@ object Day10 : DayOf2017(10) {
   override fun first(data: String): Any? {
     return data
         .trim()
-        .split(",")
-        .map { it.toInt() }
+        .parseInts(",")
         .foldIndexed(List(256) { it } to 0) { index, acc, value ->
           val prev = acc.first + acc.first
           val curr = prev.subList(0, acc.second) +

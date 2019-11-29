@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2017.day2
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2017.DayOf2017
 
 /**
@@ -8,15 +9,19 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day2 : DayOf2017(2) {
   override fun first(data: String): Any? {
-    return data.lines()
-        .map { it.split("\\s".toRegex()).map { it.toInt() } }
+    return data
+        .trim()
+        .lines()
+        .map { it.parseInts() }
         .map { (it.max() ?: 0) - (it.min() ?: 0) }
         .sum()
   }
 
   override fun second(data: String): Any? {
-    return data.lines()
-        .map { line -> line.split("\\s".toRegex()).map { it.toInt() } }
+    return data
+        .trim()
+        .lines()
+        .map { it.parseInts() }
         .map { list ->
           list.flatMap { first ->
             list.filter { first % it == 0 }

@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2017.day6
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2017.DayOf2017
 
 /**
@@ -8,8 +9,7 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day6 : DayOf2017(6) {
   override fun first(data: String): Any? {
-    val blocks = data.split("\\s+".toRegex())
-        .map { it.toInt() }
+    val blocks = data.trim().parseInts()
 
     val seen = mutableSetOf<List<Int>>()
     var curr = blocks
@@ -34,8 +34,7 @@ object Day6 : DayOf2017(6) {
   }
 
   override fun second(data: String): Any? {
-    val blocks = data.split("\\s+".toRegex())
-        .map { it.toInt() }
+    val blocks = data.trim().parseInts()
 
     val seen = mutableMapOf<List<Int>, Int>()
     var curr = blocks

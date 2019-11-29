@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2016.day1
 
-import java.lang.Math.abs
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2016.DayOf2016
+import kotlin.math.abs
 
 /**
  * See [Year 2016, Day 1](https://adventofcode.com/2016/day/1)
@@ -34,7 +34,7 @@ object Day1 : DayOf2016(1) {
   }
 
   override fun second(data: String): Any? {
-    var visited = hashSetOf(0 to 0)
+    val visited = mutableSetOf(0 to 0)
 
     data.split(", ")
         .map { it[0] to it.substring(1).toInt() }
