@@ -13,7 +13,7 @@ object Day18 : DayOf2017(18) {
     val ops = data
         .trimIndent()
         .lines()
-        .map { it.split("\\s+".toRegex()).toList() }
+        .map { it.split(" ") }
 
     var position = 0
     val regs = mutableMapOf<String, Long>()
@@ -46,7 +46,7 @@ object Day18 : DayOf2017(18) {
     val stopped = Array(2) { false }
     val ops = data.trimIndent()
         .lines()
-        .map { it.split("\\s+".toRegex()).toList() }
+        .map { it.split(" ") }
 
     while (!locked[active] && !stopped[active]) {
       if (position[active] !in ops.indices) {

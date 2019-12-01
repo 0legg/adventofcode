@@ -2,6 +2,7 @@ package net.olegg.aoc.year2017.day12
 
 import java.util.ArrayDeque
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2017.DayOf2017
 
 /**
@@ -12,7 +13,7 @@ object Day12 : DayOf2017(12) {
     val nodes = data.trimIndent()
         .lines()
         .map { it.replace("[<\\->,]".toRegex(), "") }
-        .map { it.split("\\s+".toRegex()).map { it.toInt() } }
+        .map { it.parseInts() }
         .map { it[0] to it.subList(1, it.size).toSet() }
         .toMap()
 
@@ -32,7 +33,7 @@ object Day12 : DayOf2017(12) {
     val nodes = data.trimIndent()
         .lines()
         .map { it.replace("[<\\->,]".toRegex(), "") }
-        .map { it.split("\\s+".toRegex()).map { it.toInt() } }
+        .map { it.parseInts() }
         .map { it[0] to it.subList(1, it.size).toSet() }
         .toMap()
         .toMutableMap()

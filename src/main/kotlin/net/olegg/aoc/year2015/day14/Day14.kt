@@ -8,8 +8,8 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 14](https://adventofcode.com/2015/day/14)
  */
 object Day14 : DayOf2015(14) {
-  const val TIME = 2503
-  val LINE_PATTERN = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b.*\\b(\\d+)\\b.*".toRegex()
+  private const val TIME = 2503
+  private val LINE_PATTERN = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b.*\\b(\\d+)\\b.*".toRegex()
 
   private val speeds = data
       .trim()

@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2018.day22
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2018.DayOf2018
 import java.util.PriorityQueue
 
@@ -11,7 +12,7 @@ object Day22 : DayOf2018(22) {
   override fun first(data: String): Any? {
     val (depthLine, targetLine) = data.trim().lines().map { it.substringAfter(": ") }
     val depth = depthLine.toInt()
-    val (tx, ty) = targetLine.split(",").let { it.first().toInt() to it.last().toInt() }
+    val (tx, ty) = targetLine.parseInts(",")
 
     val erosion = ErosionCache(depth.toLong(), tx, ty)
 
@@ -25,7 +26,7 @@ object Day22 : DayOf2018(22) {
   override fun second(data: String): Any? {
     val (depthLine, targetLine) = data.trim().lines().map { it.substringAfter(": ") }
     val depth = depthLine.toInt()
-    val (tx, ty) = targetLine.split(",").let { it.first().toInt() to it.last().toInt() }
+    val (tx, ty) = targetLine.parseInts(",")
     val target = Config(tx, ty, Tool.Torch)
     val directions = listOf((1 to 0), (-1 to 0), (0 to 1), (0 to -1))
 

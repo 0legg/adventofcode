@@ -7,7 +7,7 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 5](https://adventofcode.com/2015/day/5)
  */
 object Day5 : DayOf2015(5) {
-  val strings = data.lines()
+  val strings = data.trim().lines()
   override fun first(data: String): Any? {
     return strings
         .filter { it.count { it in "aeiou" } >= 3 }

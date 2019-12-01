@@ -9,7 +9,7 @@ import net.olegg.aoc.year2017.DayOf2017
 object Day7 : DayOf2017(7) {
   override fun first(data: String): Any? {
     return data.lines()
-        .map { it.split("\\s".toRegex()).map { it.replace(",", "") } }
+        .map { it.split(" ").map { it.replace(",", "") } }
         .fold(emptySet<String>() to emptySet<String>()) { acc, list ->
           val used = if (list.size > 3) acc.second + list.subList(3, list.size) else acc.second
           val free = (acc.first + list[0]) - used

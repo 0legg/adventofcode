@@ -3,6 +3,7 @@ package net.olegg.aoc.year2018.day8
 import java.util.ArrayDeque
 import java.util.Deque
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2018.DayOf2018
 
 /**
@@ -12,8 +13,7 @@ object Day8 : DayOf2018(8) {
   override fun first(data: String): Any? {
     val numbers = data
         .trim()
-        .split("\\s+".toRegex())
-        .map { it.toInt() }
+        .parseInts()
 
     return sumMetadata(ArrayDeque(numbers))
   }
@@ -21,8 +21,7 @@ object Day8 : DayOf2018(8) {
   override fun second(data: String): Any? {
     val numbers = data
         .trim()
-        .split("\\s+".toRegex())
-        .map { it.toInt() }
+        .parseInts()
 
     return sumValues(ArrayDeque(numbers))
   }

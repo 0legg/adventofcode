@@ -2,6 +2,7 @@ package net.olegg.aoc.year2017.day20
 
 import kotlin.math.abs
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2017.DayOf2017
 
 /**
@@ -11,7 +12,7 @@ object Day20 : DayOf2017(20) {
   override fun first(data: String): Any? {
     val points = data.trim().lines()
         .map { line -> line.replace("[pva=<> ]".toRegex(), "") }
-        .map { line -> line.split(",").map { it.toLong() } }
+        .map { it.parseLongs(",") }
         .map { nums ->
           Triple(
               Triple(nums[0], nums[1], nums[2]),
@@ -44,7 +45,7 @@ object Day20 : DayOf2017(20) {
   override fun second(data: String): Any? {
     val points = data.trim().lines()
         .map { line -> line.replace("[pva=<> ]".toRegex(), "") }
-        .map { line -> line.split(",").map { it.toLong() } }
+        .map { it.parseLongs(",") }
         .mapIndexed { index, nums ->
           index to Triple(
               Triple(nums[0], nums[1], nums[2]),

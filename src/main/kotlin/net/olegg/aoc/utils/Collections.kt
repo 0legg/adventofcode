@@ -10,7 +10,7 @@ package net.olegg.aoc.utils
  */
 inline fun <T, R> Iterable<T>.scan(initial: R, operation: (R, T) -> R): List<R> {
   var accumulator = initial
-  var list = listOf<R>()
+  val list = mutableListOf<R>()
   for (element in this) {
     accumulator = operation(accumulator, element)
     list += accumulator
@@ -55,13 +55,13 @@ fun <T : Any> List<T>.permutations(): Sequence<List<T>> = if (size == 1) sequenc
  * Splits iterable into list of subsequences such that each subsequence contains only equal items.
  */
 fun <T> Iterable<T>.series(): List<List<T>> {
-  val list = arrayListOf<ArrayList<T>>()
-  var store = arrayListOf<T>()
+  val list = mutableListOf<MutableList<T>>()
+  var store = mutableListOf<T>()
   for (element in this) {
     if (store.contains(element)) {
       store.add(element)
     } else {
-      store = arrayListOf(element)
+      store = mutableListOf(element)
       list.add(store)
     }
   }

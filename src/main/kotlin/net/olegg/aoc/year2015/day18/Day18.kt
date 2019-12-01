@@ -11,10 +11,9 @@ object Day18 : DayOf2015(18) {
   val field = data
       .lines()
       .mapIndexed { row, string ->
-        string.mapIndexed { column, char -> if (char == '#') Pair(row, column) else null }
+        string.mapIndexedNotNull { column, char -> if (char == '#') Pair(row, column) else null }
       }
       .flatten()
-      .filterNotNull()
       .toSet()
 
   fun move(field: Set<Pair<Int, Int>>): Set<Pair<Int, Int>> {
