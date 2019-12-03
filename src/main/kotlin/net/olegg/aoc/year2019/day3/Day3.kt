@@ -23,6 +23,26 @@ object Day3 : DayOf2019(3) {
 
     return (wire1.intersect(wire2)).map { abs(it.x) + abs(it.y) }.min()
   }
+
+  override fun second(data: String): Any? {
+    val (wire1, wire2) = data
+        .trim()
+        .lines()
+        .map { line -> line.split(",").map { Directions.valueOf(it.substring(0, 1)) to it.substring(1).toInt() } }
+        .map { wire -> wire.fold(listOf(Vector2D() to 0)) { acc, (dir, length) ->
+          val start = acc.last()
+          return@fold acc + (1..length).map { start.first + dir.step * it to start.second + it }
+        } }
+        .map { it.drop(1) }
+        .map { wire -> wire
+            .groupBy(keySelector = { it.first }, valueTransform = { it.second })
+            .mapValues { (_, points) -> points.min() ?: 1_000_000 }
+        }
+
+    return wire1.mapValues { (point, distance) -> distance + (wire2[point] ?: 1_000_000) }
+        .minBy { it.value }
+        ?.value
+  }
 }
 
 fun main() = SomeDay.mainify(Day3)
