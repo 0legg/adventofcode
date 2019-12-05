@@ -11,8 +11,8 @@ object Intcode {
     while (position in program.indices) {
       val rawOp = program[position]
       parseOp(rawOp)?.let { (op, modes) ->
-        op.eval(program, position, modes, input, output)
-        position += op.length
+        val jump = op.eval(program, position, modes, input, output)
+        position = jump ?: position + op.length
       } ?: when (rawOp) {
         99 -> return output.toList()
         else -> throw UnsupportedOperationException("Opcode $rawOp is not supported")
@@ -24,7 +24,7 @@ object Intcode {
 
   data class Op(
       val length: Int,
-      val eval: (program: IntArray, position: Int, modes: List<Int>, input: Deque<Int>, output: Deque<Int>) -> Unit
+      val eval: (program: IntArray, position: Int, modes: List<Int>, input: Deque<Int>, output: Deque<Int>) -> Int?
   )
 
   fun parseOp(rawOp: Int): Pair<Op, List<Int>>? {
@@ -48,15 +48,39 @@ object Intcode {
   val OPS = mapOf(
       1 to Op(4) { program, position, modes, _, _ ->
         program[program[position + 3]] = getValue(program, position + 1, modes[0]) + getValue(program, position + 2, modes[1])
+        null
       },
       2 to Op(4) { program, position, modes, _, _ ->
         program[program[position + 3]] = getValue(program, position + 1, modes[0]) * getValue(program, position + 2, modes[1])
+        null
       },
       3 to Op(2) { program, position, _, input, _ ->
         program[program[position + 1]] = input.pop()
+        null
       },
       4 to Op(2) { program, position, modes, _, output ->
         output.offer(getValue(program, position + 1, modes[0]))
+        null
+      },
+      5 to Op(3) { program, position, modes, _, _ ->
+        getValue(program, position + 1, modes[0])
+            .takeIf { it != 0 }
+            ?.let { getValue(program, position + 2, modes[1]) }
+      },
+      6 to Op(3) { program, position, modes, _, _ ->
+        getValue(program, position + 1, modes[0])
+            .takeIf { it == 0 }
+            ?.let { getValue(program, position + 2, modes[1]) }
+      },
+      7 to Op(4) { program, position, modes, _, _ ->
+        program[program[position + 3]] =
+            if (getValue(program, position + 1, modes[0]) < getValue(program, position + 2, modes[1])) 1 else 0
+        null
+      },
+      8 to Op(4) { program, position, modes, _, _ ->
+        program[program[position + 3]] =
+            if (getValue(program, position + 1, modes[0]) == getValue(program, position + 2, modes[1])) 1 else 0
+        null
       }
   )
 }

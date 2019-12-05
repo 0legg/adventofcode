@@ -22,6 +22,17 @@ object Day5 : DayOf2019(5) {
 
     return result.last()
   }
+
+  override fun second(data: String): Any? {
+    val program = data
+        .trim()
+        .parseInts(",")
+        .toIntArray()
+
+    val result = Intcode.eval(program, listOf(5))
+
+    return result.first()
+  }
 }
 
 fun main() = SomeDay.mainify(Day5)
