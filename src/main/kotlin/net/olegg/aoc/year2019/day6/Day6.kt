@@ -27,6 +27,26 @@ object Day6 : DayOf2019(6) {
 
     return counts.values.sum()
   }
+
+  override fun second(data: String): Any? {
+    val orbits = data
+        .trim()
+        .lines()
+        .map { line -> line.split(")").let { it.last() to it.first() } }
+        .toMap()
+
+    val you = mutableListOf("YOU")
+    while (you.last() in orbits) {
+      you += orbits.getOrDefault(you.last(), "")
+    }
+
+    val san = mutableListOf("SAN")
+    while (san.last() in orbits) {
+      san += orbits.getOrDefault(san.last(), "")
+    }
+
+    return you.indexOfFirst { it in san } + san.indexOfFirst { it in you } - 2
+  }
 }
 
 fun main() = SomeDay.mainify(Day6)
