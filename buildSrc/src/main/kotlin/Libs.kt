@@ -8,6 +8,12 @@ import kotlin.String
  */
 object Libs {
     /**
+     * https://github.com/Kotlin/kotlinx.coroutines
+     */
+    const val kotlinx_coroutines_core: String = "org.jetbrains.kotlinx:kotlinx-coroutines-core:" +
+            Versions.org_jetbrains_kotlinx_kotlinx_coroutines
+
+    /**
      * https://arturbosch.github.io/detekt
      */
     const val detekt_formatting: String = "io.gitlab.arturbosch.detekt:detekt-formatting:" +
