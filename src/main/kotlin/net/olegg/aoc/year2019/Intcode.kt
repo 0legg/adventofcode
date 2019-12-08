@@ -1,21 +1,22 @@
 package net.olegg.aoc.year2019
 
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.SendChannel
 import java.nio.CharBuffer
 import java.nio.IntBuffer
-import java.util.ArrayDeque
-import java.util.Deque
 
 object Intcode {
-  fun eval(program: IntArray, inputs: List<Int> = emptyList()): List<Int> {
+  suspend fun eval(program: IntArray, input: ReceiveChannel<Int> = Channel(), output: SendChannel<Int> = Channel()) {
     val memory = IntBuffer.wrap(program)
-    val input = ArrayDeque(inputs)
-    val output = ArrayDeque<Int>()
     while (memory.hasRemaining()) {
       val rawOp = memory.get()
       parseOp(rawOp)?.let { (op, modes) ->
         op.eval(op, memory, modes, input, output)
       } ?: when (rawOp) {
-        99 -> return output.toList()
+        99 -> {
+          return
+        }
         else -> throw UnsupportedOperationException("Opcode $rawOp is not supported")
       }
     }
@@ -25,7 +26,12 @@ object Intcode {
 
   data class Op(
       val length: Int,
-      val eval: Op.(memory: IntBuffer, modes: CharBuffer, input: Deque<Int>, output: Deque<Int>) -> Unit
+      val eval: suspend Op.(
+          memory: IntBuffer,
+          modes: CharBuffer,
+          input: ReceiveChannel<Int>,
+          output: SendChannel<Int>
+      ) -> Unit
   ) {
     fun parseArgs(memory: IntBuffer, modes: CharBuffer): List<Int> = modes.indices
         .map { when (val mode = modes.get()) {
@@ -57,11 +63,11 @@ object Intcode {
       3 to Op(2) { memory, modes, input, _ ->
         modes[0] = '1'
         val (arg1) = parseArgs(memory, modes)
-        memory[arg1] = input.pop()
+        memory[arg1] = input.receive()
       },
       4 to Op(2) { memory, modes, _, output ->
         val (arg1) = parseArgs(memory, modes)
-        output.offer(arg1)
+        output.send(arg1)
       },
       5 to Op(3) { memory, modes, _, _ ->
         val (arg1, arg2) = parseArgs(memory, modes)

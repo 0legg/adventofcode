@@ -12,7 +12,9 @@ import org.gradle.plugin.use.PluginDependencySpec
  * YOU are responsible for updating manually the dependency version.
  */
 object Versions {
-    const val io_gitlab_arturbosch_detekt: String = "1.2.0"
+    const val org_jetbrains_kotlinx_kotlinx_coroutines: String = "1.3.2-1.3.60"
+
+    const val io_gitlab_arturbosch_detekt: String = "1.2.2"
 
     const val org_spekframework_spek2: String = "2.0.8"
 
