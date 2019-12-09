@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.parseInts
+import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.utils.permutations
 import net.olegg.aoc.year2019.DayOf2019
 import net.olegg.aoc.year2019.Intcode
@@ -22,26 +23,27 @@ object Day7 : DayOf2019(7) {
   override fun first(data: String): Any? {
     val program = data
         .trim()
-        .parseInts(",")
-        .toIntArray()
+        .parseLongs(",")
+        .toLongArray()
 
-    val basePhases = List(5) { it }
+    val basePhases = List(5) { it.toLong() }
 
     return basePhases.permutations()
         .map { phases ->
           val inputs = phases.map { phase ->
-            Channel<Int>(UNLIMITED).also { ch ->
+            Channel<Long>(UNLIMITED).also { ch ->
               runBlocking {
                 ch.send(phase)
               }
             }
-          } + Channel<Int>(UNLIMITED)
+          } + Channel(UNLIMITED)
 
           return@map runBlocking {
             inputs.zipWithNext()
                 .forEach { (input, output) ->
                   launch {
-                    Intcode.eval(program.copyOf(), input, output)
+                    val intcode = Intcode(program.copyOf())
+                    intcode.eval(input, output)
                   }
                 }
 
@@ -55,10 +57,10 @@ object Day7 : DayOf2019(7) {
   override fun second(data: String): Any? {
     val program = data
         .trim()
-        .parseInts(",")
-        .toIntArray()
+        .parseLongs(",")
+        .toLongArray()
 
-    val basePhases = List(5) { it + 5 }
+    val basePhases = List(5) { it + 5L }
 
     return basePhases.permutations()
         .map { phases ->
@@ -73,7 +75,8 @@ object Day7 : DayOf2019(7) {
               inputs.zip(outputs)
                   .forEach { (input, output) ->
                     launch {
-                      Intcode.eval(program.copyOf(), input.openSubscription(), output)
+                      val intcode = Intcode(program.copyOf())
+                      intcode.eval(input.openSubscription(), output)
                     }
                   }
 
