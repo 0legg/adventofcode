@@ -41,6 +41,28 @@ object Day9 : DayOf2019(9) {
 
     return result
   }
+
+  override fun second(data: String): Any? {
+    val program = data
+        .trim()
+        .parseLongs(",")
+        .toLongArray()
+
+    val result = runBlocking {
+      val input = flowOf(2L).produceIn(GlobalScope)
+      val output = Channel<Long>(Channel.UNLIMITED)
+
+      launch {
+        val intcode = Intcode(program)
+        intcode.eval(input, output)
+        output.close()
+      }
+
+      return@runBlocking output.toList()
+    }
+
+    return result
+  }
 }
 
 @ExperimentalCoroutinesApi

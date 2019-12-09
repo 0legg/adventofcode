@@ -6,7 +6,6 @@ import kotlinx.coroutines.channels.SendChannel
 import net.olegg.aoc.year2019.Intcode.Arg.Address
 import net.olegg.aoc.year2019.Intcode.Arg.Value
 import java.nio.CharBuffer
-import java.nio.IntBuffer
 import java.nio.LongBuffer
 
 class Intcode(program: LongArray) {
@@ -66,7 +65,7 @@ class Intcode(program: LongArray) {
 
   private fun resizeIfNecessary(newIndex: Long) {
     val intdex = newIndex.toInt()
-    if (intdex > memory.capacity()) {
+    if (intdex >= memory.capacity()) {
       val position = memory.position()
       memory.rewind()
       memory = LongBuffer.allocate(intdex + 16).put(memory)
