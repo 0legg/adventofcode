@@ -8,7 +8,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.parseInts
+import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2019.DayOf2019
 import net.olegg.aoc.year2019.Intcode
 
@@ -20,13 +20,15 @@ object Day2 : DayOf2019(2) {
   override fun first(data: String): Any? {
     val program = data
         .trim()
-        .parseInts(",")
-        .toIntArray()
-    program[1] = 12
-    program[2] = 2
+        .parseLongs(",")
+        .toLongArray()
+
+    program[1] = 12L
+    program[2] = 2L
     runBlocking {
       launch {
-        Intcode.eval(program)
+        val intcode = Intcode(program)
+        intcode.eval()
       }
     }
 
@@ -36,8 +38,8 @@ object Day2 : DayOf2019(2) {
   override fun second(data: String): Any? {
     val program = data
         .trim()
-        .parseInts(",")
-        .toIntArray()
+        .parseLongs(",")
+        .toLongArray()
 
     val result = runBlocking {
       val fit = Channel<Int>(UNLIMITED)
@@ -46,12 +48,13 @@ object Day2 : DayOf2019(2) {
           for (verb in 0..99) {
             launch {
               val newProgram = program.copyOf()
-              newProgram[1] = noun
-              newProgram[2] = verb
+              newProgram[1] = noun.toLong()
+              newProgram[2] = verb.toLong()
 
-              Intcode.eval(newProgram)
+              val intcode = Intcode(program)
+              intcode.eval()
 
-              if (newProgram[0] == 19690720) {
+              if (newProgram[0] == 19690720L) {
                 fit.send(noun * 100 + verb)
               }
             }
