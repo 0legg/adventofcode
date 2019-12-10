@@ -37,12 +37,14 @@ tasks.withType<KotlinCompile> {
   kotlinOptions {
     jvmTarget = "1.8"
     allWarningsAsErrors = true
+    freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
   }
 }
 
 dependencies {
   implementation(Libs.kotlin_stdlib_jdk8)
   implementation(Libs.kotlin_reflect)
+  implementation(Libs.kotlinx_coroutines_core)
   implementation(Libs.retrofit)
   implementation(Libs.converter_scalars)
   implementation(Libs.klaxon)
