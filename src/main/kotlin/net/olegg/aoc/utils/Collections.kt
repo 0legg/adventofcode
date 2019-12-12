@@ -51,6 +51,17 @@ fun <T : Any> List<T>.permutations(): Sequence<List<T>> = if (size == 1) sequenc
   generateSequence { nextPermutation() }
 }
 
+fun <T : Any> List<T>.pairs(): Sequence<Pair<T, T>> {
+  require(size > 1)
+  return sequence {
+    for (x in indices) {
+      for (y in x + 1 until size) {
+        yield(get(x) to get(y))
+      }
+    }
+  }
+}
+
 /**
  * Splits iterable into list of subsequences such that each subsequence contains only equal items.
  */
