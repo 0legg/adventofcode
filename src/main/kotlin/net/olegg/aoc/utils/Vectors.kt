@@ -55,7 +55,14 @@ data class Vector3D (
   operator fun unaryMinus() = Vector3D(-x, -y, -z)
   operator fun times(other: Int) = Vector3D(x * other, y * other, z * other)
   operator fun timesAssign(other: Int) = run { x *= other; y *= other; z *= other }
+  operator fun get(index: Int): Int = when (index) {
+    0 -> x
+    1 -> y
+    2 -> z
+    else -> throw IllegalArgumentException()
+  }
 
   fun length2() = x * x + y * y + z * z
   fun manhattan() = abs(x) + abs(y) + abs(z)
+  fun toList() = listOf(x, y, z)
 }
