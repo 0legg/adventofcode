@@ -102,8 +102,6 @@ object Day11 : DayOf2019(11) {
       val miny = map.map { it.key.y }.min() ?: 0
       val maxy = map.map { it.key.y }.max() ?: 0
 
-
-
       return@runBlocking (miny..maxy).joinToString("\n", prefix = "\n") { y ->
         (minx..maxx).joinToString("") { x -> when (map.getOrDefault(Vector2D(x, y), 0)) {
           0L -> "  "
