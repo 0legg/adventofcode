@@ -2,9 +2,11 @@ package net.olegg.aoc.year2019.day10
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.gcd
 import net.olegg.aoc.year2019.DayOf2019
 import kotlin.math.abs
 import kotlin.math.atan2
+import kotlin.math.sign
 
 /**
  * See [Year 2019, Day 10](https://adventofcode.com/2019/day/10)
@@ -67,20 +69,10 @@ object Day10 : DayOf2019(10) {
   private fun Vector2D.direction(other: Vector2D): Vector2D {
     val diff = other - this
     return when {
-      diff.x == 0 -> Vector2D(0, diff.y / abs(diff.y))
-      diff.y == 0 -> Vector2D(diff.x / abs(diff.x), 0)
+      diff.x == 0 -> Vector2D(0, diff.y.sign)
+      diff.y == 0 -> Vector2D(diff.x.sign, 0)
       else -> Vector2D(diff.x / gcd(diff.x, diff.y), diff.y / gcd(diff.x, diff.y))
     }
-  }
-
-  private fun gcd(a: Int, b: Int): Int {
-    var (ta, tb) = (minOf(abs(a), abs(b)) to maxOf(abs(a), abs(b)))
-    while (ta != 0) {
-      val na = tb % ta
-      tb = ta
-      ta = na
-    }
-    return tb
   }
 }
 
