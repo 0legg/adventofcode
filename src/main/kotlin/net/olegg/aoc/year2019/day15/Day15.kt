@@ -72,6 +72,71 @@ object Day15 : DayOf2019(15) {
     return map.values.first { it.first == 2L }.second
   }
 
+  override fun second(data: String): Any? {
+    val program = data
+        .trim()
+        .parseLongs(",")
+        .toLongArray()
+
+    val map = mutableMapOf(Vector2D() to (1L to 0))
+
+    runBlocking {
+      val input = Channel<Long>(Channel.UNLIMITED)
+      val output = Channel<Long>(Channel.UNLIMITED)
+
+      GlobalScope.launch {
+        val intcode = Intcode(program)
+        intcode.eval(input, output)
+        output.close()
+      }
+
+      val stack = ArrayDeque<Move>(Neighbors4.map { Move.Forward(it, Vector2D(), 1) })
+
+      launch {
+        while (stack.isNotEmpty()) {
+          val curr = stack.pop()
+          input.send(codes[curr.move] ?: 0L)
+          val result = output.receive()
+          if (curr is Move.Forward) {
+            val newPosition = curr.position + curr.move.step
+            when (result) {
+              0L -> {
+                map[newPosition] = 0L to -1
+              }
+              1L, 2L -> {
+                val prev = map[newPosition]
+                if (prev == null || prev.second > curr.distance) {
+                  map[newPosition] = result to curr.distance
+                  stack.push(Move.Return(returns[curr.move] ?: throw IllegalStateException()))
+                  Neighbors4.filter { it != returns[curr.move] }
+                      .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
+                      .map { Move.Forward(it, newPosition, curr.distance + 1) }
+                      .forEach { stack.push(it) }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    val start = map.entries.first { it.value.first == 2L }.key
+    val filledMap = mutableMapOf(start to 0)
+    val queue = ArrayDeque(listOf(start to 0))
+    while (queue.isNotEmpty()) {
+      val curr = queue.pop()
+      Neighbors4.map { curr.first + it.step }
+          .filter { it !in filledMap }
+          .filter { map[it]?.first == 1L }
+          .forEach {
+            filledMap[it] = curr.second + 1
+            queue.offer(it to curr.second + 1)
+          }
+    }
+
+    return filledMap.values.max()
+  }
+
   sealed class Move {
     abstract val move: Directions
 
