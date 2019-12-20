@@ -79,3 +79,29 @@ fun <T> Iterable<T>.series(): List<List<T>> {
 
   return list
 }
+
+/**
+ * Finds first entry equal to [value] in matrix
+ */
+fun <T> List<List<T>>.find(value: T): Vector2D? {
+  forEachIndexed { y, row ->
+    row.forEachIndexed { x, curr ->
+      if (curr == value) {
+        return Vector2D(x, y)
+      }
+    }
+  }
+  return null
+}
+
+operator fun <T> List<MutableList<T>>.set(v: Vector2D, value: T) {
+  this[v.y][v.x] = value
+}
+
+operator fun <T> List<MutableList<T>>.set(i: Int, j: Int, value: T) {
+  this[i][j] = value
+}
+
+operator fun <T> List<List<T>>.get(v: Vector2D): T {
+  return this[v.y][v.x]
+}
