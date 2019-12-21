@@ -41,6 +41,8 @@ enum class Directions(val step: Vector2D) {
 
 val Neighbors4 = listOf(U, D, L, R)
 val Neighbors8 = listOf(UL, U, UR, L, R, DL, D, DR)
+val CCW = mapOf(U to L, L to D, D to R, R to U)
+val CW = mapOf(U to R, R to D, D to L, L to U)
 //endregion
 
 data class Vector3D (
