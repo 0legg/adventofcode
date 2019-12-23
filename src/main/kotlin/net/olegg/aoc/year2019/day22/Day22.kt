@@ -2,41 +2,86 @@ package net.olegg.aoc.year2019.day22
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2019.DayOf2019
+import java.math.BigInteger
 
 /**
  * See [Year 2019, Day 22](https://adventofcode.com/2019/day/22)
  */
 object Day22 : DayOf2019(22) {
   override fun first(data: String): Any? {
-    val shuffle = data
+    val deckSize = BigInteger.valueOf(10007L)
+
+    val input = data
         .trim()
         .lines()
-
-    val startDeck = List(10007) { it }
-
-    val finalDeck = shuffle.fold(startDeck) { deck, operation ->
-      return@fold when {
-        operation == "deal into new stack" -> {
-          deck.reversed()
+        .map {
+          val split = it.split(" ")
+          when(split[1]) {
+            "into" -> Pair(BigInteger.valueOf(-1L), BigInteger.valueOf(-1L))
+            "with" -> Pair(split.last().toBigInteger(), BigInteger.ZERO)
+            else -> Pair(BigInteger.ONE, -split[1].toBigInteger())
+          }
         }
-        operation.startsWith("cut") -> {
-          val num = (deck.size + operation.split(" ")[1].toInt()) % deck.size
-          deck.drop(num) + deck.take(num)
-        }
-        else -> {
-          val num = operation.split(" ").last().toInt()
-          generateSequence(0) { (it + num) % deck.size }
-              .take(deck.size)
-              .toList()
-              .zip(deck)
-              .sortedBy { it.first }
-              .map { it.second }
-        }
-      }
-    }
 
-    return finalDeck.indexOf(2019)
+    val compressed = input.reduce { acc, vector -> combine(acc, vector, deckSize) }
+
+    return shuffle(BigInteger.valueOf(2019L), deckSize, BigInteger.ONE, compressed)
   }
+
+  override fun second(data: String): Any? {
+    val deckSize = BigInteger.valueOf(119315717514047L)
+
+    val input = data
+        .trim()
+        .lines()
+        .map {
+          val split = it.split(" ")
+          when(split[1]) {
+            "into" -> Pair(BigInteger.valueOf(-1L), BigInteger.valueOf(-1L))
+            "with" -> Pair(split.last().toBigInteger() inv deckSize, BigInteger.ZERO)
+            else -> Pair(BigInteger.ONE, split[1].toBigInteger())
+          }
+        }
+        .asReversed()
+
+    val compressed = input.reduce { acc, vector -> combine(acc, vector, deckSize) }
+
+    return shuffle(BigInteger.valueOf(2020L), deckSize, BigInteger.valueOf(101741582076661L), compressed)
+  }
+
+  private fun shuffle(
+      position: BigInteger,
+      deckSize: BigInteger,
+      iterations: BigInteger,
+      operation: Pair<BigInteger, BigInteger>
+  ): BigInteger {
+    return generateSequence(Triple(position, iterations, operation)) { (curr, iters, op) ->
+      val newOp = combine(op, op, deckSize)
+      val next = if (iters.testBit(0)) (curr * op.first + op.second) mod deckSize else curr
+      return@generateSequence Triple(next, iters shr 1, newOp)
+    }
+        .first { it.second == BigInteger.ZERO }
+        .first
+  }
+
+  private infix fun BigInteger.mod(modulo: BigInteger): BigInteger {
+    return (this % modulo + modulo) % modulo
+  }
+
+  private infix fun BigInteger.inv(modulo: BigInteger): BigInteger {
+    return generateSequence(Triple(BigInteger.ONE, modulo - BigInteger.valueOf(2), this)) { (curr, iters, power) ->
+      val next = if (iters.testBit(0)) (curr * power) mod modulo else curr
+      return@generateSequence Triple(next, iters shr 1, (power * power) mod modulo)
+    }
+        .first { it.second == BigInteger.ZERO }
+        .first
+  }
+
+  private fun combine(
+      first: Pair<BigInteger, BigInteger>,
+      second: Pair<BigInteger, BigInteger>,
+      modulo: BigInteger
+  ) = Pair((first.first * second.first) mod modulo, (first.second * second.first + second.second) mod modulo)
 }
 
 fun main() = SomeDay.mainify(Day22)
