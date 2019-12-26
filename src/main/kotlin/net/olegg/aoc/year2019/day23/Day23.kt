@@ -36,23 +36,85 @@ object Day23 : DayOf2019(23) {
       }
 
       while (true) {
-        outputs.forEachIndexed { src, output ->
+        outputs.forEach { output ->
           output.poll()?.let { dst ->
             val x = output.receive()
             val y = output.receive()
             if (dst == 255L) {
               return@runBlocking y
             } else {
-              println("Sending ($x, $y) from $src to $dst")
               inputs[dst.toInt()].send(x)
               inputs[dst.toInt()].send(y)
             }
           }
         }
-        inputs.forEach {
-          if (it.isEmpty) {
-            it.send(-1L)
+        inputs
+            .filter { it.isEmpty }
+            .forEach { it.send(-1L) }
+      }
+    }
+  }
+
+  override fun second(data: String): Any? {
+    val program = data
+        .trim()
+        .parseLongs(",")
+        .toLongArray()
+
+    return runBlocking {
+      val inputs = List(50) { Channel<Long>(Channel.UNLIMITED) }
+      val outputs = List(50) { Channel<Long>(Channel.UNLIMITED) }
+
+      val nat = Channel<Long>(Channel.UNLIMITED)
+
+      (0 until 50).forEach {
+        inputs[it].send(it.toLong())
+
+        GlobalScope.launch {
+          val intcode = Intcode(program.copyOf())
+          intcode.eval(inputs[it], outputs[it])
+        }
+      }
+
+      val natYs = mutableListOf<Long>()
+
+      while (true) {
+        outputs.forEach { output ->
+          output.poll()?.let { dst ->
+            val x = output.receive()
+            val y = output.receive()
+            if (dst == 255L) {
+              nat.send(x)
+              nat.send(y)
+            } else {
+              inputs[dst.toInt()].send(x)
+              inputs[dst.toInt()].send(y)
+            }
           }
+        }
+
+        val empty = inputs.count { it.isEmpty }
+        if (empty == 50) {
+          val natValues = generateSequence { nat.poll() }.toList()
+
+          if (natValues.isNotEmpty()) {
+            val (x, y) = natValues.takeLast(2)
+            inputs[0].send(x)
+            inputs[0].send(y)
+            if (natYs.isNotEmpty() && natYs.last() == y) {
+              return@runBlocking y
+            } else {
+              natYs += y
+            }
+          } else {
+            inputs
+                .filter { it.isEmpty }
+                .forEach { it.send(-1L) }
+          }
+        } else {
+          inputs
+              .filter { it.isEmpty }
+              .forEach { it.send(-1L) }
         }
       }
     }
