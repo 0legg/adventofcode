@@ -19,7 +19,7 @@ object Day20 : DayOf2018(20) {
   override fun first(data: String): Any? {
     val route = data.trim('^', '$', ' ', '\n')
 
-    return visitAll(route).values.max()
+    return visitAll(route).values.maxOrNull()
   }
 
   override fun second(data: String): Any? {

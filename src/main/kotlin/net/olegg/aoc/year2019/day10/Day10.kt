@@ -28,7 +28,7 @@ object Day10 : DayOf2019(10) {
           .count()
     }
 
-    return visible.max()
+    return visible.maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -40,7 +40,7 @@ object Day10 : DayOf2019(10) {
         }
         .flatten()
 
-    val base = asteroids.maxBy { curr ->
+    val base = asteroids.maxByOrNull { curr: Vector2D ->
       asteroids.filter { it != curr }
           .map { curr.direction(it) }
           .distinct()
@@ -57,7 +57,7 @@ object Day10 : DayOf2019(10) {
     val linesFromTop = (lines.dropWhile { it.first > atan2(1.0, 0.0) } + lines.takeWhile { it.first > atan2(1.0, 0.0) })
         .map { it.second }
 
-    val maxLength = linesFromTop.map { it.size }.max() ?: 0
+    val maxLength = linesFromTop.map { it.size }.maxOrNull() ?: 0
 
     val ordered = (0 until maxLength).flatMap { pos ->
       linesFromTop.mapNotNull { line -> line.getOrNull(pos) }

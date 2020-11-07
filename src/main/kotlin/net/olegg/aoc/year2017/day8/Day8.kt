@@ -32,7 +32,7 @@ object Day8 : DayOf2017(8) {
           registers[list[0]] = if (apply) oldValue + shift else oldValue
         }
 
-    return registers.values.max()
+    return registers.values.maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -62,7 +62,7 @@ object Day8 : DayOf2017(8) {
           registers[list[0]] = newValue
           return@map newValue
         }
-        .max()
+        .maxOrNull()
   }
 }
 

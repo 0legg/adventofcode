@@ -22,7 +22,7 @@ object Day23 : DayOf2018(23) {
           }
         }
 
-    val strong = bots.maxBy { it.r } ?: bots.first()
+    val strong = bots.maxByOrNull { it: Bot -> it.r } ?: bots.first()
 
     return bots.count { strong.distance(it) <= strong.r }
   }
@@ -39,12 +39,12 @@ object Day23 : DayOf2018(23) {
         }
 
     var best = bots.count { it.distance(0, 0, 0) <= it.r } to 0L
-    val minX = bots.map { it.x }.min() ?: 0
-    val maxX = bots.map { it.x }.max() ?: 0
-    val minY = bots.map { it.y }.min() ?: 0
-    val maxY = bots.map { it.y }.max() ?: 0
-    val minZ = bots.map { it.z }.min() ?: 0
-    val maxZ = bots.map { it.z }.max() ?: 0
+    val minX = bots.map { it.x }.minOrNull() ?: 0
+    val maxX = bots.map { it.x }.maxOrNull() ?: 0
+    val minY = bots.map { it.y }.minOrNull() ?: 0
+    val maxY = bots.map { it.y }.maxOrNull() ?: 0
+    val minZ = bots.map { it.z }.minOrNull() ?: 0
+    val maxZ = bots.map { it.z }.maxOrNull() ?: 0
 
     val queue = PriorityQueue<Pair<Box, Int>>(compareBy({ -it.second }, { it.first.size }))
     queue.add(Box(minX, minY, minZ, maxX, maxY, maxZ) to bots.count())

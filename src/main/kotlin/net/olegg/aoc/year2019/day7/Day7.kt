@@ -51,7 +51,7 @@ object Day7 : DayOf2019(7) {
             return@runBlocking inputs.last().receive()
           }
         }
-        .max()
+        .maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -90,7 +90,7 @@ object Day7 : DayOf2019(7) {
             return@runBlocking inputs.first().openSubscription().toList().last()
           }
         }
-        .max()
+        .maxOrNull()
   }
 }
 

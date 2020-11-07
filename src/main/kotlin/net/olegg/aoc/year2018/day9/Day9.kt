@@ -14,14 +14,14 @@ object Day9 : DayOf2018(9) {
     val (players, points) = PATTERN.matchEntire(data.trim())?.destructured?.toList()?.map { it.toInt() }
         ?: throw IllegalArgumentException()
 
-    return play(players, points).max()
+    return play(players, points).maxOrNull()
   }
 
   override fun second(data: String): Any? {
     val (players, points) = PATTERN.matchEntire(data.trim())?.destructured?.toList()?.map { it.toInt() }
         ?: throw IllegalArgumentException()
 
-    return play(players, points * 100).max()
+    return play(players, points * 100).maxOrNull()
   }
 
   private fun play(players: Int, points: Int): List<Long> {

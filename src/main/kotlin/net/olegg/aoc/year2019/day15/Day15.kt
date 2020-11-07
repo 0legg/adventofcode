@@ -134,7 +134,7 @@ object Day15 : DayOf2019(15) {
           }
     }
 
-    return filledMap.values.max()
+    return filledMap.values.maxOrNull()
   }
 
   sealed class Move {

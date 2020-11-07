@@ -28,7 +28,7 @@ object Day4 : DayOf2018(4) {
         .filterNotNull()
         .groupBy { it.first }
 
-    val sleeper = sleeps.maxBy { entry ->
+    val sleeper = sleeps.maxByOrNull { entry ->
       entry.value.sumBy { it.second.until(it.third, ChronoUnit.MINUTES).toInt() }
     }
 
@@ -38,7 +38,7 @@ object Day4 : DayOf2018(4) {
         (prev.minute until curr.minute).forEach { minutes[it] += 1 }
       }
 
-      return@let best.key * (minutes.withIndex().maxBy { it.value }?.index ?: 0)
+      return@let best.key * (minutes.withIndex().maxByOrNull { it: IndexedValue<Int> -> it.value }?.index ?: 0)
     }
   }
 
@@ -68,9 +68,9 @@ object Day4 : DayOf2018(4) {
     }
 
     return freqs
-        .maxBy { it.value.max() ?: 0 }
+        .maxByOrNull { it.value.maxOrNull() ?: 0 }
         ?.let { sleeper ->
-          sleeper.key * (sleeper.value.withIndex().maxBy { it.value }?.index ?: 0)
+          sleeper.key * (sleeper.value.withIndex().maxByOrNull { it.value }?.index ?: 0)
         }
   }
 

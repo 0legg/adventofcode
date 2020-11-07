@@ -38,7 +38,7 @@ object Day20 : DayOf2017(20) {
           }
         }
         .mapIndexed { index, triple -> index to triple }
-        .minBy { abs(it.second.first.first) + abs(it.second.first.second) + abs(it.second.first.third) }
+        .minByOrNull { abs(it.second.first.first) + abs(it.second.first.second) + abs(it.second.first.third) }
         ?.first
   }
 

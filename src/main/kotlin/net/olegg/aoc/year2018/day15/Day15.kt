@@ -85,7 +85,7 @@ object Day15 : DayOf2018(15) {
 
         val minDistance = adjacent
             .map { (x, y) -> currMap[y][x] }
-            .min() ?: Int.MAX_VALUE
+            .minOrNull() ?: Int.MAX_VALUE
 
         if (minDistance == Int.MAX_VALUE) {
           continue
@@ -224,7 +224,7 @@ object Day15 : DayOf2018(15) {
 
           val minDistance = adjacent
               .map { (x, y) -> currMap[y][x] }
-              .min() ?: Int.MAX_VALUE
+              .minOrNull() ?: Int.MAX_VALUE
 
           if (minDistance == Int.MAX_VALUE) {
             continue

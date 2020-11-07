@@ -26,7 +26,7 @@ object Day14 : DayOf2015(14) {
         .map { (speed, active, period) ->
           ((TIME / period) * active + (TIME % period).coerceAtMost(active)) * speed
         }
-        .max()
+        .maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -41,7 +41,7 @@ object Day14 : DayOf2015(14) {
           distances.map { it[second] }
         }
         .map { list ->
-          list.map { if (it == list.max()) 1 else 0 }
+          list.map { if (it == list.maxOrNull()) 1 else 0 }
         }
     return speeds
         .indices
@@ -49,7 +49,7 @@ object Day14 : DayOf2015(14) {
           timestamps.map { it[speed] }
         }
         .map { it.sum() }
-        .max()
+        .maxOrNull()
   }
 }
 

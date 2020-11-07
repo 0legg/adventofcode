@@ -76,13 +76,13 @@ object Day7 : DayOf2018(7) {
       val soonest = start
           .filter { it.key in available }
           .map { it.value }
-          .min() ?: 0
+          .minOrNull() ?: 0
 
       val next = available
           .sorted()
           .first { start[it] == soonest }
 
-      val worker = workers.indexOfFirst { it == workers.min() }
+      val worker = workers.indexOfFirst { it == workers.minOrNull() }
       val time = max(workers[worker], soonest) + 61 + (next[0] - 'A')
       workers[worker] = time
 
@@ -96,7 +96,7 @@ object Day7 : DayOf2018(7) {
           }
     }
 
-    return workers.max()
+    return workers.maxOrNull()
   }
 }
 

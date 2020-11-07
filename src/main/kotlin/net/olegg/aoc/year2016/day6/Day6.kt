@@ -14,7 +14,7 @@ object Day6 : DayOf2016(6) {
         .mapValues { it.value.map { it.second } }
         .mapValues { it.value.groupBy { it } }
         .mapValues { it.value.mapValues { it.value.size } }
-        .mapValues { it.value.maxBy { it.value }?.key ?: '?' }
+        .mapValues { it.value.maxByOrNull { it.value }?.key ?: '?' }
         .toList()
         .sortedBy { it.first }
         .map { it.second }
@@ -28,7 +28,7 @@ object Day6 : DayOf2016(6) {
         .mapValues { it.value.map { it.second } }
         .mapValues { it.value.groupBy { it } }
         .mapValues { it.value.mapValues { it.value.size } }
-        .mapValues { it.value.minBy { it.value }?.key ?: '?' }
+        .mapValues { it.value.minByOrNull { it.value }?.key ?: '?' }
         .toList()
         .sortedBy { it.first }
         .map { it.second }

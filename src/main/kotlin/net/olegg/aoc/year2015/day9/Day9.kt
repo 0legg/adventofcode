@@ -32,7 +32,7 @@ object Day9 : DayOf2015(9) {
               .zipWithNext()
               .map { edges[it] ?: 0 }
               .sumBy { it }
-        }.minBy { it }
+        }.minByOrNull { it }
   }
 
   override fun second(data: String): Any? {
@@ -42,7 +42,7 @@ object Day9 : DayOf2015(9) {
               .zipWithNext()
               .map { edges[it] ?: 0 }
               .sumBy { it }
-        }.maxBy { it }
+        }.maxByOrNull { it }
   }
 }
 

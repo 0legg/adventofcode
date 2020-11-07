@@ -23,7 +23,7 @@ object Day11 : DayOf2017(11) {
           }
         }
         .let {
-          listOf(abs(it.first), abs(it.second), abs(it.first - it.second)).max()
+          listOf(abs(it.first), abs(it.second), abs(it.first - it.second)).maxOrNull()
         }
   }
 
@@ -41,7 +41,7 @@ object Day11 : DayOf2017(11) {
             else -> acc.first to acc.second
           }
 
-          val dist = listOf(acc.third, abs(next.first), abs(next.second), abs(next.first - next.second)).max()
+          val dist = listOf(acc.third, abs(next.first), abs(next.second), abs(next.first - next.second)).maxOrNull()
 
           return@fold Triple(next.first, next.second, dist ?: 0)
         }

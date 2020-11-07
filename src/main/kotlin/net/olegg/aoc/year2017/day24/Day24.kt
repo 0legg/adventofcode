@@ -16,7 +16,7 @@ object Day24 : DayOf2017(24) {
         .lines()
         .map { it.split("/") }
         .mapIndexed { index, value ->
-          Triple((value.min()?.toInt() ?: 0), (value.max()?.toInt() ?: 0), index)
+          Triple((value.minOrNull()?.toInt() ?: 0), (value.maxOrNull()?.toInt() ?: 0), index)
         }
 
     var best = 0
@@ -56,7 +56,7 @@ object Day24 : DayOf2017(24) {
   override fun second(data: String): Any? {
     val ports = data.trim().lines()
         .map { it.split("/") }
-        .mapIndexed { index, value -> Triple((value.min()?.toInt() ?: 0), (value.max()?.toInt() ?: 0), index) }
+        .mapIndexed { index, value -> Triple((value.minOrNull()?.toInt() ?: 0), (value.maxOrNull()?.toInt() ?: 0), index) }
 
     val queue = ArrayDeque(ports.filter { it.first == 0 || it.second == 0 }
         .map { port ->
@@ -70,7 +70,7 @@ object Day24 : DayOf2017(24) {
 
     while (queue.isNotEmpty()) {
       val curr = queue.pop()
-      best = listOf(best, curr.second).maxWith(compareBy({ it.first }, { it.second })) ?: (0 to 0)
+      best = listOf(best, curr.second).maxWithOrNull(compareBy({ it.first }, { it.second })) ?: (0 to 0)
       ports.filter { !curr.third[it.third] }
           .filter { it.first == curr.first || it.second == curr.first }
           .map { port ->

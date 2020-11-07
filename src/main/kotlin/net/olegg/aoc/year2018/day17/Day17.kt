@@ -73,8 +73,8 @@ object Day17 : DayOf2018(17) {
     return Triple(
         IntRange(0, bbox.first.last - bbox.first.first),
         IntRange(
-            (clay.map { it.second.first }.min() ?: bbox.second.first) - bbox.second.first,
-            (clay.map { it.second.last }.max() ?: bbox.second.last) - bbox.second.first
+            (clay.map { it.second.first }.minOrNull() ?: bbox.second.first) - bbox.second.first,
+            (clay.map { it.second.last }.maxOrNull() ?: bbox.second.last) - bbox.second.first
         ),
         map)
   }
