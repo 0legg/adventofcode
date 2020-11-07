@@ -1,7 +1,6 @@
 package net.olegg.aoc.year2017.day21
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.scan
 import net.olegg.aoc.year2017.DayOf2017
 
 /**
@@ -16,7 +15,7 @@ object Day21 : DayOf2017(21) {
     return countOn(data, 18)
   }
 
-  fun countOn(data: String, iterations: Int): Int {
+  private fun countOn(data: String, iterations: Int): Int {
     val ops = data
         .trim()
         .lines()
@@ -34,21 +33,26 @@ object Day21 : DayOf2017(21) {
           sizes.firstOrNull { acc.size % it == 0 }
               ?.let { size ->
                 val chunks = acc.size / size
-                acc.chunked(size)
+                acc.asSequence()
+                    .chunked(size)
                     .map { rows ->
                       val perRow = rows.map { it.chunked(size) }
                       return@map (0 until chunks).map { cols ->
                         lex(perRow.map { it[cols] })
                       }
-                    }.map { rows ->
+                    }
+                    .map { rows ->
                       rows.map { row ->
                         ops[row] ?: ops.entries.first { it.key.size == size }.value
                       }
-                    }.map { rows ->
+                    }
+                    .map { rows ->
                       (0..size).map { row ->
                         rows.flatMap { it[row] }
                       }
-                    }.flatten()
+                    }
+                    .flatten()
+                    .toList()
               } ?: acc
         }
         .sumBy { row -> row.count { it == '#' } }
@@ -66,20 +70,20 @@ object Day21 : DayOf2017(21) {
 
     val rotations = flips
         .map { flip ->
-          (0..3).scan(flip) { acc, _ ->
+          (0 until 3).scan(flip) { acc, _ ->
             (0 until size).map { first ->
               (0 until size).map { second ->
                 acc[second][first]
               }
             }
-          }.toSet()
+          }
         }
         .flatten()
         .toSet()
 
     return rotations
-        .sortedBy { rot -> rot.joinToString(separator = "") { it.joinToString(separator = "") } }
-        .first()
+        .minByOrNull { rot -> rot.joinToString(separator = "") { it.joinToString(separator = "") } }
+        .orEmpty()
   }
 }
 

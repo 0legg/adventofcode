@@ -15,7 +15,6 @@ import net.olegg.aoc.utils.Directions.U
 import net.olegg.aoc.utils.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseLongs
-import net.olegg.aoc.utils.scan
 import net.olegg.aoc.year2019.DayOf2019
 import net.olegg.aoc.year2019.Intcode
 
@@ -144,7 +143,8 @@ object Day17 : DayOf2019(17) {
       val longProgram = movement.map { it.first }.drop(1).toList()
 
       val maybeAs = longProgram
-          .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value}
+          .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
+          .drop(1)
           .takeWhile { it.stringify().length <= 20 }
 
       val dicts = maybeAs.flatMap { a ->
@@ -157,7 +157,8 @@ object Day17 : DayOf2019(17) {
 
         val maybeBs = longProgram
             .subList(aposition, longProgram.size)
-            .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value}
+            .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
+            .drop(1)
             .takeWhile { it.stringify().length <= 20 }
 
         maybeBs.flatMap { b ->
@@ -171,7 +172,8 @@ object Day17 : DayOf2019(17) {
 
           val maybeCs = longProgram
               .subList(bposition, longProgram.size)
-              .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value}
+              .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
+              .drop(1)
               .takeWhile { it.stringify().length <= 20 }
 
           maybeCs.mapNotNull { c ->

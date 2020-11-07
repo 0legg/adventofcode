@@ -4,7 +4,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.scan
 import net.olegg.aoc.year2018.DayOf2018
 
 /**
@@ -20,6 +19,7 @@ object Day4 : DayOf2018(4) {
         .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
           if (event.id == -1) event.copy(id = prev.id) else event
         }
+        .drop(1)
 
     val sleeps = events
         .zipWithNext { prev, curr ->
@@ -51,6 +51,7 @@ object Day4 : DayOf2018(4) {
         .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
           if (event.id == -1) event.copy(id = prev.id) else event
         }
+        .drop(1)
 
     val sleeps = events
         .zipWithNext { prev, curr ->
