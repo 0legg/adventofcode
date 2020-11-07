@@ -26,7 +26,7 @@ object Day2 : DayOf2016(2) {
       "000D000",
       "0000000"
   )
-  
+
   override fun first(data: String): Any? {
     return solve(data.trim().lines(), KEYPAD1, Vector2D(2, 2))
   }

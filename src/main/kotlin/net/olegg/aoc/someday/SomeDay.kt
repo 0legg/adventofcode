@@ -5,16 +5,12 @@ import kotlin.system.measureTimeMillis
 /**
  * Abstract class representing solution for [day]s problem in specified [year].
  */
-abstract class SomeDay(val year: Int, val day: Int) {
+open class SomeDay(val year: Int, val day: Int) {
   val data: String = Fetcher.fetcher.fetchInput(year, day).execute().body().orEmpty()
 
-  open fun first(data: String): Any? {
-    return null
-  }
+  open fun first(data: String): Any? = null
 
-  open fun second(data: String): Any? {
-    return null
-  }
+  open fun second(data: String): Any? = null
 
   companion object {
     fun mainify(someday: SomeDay) {

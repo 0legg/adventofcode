@@ -19,7 +19,7 @@ object Day20 : DayOf2018(20) {
   override fun first(data: String): Any? {
     val route = data.trim('^', '$', ' ', '\n')
 
-    return visitAll(route).values.max()
+    return visitAll(route).values.maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -35,7 +35,7 @@ object Day20 : DayOf2018(20) {
 
     route.fold(START) { curr, char ->
       val (x, y) = curr
-      val next = when(char) {
+      val next = when (char) {
         in MOVES -> (x + MOVES.getValue(char).first) to (y + MOVES.getValue(char).second)
         ')' -> stack.pop()
         '|' -> stack.peek()

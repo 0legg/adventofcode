@@ -1,11 +1,9 @@
 package net.olegg.aoc.year2019.day13
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.toList
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
@@ -107,10 +105,10 @@ object Day13 : DayOf2019(13) {
   }
 
   private fun printField(field: Map<Vector2D, Int>) {
-    val minx = field.map { it.key.x }.min() ?: 0
-    val maxx = field.map { it.key.x }.max() ?: 0
-    val miny = field.map { it.key.y }.min() ?: 0
-    val maxy = field.map { it.key.y }.max() ?: 0
+    val minx = field.map { it.key.x }.minOrNull() ?: 0
+    val maxx = field.map { it.key.x }.maxOrNull() ?: 0
+    val miny = field.map { it.key.y }.minOrNull() ?: 0
+    val maxy = field.map { it.key.y }.maxOrNull() ?: 0
 
     println((miny..maxy).joinToString("\n", prefix = "\n") { y ->
       (minx..maxx).joinToString("") { x -> when (field.getOrDefault(Vector2D(x, y), 0)) {

@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2018.day9
 
-import java.util.LinkedList
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2018.DayOf2018
+import java.util.LinkedList
 
 /**
  * See [Year 2018, Day 9](https://adventofcode.com/2018/day/9)
@@ -14,14 +14,14 @@ object Day9 : DayOf2018(9) {
     val (players, points) = PATTERN.matchEntire(data.trim())?.destructured?.toList()?.map { it.toInt() }
         ?: throw IllegalArgumentException()
 
-    return play(players, points).max()
+    return play(players, points).maxOrNull()
   }
 
   override fun second(data: String): Any? {
     val (players, points) = PATTERN.matchEntire(data.trim())?.destructured?.toList()?.map { it.toInt() }
         ?: throw IllegalArgumentException()
 
-    return play(players, points * 100).max()
+    return play(players, points * 100).maxOrNull()
   }
 
   private fun play(players: Int, points: Int): List<Long> {

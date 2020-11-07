@@ -44,10 +44,10 @@ object Day15 : DayOf2019(15) {
       launch {
         while (stack.isNotEmpty()) {
           val curr = stack.pop()
-          input.send(codes[curr.move] ?: 0L)
+          input.send(codes[curr.dir] ?: 0L)
           val result = output.receive()
           if (curr is Move.Forward) {
-            val newPosition = curr.position + curr.move.step
+            val newPosition = curr.position + curr.dir.step
             when (result) {
               0L -> {
                 map[newPosition] = 0L to -1
@@ -56,8 +56,8 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack.push(Move.Return(returns[curr.move] ?: throw IllegalStateException()))
-                  Neighbors4.filter { it != returns[curr.move] }
+                  stack.push(Move.Return(returns[curr.dir] ?: throw IllegalStateException()))
+                  Neighbors4.filter { it != returns[curr.dir] }
                       .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                       .map { Move.Forward(it, newPosition, curr.distance + 1) }
                       .forEach { stack.push(it) }
@@ -95,10 +95,10 @@ object Day15 : DayOf2019(15) {
       launch {
         while (stack.isNotEmpty()) {
           val curr = stack.pop()
-          input.send(codes[curr.move] ?: 0L)
+          input.send(codes[curr.dir] ?: 0L)
           val result = output.receive()
           if (curr is Move.Forward) {
-            val newPosition = curr.position + curr.move.step
+            val newPosition = curr.position + curr.dir.step
             when (result) {
               0L -> {
                 map[newPosition] = 0L to -1
@@ -107,8 +107,8 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack.push(Move.Return(returns[curr.move] ?: throw IllegalStateException()))
-                  Neighbors4.filter { it != returns[curr.move] }
+                  stack.push(Move.Return(returns[curr.dir] ?: throw IllegalStateException()))
+                  Neighbors4.filter { it != returns[curr.dir] }
                       .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                       .map { Move.Forward(it, newPosition, curr.distance + 1) }
                       .forEach { stack.push(it) }
@@ -134,21 +134,21 @@ object Day15 : DayOf2019(15) {
           }
     }
 
-    return filledMap.values.max()
+    return filledMap.values.maxOrNull()
   }
 
   sealed class Move {
-    abstract val move: Directions
+    abstract val dir: Directions
 
     data class Forward(
-        override val move: Directions,
+        override val dir: Directions,
         val position: Vector2D,
         val distance: Int
-    ): Move()
+    ) : Move()
 
     data class Return(
-        override val move: Directions
-    ): Move()
+        override val dir: Directions
+    ) : Move()
   }
 
   private val returns = mapOf(U to D, D to U, L to R, R to L)

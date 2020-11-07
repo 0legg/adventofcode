@@ -1,9 +1,9 @@
 package net.olegg.aoc.year2015.day11
 
-import java.math.BigInteger
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.series
 import net.olegg.aoc.year2015.DayOf2015
+import java.math.BigInteger
 
 /**
  * See [Year 2015, Day 11](https://adventofcode.com/2015/day/11)

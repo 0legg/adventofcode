@@ -1,9 +1,9 @@
 package net.olegg.aoc.year2015.day19
 
-import java.util.ArrayDeque
-import java.util.regex.Pattern
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2015.DayOf2015
+import java.util.ArrayDeque
+import java.util.regex.Pattern
 
 /**
  * See [Year 2015, Day 19](https://adventofcode.com/2015/day/19)

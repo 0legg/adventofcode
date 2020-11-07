@@ -19,7 +19,7 @@ object Day17 : DayOf2015(17) {
   override fun second(data: String): Any? {
     return (0 until 1.shl(containers.size)).map { value ->
       containers.mapIndexed { index, container -> value.shr(index).and(1) * container }
-    }.filter { it.sum() == 150 }.groupBy { it.count { it != 0 } }.minBy { it.key }?.value?.size
+    }.filter { it.sum() == 150 }.groupBy { it.count { it != 0 } }.minByOrNull { it.key }?.value?.size
   }
 }
 

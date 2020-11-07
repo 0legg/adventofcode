@@ -26,7 +26,7 @@ object Day13 : DayOf2015(13) {
           order.zipWithNext().sumBy { edges[it] ?: 0 } +
               order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
         }
-        .max()
+        .maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -36,7 +36,7 @@ object Day13 : DayOf2015(13) {
           order.zipWithNext().sumBy { edges[it] ?: 0 } +
               order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
         }
-        .max()
+        .maxOrNull()
   }
 }
 

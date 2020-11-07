@@ -1,10 +1,10 @@
 package net.olegg.aoc.year2016.day24
 
-import java.util.ArrayDeque
-import java.util.LinkedList
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.permutations
 import net.olegg.aoc.year2016.DayOf2016
+import java.util.ArrayDeque
+import java.util.LinkedList
 
 /**
  * See [Year 2016, Day 24](https://adventofcode.com/2016/day/24)
@@ -57,7 +57,7 @@ object Day24 : DayOf2016(24) {
             acc + (distances[points[0]][points[1]] ?: 0)
           }
         }
-        .min()
+        .minOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -99,7 +99,7 @@ object Day24 : DayOf2016(24) {
             acc + (distances[points[0]][points[1]] ?: 0)
           }
         }
-        .min()
+        .minOrNull()
   }
 }
 

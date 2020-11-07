@@ -38,8 +38,8 @@ object Day10 : DayOf2016(10) {
       active
           .map { bot -> actions.getOrDefault(bot.key, 0 to 0) to bot.value }
           .forEach { (action, value) ->
-            val min = value.min() ?: Int.MIN_VALUE
-            val max = value.max() ?: Int.MAX_VALUE
+            val min = value.minOrNull() ?: Int.MIN_VALUE
+            val max = value.maxOrNull() ?: Int.MAX_VALUE
             bots.getOrPut(action.first) { mutableSetOf() } += min
             bots.getOrPut(action.second) { mutableSetOf() } += max
           }
@@ -82,8 +82,8 @@ object Day10 : DayOf2016(10) {
       active
           .map { bot -> actions.getOrDefault(bot.key, 0 to 0) to bot.value }
           .forEach { (action, value) ->
-            val min = value.min() ?: Int.MIN_VALUE
-            val max = value.max() ?: Int.MAX_VALUE
+            val min = value.minOrNull() ?: Int.MIN_VALUE
+            val max = value.maxOrNull() ?: Int.MAX_VALUE
             bots.getOrPut(action.first) { mutableSetOf() } += min
             bots.getOrPut(action.second) { mutableSetOf() } += max
           }

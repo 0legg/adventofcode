@@ -1,9 +1,9 @@
 package net.olegg.aoc.year2017.day20
 
-import kotlin.math.abs
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2017.DayOf2017
+import kotlin.math.abs
 
 /**
  * See [Year 2017, Day 20](https://adventofcode.com/2017/day/20)
@@ -38,7 +38,7 @@ object Day20 : DayOf2017(20) {
           }
         }
         .mapIndexed { index, triple -> index to triple }
-        .minBy { abs(it.second.first.first) + abs(it.second.first.second) + abs(it.second.first.third) }
+        .minByOrNull { abs(it.second.first.first) + abs(it.second.first.second) + abs(it.second.first.third) }
         ?.first
   }
 

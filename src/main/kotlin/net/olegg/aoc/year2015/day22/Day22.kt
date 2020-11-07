@@ -1,10 +1,10 @@
 package net.olegg.aoc.year2015.day22
 
+import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.year2015.DayOf2015
 import java.util.ArrayDeque
 import kotlin.math.max
 import kotlin.math.min
-import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.year2015.DayOf2015
 
 /**
  * See [Year 2015, Day 22](https://adventofcode.com/2015/day/22)

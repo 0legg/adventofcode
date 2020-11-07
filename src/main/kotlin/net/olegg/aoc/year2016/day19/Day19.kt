@@ -1,9 +1,9 @@
 package net.olegg.aoc.year2016.day19
 
-import java.util.BitSet
-import java.util.LinkedList
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2016.DayOf2016
+import java.util.BitSet
+import java.util.LinkedList
 
 /**
  * See [Year 2016, Day 19](https://adventofcode.com/2016/day/19)

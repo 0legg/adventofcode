@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2018.day6
 
-import kotlin.math.abs
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2018.DayOf2018
+import kotlin.math.abs
 
 /**
  * See [Year 2018, Day 6](https://adventofcode.com/2018/day/6)
@@ -23,16 +23,16 @@ object Day6 : DayOf2018(6) {
               ?.let { it.first() to it.last() }
         }
 
-    val left = points.minBy { it.first }?.first ?: Int.MIN_VALUE
-    val top = points.minBy { it.second }?.second ?: Int.MIN_VALUE
-    val right = points.maxBy { it.first }?.first ?: Int.MAX_VALUE
-    val bottom = points.maxBy { it.second }?.second ?: Int.MAX_VALUE
+    val left = points.minByOrNull { it.first }?.first ?: Int.MIN_VALUE
+    val top = points.minByOrNull { it.second }?.second ?: Int.MIN_VALUE
+    val right = points.maxByOrNull { it: Pair<Int, Int> -> it.first }?.first ?: Int.MAX_VALUE
+    val bottom = points.maxByOrNull { it: Pair<Int, Int> -> it.second }?.second ?: Int.MAX_VALUE
 
     val area = (top..bottom)
         .flatMap { y ->
           (left..right).mapNotNull { x ->
             val dist = points.map { abs(x - it.first) + abs(y - it.second) }
-            val best = dist.min() ?: 0
+            val best = dist.minOrNull() ?: 0
             if (dist.count { it == best } == 1) dist.indexOfFirst { it == best } else null
           }
         }
@@ -43,7 +43,7 @@ object Day6 : DayOf2018(6) {
         .filterKeys { key ->
           points[key].first !in listOf(left, right) && points[key].second !in listOf(top, bottom)
         }
-        .maxBy { it.value }
+        .maxByOrNull { it.value }
         ?.value
   }
 
@@ -59,10 +59,10 @@ object Day6 : DayOf2018(6) {
               ?.let { it.first() to it.last() }
         }
 
-    val left = points.minBy { it.first }?.first ?: Int.MIN_VALUE
-    val top = points.minBy { it.second }?.second ?: Int.MIN_VALUE
-    val right = points.maxBy { it.first }?.first ?: Int.MAX_VALUE
-    val bottom = points.maxBy { it.second }?.second ?: Int.MAX_VALUE
+    val left = points.minByOrNull { it.first }?.first ?: Int.MIN_VALUE
+    val top = points.minByOrNull { it.second }?.second ?: Int.MIN_VALUE
+    val right = points.maxByOrNull { it: Pair<Int, Int> -> it.first }?.first ?: Int.MAX_VALUE
+    val bottom = points.maxByOrNull { it: Pair<Int, Int> -> it.second }?.second ?: Int.MAX_VALUE
 
     val padding = TOTAL / points.size + 1
 

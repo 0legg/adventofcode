@@ -27,7 +27,7 @@ object Day15 : DayOf2015(15) {
           }
         }
         .map { it.reduce { acc, value -> acc * value } }
-        .max()
+        .maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -41,7 +41,7 @@ object Day15 : DayOf2015(15) {
           }
         }
         .map { it.reduce { acc, value -> acc * value } }
-        .max()
+        .maxOrNull()
   }
 }
 

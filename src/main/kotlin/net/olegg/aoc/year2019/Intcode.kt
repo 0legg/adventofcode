@@ -9,7 +9,7 @@ import java.nio.CharBuffer
 import java.nio.LongBuffer
 
 class Intcode(program: LongArray) {
-  
+
   private var offset = 0L
   private var memory = LongBuffer.wrap(program)
 
@@ -93,7 +93,7 @@ class Intcode(program: LongArray) {
         }
   }
 
-  fun parseOp(rawOp: Long): Pair<Op, CharBuffer>? {
+  private fun parseOp(rawOp: Long): Pair<Op, CharBuffer>? {
     val opcode = rawOp % 100
     val op = OPS[opcode.toInt()] ?: return null
     val rawModes = rawOp / 100
@@ -101,52 +101,54 @@ class Intcode(program: LongArray) {
     return op to modes
   }
 
-  val OPS = mapOf(
-      1 to Op(4) { program, modes, _, _ ->
-        val (arg1, arg2, arg3) = parseArgs(program, modes)
-        program[arg3] = program[arg1] + program[arg2]
-      },
-      2 to Op(4) { program, modes, _, _ ->
-        val (arg1, arg2, arg3) = parseArgs(program, modes)
-        program[arg3] = program[arg1] * program[arg2]
-      },
-      3 to Op(2) { program, modes, input, _ ->
-        val (arg1) = parseArgs(program, modes)
-        program[arg1] = input.receive()
-      },
-      4 to Op(2) { program, modes, _, output ->
-        val (arg1) = parseArgs(program, modes)
-        output.send(program[arg1])
-      },
-      5 to Op(3) { program, modes, _, _ ->
-        val (arg1, arg2) = parseArgs(program, modes)
-        if (program[arg1] != 0L) {
-          program.position(program[arg2])
+  companion object {
+    private val OPS = mapOf(
+        1 to Op(4) { program, modes, _, _ ->
+          val (arg1, arg2, arg3) = parseArgs(program, modes)
+          program[arg3] = program[arg1] + program[arg2]
+        },
+        2 to Op(4) { program, modes, _, _ ->
+          val (arg1, arg2, arg3) = parseArgs(program, modes)
+          program[arg3] = program[arg1] * program[arg2]
+        },
+        3 to Op(2) { program, modes, input, _ ->
+          val (arg1) = parseArgs(program, modes)
+          program[arg1] = input.receive()
+        },
+        4 to Op(2) { program, modes, _, output ->
+          val (arg1) = parseArgs(program, modes)
+          output.send(program[arg1])
+        },
+        5 to Op(3) { program, modes, _, _ ->
+          val (arg1, arg2) = parseArgs(program, modes)
+          if (program[arg1] != 0L) {
+            program.position(program[arg2])
+          }
+        },
+        6 to Op(3) { program, modes, _, _ ->
+          val (arg1, arg2) = parseArgs(program, modes)
+          if (program[arg1] == 0L) {
+            program.position(program[arg2])
+          }
+        },
+        7 to Op(4) { program, modes, _, _ ->
+          val (arg1, arg2, arg3) = parseArgs(program, modes)
+          program[arg3] = if (program[arg1] < program[arg2]) 1L else 0L
+        },
+        8 to Op(4) { program, modes, _, _ ->
+          val (arg1, arg2, arg3) = parseArgs(program, modes)
+          program[arg3] = if (program[arg1] == program[arg2]) 1L else 0L
+        },
+        9 to Op(2) { program, modes, _, _ ->
+          val (arg1) = parseArgs(program, modes)
+          program.offset += program[arg1]
         }
-      },
-      6 to Op(3) { program, modes, _, _ ->
-        val (arg1, arg2) = parseArgs(program, modes)
-        if (program[arg1] == 0L) {
-          program.position(program[arg2])
-        }
-      },
-      7 to Op(4) { program, modes, _, _ ->
-        val (arg1, arg2, arg3) = parseArgs(program, modes)
-        program[arg3] = if (program[arg1] < program[arg2]) 1L else 0L
-      },
-      8 to Op(4) { program, modes, _, _ ->
-        val (arg1, arg2, arg3) = parseArgs(program, modes)
-        program[arg3] = if (program[arg1] == program[arg2]) 1L else 0L
-      },
-      9 to Op(2) { program, modes, _, _ ->
-        val (arg1) = parseArgs(program, modes)
-        program.offset += program[arg1]
-      }
-  )
+    )
+  }
 
   sealed class Arg {
-    data class Address(val index: Long): Arg()
-    data class Value(val value: Long): Arg()
+    data class Address(val index: Long) : Arg()
+    data class Value(val value: Long) : Arg()
   }
 
   private operator fun CharBuffer.set(index: Int, value: Char) = put(index, value)

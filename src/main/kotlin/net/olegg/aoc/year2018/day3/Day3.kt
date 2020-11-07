@@ -12,8 +12,8 @@ object Day3 : DayOf2018(3) {
         .trim()
         .lines()
         .mapNotNull { Request.fromString(it) }
-    val width = requests.map { it.left + it.width }.max() ?: 0
-    val height = requests.map { it.top + it.height }.max() ?: 0
+    val width = requests.map { it.left + it.width }.maxOrNull() ?: 0
+    val height = requests.map { it.top + it.height }.maxOrNull() ?: 0
 
     val field = Array(height) { Array(width) { 0 } }
 

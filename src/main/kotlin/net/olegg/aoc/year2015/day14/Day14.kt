@@ -1,7 +1,6 @@
 package net.olegg.aoc.year2015.day14
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.scan
 import net.olegg.aoc.year2015.DayOf2015
 
 /**
@@ -26,7 +25,7 @@ object Day14 : DayOf2015(14) {
         .map { (speed, active, period) ->
           ((TIME / period) * active + (TIME % period).coerceAtMost(active)) * speed
         }
-        .max()
+        .maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -34,14 +33,14 @@ object Day14 : DayOf2015(14) {
         .map { (speed, active, period) ->
           (0 until TIME).scan(0) { acc, value ->
             if (value % period < active) acc + speed else acc
-          }
+          }.drop(1)
         }
     val timestamps = (0 until TIME)
         .map { second ->
           distances.map { it[second] }
         }
         .map { list ->
-          list.map { if (it == list.max()) 1 else 0 }
+          list.map { if (it == list.maxOrNull()) 1 else 0 }
         }
     return speeds
         .indices
@@ -49,7 +48,7 @@ object Day14 : DayOf2015(14) {
           timestamps.map { it[speed] }
         }
         .map { it.sum() }
-        .max()
+        .maxOrNull()
   }
 }
 

@@ -1,10 +1,10 @@
 package net.olegg.aoc.year2018.day8
 
-import java.util.ArrayDeque
-import java.util.Deque
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2018.DayOf2018
+import java.util.ArrayDeque
+import java.util.Deque
 
 /**
  * See [Year 2018, Day 8](https://adventofcode.com/2018/day/8)

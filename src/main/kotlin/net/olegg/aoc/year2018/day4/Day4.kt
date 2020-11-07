@@ -1,11 +1,10 @@
 package net.olegg.aoc.year2018.day4
 
+import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.year2018.DayOf2018
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.scan
-import net.olegg.aoc.year2018.DayOf2018
 
 /**
  * See [Year 2018, Day 4](https://adventofcode.com/2018/day/4)
@@ -20,6 +19,7 @@ object Day4 : DayOf2018(4) {
         .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
           if (event.id == -1) event.copy(id = prev.id) else event
         }
+        .drop(1)
 
     val sleeps = events
         .zipWithNext { prev, curr ->
@@ -28,7 +28,7 @@ object Day4 : DayOf2018(4) {
         .filterNotNull()
         .groupBy { it.first }
 
-    val sleeper = sleeps.maxBy { entry ->
+    val sleeper = sleeps.maxByOrNull { entry ->
       entry.value.sumBy { it.second.until(it.third, ChronoUnit.MINUTES).toInt() }
     }
 
@@ -38,7 +38,7 @@ object Day4 : DayOf2018(4) {
         (prev.minute until curr.minute).forEach { minutes[it] += 1 }
       }
 
-      return@let best.key * (minutes.withIndex().maxBy { it.value }?.index ?: 0)
+      return@let best.key * (minutes.withIndex().maxByOrNull { it: IndexedValue<Int> -> it.value }?.index ?: 0)
     }
   }
 
@@ -51,6 +51,7 @@ object Day4 : DayOf2018(4) {
         .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
           if (event.id == -1) event.copy(id = prev.id) else event
         }
+        .drop(1)
 
     val sleeps = events
         .zipWithNext { prev, curr ->
@@ -68,9 +69,9 @@ object Day4 : DayOf2018(4) {
     }
 
     return freqs
-        .maxBy { it.value.max() ?: 0 }
+        .maxByOrNull { it.value.maxOrNull() ?: 0 }
         ?.let { sleeper ->
-          sleeper.key * (sleeper.value.withIndex().maxBy { it.value }?.index ?: 0)
+          sleeper.key * (sleeper.value.withIndex().maxByOrNull { it.value }?.index ?: 0)
         }
   }
 

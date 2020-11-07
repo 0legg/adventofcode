@@ -13,7 +13,7 @@ object Day2 : DayOf2017(2) {
         .trim()
         .lines()
         .map { it.parseInts() }
-        .map { (it.max() ?: 0) - (it.min() ?: 0) }
+        .map { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
         .sum()
   }
 

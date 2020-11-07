@@ -1,7 +1,6 @@
 package net.olegg.aoc.year2015.day3
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.scan
 import net.olegg.aoc.year2015.DayOf2015
 
 /**
@@ -17,7 +16,7 @@ object Day3 : DayOf2015(3) {
   val moves = data.map { mapping[it] ?: Vector() }
 
   fun visit(moves: List<Vector>): Set<Vector> {
-    return setOf(Vector()) + moves.scan(Vector()) { pos, move -> pos + move }
+    return moves.scan(Vector()) { pos, move -> pos + move }.toSet()
   }
 
   override fun first(data: String): Any? {

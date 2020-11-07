@@ -17,8 +17,7 @@ import net.olegg.aoc.year2019.Intcode
 /**
  * See [Year 2019, Day 9](https://adventofcode.com/2019/day/9)
  */
-@ExperimentalCoroutinesApi
-@UseExperimental(FlowPreview::class)
+@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 object Day9 : DayOf2019(9) {
   override fun first(data: String): Any? {
     val program = data
@@ -65,6 +64,4 @@ object Day9 : DayOf2019(9) {
   }
 }
 
-@ExperimentalCoroutinesApi
-@UseExperimental(FlowPreview::class)
 fun main() = SomeDay.mainify(Day9)

@@ -15,7 +15,6 @@ import net.olegg.aoc.utils.Directions.U
 import net.olegg.aoc.utils.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseLongs
-import net.olegg.aoc.utils.scan
 import net.olegg.aoc.year2019.DayOf2019
 import net.olegg.aoc.year2019.Intcode
 
@@ -50,11 +49,8 @@ object Day17 : DayOf2019(17) {
         row.mapIndexedNotNull { x, c ->
           val pos = Vector2D(x, y)
 
-          if (c == '#' && Neighbors4.map { pos + it.step }
-              .all { it.x in row.indices && it.y in map.indices && map[it.y][it.x] == '#' }) {
-            x
-          } else {
-            null
+          return@mapIndexedNotNull x.takeIf {
+            c == '#' && Neighbors4.map { pos + it.step }.all { map[it] == '#' }
           }
         }.sumBy { it * y }
       }.sum()
@@ -140,11 +136,12 @@ object Day17 : DayOf2019(17) {
         }
       }
 
-      fun List<Pair<Char, Int>>.stringify() = joinToString(separator = ",") { "${it.first},${it.second}"}
+      fun List<Pair<Char, Int>>.stringify() = joinToString(separator = ",") { "${it.first},${it.second}" }
       val longProgram = movement.map { it.first }.drop(1).toList()
 
       val maybeAs = longProgram
-          .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value}
+          .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
+          .drop(1)
           .takeWhile { it.stringify().length <= 20 }
 
       val dicts = maybeAs.flatMap { a ->
@@ -157,7 +154,8 @@ object Day17 : DayOf2019(17) {
 
         val maybeBs = longProgram
             .subList(aposition, longProgram.size)
-            .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value}
+            .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
+            .drop(1)
             .takeWhile { it.stringify().length <= 20 }
 
         maybeBs.flatMap { b ->
@@ -171,7 +169,8 @@ object Day17 : DayOf2019(17) {
 
           val maybeCs = longProgram
               .subList(bposition, longProgram.size)
-              .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value}
+              .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
+              .drop(1)
               .takeWhile { it.stringify().length <= 20 }
 
           maybeCs.mapNotNull { c ->

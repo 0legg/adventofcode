@@ -1,7 +1,6 @@
 package net.olegg.aoc.year2019.day16
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.scan
 import net.olegg.aoc.year2019.DayOf2019
 import kotlin.math.abs
 
@@ -44,7 +43,7 @@ object Day16 : DayOf2019(16) {
 
     return (0 until 100)
         .fold(tail) { list, _ ->
-          list.scan(0) { acc, item -> acc + item }
+          list.runningReduce { acc, item -> acc + item }
               .map { abs(it % 10) }
         }
         .takeLast(8)
