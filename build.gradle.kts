@@ -1,7 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  id("org.jetbrains.kotlin.jvm")
+  kotlin("jvm")
+  kotlin("plugin.serialization")
   idea
   id("de.fuerstenau.buildconfig")
   id("io.gitlab.arturbosch.detekt")
@@ -44,12 +45,14 @@ dependencies {
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:_")
   implementation("org.jetbrains.kotlin:kotlin-reflect:_")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:_")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:_")
+
   implementation("com.squareup.retrofit2:retrofit:_")
   implementation("com.squareup.retrofit2:converter-scalars:_")
-  implementation("com.beust:klaxon:_")
+
   implementation("org.funktionale:funktionale-memoization:_")
 
-  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.2")
+  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
 
   testImplementation("org.jetbrains.kotlin:kotlin-test:_")
   testImplementation("org.spekframework.spek2:spek-dsl-jvm:_")
