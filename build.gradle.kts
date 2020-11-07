@@ -1,11 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  kotlin("jvm").version(Versions.org_jetbrains_kotlin_jvm_gradle_plugin)
+  id("org.jetbrains.kotlin.jvm")
   idea
-  id("de.fuerstenau.buildconfig").version(Versions.de_fuerstenau_buildconfig_gradle_plugin)
-  buildSrcVersions
-  id("io.gitlab.arturbosch.detekt").version(Versions.io_gitlab_arturbosch_detekt)
+  id("de.fuerstenau.buildconfig")
+  id("io.gitlab.arturbosch.detekt")
 }
 
 group = "net.olegg.aoc"
@@ -36,23 +35,23 @@ tasks.withType<Test> {
 tasks.withType<KotlinCompile> {
   kotlinOptions {
     jvmTarget = "1.8"
-    allWarningsAsErrors = true
+    //allWarningsAsErrors = true
     freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
   }
 }
 
 dependencies {
-  implementation(Libs.kotlin_stdlib_jdk8)
-  implementation(Libs.kotlin_reflect)
-  implementation(Libs.kotlinx_coroutines_core)
-  implementation(Libs.retrofit)
-  implementation(Libs.converter_scalars)
-  implementation(Libs.klaxon)
-  implementation(Libs.funktionale_memoization)
+  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:_")
+  implementation("org.jetbrains.kotlin:kotlin-reflect:_")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:_")
+  implementation("com.squareup.retrofit2:retrofit:_")
+  implementation("com.squareup.retrofit2:converter-scalars:_")
+  implementation("com.beust:klaxon:_")
+  implementation("org.funktionale:funktionale-memoization:_")
 
-  detektPlugins(Libs.detekt_formatting)
+  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.14.2")
 
-  testImplementation(Libs.kotlin_test)
-  testImplementation(Libs.spek_dsl_jvm)
-  testRuntimeOnly(Libs.spek_runner_junit5)
+  testImplementation("org.jetbrains.kotlin:kotlin-test:_")
+  testImplementation("org.spekframework.spek2:spek-dsl-jvm:_")
+  testRuntimeOnly("org.spekframework.spek2:spek-runner-junit5:_")
 }
