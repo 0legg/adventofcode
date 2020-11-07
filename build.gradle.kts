@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.olegg.aoc"
-version = "2019.0.0"
+version = "2020.0.0"
 
 repositories {
   jcenter()
