@@ -40,10 +40,6 @@ object Day19 : DayOf2019(19) {
 
       output.close()
 
-//      println(outs.chunked(50).joinToString(separator = "\n", prefix = "\n") { row ->
-//        row.joinToString(separator = "") { if (it == 1L) "#" else "." }
-//      })
-
       return@runBlocking output.toList().count { it == 1L }
     }
   }
