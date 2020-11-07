@@ -12,9 +12,9 @@ object Day8 : DayOf2019(8) {
         .trim()
         .chunked(25 * 6)
 
-    return layers.minByOrNull { layer -> layer.count { it == '0'} }
+    return layers.minByOrNull { layer -> layer.count { it == '0' } }
         .orEmpty()
-        .let { layer -> layer.count { it == '1'} * layer.count { it == '2'} }
+        .let { layer -> layer.count { it == '1' } * layer.count { it == '2' } }
   }
 
   override fun second(data: String): Any? {

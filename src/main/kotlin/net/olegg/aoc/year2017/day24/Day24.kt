@@ -1,10 +1,10 @@
 package net.olegg.aoc.year2017.day24
 
+import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.year2017.DayOf2017
 import java.util.ArrayDeque
 import java.util.BitSet
 import kotlin.math.max
-import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.year2017.DayOf2017
 
 /**
  * See [Year 2017, Day 24](https://adventofcode.com/2017/day/24)
@@ -14,9 +14,9 @@ object Day24 : DayOf2017(24) {
     val ports = data
         .trim()
         .lines()
-        .map { it.split("/") }
+        .map { line -> line.split("/").mapNotNull { it.toIntOrNull() } }
         .mapIndexed { index, value ->
-          Triple((value.minOrNull()?.toInt() ?: 0), (value.maxOrNull()?.toInt() ?: 0), index)
+          Triple(value.minOrNull() ?: 0, value.maxOrNull() ?: 0, index)
         }
 
     var best = 0
@@ -54,9 +54,13 @@ object Day24 : DayOf2017(24) {
   }
 
   override fun second(data: String): Any? {
-    val ports = data.trim().lines()
-        .map { it.split("/") }
-        .mapIndexed { index, value -> Triple((value.minOrNull()?.toInt() ?: 0), (value.maxOrNull()?.toInt() ?: 0), index) }
+    val ports = data
+        .trim()
+        .lines()
+        .map { line -> line.split("/").mapNotNull { it.toIntOrNull() } }
+        .mapIndexed { index, value ->
+          Triple(value.minOrNull() ?: 0, value.maxOrNull() ?: 0, index)
+        }
 
     val queue = ArrayDeque(ports.filter { it.first == 0 || it.second == 0 }
         .map { port ->
@@ -70,7 +74,7 @@ object Day24 : DayOf2017(24) {
 
     while (queue.isNotEmpty()) {
       val curr = queue.pop()
-      best = listOf(best, curr.second).maxWithOrNull(compareBy({ it.first }, { it.second })) ?: (0 to 0)
+      best = maxOf(best, curr.second, compareBy({ it.first }, { it.second }))
       ports.filter { !curr.third[it.third] }
           .filter { it.first == curr.first || it.second == curr.first }
           .map { port ->

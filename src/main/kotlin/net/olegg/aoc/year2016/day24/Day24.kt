@@ -1,10 +1,10 @@
 package net.olegg.aoc.year2016.day24
 
-import java.util.ArrayDeque
-import java.util.LinkedList
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.permutations
 import net.olegg.aoc.year2016.DayOf2016
+import java.util.ArrayDeque
+import java.util.LinkedList
 
 /**
  * See [Year 2016, Day 24](https://adventofcode.com/2016/day/24)

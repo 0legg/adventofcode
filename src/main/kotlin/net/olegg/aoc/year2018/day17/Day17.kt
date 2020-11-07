@@ -1,9 +1,9 @@
 package net.olegg.aoc.year2018.day17
 
-import kotlin.math.max
-import kotlin.math.min
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2018.DayOf2018
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * See [Year 2018, Day 17](https://adventofcode.com/2018/day/17)
@@ -49,8 +49,10 @@ object Day17 : DayOf2018(17) {
         }
 
     val bbox = clay
-        .fold(start.first - 1..start.first + 1 to start.second..start.second) { (accxRange, accyRange), (xRange, yRange) ->
-          Pair(
+        .fold(start.first - 1..start.first + 1 to start.second..start.second) { acc, value ->
+          val (accxRange, accyRange) = acc
+          val (xRange, yRange) = value
+          return@fold Pair(
               min(accxRange.first, xRange.first - 1)..max(accxRange.last, xRange.last + 1),
               min(accyRange.first, yRange.first)..max(accyRange.last, yRange.last)
           )
@@ -79,45 +81,45 @@ object Day17 : DayOf2018(17) {
         map)
   }
 
-  private fun fill(map: List<MutableList<Char>>, coordinate: Pair<Int, Int>): Boolean {
+  private fun fill(map: List<MutableList<Char>>, coord: Pair<Int, Int>): Boolean {
     val reachBottom = when {
-      coordinate.second !in map.indices -> false
-      coordinate.first !in map[coordinate.second].indices -> false
-      coordinate.second == map.lastIndex -> {
-        map[coordinate.second][coordinate.first] = '|'
+      coord.second !in map.indices -> false
+      coord.first !in map[coord.second].indices -> false
+      coord.second == map.lastIndex -> {
+        map[coord.second][coord.first] = '|'
         true
       }
-      map[coordinate.second][coordinate.first] == '|' -> {
+      map[coord.second][coord.first] == '|' -> {
         true
       }
-      map[coordinate.second][coordinate.first] in setOf('~', '#') -> {
+      map[coord.second][coord.first] in setOf('~', '#') -> {
         false
       }
       else -> {
-        map[coordinate.second][coordinate.first] = '~'
-        if (map[coordinate.second + 1][coordinate.first] == '|' ||
-            (map[coordinate.second + 1][coordinate.first] == '.' && fill(map, coordinate.first to coordinate.second + 1))) {
+        map[coord.second][coord.first] = '~'
+        if (map[coord.second + 1][coord.first] == '|' ||
+            (map[coord.second + 1][coord.first] == '.' && fill(map, coord.first to coord.second + 1))) {
           true
         } else {
-          val left = fill(map, coordinate.first - 1 to coordinate.second)
-          val right = fill(map, coordinate.first + 1 to coordinate.second)
+          val left = fill(map, coord.first - 1 to coord.second)
+          val right = fill(map, coord.first + 1 to coord.second)
           left || right
         }
       }
     }
 
     if (reachBottom) {
-      map[coordinate.second][coordinate.first] = '|'
-      for (x in coordinate.first - 1 downTo 0) {
-        if (map[coordinate.second][x] == '~') {
-          map[coordinate.second][x] = '|'
+      map[coord.second][coord.first] = '|'
+      for (x in coord.first - 1 downTo 0) {
+        if (map[coord.second][x] == '~') {
+          map[coord.second][x] = '|'
         } else {
           break
         }
       }
-      for (x in coordinate.first + 1..map[coordinate.second].indices.last) {
-        if (map[coordinate.second][x] == '~') {
-          map[coordinate.second][x] = '|'
+      for (x in coord.first + 1..map[coord.second].indices.last) {
+        if (map[coord.second][x] == '~') {
+          map[coord.second][x] = '|'
         } else {
           break
         }

@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2017.day18
 
-import java.util.ArrayDeque
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2017.DayOf2017
+import java.util.ArrayDeque
 
 /**
  * See [Year 2017, Day 18](https://adventofcode.com/2017/day/18)

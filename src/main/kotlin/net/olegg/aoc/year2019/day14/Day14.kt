@@ -1,16 +1,14 @@
 package net.olegg.aoc.year2019.day14
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Vector3D
 import net.olegg.aoc.year2019.DayOf2019
-import net.olegg.aoc.year2019.day12.Day12
 import java.util.ArrayDeque
 
 /**
  * See [Year 2019, Day 14](https://adventofcode.com/2019/day/14)
  */
 object Day14 : DayOf2019(14) {
-  private val ORE = 1000000000000L
+  private const val ORE = 1000000000000L
 
   override fun first(data: String): Any? {
     val forms = data
@@ -23,7 +21,7 @@ object Day14 : DayOf2019(14) {
           return@map raw.last().first to (raw.last().second to raw.dropLast(1))
         }
 
-    val nodes = forms.flatMap { (from, toList) ->  toList.second.map { it.first } + from }.toSet()
+    val nodes = forms.flatMap { (from, toList) -> toList.second.map { it.first } + from }.toSet()
     val edges = forms.flatMap { (from, toList) -> toList.second.map { from to it.first } }.toMutableSet()
     val available = nodes.toMutableSet()
     val empty = ArrayDeque((available - edges.map { it.second }).toSet())
@@ -66,7 +64,7 @@ object Day14 : DayOf2019(14) {
           return@map raw.last().first to (raw.last().second to raw.dropLast(1))
         }
 
-    val nodes = forms.flatMap { (from, toList) ->  toList.second.map { it.first } + from }.toSet()
+    val nodes = forms.flatMap { (from, toList) -> toList.second.map { it.first } + from }.toSet()
     val edges = forms.flatMap { (from, toList) -> toList.second.map { from to it.first } }.toMutableSet()
     val available = nodes.toMutableSet()
     val empty = ArrayDeque((available - edges.map { it.second }).toSet())

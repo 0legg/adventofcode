@@ -1,11 +1,11 @@
 package net.olegg.aoc.year2019.day18
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.find
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.set
-import net.olegg.aoc.utils.Neighbors4
-import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2019.DayOf2019
 import java.util.ArrayDeque
 import java.util.BitSet

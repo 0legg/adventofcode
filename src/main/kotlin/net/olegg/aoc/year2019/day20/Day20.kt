@@ -137,8 +137,8 @@ object Day20 : DayOf2019(20) {
         return step
       }
 
-      (Neighbors4.map { (it.step + point) to level }
-          + listOfNotNull(routes[point]).map { it.first to level + it.second })
+      (Neighbors4.map { (it.step + point) to level } +
+          listOfNotNull(routes[point]).map { it.first to level + it.second })
           .filter { map[it.first] == '.' }
           .filter { it.second >= 0 }
           .filter { it !in visited }

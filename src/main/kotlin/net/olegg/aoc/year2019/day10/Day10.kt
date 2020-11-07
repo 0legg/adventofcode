@@ -4,7 +4,6 @@ import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.gcd
 import net.olegg.aoc.year2019.DayOf2019
-import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.sign
 

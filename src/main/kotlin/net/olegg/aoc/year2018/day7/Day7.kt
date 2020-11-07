@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2018.day7
 
-import kotlin.math.max
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2018.DayOf2018
+import kotlin.math.max
 
 /**
  * See [Year 2018, Day 7](https://adventofcode.com/2018/day/7)

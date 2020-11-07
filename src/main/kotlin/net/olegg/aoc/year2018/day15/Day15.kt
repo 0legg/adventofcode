@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2018.day15
 
-import java.util.ArrayDeque
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2018.DayOf2018
+import java.util.ArrayDeque
 
 /**
  * See [Year 2018, Day 15](https://adventofcode.com/2018/day/15)
@@ -253,11 +253,12 @@ object Day15 : DayOf2018(15) {
             }
 
             val move = moves
-                .sortedWith(compareBy({ it.second }, { it.first }))
-                .first()
+                .minWithOrNull(compareBy({ it.second }, { it.first }))
 
-            character.x = move.first
-            character.y = move.second
+            move?.let {
+              character.x = it.first
+              character.y = it.second
+            }
           }
 
           val canHit = MOVES.map { character.x + it.first to character.y + it.second }
@@ -266,10 +267,9 @@ object Day15 : DayOf2018(15) {
 
           if (targetsCanHit.isNotEmpty()) {
             val target = targetsCanHit
-                .sortedWith(compareBy({ it.hit }, { it.y }, { it.x }))
-                .first()
+                .minWithOrNull(compareBy({ it.hit }, { it.y }, { it.x }))
 
-            target.hit -= character.attack
+            target?.let { it.hit -= character.attack }
           }
         }
       }

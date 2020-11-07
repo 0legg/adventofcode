@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2018.day6
 
-import kotlin.math.abs
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2018.DayOf2018
+import kotlin.math.abs
 
 /**
  * See [Year 2018, Day 6](https://adventofcode.com/2018/day/6)

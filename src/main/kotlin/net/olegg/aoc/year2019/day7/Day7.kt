@@ -9,7 +9,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.utils.permutations
 import net.olegg.aoc.year2019.DayOf2019

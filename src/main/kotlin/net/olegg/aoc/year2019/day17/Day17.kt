@@ -49,11 +49,8 @@ object Day17 : DayOf2019(17) {
         row.mapIndexedNotNull { x, c ->
           val pos = Vector2D(x, y)
 
-          if (c == '#' && Neighbors4.map { pos + it.step }
-              .all { it.x in row.indices && it.y in map.indices && map[it.y][it.x] == '#' }) {
-            x
-          } else {
-            null
+          return@mapIndexedNotNull x.takeIf {
+            c == '#' && Neighbors4.map { pos + it.step }.all { map[it] == '#' }
           }
         }.sumBy { it * y }
       }.sum()
@@ -139,7 +136,7 @@ object Day17 : DayOf2019(17) {
         }
       }
 
-      fun List<Pair<Char, Int>>.stringify() = joinToString(separator = ",") { "${it.first},${it.second}"}
+      fun List<Pair<Char, Int>>.stringify() = joinToString(separator = ",") { "${it.first},${it.second}" }
       val longProgram = movement.map { it.first }.drop(1).toList()
 
       val maybeAs = longProgram

@@ -1,10 +1,10 @@
 package net.olegg.aoc.year2018.day4
 
+import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.year2018.DayOf2018
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.year2018.DayOf2018
 
 /**
  * See [Year 2018, Day 4](https://adventofcode.com/2018/day/4)

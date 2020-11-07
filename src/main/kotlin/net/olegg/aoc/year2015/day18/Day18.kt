@@ -7,8 +7,8 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 18](https://adventofcode.com/2015/day/18)
  */
 object Day18 : DayOf2015(18) {
-  val size = 100
-  val field = data
+  private const val size = 100
+  private val field = data
       .lines()
       .mapIndexed { row, string ->
         string.mapIndexedNotNull { column, char -> if (char == '#') Pair(row, column) else null }
@@ -16,7 +16,16 @@ object Day18 : DayOf2015(18) {
       .flatten()
       .toSet()
 
-  fun move(field: Set<Pair<Int, Int>>): Set<Pair<Int, Int>> {
+  override fun first(data: String): Any? {
+    return (1..size).fold(field) { field, _ -> move(field) }.size
+  }
+
+  override fun second(data: String): Any? {
+    val corners = setOf(Pair(0, 0), Pair(0, size - 1), Pair(size - 1, 0), Pair(size - 1, size - 1))
+    return (1..size).fold(field + corners) { field, _ -> move(field) + corners }.size
+  }
+
+  private fun move(field: Set<Pair<Int, Int>>): Set<Pair<Int, Int>> {
     val neighbors = field
         .flatMap { cell ->
           (-1..1).flatMap { row ->
@@ -37,15 +46,6 @@ object Day18 : DayOf2015(18) {
     return (neighbors.first.filter { it.second in 2..3 } + neighbors.second.filter { it.second == 3 })
         .map { it.first }
         .toSet()
-  }
-
-  override fun first(data: String): Any? {
-    return (1..size).fold(field) { field, _ -> move(field) }.size
-  }
-
-  override fun second(data: String): Any? {
-    val corners = setOf(Pair(0, 0), Pair(0, size - 1), Pair(size - 1, 0), Pair(size - 1, size - 1))
-    return (1..size).fold(field + corners) { field, _ -> move(field) + corners }.size
   }
 }
 
