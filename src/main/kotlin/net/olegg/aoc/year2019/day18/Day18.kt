@@ -37,7 +37,7 @@ object Day18 : DayOf2019(18) {
             .filter { it !in visited }
             .forEach { next ->
               visited += next
-              when (val char = map[next]) {
+              when (val char = map[next]!!) {
                 '.', '#' -> {
                   queue += Triple(next, steps + 1, doors)
                 }
@@ -130,7 +130,7 @@ object Day18 : DayOf2019(18) {
             .filter { it !in visited }
             .forEach { next ->
               visited += next
-              when (val char = map[next]) {
+              when (val char = map[next]!!) {
                 '.', in bots -> {
                   queue += Triple(next, steps + 1, doors)
                 }

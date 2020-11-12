@@ -1,23 +1,15 @@
 package net.olegg.aoc.year2018.day18
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Neighbors8
+import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2018.DayOf2018
 
 /**
  * See [Year 2018, Day 18](https://adventofcode.com/2018/day/18)
  */
 object Day18 : DayOf2018(18) {
-  private val MOVE = listOf(
-      -1 to -1,
-      -1 to 0,
-      -1 to 1,
-      0 to -1,
-      0 to 1,
-      1 to -1,
-      1 to 0,
-      1 to 1
-  )
-
   override fun first(data: String): Any? {
     val map = data
         .trim()
@@ -41,11 +33,10 @@ object Day18 : DayOf2018(18) {
     val after = (1..minutes).fold(map) { acc, round ->
       val curr = acc.mapIndexed { y, row ->
         row.mapIndexed { x, c ->
-          val adjacent = MOVE
-              .map { it.first + x to it.second + y }
-              .filter { it.second in acc.indices }
-              .filter { it.first in row.indices }
-              .map { acc[it.second][it.first] }
+          val pos = Vector2D(x, y)
+          val adjacent = Neighbors8
+              .map { pos + it.step }
+              .mapNotNull { acc[it] }
           when (c) {
             '.' -> if (adjacent.count { it == '|' } >= 3) '|' else '.'
             '|' -> if (adjacent.count { it == '#' } >= 3) '#' else '|'

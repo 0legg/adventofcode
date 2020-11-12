@@ -67,13 +67,21 @@ fun <T> List<List<T>>.find(value: T): Vector2D? {
 }
 
 operator fun <T> List<MutableList<T>>.set(v: Vector2D, value: T) {
-  this[v.y][v.x] = value
+  when {
+    v.y !in indices -> throw IndexOutOfBoundsException()
+    v.x !in this[v.y].indices -> throw IndexOutOfBoundsException()
+    else -> this[v.y][v.x] = value
+  }
 }
 
 operator fun <T> List<MutableList<T>>.set(i: Int, j: Int, value: T) {
   this[i][j] = value
 }
 
-operator fun <T> List<List<T>>.get(v: Vector2D): T {
-  return this[v.y][v.x]
+operator fun <T> List<List<T>>.get(v: Vector2D): T? = when {
+  v.y !in indices -> null
+  v.x !in this[v.y].indices -> null
+  else -> this[v.y][v.x]
 }
+
+fun <T> List<List<T>>.fit(v: Vector2D) = v.y in indices && v.x in this[v.y].indices

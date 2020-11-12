@@ -1,17 +1,33 @@
 package net.olegg.aoc.year2018.day13
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.CCW
+import net.olegg.aoc.utils.CW
+import net.olegg.aoc.utils.Directions
+import net.olegg.aoc.utils.Directions.D
+import net.olegg.aoc.utils.Directions.L
+import net.olegg.aoc.utils.Directions.R
+import net.olegg.aoc.utils.Directions.U
+import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2018.DayOf2018
 
 /**
  * See [Year 2018, Day 13](https://adventofcode.com/2018/day/13)
  */
 object Day13 : DayOf2018(13) {
-  private val MOVES = listOf(
-      (-1 to 0),
-      (0 to 1),
-      (1 to 0),
-      (0 to -1)
+  private val TURNS_SLASH = mapOf(
+      U to R,
+      R to U,
+      D to L,
+      L to D
+  )
+
+  private val TURNS_BACKSLASH = mapOf(
+      U to L,
+      L to U,
+      D to R,
+      R to D
   )
 
   override fun first(data: String): Any? {
@@ -32,61 +48,46 @@ object Day13 : DayOf2018(13) {
         }
 
     val trains = input
-        .mapIndexed { y, line ->
+        .flatMapIndexed { y, line ->
           line.mapIndexedNotNull { x, c ->
+            val pos = Vector2D(x, y)
             when (c) {
-              '^' -> Triple((x to y), (0 to -1), 0)
-              'v' -> Triple((x to y), (0 to 1), 0)
-              '<' -> Triple((x to y), (-1 to 0), 0)
-              '>' -> Triple((x to y), (1 to 0), 0)
+              '^' -> Triple(pos, U, 0)
+              'v' -> Triple(pos, D, 0)
+              '<' -> Triple(pos, L, 0)
+              '>' -> Triple(pos, R, 0)
               else -> null
             }
           }
         }
-        .flatten()
-        .sortedWith(compareBy({ it.first.second }, { it.first.first }))
+        .sortedWith(compareBy({ it.first.y }, { it.first.x }))
 
     (0..1_000_000).fold(trains) { state, _ ->
-      val coords = state.map { it.first }
+      val coords = state.map { it.first }.toMutableSet()
       val newState = state
-          .mapIndexed { index, train ->
-            val (x, y) = train.first
-            val (vx, vy) = train.second
-            val turn = train.third
-            val (nvx, nvy, nt) = when (tracks[y][x]) {
-              '\\' -> Triple(vy, vx, turn)
-              '/' -> Triple(-vy, -vx, turn)
+          .map { (pos, dir, turn) ->
+            val (newDir, newTurn) = when (tracks[pos]) {
+              '\\' -> TURNS_BACKSLASH[dir] to turn
+              '/' -> TURNS_SLASH[dir] to turn
               '+' -> when (turn % 3) {
-                0 -> {
-                  val (tx, ty) = MOVES[(MOVES.indexOf(vx to vy) + 1) % 4]
-                  Triple(tx, ty, turn + 1)
-                }
-                1 -> Triple(vx, vy, turn + 1)
-                2 -> {
-                  val (tx, ty) = MOVES[(MOVES.indexOf(vx to vy) + 3) % 4]
-                  Triple(tx, ty, turn + 1)
-                }
-                else -> Triple(vx, vy, turn)
+                0 -> CCW[dir] to turn + 1
+                1 -> dir to turn + 1
+                2 -> CW[dir] to turn + 1
+                else -> dir to turn
               }
-              else -> Triple(vx, vy, turn)
+              else -> dir to turn
             }
-            val newTrain = (x + nvx to y + nvy)
-
-            if (newTrain in coords.subList(index + 1, coords.size)) {
-              return "${newTrain.first},${newTrain.second}"
+            val newPos = pos + newDir!!.step
+            coords -= pos
+            if (newPos in coords) {
+              return "${newPos.x},${newPos.y}"
             }
+            coords += newPos
 
-            Triple(newTrain, (nvx to nvy), nt)
+            Triple(newPos, newDir, newTurn)
           }
 
-      val newCoords = newState.map { it.first }
-      newCoords.forEachIndexed { index, newTrain ->
-        if (newTrain in newCoords.subList(0, index)) {
-          return "${newTrain.first},${newTrain.second}"
-        }
-      }
-
-      newState.sortedWith(compareBy({ it.first.second }, { it.first.first }))
+      return@fold newState.sortedWith(compareBy({ it.first.y }, { it.first.x }))
     }
 
     return null
@@ -110,64 +111,59 @@ object Day13 : DayOf2018(13) {
         }
 
     val trains = input
-        .mapIndexed { y, line ->
+        .flatMapIndexed { y, line ->
           line.mapIndexedNotNull { x, c ->
+            val pos = Vector2D(x, y)
             when (c) {
-              '^' -> Triple((x to y), (0 to -1), 0)
-              'v' -> Triple((x to y), (0 to 1), 0)
-              '<' -> Triple((x to y), (-1 to 0), 0)
-              '>' -> Triple((x to y), (1 to 0), 0)
+              '^' -> Triple(pos, U, 0)
+              'v' -> Triple(pos, D, 0)
+              '<' -> Triple(pos, L, 0)
+              '>' -> Triple(pos, R, 0)
               else -> null
             }
           }
         }
-        .flatten()
-        .sortedWith(compareBy({ it.first.second }, { it.first.first }))
+        .sortedWith(compareBy({ it.first.y }, { it.first.x }))
 
     (0..1_000_000).fold(trains) { state, _ ->
-      val newState = mutableListOf<Triple<Pair<Int, Int>, Pair<Int, Int>, Int>>()
+      val newState = mutableListOf<Triple<Vector2D, Directions, Int>>()
       val removed = mutableSetOf<Int>()
-      state
-          .forEachIndexed { index, train ->
-            if (index !in removed) {
-              val (x, y) = train.first
-              val (vx, vy) = train.second
-              val turn = train.third
-              val (nvx, nvy, nt) = when (tracks[y][x]) {
-                '\\' -> Triple(vy, vx, turn)
-                '/' -> Triple(-vy, -vx, turn)
-                '+' -> when (turn % 3) {
-                  0 -> {
-                    val (tx, ty) = MOVES[(MOVES.indexOf(vx to vy) + 1) % 4]
-                    Triple(tx, ty, turn + 1)
-                  }
-                  1 -> Triple(vx, vy, turn + 1)
-                  2 -> {
-                    val (tx, ty) = MOVES[(MOVES.indexOf(vx to vy) + 3) % 4]
-                    Triple(tx, ty, turn + 1)
-                  }
-                  else -> Triple(vx, vy, turn)
-                }
-                else -> Triple(vx, vy, turn)
-              }
-              val newTrain = (x + nvx to y + nvy)
 
-              if (newTrain in state.map { it.first }.subList(index + 1, state.size)) {
-                removed += state.indexOfFirst { it.first == newTrain }
-              } else if (newTrain in newState.map { it.first }) {
-                newState.removeIf { it.first == newTrain }
-              } else {
-                newState.add(Triple(newTrain, (nvx to nvy), nt))
+      state
+          .forEachIndexed { index, (pos, dir, turn) ->
+            if (index !in removed) {
+              val (newDir, newTurn) = when (tracks[pos]) {
+                '\\' -> TURNS_BACKSLASH[dir] to turn
+                '/' -> TURNS_SLASH[dir] to turn
+                '+' -> when (turn % 3) {
+                  0 -> CCW[dir] to turn + 1
+                  1 -> dir to turn + 1
+                  2 -> CW[dir] to turn + 1
+                  else -> dir to turn
+                }
+                else -> dir to turn
+              }
+
+              when (val newPos = pos + newDir!!.step) {
+                in state.map { it.first }.subList(index + 1, state.size) -> {
+                  removed += state.indexOfFirst { it.first == newPos }
+                }
+                in newState.map { it.first } -> {
+                  newState.removeIf { it.first == newPos }
+                }
+                else -> {
+                  newState.add(Triple(newPos, newDir, newTurn))
+                }
               }
             }
           }
 
       if (newState.size == 1) {
         val newTrain = newState.first().first
-        return "${newTrain.first},${newTrain.second}"
+        return "${newTrain.x},${newTrain.y}"
       }
 
-      newState.sortedWith(compareBy({ it.first.second }, { it.first.first }))
+      return@fold newState.sortedWith(compareBy({ it.first.y }, { it.first.x }))
     }
 
     return null

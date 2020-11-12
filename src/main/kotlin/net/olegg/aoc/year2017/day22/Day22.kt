@@ -1,6 +1,11 @@
 package net.olegg.aoc.year2017.day22
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.CCW
+import net.olegg.aoc.utils.CW
+import net.olegg.aoc.utils.Directions
+import net.olegg.aoc.utils.REV
+import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2017.DayOf2017
 
 /**
@@ -8,64 +13,50 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day22 : DayOf2017(22) {
   override fun first(data: String): Any? {
-    val vectors = listOf(
-        -1 to 0,
-        0 to 1,
-        1 to 0,
-        0 to -1
-    )
-
-    val map = mutableMapOf<Pair<Int, Int>, Boolean>().apply {
-      val raw = data.trim().lines().map { it.map { it == '#' } }
+    val map = mutableMapOf<Vector2D, Boolean>().apply {
+      val raw = data.trim().lines().map { line -> line.map { it == '#' } }
       raw.forEachIndexed { y, row ->
         row.forEachIndexed { x, value ->
-          put(y - raw.size / 2 to x - raw.size / 2, value)
+          put(Vector2D(x - raw.size / 2, y - raw.size / 2), value)
         }
       }
     }
 
-    return (0 until 10000).fold(Triple((0 to 0), 0, 0)) { acc, _ ->
-      val curr = map.getOrDefault(acc.first, false)
-      val dir = (acc.second + (if (curr) 1 else vectors.size - 1)) % vectors.size
-      map.put(acc.first, !curr)
+    return (0 until 10000).fold(Triple(Vector2D(), Directions.U, 0)) { (pos, dir, state), _ ->
+      val curr = map.getOrDefault(pos, false)
+      val newDir = (if (curr) CW[dir] else CCW[dir]) ?: dir
+      map[pos] = !curr
       return@fold Triple(
-          (acc.first.first + vectors[dir].first to acc.first.second + vectors[dir].second),
-          dir,
-          if (curr) acc.third else acc.third + 1)
+          pos + newDir.step,
+          newDir,
+          if (curr) state else state + 1)
     }.third
   }
 
   override fun second(data: String): Any? {
-    val vectors = listOf(
-        -1 to 0,
-        0 to 1,
-        1 to 0,
-        0 to -1
-    )
-
-    val map = mutableMapOf<Pair<Int, Int>, Int>().apply {
-      val raw = data.trim().lines().map { it.map { ".W#F".indexOf(it) } }
+    val map = mutableMapOf<Vector2D, Int>().apply {
+      val raw = data.trim().lines().map { line -> line.map { ".W#F".indexOf(it) } }
       raw.forEachIndexed { y, row ->
         row.forEachIndexed { x, value ->
-          put(y - raw.size / 2 to x - raw.size / 2, value)
+          put(Vector2D(x - raw.size / 2, y - raw.size / 2), value)
         }
       }
     }
 
-    return (0 until 10000000).fold(Triple((0 to 0), 0, 0)) { acc, _ ->
-      val curr = map.getOrDefault(acc.first, 0)
-      val dir = when (curr) {
-        0 -> acc.second + (vectors.size - 1)
-        1 -> acc.second
-        2 -> acc.second + 1
-        3 -> acc.second + (vectors.size / 2)
-        else -> acc.second
-      } % vectors.size
-      map.put(acc.first, (curr + 1) % 4)
+    return (0 until 10000000).fold(Triple(Vector2D(), Directions.U, 0)) { (pos, dir, state), _ ->
+      val curr = map.getOrDefault(pos, 0)
+      val newDir = when (curr) {
+        0 -> CCW[dir]
+        1 -> dir
+        2 -> CW[dir]
+        3 -> REV[dir]
+        else -> dir
+      } ?: dir
+      map[pos] = (curr + 1) % 4
       return@fold Triple(
-          (acc.first.first + vectors[dir].first to acc.first.second + vectors[dir].second),
-          dir,
-          if (curr == 1) acc.third + 1 else acc.third)
+          pos + newDir.step,
+          newDir,
+          if (curr == 1) state + 1 else state)
     }.third
   }
 }
