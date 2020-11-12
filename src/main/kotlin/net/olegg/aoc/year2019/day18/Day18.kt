@@ -7,7 +7,6 @@ import net.olegg.aoc.utils.find
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.set
 import net.olegg.aoc.year2019.DayOf2019
-import java.util.ArrayDeque
 import java.util.BitSet
 import java.util.PriorityQueue
 
@@ -31,13 +30,13 @@ object Day18 : DayOf2019(18) {
       val visited = mutableSetOf(position)
 
       while (queue.isNotEmpty()) {
-        val (curr, steps, doors) = queue.pop()
+        val (curr, steps, doors) = queue.removeFirst()
         Neighbors4.map { it.step + curr }
             .filter { map[it] != '#' }
             .filter { it !in visited }
             .forEach { next ->
               visited += next
-              when (val char = map[next]) {
+              when (val char = map[next]!!) {
                 '.', '#' -> {
                   queue += Triple(next, steps + 1, doors)
                 }
@@ -124,13 +123,13 @@ object Day18 : DayOf2019(18) {
       val visited = mutableSetOf(position)
 
       while (queue.isNotEmpty()) {
-        val (curr, steps, doors) = queue.pop()
+        val (curr, steps, doors) = queue.removeFirst()
         Neighbors4.map { it.step + curr }
             .filter { map[it] != '#' }
             .filter { it !in visited }
             .forEach { next ->
               visited += next
-              when (val char = map[next]) {
+              when (val char = map[next]!!) {
                 '.', in bots -> {
                   queue += Triple(next, steps + 1, doors)
                 }

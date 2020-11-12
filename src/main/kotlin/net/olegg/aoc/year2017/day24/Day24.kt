@@ -2,7 +2,6 @@ package net.olegg.aoc.year2017.day24
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2017.DayOf2017
-import java.util.ArrayDeque
 import java.util.BitSet
 import kotlin.math.max
 
@@ -30,7 +29,7 @@ object Day24 : DayOf2017(24) {
     val visited = queue.map { it.first to it.third }.toMutableSet()
 
     while (queue.isNotEmpty()) {
-      val curr = queue.pop()
+      val curr = queue.removeFirst()
       best = max(best, curr.second)
       ports
           .filter { !curr.third[it.third] }
@@ -46,7 +45,7 @@ object Day24 : DayOf2017(24) {
           .filterNot { (it.first to it.third) in visited }
           .forEach { port ->
             visited.add(port.first to port.third)
-            queue.push(port)
+            queue.add(port)
           }
     }
 
@@ -73,7 +72,7 @@ object Day24 : DayOf2017(24) {
     var best = 0 to 0
 
     while (queue.isNotEmpty()) {
-      val curr = queue.pop()
+      val curr = queue.removeFirst()
       best = maxOf(best, curr.second, compareBy({ it.first }, { it.second }))
       ports.filter { !curr.third[it.third] }
           .filter { it.first == curr.first || it.second == curr.first }
@@ -88,7 +87,7 @@ object Day24 : DayOf2017(24) {
           .filterNot { (it.first to it.third) in visited }
           .forEach { port ->
             visited.add(port.first to port.third)
-            queue.push(port)
+            queue.addLast(port)
           }
     }
 

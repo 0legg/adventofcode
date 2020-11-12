@@ -2,7 +2,6 @@ package net.olegg.aoc.year2019.day14
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2019.DayOf2019
-import java.util.ArrayDeque
 
 /**
  * See [Year 2019, Day 14](https://adventofcode.com/2019/day/14)
@@ -28,8 +27,8 @@ object Day14 : DayOf2019(14) {
     available.removeAll(empty)
     val dag = ArrayDeque<String>()
     while (empty.isNotEmpty()) {
-      val curr = empty.pop()
-      dag.offer(curr)
+      val curr = empty.removeFirst()
+      dag.add(curr)
       edges.removeIf { it.first == curr }
       val newEmpty = (available - edges.map { it.second }).toSet()
       empty.addAll(newEmpty)
@@ -71,8 +70,8 @@ object Day14 : DayOf2019(14) {
     available.removeAll(empty)
     val dag = ArrayDeque<String>()
     while (empty.isNotEmpty()) {
-      val curr = empty.pop()
-      dag.offer(curr)
+      val curr = empty.removeFirst()
+      dag.add(curr)
       edges.removeIf { it.first == curr }
       val newEmpty = (available - edges.map { it.second }).toSet()
       empty.addAll(newEmpty)

@@ -2,7 +2,6 @@ package net.olegg.aoc.year2016.day11
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2016.DayOf2016
-import java.util.ArrayDeque
 import java.util.BitSet
 
 /**
@@ -62,7 +61,7 @@ object Day11 : DayOf2016(11) {
     val elevatorMoves = (0..3).map { curr -> listOf(curr - 1, curr + 1).filter { next -> next in 0..3 } }
 
     do {
-      val (floors, elevator, steps) = decompress(queue.poll(), types.size)
+      val (floors, elevator, steps) = decompress(queue.removeFirst(), types.size)
       val (gens, chips) = floors[elevator]
       val allMoves = gens.flatMap { a -> gens.map { b -> setOf(a, b) to emptySet<Int>() } } +
           chips.flatMap { a -> chips.map { b -> emptySet<Int>() to setOf(a, b) } } +
@@ -88,7 +87,7 @@ object Day11 : DayOf2016(11) {
           .filterNot { state -> known.get(state) }
           .forEach { state ->
             known.set(state)
-            queue.offer(state to steps + 1)
+            queue.add(state to steps + 1)
           }
     } while (!known.get(all))
 
