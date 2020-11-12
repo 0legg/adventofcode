@@ -3,8 +3,6 @@ package net.olegg.aoc.year2018.day8
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2018.DayOf2018
-import java.util.ArrayDeque
-import java.util.Deque
 
 /**
  * See [Year 2018, Day 8](https://adventofcode.com/2018/day/8)
@@ -26,16 +24,16 @@ object Day8 : DayOf2018(8) {
     return sumValues(ArrayDeque(numbers))
   }
 
-  private fun sumMetadata(data: Deque<Int>): Int {
-    val child = data.pop()
-    val metadata = data.pop()
+  private fun sumMetadata(data: ArrayDeque<Int>): Int {
+    val child = data.removeFirst()
+    val metadata = data.removeFirst()
 
-    return (0 until child).sumBy { sumMetadata(data) } + (0 until metadata).sumBy { data.pop() }
+    return (0 until child).sumBy { sumMetadata(data) } + (0 until metadata).sumBy { data.removeFirst() }
   }
 
-  private fun sumValues(data: Deque<Int>): Int {
-    val child = data.pop()
-    val metadata = data.pop()
+  private fun sumValues(data: ArrayDeque<Int>): Int {
+    val child = data.removeFirst()
+    val metadata = data.removeFirst()
 
     val childValues = (0 until child)
         .map { it to sumValues(data) }
@@ -43,9 +41,9 @@ object Day8 : DayOf2018(8) {
 
     return (0 until metadata).sumBy {
       if (child > 0) {
-        childValues[data.pop() - 1] ?: 0
+        childValues[data.removeFirst() - 1] ?: 0
       } else {
-        data.pop()
+        data.removeFirst()
       }
     }
   }

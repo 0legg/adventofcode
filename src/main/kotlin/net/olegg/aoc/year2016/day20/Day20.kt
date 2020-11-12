@@ -13,20 +13,20 @@ object Day20 : DayOf2016(20) {
   override fun first(data: String): Any? {
     val banned = createBlacklist(data)
 
-    return if (banned.first().start > 0) 0 else banned.first().endInclusive + 1
+    return if (banned.first().first > 0) 0 else banned.first().last + 1
   }
 
   override fun second(data: String): Any? {
     val banned = createBlacklist(data)
 
     return banned.fold((-1L..-1L) to 0L) { acc, range ->
-      range to acc.second + (range.start - acc.first.endInclusive - 1)
+      range to acc.second + (range.first - acc.first.last - 1)
     }.second +
-        ((1L shl 32) - banned.last().endInclusive - 1)
+        ((1L shl 32) - banned.last().last - 1)
   }
 
-  fun createBlacklist(data: String): TreeSet<LongRange> {
-    val banned = TreeSet<LongRange>(compareBy({ it.start }, { it.endInclusive }))
+  private fun createBlacklist(data: String): TreeSet<LongRange> {
+    val banned = TreeSet<LongRange>(compareBy({ it.first }, { it.last }))
     data.lines()
         .filter { it.isNotBlank() }
         .mapNotNull { regex.find(it)?.groupValues?.let { it[1].toLong()..it[2].toLong() } }
@@ -38,20 +38,20 @@ object Day20 : DayOf2016(20) {
             if (acc.isEmpty()) {
               next
             } else {
-              minOf(acc.start, next.start)..maxOf(acc.endInclusive, next.endInclusive)
+              minOf(acc.first, next.first)..maxOf(acc.last, next.last)
             }
           })
         }
     return banned
   }
 
-  fun LongRange.extend(value: Long) = LongRange(start - value, endInclusive + value)
+  private fun LongRange.extend(value: Long) = LongRange(start - value, endInclusive + value)
 
-  fun LongRange.overlaps(other: LongRange): Boolean {
+  private fun LongRange.overlaps(other: LongRange): Boolean {
     return with(extend(1)) {
-      other.first in this || other.endInclusive in this
+      other.first in this || other.last in this
     } || with(other.extend(1)) {
-      this@overlaps.first in this || this@overlaps.endInclusive in this
+      this@overlaps.first in this || this@overlaps.last in this
     }
   }
 }

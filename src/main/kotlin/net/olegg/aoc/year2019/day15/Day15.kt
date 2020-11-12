@@ -15,7 +15,6 @@ import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2019.DayOf2019
 import net.olegg.aoc.year2019.Intcode
-import java.util.ArrayDeque
 
 /**
  * See [Year 2019, Day 15](https://adventofcode.com/2019/day/15)
@@ -43,7 +42,7 @@ object Day15 : DayOf2019(15) {
 
       launch {
         while (stack.isNotEmpty()) {
-          val curr = stack.pop()
+          val curr = stack.removeFirst()
           input.send(codes[curr.dir] ?: 0L)
           val result = output.receive()
           if (curr is Move.Forward) {
@@ -56,11 +55,10 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack.push(Move.Return(returns[curr.dir] ?: throw IllegalStateException()))
-                  Neighbors4.filter { it != returns[curr.dir] }
+                  stack += Move.Return(returns[curr.dir] ?: throw IllegalStateException())
+                  stack += Neighbors4.filter { it != returns[curr.dir] }
                       .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                       .map { Move.Forward(it, newPosition, curr.distance + 1) }
-                      .forEach { stack.push(it) }
                 }
               }
             }
@@ -94,7 +92,7 @@ object Day15 : DayOf2019(15) {
 
       launch {
         while (stack.isNotEmpty()) {
-          val curr = stack.pop()
+          val curr = stack.removeFirst()
           input.send(codes[curr.dir] ?: 0L)
           val result = output.receive()
           if (curr is Move.Forward) {
@@ -107,11 +105,10 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack.push(Move.Return(returns[curr.dir] ?: throw IllegalStateException()))
-                  Neighbors4.filter { it != returns[curr.dir] }
+                  stack += Move.Return(returns[curr.dir] ?: throw IllegalStateException())
+                  stack += Neighbors4.filter { it != returns[curr.dir] }
                       .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                       .map { Move.Forward(it, newPosition, curr.distance + 1) }
-                      .forEach { stack.push(it) }
                 }
               }
             }
@@ -124,13 +121,13 @@ object Day15 : DayOf2019(15) {
     val filledMap = mutableMapOf(start to 0)
     val queue = ArrayDeque(listOf(start to 0))
     while (queue.isNotEmpty()) {
-      val curr = queue.pop()
+      val curr = queue.removeFirst()
       Neighbors4.map { curr.first + it.step }
           .filter { it !in filledMap }
           .filter { map[it]?.first == 1L }
           .forEach {
             filledMap[it] = curr.second + 1
-            queue.offer(it to curr.second + 1)
+            queue.add(it to curr.second + 1)
           }
     }
 
