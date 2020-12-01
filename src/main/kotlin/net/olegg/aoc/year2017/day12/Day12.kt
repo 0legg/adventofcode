@@ -1,6 +1,5 @@
 package net.olegg.aoc.year2017.day12
 
-import java.util.ArrayDeque
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2017.DayOf2017
@@ -20,7 +19,7 @@ object Day12 : DayOf2017(12) {
     val visited = mutableSetOf(0)
     val queue = ArrayDeque(listOf(0))
     while (queue.isNotEmpty()) {
-      val curr = queue.pop()
+      val curr = queue.removeFirst()
       val toVisit = (nodes[curr] ?: emptySet()) - visited
       visited += toVisit
       queue += toVisit
@@ -43,10 +42,10 @@ object Day12 : DayOf2017(12) {
       components += 1
       val node = nodes.keys.first()
       val visited = mutableSetOf(node)
-      val queue = ArrayDeque<Int>(listOf(node))
+      val queue = ArrayDeque(listOf(node))
       while (queue.isNotEmpty()) {
-        val curr = queue.pop()
-        val toVisit = (nodes[curr] ?: emptySet()) - visited
+        val curr = queue.removeFirst()
+        val toVisit = (nodes[curr].orEmpty()) - visited
         visited += toVisit
         queue += toVisit
       }

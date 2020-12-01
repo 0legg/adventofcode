@@ -1,25 +1,30 @@
 package net.olegg.aoc.year2018.day20
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Directions.D
+import net.olegg.aoc.utils.Directions.L
+import net.olegg.aoc.utils.Directions.R
+import net.olegg.aoc.utils.Directions.U
+import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2018.DayOf2018
-import java.util.ArrayDeque
 
 /**
  * See [Year 2018, Day 20](https://adventofcode.com/2018/day/20)
  */
 object Day20 : DayOf2018(20) {
-  private val START = 0 to 0
+  private val START = Vector2D()
   private val MOVES = mapOf(
-      'W' to (-1 to 0),
-      'E' to (1 to 0),
-      'N' to (0 to -1),
-      'S' to (0 to 1)
-  ).withDefault { 0 to 0 }
+      'W' to L,
+      'E' to R,
+      'N' to U,
+      'S' to D
+  )
 
   override fun first(data: String): Any? {
     val route = data.trim('^', '$', ' ', '\n')
 
-    return visitAll(route).values.max()
+    return visitAll(route).values.maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -28,18 +33,17 @@ object Day20 : DayOf2018(20) {
     return visitAll(route).count { it.value >= 1000 }
   }
 
-  private fun visitAll(route: String): Map<Pair<Int, Int>, Int> {
+  private fun visitAll(route: String): Map<Vector2D, Int> {
     val stack = ArrayDeque(listOf(START))
-    val edges = mutableSetOf<Pair<Pair<Int, Int>, Pair<Int, Int>>>()
-    val verts = mutableSetOf<Pair<Int, Int>>()
+    val edges = mutableSetOf<Pair<Vector2D, Vector2D>>()
+    val verts = mutableSetOf<Vector2D>()
 
     route.fold(START) { curr, char ->
-      val (x, y) = curr
-      val next = when(char) {
-        in MOVES -> (x + MOVES.getValue(char).first) to (y + MOVES.getValue(char).second)
-        ')' -> stack.pop()
-        '|' -> stack.peek()
-        '(' -> curr.also { stack.push(curr) }
+      val next = when (char) {
+        in MOVES -> (curr + (MOVES[char]?.step ?: Vector2D()))
+        ')' -> stack.removeLast()
+        '|' -> stack.last()
+        '(' -> curr.also { stack.addLast(curr) }
         else -> curr
       }
       edges += curr to next
@@ -52,11 +56,10 @@ object Day20 : DayOf2018(20) {
     val visited = mutableMapOf(START to 0).withDefault { 0 }
 
     while (queue.isNotEmpty()) {
-      val curr = queue.pop()
-      val (x, y) = curr
+      val curr = queue.removeFirst()
       val dist = visited.getValue(curr) + 1
-      val nexts = MOVES.values
-          .map { (dx, dy) -> (x + dx) to (y + dy) }
+      val nexts = Neighbors4
+          .map { curr + it.step }
           .filter { it in verts }
           .filter { it !in visited }
           .filter { curr to it in edges }

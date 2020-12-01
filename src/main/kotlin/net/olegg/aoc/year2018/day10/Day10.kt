@@ -25,15 +25,15 @@ object Day10 : DayOf2018(10) {
       points = points.map { it.copy(first = it.first + it.second) }
       val height = points
           .map { it.first.second }
-          .let { (it.max() ?: 0) - (it.min() ?: 0) }
+          .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
     } while (height > HEIGHT)
 
     val coords = points.map { it.first }
 
-    val xmin = coords.map { it.first }.min() ?: 0
-    val xmax = coords.map { it.first }.max() ?: 0
-    val ymin = coords.map { it.second }.min() ?: 0
-    val ymax = coords.map { it.second }.max() ?: 0
+    val xmin = coords.map { it.first }.minOrNull() ?: 0
+    val xmax = coords.map { it.first }.maxOrNull() ?: 0
+    val ymin = coords.map { it.second }.minOrNull() ?: 0
+    val ymax = coords.map { it.second }.maxOrNull() ?: 0
 
     val builder = StringBuilder("\n")
     (ymin..ymax).forEach { y ->
@@ -62,7 +62,7 @@ object Day10 : DayOf2018(10) {
       points = points.map { it.copy(first = it.first + it.second) }
       val height = points
           .map { it.first.second }
-          .let { (it.max() ?: 0) - (it.min() ?: 0) }
+          .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
     } while (height > HEIGHT)
 
     return seconds

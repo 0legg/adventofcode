@@ -21,7 +21,7 @@ object Day3 : DayOf2019(3) {
         } }
         .map { it.toSet() - Vector2D() }
 
-    return (wire1.intersect(wire2)).map { abs(it.x) + abs(it.y) }.min()
+    return (wire1.intersect(wire2)).map { abs(it.x) + abs(it.y) }.minOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -36,11 +36,11 @@ object Day3 : DayOf2019(3) {
         .map { it.drop(1) }
         .map { wire -> wire
             .groupBy(keySelector = { it.first }, valueTransform = { it.second })
-            .mapValues { (_, points) -> points.min() ?: 1_000_000 }
+            .mapValues { (_, points) -> points.minOrNull() ?: 1_000_000 }
         }
 
     return wire1.mapValues { (point, distance) -> distance + (wire2[point] ?: 1_000_000) }
-        .minBy { it.value }
+        .minByOrNull { it.value }
         ?.value
   }
 }

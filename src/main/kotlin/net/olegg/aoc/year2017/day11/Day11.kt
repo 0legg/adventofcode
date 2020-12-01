@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2017.day11
 
-import kotlin.math.abs
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2017.DayOf2017
+import kotlin.math.abs
 
 /**
  * See [Year 2017, Day 11](https://adventofcode.com/2017/day/11)
@@ -23,7 +23,7 @@ object Day11 : DayOf2017(11) {
           }
         }
         .let {
-          listOf(abs(it.first), abs(it.second), abs(it.first - it.second)).max()
+          listOf(abs(it.first), abs(it.second), abs(it.first - it.second)).maxOrNull()
         }
   }
 
@@ -41,7 +41,7 @@ object Day11 : DayOf2017(11) {
             else -> acc.first to acc.second
           }
 
-          val dist = listOf(acc.third, abs(next.first), abs(next.second), abs(next.first - next.second)).max()
+          val dist = listOf(acc.third, abs(next.first), abs(next.second), abs(next.first - next.second)).maxOrNull()
 
           return@fold Triple(next.first, next.second, dist ?: 0)
         }

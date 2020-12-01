@@ -1,7 +1,10 @@
 package net.olegg.aoc.year2017.day14
 
-import java.util.ArrayDeque
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
+import net.olegg.aoc.utils.set
 import net.olegg.aoc.year2017.DayOf2017
 
 /**
@@ -12,7 +15,7 @@ object Day14 : DayOf2017(14) {
     val key = data.trimIndent()
     return (0..127)
         .map { "$key-$it" }
-        .map { line ->
+        .sumBy { line ->
           line
               .map { it.toInt() }
               .let { it + listOf(17, 31, 73, 47, 23) }
@@ -30,21 +33,12 @@ object Day14 : DayOf2017(14) {
               }
               .first
               .chunked(16) { chunk -> chunk.reduce { acc, value -> acc xor value } }
-              .map { Integer.bitCount(it) }
-              .sum()
+              .sumBy { Integer.bitCount(it) }
         }
-        .sum()
   }
 
   override fun second(data: String): Any? {
     val key = data.trimIndent()
-
-    val vector = listOf(
-        -1 to 0,
-        1 to 0,
-        0 to -1,
-        0 to 1
-    )
 
     val result = (0..127)
         .map { "$key-$it" }
@@ -64,8 +58,7 @@ object Day14 : DayOf2017(14) {
               }
               .first
               .chunked(16) { chunk -> chunk.reduce { acc, value -> acc xor value } }
-              .map { Integer.toBinaryString(it).padStart(8, '0').toList() }
-              .flatten()
+              .flatMap { Integer.toBinaryString(it).padStart(8, '0').toList() }
               .toMutableList()
         }
         .toMutableList()
@@ -74,20 +67,18 @@ object Day14 : DayOf2017(14) {
     while (result.any { '1' in it }) {
       regions++
       val row = result.indexOfFirst { '1' in it }
-      val position = row to result[row].indexOfFirst { it == '1' }
+      val position = Vector2D(result[row].indexOfFirst { it == '1' }, row)
 
       val toVisit = ArrayDeque(listOf(position))
       while (toVisit.isNotEmpty()) {
-        val curr = toVisit.pop()
-        result[curr.first][curr.second] = '0'
-        vector
-            .map { it.first + curr.first to it.second + curr.second }
-            .filter { it.first in result.indices }
-            .filter { it.second in result[it.first].indices }
-            .filter { result[it.first][it.second] == '1' }
+        val curr = toVisit.removeFirst()
+        result[curr] = '0'
+        Neighbors4
+            .map { curr + it.step }
+            .filter { result[it] == '1' }
             .forEach { point ->
-              result[point.first][point.second] = '0'
-              toVisit.push(point)
+              result[point.y][point.x] = '0'
+              toVisit += point
             }
       }
     }

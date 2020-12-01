@@ -16,7 +16,7 @@ object Day22 : DayOf2019(22) {
         .lines()
         .map {
           val split = it.split(" ")
-          when(split[1]) {
+          when (split[1]) {
             "into" -> Pair(BigInteger.valueOf(-1L), BigInteger.valueOf(-1L))
             "with" -> Pair(split.last().toBigInteger(), BigInteger.ZERO)
             else -> Pair(BigInteger.ONE, -split[1].toBigInteger())
@@ -36,7 +36,7 @@ object Day22 : DayOf2019(22) {
         .lines()
         .map {
           val split = it.split(" ")
-          when(split[1]) {
+          when (split[1]) {
             "into" -> Pair(BigInteger.valueOf(-1L), BigInteger.valueOf(-1L))
             "with" -> Pair(split.last().toBigInteger() inv deckSize, BigInteger.ZERO)
             else -> Pair(BigInteger.ONE, split[1].toBigInteger())

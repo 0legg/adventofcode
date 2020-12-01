@@ -1,6 +1,5 @@
 package net.olegg.aoc.year2017.day18
 
-import java.util.ArrayDeque
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2017.DayOf2017
 
@@ -77,7 +76,7 @@ object Day18 : DayOf2017(18) {
               extract(regs[active], op[2])) % extract(regs[active], op[2]); 1
         }
         "rcv" -> if (stacks[active].isNotEmpty()) {
-          regs[active][op[1]] = stacks[active].pollFirst()
+          regs[active][op[1]] = stacks[active].removeFirst()
           1
         } else {
           locked[active] = true

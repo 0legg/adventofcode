@@ -17,7 +17,7 @@ object Day6 : DayOf2017(6) {
     while (curr !in seen) {
       seen.add(curr)
       steps += 1
-      val max = curr.max() ?: 0
+      val max = curr.maxOrNull() ?: 0
       val position = curr.indexOfFirst { it == max }
 
       curr = curr.mapIndexed { index, value ->
@@ -42,7 +42,7 @@ object Day6 : DayOf2017(6) {
     while (curr !in seen) {
       seen.put(curr, steps)
       steps += 1
-      val max = curr.max() ?: 0
+      val max = curr.maxOrNull() ?: 0
       val position = curr.indexOfFirst { it == max }
 
       curr = curr.mapIndexed { index, value ->

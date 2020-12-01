@@ -1,7 +1,5 @@
 package net.olegg.aoc.someday
 
-import java.nio.file.Files
-import java.nio.file.Paths
 import net.olegg.aoc.BuildConfig
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -11,6 +9,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import java.nio.file.Files
+import java.nio.file.Paths
 
 /**
  * Network interface.

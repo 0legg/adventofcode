@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2017.day23
 
-import java.math.BigInteger
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2017.DayOf2017
+import java.math.BigInteger
 
 /**
  * See [Year 2017, Day 23](https://adventofcode.com/2017/day/23)

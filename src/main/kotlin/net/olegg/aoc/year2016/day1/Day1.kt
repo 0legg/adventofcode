@@ -1,58 +1,49 @@
 package net.olegg.aoc.year2016.day1
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.CCW
+import net.olegg.aoc.utils.CW
+import net.olegg.aoc.utils.Directions.U
+import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2016.DayOf2016
-import kotlin.math.abs
 
 /**
  * See [Year 2016, Day 1](https://adventofcode.com/2016/day/1)
  */
 object Day1 : DayOf2016(1) {
-  val MOVES = listOf(
-      0 to 1,
-      1 to 0,
-      0 to -1,
-      -1 to 0
-  )
-
-  val SHIFT = mapOf(
-      'L' to -1,
-      'R' to 1
+  private val SHIFT = mapOf(
+      'L' to CCW,
+      'R' to CW
   )
 
   override fun first(data: String): Any? {
-    return data.split(", ")
+    return data
+        .trim()
+        .split(", ")
         .map { it[0] to it.substring(1).toInt() }
-        .fold(Triple(0, 0, 0)) { triple, command ->
-          val dir = (triple.third + MOVES.size + (SHIFT[command.first] ?: 0)) % MOVES.size
-          Triple(
-              triple.first + MOVES[dir].first * command.second,
-              triple.second + MOVES[dir].second * command.second,
-              dir)
+        .fold(Pair(Vector2D(), U)) { (pos, dir), command ->
+          val newDir = SHIFT[command.first]?.get(dir) ?: dir
+          Pair(pos + newDir.step * command.second, newDir)
         }
-        .let { abs(it.first) + abs(it.second) }
+        .first
+        .manhattan()
   }
 
   override fun second(data: String): Any? {
-    val visited = mutableSetOf(0 to 0)
+    val visited = mutableSetOf<Vector2D>()
 
-    data.split(", ")
+    data.trim()
+        .split(", ")
         .map { it[0] to it.substring(1).toInt() }
-        .fold(Triple(0, 0, 0)) { triple, command ->
-          val dir = (triple.third + MOVES.size + (SHIFT[command.first] ?: 0)) % MOVES.size
-          val steps = (1..command.second).map {
-            triple.first + MOVES[dir].first * it to triple.second + MOVES[dir].second * it
-          }
-          val hq = steps.firstOrNull { visited.contains(it) }
-          if (hq != null) {
-            return abs(hq.first) + abs(hq.second)
-          } else {
-            visited.addAll(steps)
-          }
-          Triple(
-              triple.first + MOVES[dir].first * command.second,
-              triple.second + MOVES[dir].second * command.second,
-              dir)
+        .fold(Pair(Vector2D(), U)) { (pos, dir), command ->
+          val newDir = SHIFT[command.first]?.get(dir) ?: dir
+          val steps = (1..command.second).map { pos + newDir.step * it }
+          steps
+              .firstOrNull { it in visited }
+              ?.let { return it.manhattan() }
+
+          visited.addAll(steps)
+          return@fold Pair(pos + newDir.step * command.second, newDir)
         }
 
     return null

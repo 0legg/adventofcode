@@ -1,10 +1,9 @@
 package net.olegg.aoc.year2015.day22
 
-import java.util.ArrayDeque
-import kotlin.math.max
-import kotlin.math.min
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2015.DayOf2015
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * See [Year 2015, Day 22](https://adventofcode.com/2015/day/22)
@@ -64,7 +63,7 @@ object Day22 : DayOf2015(22) {
     val queue = ArrayDeque(listOf(Game(me, boss)))
     var best = Int.MAX_VALUE
     while (queue.isNotEmpty()) {
-      val game = queue.pop()
+      val game = queue.removeFirst()
 
       val states = game.spells.keys
           .fold(game.me to game.boss) { acc, spell -> spell.action(acc) }

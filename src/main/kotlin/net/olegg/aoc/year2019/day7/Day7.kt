@@ -9,7 +9,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.utils.permutations
 import net.olegg.aoc.year2019.DayOf2019
@@ -51,7 +50,7 @@ object Day7 : DayOf2019(7) {
             return@runBlocking inputs.last().receive()
           }
         }
-        .max()
+        .maxOrNull()
   }
 
   override fun second(data: String): Any? {
@@ -90,7 +89,7 @@ object Day7 : DayOf2019(7) {
             return@runBlocking inputs.first().openSubscription().toList().last()
           }
         }
-        .max()
+        .maxOrNull()
   }
 }
 

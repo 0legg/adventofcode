@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.produceIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2019.DayOf2019
 import net.olegg.aoc.year2019.Intcode
@@ -19,8 +18,7 @@ import net.olegg.aoc.year2019.Intcode
 /**
  * See [Year 2019, Day 5](https://adventofcode.com/2019/day/5)
  */
-@ExperimentalCoroutinesApi
-@UseExperimental(FlowPreview::class)
+@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 object Day5 : DayOf2019(5) {
   override fun first(data: String): Any? {
     val program = data
@@ -67,5 +65,4 @@ object Day5 : DayOf2019(5) {
   }
 }
 
-@ExperimentalCoroutinesApi
 fun main() = SomeDay.mainify(Day5)

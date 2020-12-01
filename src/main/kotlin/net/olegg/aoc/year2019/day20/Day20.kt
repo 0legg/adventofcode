@@ -4,7 +4,6 @@ import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2019.DayOf2019
-import java.util.ArrayDeque
 
 /**
  * See [Year 2019, Day 20](https://adventofcode.com/2019/day/20)
@@ -58,7 +57,7 @@ object Day20 : DayOf2019(20) {
     val visited = mutableSetOf(start)
 
     while (queue.isNotEmpty()) {
-      val curr = queue.pop()
+      val curr = queue.removeFirst()
       if (curr.first == target) {
         return curr.second
       }
@@ -68,7 +67,7 @@ object Day20 : DayOf2019(20) {
           .filter { it !in visited }
           .forEach {
             visited += it
-            queue.offer(it to curr.second + 1)
+            queue.add(it to curr.second + 1)
           }
     }
 
@@ -131,20 +130,20 @@ object Day20 : DayOf2019(20) {
     val visited = mutableSetOf(start)
 
     while (queue.isNotEmpty()) {
-      val (curr, step) = queue.pop()
+      val (curr, step) = queue.removeFirst()
       val (point, level) = curr
       if (curr == target) {
         return step
       }
 
-      (Neighbors4.map { (it.step + point) to level }
-          + listOfNotNull(routes[point]).map { it.first to level + it.second })
+      (Neighbors4.map { (it.step + point) to level } +
+          listOfNotNull(routes[point]).map { it.first to level + it.second })
           .filter { map[it.first] == '.' }
           .filter { it.second >= 0 }
           .filter { it !in visited }
           .forEach {
             visited += it
-            queue.offer(it to step + 1)
+            queue.add(it to step + 1)
           }
     }
 

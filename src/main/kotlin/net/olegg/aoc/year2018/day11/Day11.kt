@@ -27,7 +27,7 @@ object Day11 : DayOf2018(11) {
         (x to y) to sum
       }
     }
-        .maxBy { it.second }
+        .maxByOrNull { it: Pair<Pair<Int, Int>, Int> -> it.second }
         ?.let { "${it.first.first},${it.first.second}" }
   }
 
@@ -57,7 +57,7 @@ object Day11 : DayOf2018(11) {
         }
       }
     }
-        .maxBy { it.second }
+        .maxByOrNull { it: Pair<Triple<Int, Int, Int>, Int> -> it.second }
         ?.let { "${it.first.first},${it.first.second},${it.first.third}" }
   }
 }

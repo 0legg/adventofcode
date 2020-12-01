@@ -1,20 +1,16 @@
 package net.olegg.aoc.year2018.day15
 
-import java.util.ArrayDeque
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
+import net.olegg.aoc.utils.set
 import net.olegg.aoc.year2018.DayOf2018
 
 /**
  * See [Year 2018, Day 15](https://adventofcode.com/2018/day/15)
  */
 object Day15 : DayOf2018(15) {
-  private val MOVES = listOf(
-      -1 to 0,
-      1 to 0,
-      0 to -1,
-      0 to 1
-  )
-
   override fun first(data: String): Any? {
     val map = data
         .trim()
@@ -22,12 +18,11 @@ object Day15 : DayOf2018(15) {
         .map { it.toList() }
 
     var characters = map
-        .mapIndexed { y, row ->
+        .flatMapIndexed { y, row ->
           row.mapIndexedNotNull { x, c ->
-            if (c in listOf('E', 'G')) Character(x, y, c, 3, 200) else null
+            if (c in listOf('E', 'G')) Character(Vector2D(x, y), c, 3, 200) else null
           }
         }
-        .flatten()
         .toMutableList()
 
     val walls = map
@@ -38,7 +33,7 @@ object Day15 : DayOf2018(15) {
     (0..1_000_000_000).forEach { round ->
       characters = characters
           .filter { it.hit > 0 }
-          .sortedWith(compareBy({ it.y }, { it.x }))
+          .sortedWith(compareBy({ it.pos.y }, { it.pos.x }))
           .toMutableList()
 
       for (character in characters) {
@@ -55,37 +50,35 @@ object Day15 : DayOf2018(15) {
 
         characters
             .filter { it.hit > 0 }
-            .forEach { other -> currMap[other.y][other.x] = -1 }
+            .forEach { other -> currMap[other.pos] = -1 }
 
-        currMap[character.y][character.x] = Int.MAX_VALUE
+        currMap[character.pos] = Int.MAX_VALUE
 
         val adjacent = targets
             .flatMap { target ->
-              MOVES.map { target.x + it.first to target.y + it.second }
+              Neighbors4.map { target.pos + it.step }
             }
             .distinct()
-            .filter { cell -> currMap[cell.second][cell.first] != -1 }
+            .filter { cell -> currMap[cell] != -1 }
 
         if (adjacent.isEmpty()) {
           continue
         }
 
-        val queue = ArrayDeque(listOf(Triple(character.x, character.y, 0)))
+        val queue = ArrayDeque(listOf(character.pos to 0))
         while (queue.isNotEmpty()) {
-          val (x, y, step) = queue.poll()
-          if (currMap[y][x] > step) {
-            currMap[y][x] = step
-            MOVES
-                .map { x + it.first to y + it.second }
-                .filter { (cx, cy) -> currMap[cy][cx] != -1 }
-                .filter { (cx, cy) -> currMap[cy][cx] > step + 1 }
-                .forEach { (cx, cy) -> queue.offer(Triple(cx, cy, step + 1)) }
+          val (pos, step) = queue.removeFirst()
+          if (currMap[pos]!! > step) {
+            currMap[pos] = step
+            queue += Neighbors4
+                .map { pos + it.step }
+                .filter { currMap[it] != -1 }
+                .filter { currMap[it]!! > step + 1 }
+                .map { it to step + 1 }
           }
         }
 
-        val minDistance = adjacent
-            .map { (x, y) -> currMap[y][x] }
-            .min() ?: Int.MAX_VALUE
+        val minDistance = adjacent.minOf { currMap[it] ?: Int.MAX_VALUE }
 
         if (minDistance == Int.MAX_VALUE) {
           continue
@@ -93,44 +86,40 @@ object Day15 : DayOf2018(15) {
 
         if (minDistance > 0) {
           val nearest = adjacent
-              .filter { (x, y) -> currMap[y][x] == minDistance }
-              .sortedWith(compareBy({ it.second }, { it.first }))
+              .filter { currMap[it] == minDistance }
+              .sortedWith(compareBy({ it.y }, { it.x }))
               .first()
 
-          val moves = mutableListOf<Pair<Int, Int>>()
+          val moves = mutableListOf<Vector2D>()
 
-          val revQueue = ArrayDeque(listOf(Triple(nearest.first, nearest.second, minDistance)))
+          val revQueue = ArrayDeque(listOf(nearest to minDistance))
           while (revQueue.isNotEmpty()) {
-            val (x, y, step) = revQueue.poll()
+            val (pos, step) = revQueue.removeFirst()
             if (step == 1) {
-              moves += (x to y)
+              moves += pos
             } else {
-              MOVES
-                  .map { x + it.first to y + it.second }
-                  .filter { (cx, cy) -> currMap[cy][cx] != -1 }
-                  .filter { (cx, cy) -> currMap[cy][cx] == step - 1 }
-                  .forEach { (cx, cy) -> revQueue.offer(Triple(cx, cy, step - 1)) }
+              revQueue += Neighbors4
+                  .map { pos + it.step }
+                  .filter { currMap[it] != -1 }
+                  .filter { currMap[it] == step - 1 }
+                  .map { (it to step - 1) }
             }
           }
 
-          val move = moves
-              .sortedWith(compareBy({ it.second }, { it.first }))
-              .first()
+          val move = moves.minWithOrNull(compareBy({ it.y }, { it.x }))
 
-          character.x = move.first
-          character.y = move.second
+          move?.let {
+            character.pos = move
+          }
         }
 
-        val canHit = MOVES.map { character.x + it.first to character.y + it.second }
+        val canHit = Neighbors4.map { character.pos + it.step }
 
-        val targetsCanHit = targets.filter { (it.x to it.y) in canHit }
+        val target = targets.filter { it.pos in canHit }
+            .minWithOrNull(compareBy({ it.hit }, { it.pos.y }, { it.pos.x }))
 
-        if (targetsCanHit.isNotEmpty()) {
-          val target = targetsCanHit
-              .sortedWith(compareBy({ it.hit }, { it.y }, { it.x }))
-              .first()
-
-          target.hit -= character.attack
+        target?.let {
+          it.hit -= character.attack
         }
       }
     }
@@ -154,8 +143,8 @@ object Day15 : DayOf2018(15) {
           .mapIndexed { y, row ->
             row.mapIndexedNotNull { x, c ->
               when (c) {
-                'E' -> Character(x, y, c, elvenHit, 200)
-                'G' -> Character(x, y, c, 3, 200)
+                'E' -> Character(Vector2D(x, y), c, elvenHit, 200)
+                'G' -> Character(Vector2D(x, y), c, 3, 200)
                 else -> null
               }
             }
@@ -168,7 +157,7 @@ object Day15 : DayOf2018(15) {
       (0..1_000_000_000).forEach { round ->
         characters = characters
             .filter { it.hit > 0 }
-            .sortedWith(compareBy({ it.y }, { it.x }))
+            .sortedWith(compareBy({ it.pos.y }, { it.pos.x }))
             .toMutableList()
 
         if (characters.count { it.hit > 0 && it.type == 'E' } != elves) {
@@ -194,37 +183,35 @@ object Day15 : DayOf2018(15) {
 
           characters
               .filter { it.hit > 0 }
-              .forEach { other -> currMap[other.y][other.x] = -1 }
+              .forEach { other -> currMap[other.pos] = -1 }
 
-          currMap[character.y][character.x] = Int.MAX_VALUE
+          currMap[character.pos] = Int.MAX_VALUE
 
           val adjacent = targets
               .flatMap { target ->
-                MOVES.map { target.x + it.first to target.y + it.second }
+                Neighbors4.map { target.pos + it.step }
               }
               .distinct()
-              .filter { cell -> currMap[cell.second][cell.first] != -1 }
+              .filter { currMap[it] != -1 }
 
           if (adjacent.isEmpty()) {
             continue
           }
 
-          val queue = ArrayDeque(listOf(Triple(character.x, character.y, 0)))
+          val queue = ArrayDeque(listOf(character.pos to 0))
           while (queue.isNotEmpty()) {
-            val (x, y, step) = queue.poll()
-            if (currMap[y][x] > step) {
-              currMap[y][x] = step
-              MOVES
-                  .map { x + it.first to y + it.second }
-                  .filter { (cx, cy) -> currMap[cy][cx] != -1 }
-                  .filter { (cx, cy) -> currMap[cy][cx] > step + 1 }
-                  .forEach { (cx, cy) -> queue.offer(Triple(cx, cy, step + 1)) }
+            val (pos, step) = queue.removeFirst()
+            if (currMap[pos]!! > step) {
+              currMap[pos] = step
+              queue += Neighbors4
+                  .map { pos + it.step }
+                  .filter { currMap[it] != -1 }
+                  .filter { currMap[it]!! > step + 1 }
+                  .map { (it to step + 1) }
             }
           }
 
-          val minDistance = adjacent
-              .map { (x, y) -> currMap[y][x] }
-              .min() ?: Int.MAX_VALUE
+          val minDistance = adjacent.minOf { currMap[it] ?: Int.MAX_VALUE }
 
           if (minDistance == Int.MAX_VALUE) {
             continue
@@ -232,44 +219,40 @@ object Day15 : DayOf2018(15) {
 
           if (minDistance > 0) {
             val nearest = adjacent
-                .filter { (x, y) -> currMap[y][x] == minDistance }
-                .sortedWith(compareBy({ it.second }, { it.first }))
+                .filter { currMap[it] == minDistance }
+                .sortedWith(compareBy({ it.y }, { it.x }))
                 .first()
 
-            val moves = mutableListOf<Pair<Int, Int>>()
+            val moves = mutableListOf<Vector2D>()
 
-            val revQueue = ArrayDeque(listOf(Triple(nearest.first, nearest.second, minDistance)))
+            val revQueue = ArrayDeque(listOf(nearest to minDistance))
             while (revQueue.isNotEmpty()) {
-              val (x, y, step) = revQueue.poll()
+              val (pos, step) = revQueue.removeFirst()
               if (step == 1) {
-                moves += (x to y)
+                moves += pos
               } else {
-                MOVES
-                    .map { x + it.first to y + it.second }
-                    .filter { (cx, cy) -> currMap[cy][cx] != -1 }
-                    .filter { (cx, cy) -> currMap[cy][cx] == step - 1 }
-                    .forEach { (cx, cy) -> revQueue.offer(Triple(cx, cy, step - 1)) }
+                revQueue += Neighbors4
+                    .map { pos + it.step }
+                    .filter { currMap[it] != -1 }
+                    .filter { currMap[it] == step - 1 }
+                    .map { (it to step - 1) }
               }
             }
 
-            val move = moves
-                .sortedWith(compareBy({ it.second }, { it.first }))
-                .first()
+            val move = moves.minWithOrNull(compareBy({ it.y }, { it.x }))
 
-            character.x = move.first
-            character.y = move.second
+            move?.let {
+              character.pos = it
+            }
           }
 
-          val canHit = MOVES.map { character.x + it.first to character.y + it.second }
+          val canHit = Neighbors4.map { character.pos + it.step }
 
-          val targetsCanHit = targets.filter { (it.x to it.y) in canHit }
+          val target = targets.filter { it.pos in canHit }
+              .minWithOrNull(compareBy({ it.hit }, { it.pos.y }, { it.pos.x }))
 
-          if (targetsCanHit.isNotEmpty()) {
-            val target = targetsCanHit
-                .sortedWith(compareBy({ it.hit }, { it.y }, { it.x }))
-                .first()
-
-            target.hit -= character.attack
+          target?.let {
+            it.hit -= character.attack
           }
         }
       }
@@ -278,8 +261,7 @@ object Day15 : DayOf2018(15) {
   }
 
   data class Character(
-      var x: Int,
-      var y: Int,
+      var pos: Vector2D,
       val type: Char,
       var attack: Int,
       var hit: Int

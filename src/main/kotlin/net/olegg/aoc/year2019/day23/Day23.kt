@@ -3,7 +3,6 @@ package net.olegg.aoc.year2019.day23
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.receiveOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
@@ -26,7 +25,7 @@ object Day23 : DayOf2019(23) {
       val inputs = List(50) { Channel<Long>(Channel.UNLIMITED) }
       val outputs = List(50) { Channel<Long>(Channel.UNLIMITED) }
 
-      (0 until 50).forEach {
+      repeat(50) {
         inputs[it].send(it.toLong())
 
         GlobalScope.launch {
@@ -67,7 +66,7 @@ object Day23 : DayOf2019(23) {
 
       val nat = Channel<Long>(Channel.UNLIMITED)
 
-      (0 until 50).forEach {
+      repeat(50) {
         inputs[it].send(it.toLong())
 
         GlobalScope.launch {
