@@ -23,6 +23,21 @@ object Day2 : DayOf2020(2) {
       return@count string.count { it == ch } in (lowInt..highInt)
     }
   }
+
+  override fun second(data: String): Any? {
+    val values = data
+        .trim()
+        .lines()
+        .mapNotNull { PATTERN.find(it) }
+        .map { it.groupValues.drop(1) }
+
+    return values.count { (low, high, char, string) ->
+      val lowInt = low.toInt() - 1
+      val highInt = high.toInt() - 1
+      val ch = char[0]
+      return@count (string[lowInt] == ch) xor (string[highInt] == ch)
+    }
+  }
 }
 
 fun main() = SomeDay.mainify(Day2)
