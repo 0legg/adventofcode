@@ -19,6 +19,24 @@ object Day5 : DayOf2020(5) {
       .map { it.toInt(2) }
       .maxOrNull()
   }
+
+  override fun second(data: String): Any? {
+    val nums = data
+      .trim()
+      .lines()
+      .asSequence()
+      .map { it.replace("F", "0") }
+      .map { it.replace("B", "1") }
+      .map { it.replace("L", "0") }
+      .map { it.replace("R", "1") }
+      .map { it.toInt(2) }
+      .toSet()
+
+    val from = nums.minOrNull()!!
+    val to = nums.maxOrNull()!!
+
+    return (from..to).first { it !in nums }
+  }
 }
 
 fun main() = SomeDay.mainify(Day5)
