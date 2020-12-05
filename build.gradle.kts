@@ -49,11 +49,6 @@ dependencies {
 
   implementation("io.ktor:ktor-client-cio:_")
 
-  implementation("com.squareup.okhttp3:okhttp:_")
-  implementation("com.squareup.okio:okio:_")
-  implementation("com.squareup.retrofit2:retrofit:_")
-  implementation("com.squareup.retrofit2:converter-scalars:_")
-
   implementation("org.funktionale:funktionale-memoization:_")
 
   detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
