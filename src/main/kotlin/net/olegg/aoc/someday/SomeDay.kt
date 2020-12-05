@@ -1,12 +1,13 @@
 package net.olegg.aoc.someday
 
+import kotlinx.coroutines.runBlocking
 import kotlin.system.measureTimeMillis
 
 /**
  * Abstract class representing solution for [day]s problem in specified [year].
  */
 open class SomeDay(val year: Int, val day: Int) {
-  val data: String = Fetcher.fetcher.fetchInput(year, day).execute().body().orEmpty()
+  val data: String = runBlocking { Fetcher.fetchInput(year, day) }
 
   open fun first(data: String): Any? = null
 

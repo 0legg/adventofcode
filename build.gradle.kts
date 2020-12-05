@@ -47,10 +47,7 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:_")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:_")
 
-  implementation("com.squareup.okhttp3:okhttp:_")
-  implementation("com.squareup.okio:okio:_")
-  implementation("com.squareup.retrofit2:retrofit:_")
-  implementation("com.squareup.retrofit2:converter-scalars:_")
+  implementation("io.ktor:ktor-client-cio:_")
 
   implementation("org.funktionale:funktionale-memoization:_")
 
