@@ -15,6 +15,15 @@ object Day6 : DayOf2020(6) {
       .map { it.toSet() }
       .sumBy { it.size }
   }
+
+  override fun second(data: String): Any? {
+    return data
+      .trim()
+      .split("\n\n")
+      .map { it.split("\n") }
+      .map { lines -> lines.map { it.toSet() }.reduce { a, b -> a.intersect(b) } }
+      .sumBy { it.size }
+  }
 }
 
 fun main() = SomeDay.mainify(Day6)
