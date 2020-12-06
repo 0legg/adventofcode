@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2020.day4
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.toPair
 import net.olegg.aoc.year2020.DayOf2020
 import java.lang.Exception
 
@@ -50,8 +51,6 @@ object Day4 : DayOf2020(4) {
       false
     }
   }
-
-  private fun <T> List<T>.toPair(): Pair<T, T> = first() to last()
 }
 
 fun main() = SomeDay.mainify(Day4)

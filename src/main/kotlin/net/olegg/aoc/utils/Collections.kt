@@ -85,3 +85,5 @@ operator fun <T> List<List<T>>.get(v: Vector2D): T? = when {
 }
 
 fun <T> List<List<T>>.fit(v: Vector2D) = v.y in indices && v.x in this[v.y].indices
+
+fun <T> List<T>.toPair(): Pair<T, T> = first() to last()
