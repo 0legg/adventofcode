@@ -34,6 +34,28 @@ object Day7 : DayOf2020(7) {
 
     return visited.size - 1
   }
+
+  override fun second(data: String): Any? {
+    val rules = data
+      .trim()
+      .lines()
+      .map { it.split(" bags contain ").toPair() }
+      .map { (outer, inner) ->
+        outer to PATTERN.findAll(inner).map { it.groupValues[1].toInt() to it.groupValues[2] }.toList()
+      }
+      .toMap()
+
+    return count(rules, MINE) - 1
+  }
+
+  private fun count(rules: Map<String, List<Pair<Int, String>>>, name: String): Long {
+    val inner = rules[name].orEmpty()
+    return when {
+      name !in rules -> 0
+      inner.isEmpty() -> 1
+      else -> 1 + inner.sumOf { it.first * count(rules, it.second) }
+    }
+  }
 }
 
 fun main() = SomeDay.mainify(Day7)
