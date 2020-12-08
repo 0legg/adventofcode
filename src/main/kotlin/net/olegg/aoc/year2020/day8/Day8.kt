@@ -20,7 +20,7 @@ object Day8 : DayOf2020(8) {
     val visited = mutableSetOf<Int>()
     while (position !in visited) {
       visited += position
-      val (op, add) = program[position])
+      val (op, add) = program[position]
       when (op) {
         "nop" -> position++
         "acc" -> {
@@ -32,6 +32,44 @@ object Day8 : DayOf2020(8) {
     }
 
     return acc
+  }
+
+  override fun second(data: String): Any? {
+    val program = data
+      .trim()
+      .lines()
+      .map { it.split(" ").toPair() }
+      .map { it.first to it.second.toInt() }
+
+    program.forEachIndexed { line, (op, add) ->
+      if (op != "acc") {
+        val newOp = if (op == "jmp") "nop" else "jmp"
+        val newPair = newOp to add
+        val newProgram = program.mapIndexed { index, pair -> if (index == line) newPair else pair }
+
+        var position = 0
+        var acc = 0
+        val visited = mutableSetOf<Int>()
+        while (position !in visited && position in newProgram.indices) {
+          visited += position
+          val (currOp, currAdd) = newProgram[position]
+          when (currOp) {
+            "nop" -> position++
+            "acc" -> {
+              acc += currAdd
+              position++
+            }
+            "jmp" -> position += currAdd
+          }
+        }
+
+        if (position !in newProgram.indices) {
+          return acc
+        }
+      }
+    }
+
+    return 0
   }
 }
 
