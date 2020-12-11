@@ -2,8 +2,8 @@ package net.olegg.aoc.year2020.day11
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Neighbors8
-import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2020.DayOf2020
 
 /**
@@ -23,6 +23,39 @@ object Day11 : DayOf2020(11) {
           when {
             c == 'L' && Neighbors8.map { it.step + place }.none { curr[it] == '#' } -> '#'
             c == '#' && Neighbors8.map { it.step + place }.count { curr[it] == '#' } >= 4 -> 'L'
+            else -> c
+          }
+        }
+      }
+    }.windowed(2)
+
+    return steps
+      .first { it.first() == it.last() }
+      .first()
+      .sumBy { line -> line.count { it == '#' } }
+  }
+
+  override fun second(data: String): Any? {
+    val map = data
+      .trim()
+      .lines()
+      .map { it.toList() }
+
+    val steps = generateSequence(map) { curr ->
+      curr.mapIndexed { y, row ->
+        row.mapIndexed { x, c ->
+          val place = Vector2D(x, y)
+          val occupied = Neighbors8
+            .map { it.step }
+            .map { step -> generateSequence(1) { it + 1 }
+              .map { place + step * it }
+              .first { curr[it] != '.' }
+              .let { curr[it] }
+            }
+            .count { it == '#' }
+          when {
+            c == 'L' && occupied == 0 -> '#'
+            c == '#' && occupied >= 5 -> 'L'
             else -> c
           }
         }
