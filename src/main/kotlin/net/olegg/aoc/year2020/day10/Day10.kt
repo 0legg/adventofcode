@@ -19,6 +19,25 @@ object Day10 : DayOf2020(10) {
 
     return diffs[1]!! * diffs[3]!!
   }
+
+  override fun second(data: String): Any? {
+    val adapters = data.parseInts(delimiters = "\n").sorted()
+    val jolts = listOf(0) + adapters + listOf(adapters.last() + 3)
+
+    val options = jolts.map { it to 0L }.toMap().toMutableMap()
+    options[0] = 1L
+
+    jolts.forEach { value ->
+      (1..3).forEach { add ->
+        val next = add + value
+        if (next in options) {
+          options[next] = options[next]!! + options[value]!!
+        }
+      }
+    }
+
+    return options[jolts.last()]
+  }
 }
 
 fun main() = SomeDay.mainify(Day10)
