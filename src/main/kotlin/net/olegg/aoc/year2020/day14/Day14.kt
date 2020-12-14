@@ -31,6 +31,47 @@ object Day14 : DayOf2020(14) {
 
     return memory.values.sum()
   }
+
+  override fun second(data: String): Any? {
+    val memory = mutableMapOf<Long, Long>()
+    var mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+    data.trim().lines().forEach { line ->
+      when {
+        line.startsWith("mask") -> {
+          mask = line.split(" = ").last()
+        }
+        line.startsWith("mem") -> {
+          PATTERN.findAll(line).forEach {
+            val (address, value) = it.groupValues.drop(1).mapNotNull { token -> token.toLongOrNull() }
+            val bitValue = address.toString(2).padStart(36, '0')
+
+            val count = mask.count { c -> c == 'X' }
+            (0 until (1 shl count)).forEach { unmasked ->
+              val submask = unmasked.toString(2).padStart(count, '0')
+              var meetX = 0
+              val newAddress = bitValue.zip(mask) { b, m ->
+                when (m) {
+                  '0' -> b
+                  '1' -> 1
+                  'X' -> {
+                    submask[meetX].also { meetX++ }
+                  }
+                  else -> b
+                }
+              }
+                .joinToString(separator = "")
+                .toLong(2)
+
+              memory[newAddress] = value
+            }
+          }
+        }
+      }
+    }
+
+    return memory.values.sum()
+  }
 }
 
 fun main() = SomeDay.mainify(Day14)
