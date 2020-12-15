@@ -11,9 +11,9 @@ import net.olegg.aoc.year2019.DayOf2019
 object Day20 : DayOf2019(20) {
   override fun first(data: String): Any? {
     val map = data
-        .lines()
-        .filter { it.isNotEmpty() }
-        .map { it.toList() }
+      .lines()
+      .filter { it.isNotEmpty() }
+      .map { it.toList() }
 
     val portals = mutableMapOf<String, MutableList<Vector2D>>()
 
@@ -48,8 +48,8 @@ object Day20 : DayOf2019(20) {
     }
 
     val routes = portals.filter { it.value.size == 2 }
-        .flatMap { listOf(it.value.first() to it.value.last(), it.value.last() to it.value.first()) }
-        .toMap()
+      .flatMap { listOf(it.value.first() to it.value.last(), it.value.last() to it.value.first()) }
+      .toMap()
 
     val start = portals["AA"].orEmpty().first()
     val target = portals["ZZ"].orEmpty().first()
@@ -63,12 +63,12 @@ object Day20 : DayOf2019(20) {
       }
 
       (Neighbors4.map { it.step + curr.first } + listOfNotNull(routes[curr.first]))
-          .filter { map[it] == '.' }
-          .filter { it !in visited }
-          .forEach {
-            visited += it
-            queue.add(it to curr.second + 1)
-          }
+        .filter { map[it] == '.' }
+        .filter { it !in visited }
+        .forEach {
+          visited += it
+          queue.add(it to curr.second + 1)
+        }
     }
 
     return Int.MAX_VALUE
@@ -76,9 +76,9 @@ object Day20 : DayOf2019(20) {
 
   override fun second(data: String): Any? {
     val map = data
-        .lines()
-        .filter { it.isNotEmpty() }
-        .map { it.toList() }
+      .lines()
+      .filter { it.isNotEmpty() }
+      .map { it.toList() }
 
     val portals = mutableMapOf<String, MutableList<Pair<Vector2D, Int>>>()
 
@@ -117,12 +117,14 @@ object Day20 : DayOf2019(20) {
     }
 
     val routes = portals.filter { it.value.size == 2 }
-        .map { it.value.first() to it.value.last() }
-        .flatMap { (a, b) -> listOf(
-            a.first to (b.first to a.second),
-            b.first to (a.first to b.second)
-        ) }
-        .toMap()
+      .map { it.value.first() to it.value.last() }
+      .flatMap { (a, b) ->
+        listOf(
+          a.first to (b.first to a.second),
+          b.first to (a.first to b.second)
+        )
+      }
+      .toMap()
 
     val start = portals["AA"].orEmpty().first().first to 0
     val target = portals["ZZ"].orEmpty().first().first to 0
@@ -137,14 +139,14 @@ object Day20 : DayOf2019(20) {
       }
 
       (Neighbors4.map { (it.step + point) to level } +
-          listOfNotNull(routes[point]).map { it.first to level + it.second })
-          .filter { map[it.first] == '.' }
-          .filter { it.second >= 0 }
-          .filter { it !in visited }
-          .forEach {
-            visited += it
-            queue.add(it to step + 1)
-          }
+        listOfNotNull(routes[point]).map { it.first to level + it.second })
+        .filter { map[it.first] == '.' }
+        .filter { it.second >= 0 }
+        .filter { it !in visited }
+        .forEach {
+          visited += it
+          queue.add(it to step + 1)
+        }
     }
 
     return Int.MAX_VALUE

@@ -35,28 +35,28 @@ object Day17 : DayOf2018(17) {
   private fun fill(data: String): Triple<IntRange, IntRange, List<MutableList<Char>>> {
     val start = 500 to 0
     val clay = data
-        .trim()
-        .lines()
-        .mapNotNull { line ->
-          PATTERN.matchEntire(line)?.let { match ->
-            val (direction, valueRaw, _, rangeFromRaw, rangeToRaw) = match.destructured
-            return@mapNotNull if (direction == "x") {
-              valueRaw.toInt()..valueRaw.toInt() to rangeFromRaw.toInt()..rangeToRaw.toInt()
-            } else {
-              rangeFromRaw.toInt()..rangeToRaw.toInt() to valueRaw.toInt()..valueRaw.toInt()
-            }
+      .trim()
+      .lines()
+      .mapNotNull { line ->
+        PATTERN.matchEntire(line)?.let { match ->
+          val (direction, valueRaw, _, rangeFromRaw, rangeToRaw) = match.destructured
+          return@mapNotNull if (direction == "x") {
+            valueRaw.toInt()..valueRaw.toInt() to rangeFromRaw.toInt()..rangeToRaw.toInt()
+          } else {
+            rangeFromRaw.toInt()..rangeToRaw.toInt() to valueRaw.toInt()..valueRaw.toInt()
           }
         }
+      }
 
     val bbox = clay
-        .fold(start.first - 1..start.first + 1 to start.second..start.second) { acc, value ->
-          val (accxRange, accyRange) = acc
-          val (xRange, yRange) = value
-          return@fold Pair(
-              min(accxRange.first, xRange.first - 1)..max(accxRange.last, xRange.last + 1),
-              min(accyRange.first, yRange.first)..max(accyRange.last, yRange.last)
-          )
-        }
+      .fold(start.first - 1..start.first + 1 to start.second..start.second) { acc, value ->
+        val (accxRange, accyRange) = acc
+        val (xRange, yRange) = value
+        return@fold Pair(
+          min(accxRange.first, xRange.first - 1)..max(accxRange.last, xRange.last + 1),
+          min(accyRange.first, yRange.first)..max(accyRange.last, yRange.last)
+        )
+      }
 
     val map = List(bbox.second.last - bbox.second.first + 1) {
       MutableList(bbox.first.last - bbox.first.first + 1) { '.' }
@@ -73,12 +73,13 @@ object Day17 : DayOf2018(17) {
     fill(map, start.first - bbox.first.first to start.second - bbox.second.first)
 
     return Triple(
-        IntRange(0, bbox.first.last - bbox.first.first),
-        IntRange(
-            (clay.map { it.second.first }.minOrNull() ?: bbox.second.first) - bbox.second.first,
-            (clay.map { it.second.last }.maxOrNull() ?: bbox.second.last) - bbox.second.first
-        ),
-        map)
+      IntRange(0, bbox.first.last - bbox.first.first),
+      IntRange(
+        (clay.map { it.second.first }.minOrNull() ?: bbox.second.first) - bbox.second.first,
+        (clay.map { it.second.last }.maxOrNull() ?: bbox.second.last) - bbox.second.first
+      ),
+      map
+    )
   }
 
   private fun fill(map: List<MutableList<Char>>, coord: Pair<Int, Int>): Boolean {
@@ -98,7 +99,8 @@ object Day17 : DayOf2018(17) {
       else -> {
         map[coord.second][coord.first] = '~'
         if (map[coord.second + 1][coord.first] == '|' ||
-            (map[coord.second + 1][coord.first] == '.' && fill(map, coord.first to coord.second + 1))) {
+          (map[coord.second + 1][coord.first] == '.' && fill(map, coord.first to coord.second + 1))
+        ) {
           true
         } else {
           val left = fill(map, coord.first - 1 to coord.second)

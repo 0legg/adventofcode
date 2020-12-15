@@ -9,10 +9,10 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day18 : DayOf2016(18) {
 
   val patterns = listOf(
-      "\\^\\^\\.".toRegex(),
-      "\\.\\^\\^".toRegex(),
-      "\\^\\.\\.".toRegex(),
-      "\\.\\.\\^".toRegex()
+    "\\^\\^\\.".toRegex(),
+    "\\.\\^\\^".toRegex(),
+    "\\^\\.\\.".toRegex(),
+    "\\.\\.\\^".toRegex()
   )
 
   override fun first(data: String): Any? {

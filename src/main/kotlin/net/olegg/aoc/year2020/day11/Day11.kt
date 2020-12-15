@@ -47,10 +47,11 @@ object Day11 : DayOf2020(11) {
           val place = Vector2D(x, y)
           val occupied = Neighbors8
             .map { it.step }
-            .map { step -> generateSequence(1) { it + 1 }
-              .map { place + step * it }
-              .first { curr[it] != '.' }
-              .let { curr[it] }
+            .map { step ->
+              generateSequence(1) { it + 1 }
+                .map { place + step * it }
+                .first { curr[it] != '.' }
+                .let { curr[it] }
             }
             .count { it == '#' }
           when {

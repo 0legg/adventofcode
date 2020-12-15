@@ -9,19 +9,19 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day1 : DayOf2018(1) {
   override fun first(data: String): Any? {
     return data
-        .trim()
-        .lines()
-        .map { it.removePrefix("+") }
-        .map { it.toLong() }
-        .sum()
+      .trim()
+      .lines()
+      .map { it.removePrefix("+") }
+      .map { it.toLong() }
+      .sum()
   }
 
   override fun second(data: String): Any? {
     val shifts = data
-        .trim()
-        .lines()
-        .map { it.removePrefix("+") }
-        .map { it.toLong() }
+      .trim()
+      .lines()
+      .map { it.removePrefix("+") }
+      .map { it.toLong() }
 
     val history = mutableSetOf<Long>()
 
@@ -29,10 +29,10 @@ object Day1 : DayOf2018(1) {
       val next = prev + shifts[index]
       return@generateSequence next to (index + 1) % shifts.size
     }
-        .takeWhile { it.first !in history }
-        .onEach { history += it.first }
-        .last()
-        .let { (prev, index) -> prev + shifts[index] }
+      .takeWhile { it.first !in history }
+      .onEach { history += it.first }
+      .last()
+      .let { (prev, index) -> prev + shifts[index] }
   }
 }
 

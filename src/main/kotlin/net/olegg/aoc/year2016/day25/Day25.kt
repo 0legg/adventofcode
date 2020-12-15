@@ -12,17 +12,17 @@ object Day25 : DayOf2016(25) {
     val program = data.trim().lines()
 
     return generateSequence(0) { it + 1 }
-        .map { value ->
-          val registers = IntArray(4).also { it[0] = value }
-          return@map value to AsmBunny.eval(program, registers)
-        }
-        .first { (_, signal) ->
-          signal
-              .take(1000)
-              .mapIndexed { index, value -> index % 2 == value % 2 }
-              .all { it }
-        }
-        .first
+      .map { value ->
+        val registers = IntArray(4).also { it[0] = value }
+        return@map value to AsmBunny.eval(program, registers)
+      }
+      .first { (_, signal) ->
+        signal
+          .take(1000)
+          .mapIndexed { index, value -> index % 2 == value % 2 }
+          .all { it }
+      }
+      .first
   }
 }
 

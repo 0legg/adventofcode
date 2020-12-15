@@ -28,28 +28,29 @@ object Day10 : DayOf2016(10) {
       GIVE_PATTERN.matchEntire(command)?.let { match ->
         val (id, lowType, lowId, highType, highId) = match.destructured
         actions[id.toInt()] = Pair(
-            if (lowType == "output") -lowId.toInt() - 1 else lowId.toInt(),
-            if (highType == "output") -highId.toInt() - 1 else highId.toInt())
+          if (lowType == "output") -lowId.toInt() - 1 else lowId.toInt(),
+          if (highType == "output") -highId.toInt() - 1 else highId.toInt()
+        )
       }
     }
 
     while (search !in bots.values) {
       val active = bots.filter { it.value.size == 2 }
       active
-          .map { bot -> actions.getOrDefault(bot.key, 0 to 0) to bot.value }
-          .forEach { (action, value) ->
-            val min = value.minOrNull() ?: Int.MIN_VALUE
-            val max = value.maxOrNull() ?: Int.MAX_VALUE
-            bots.getOrPut(action.first) { mutableSetOf() } += min
-            bots.getOrPut(action.second) { mutableSetOf() } += max
-          }
+        .map { bot -> actions.getOrDefault(bot.key, 0 to 0) to bot.value }
+        .forEach { (action, value) ->
+          val min = value.minOrNull() ?: Int.MIN_VALUE
+          val max = value.maxOrNull() ?: Int.MAX_VALUE
+          bots.getOrPut(action.first) { mutableSetOf() } += min
+          bots.getOrPut(action.second) { mutableSetOf() } += max
+        }
 
       active.keys
-          .filter { it >= 0 }
-          .forEach { id ->
-            bots.remove(id)
-            actions.remove(id)
-          }
+        .filter { it >= 0 }
+        .forEach { id ->
+          bots.remove(id)
+          actions.remove(id)
+        }
     }
 
     return bots.filter { it.value == search }.keys.joinToString()
@@ -72,33 +73,34 @@ object Day10 : DayOf2016(10) {
       GIVE_PATTERN.matchEntire(command)?.let { match ->
         val (id, lowType, lowId, highType, highId) = match.destructured
         actions[id.toInt()] = Pair(
-            if (lowType == "output") -lowId.toInt() - 1 else lowId.toInt(),
-            if (highType == "output") -highId.toInt() - 1 else highId.toInt())
+          if (lowType == "output") -lowId.toInt() - 1 else lowId.toInt(),
+          if (highType == "output") -highId.toInt() - 1 else highId.toInt()
+        )
       }
     }
 
     while (bots.any { it.value.size == 2 } && actions.isNotEmpty()) {
       val active = bots.filter { it.value.size == 2 }
       active
-          .map { bot -> actions.getOrDefault(bot.key, 0 to 0) to bot.value }
-          .forEach { (action, value) ->
-            val min = value.minOrNull() ?: Int.MIN_VALUE
-            val max = value.maxOrNull() ?: Int.MAX_VALUE
-            bots.getOrPut(action.first) { mutableSetOf() } += min
-            bots.getOrPut(action.second) { mutableSetOf() } += max
-          }
+        .map { bot -> actions.getOrDefault(bot.key, 0 to 0) to bot.value }
+        .forEach { (action, value) ->
+          val min = value.minOrNull() ?: Int.MIN_VALUE
+          val max = value.maxOrNull() ?: Int.MAX_VALUE
+          bots.getOrPut(action.first) { mutableSetOf() } += min
+          bots.getOrPut(action.second) { mutableSetOf() } += max
+        }
 
       active.keys
-          .filter { it >= 0 }
-          .forEach { id ->
-            bots.remove(id)
-            actions.remove(id)
-          }
+        .filter { it >= 0 }
+        .forEach { id ->
+          bots.remove(id)
+          actions.remove(id)
+        }
     }
 
     return (-3..-1)
-        .map { bots[it].orEmpty().sum() }
-        .reduce { a, b -> a * b }
+      .map { bots[it].orEmpty().sum() }
+      .reduce { a, b -> a * b }
   }
 }
 

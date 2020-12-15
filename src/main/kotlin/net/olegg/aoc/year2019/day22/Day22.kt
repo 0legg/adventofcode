@@ -12,16 +12,16 @@ object Day22 : DayOf2019(22) {
     val deckSize = BigInteger.valueOf(10007L)
 
     val input = data
-        .trim()
-        .lines()
-        .map {
-          val split = it.split(" ")
-          when (split[1]) {
-            "into" -> Pair(BigInteger.valueOf(-1L), BigInteger.valueOf(-1L))
-            "with" -> Pair(split.last().toBigInteger(), BigInteger.ZERO)
-            else -> Pair(BigInteger.ONE, -split[1].toBigInteger())
-          }
+      .trim()
+      .lines()
+      .map {
+        val split = it.split(" ")
+        when (split[1]) {
+          "into" -> Pair(BigInteger.valueOf(-1L), BigInteger.valueOf(-1L))
+          "with" -> Pair(split.last().toBigInteger(), BigInteger.ZERO)
+          else -> Pair(BigInteger.ONE, -split[1].toBigInteger())
         }
+      }
 
     val compressed = input.reduce { acc, vector -> combine(acc, vector, deckSize) }
 
@@ -32,17 +32,17 @@ object Day22 : DayOf2019(22) {
     val deckSize = BigInteger.valueOf(119315717514047L)
 
     val input = data
-        .trim()
-        .lines()
-        .map {
-          val split = it.split(" ")
-          when (split[1]) {
-            "into" -> Pair(BigInteger.valueOf(-1L), BigInteger.valueOf(-1L))
-            "with" -> Pair(split.last().toBigInteger() inv deckSize, BigInteger.ZERO)
-            else -> Pair(BigInteger.ONE, split[1].toBigInteger())
-          }
+      .trim()
+      .lines()
+      .map {
+        val split = it.split(" ")
+        when (split[1]) {
+          "into" -> Pair(BigInteger.valueOf(-1L), BigInteger.valueOf(-1L))
+          "with" -> Pair(split.last().toBigInteger() inv deckSize, BigInteger.ZERO)
+          else -> Pair(BigInteger.ONE, split[1].toBigInteger())
         }
-        .asReversed()
+      }
+      .asReversed()
 
     val compressed = input.reduce { acc, vector -> combine(acc, vector, deckSize) }
 
@@ -50,18 +50,18 @@ object Day22 : DayOf2019(22) {
   }
 
   private fun shuffle(
-      position: BigInteger,
-      deckSize: BigInteger,
-      iterations: BigInteger,
-      operation: Pair<BigInteger, BigInteger>
+    position: BigInteger,
+    deckSize: BigInteger,
+    iterations: BigInteger,
+    operation: Pair<BigInteger, BigInteger>
   ): BigInteger {
     return generateSequence(Triple(position, iterations, operation)) { (curr, iters, op) ->
       val newOp = combine(op, op, deckSize)
       val next = if (iters.testBit(0)) (curr * op.first + op.second) mod deckSize else curr
       return@generateSequence Triple(next, iters shr 1, newOp)
     }
-        .first { it.second == BigInteger.ZERO }
-        .first
+      .first { it.second == BigInteger.ZERO }
+      .first
   }
 
   private infix fun BigInteger.mod(modulo: BigInteger): BigInteger {
@@ -73,14 +73,14 @@ object Day22 : DayOf2019(22) {
       val next = if (iters.testBit(0)) (curr * power) mod modulo else curr
       return@generateSequence Triple(next, iters shr 1, (power * power) mod modulo)
     }
-        .first { it.second == BigInteger.ZERO }
-        .first
+      .first { it.second == BigInteger.ZERO }
+      .first
   }
 
   private fun combine(
-      first: Pair<BigInteger, BigInteger>,
-      second: Pair<BigInteger, BigInteger>,
-      modulo: BigInteger
+    first: Pair<BigInteger, BigInteger>,
+    second: Pair<BigInteger, BigInteger>,
+    modulo: BigInteger
   ) = Pair((first.first * second.first) mod modulo, (first.second * second.first + second.second) mod modulo)
 }
 

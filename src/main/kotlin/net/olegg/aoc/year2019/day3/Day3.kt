@@ -12,36 +12,41 @@ import kotlin.math.abs
 object Day3 : DayOf2019(3) {
   override fun first(data: String): Any? {
     val (wire1, wire2) = data
-        .trim()
-        .lines()
-        .map { line -> line.split(",").map { Directions.valueOf(it.substring(0, 1)) to it.substring(1).toInt() } }
-        .map { wire -> wire.fold(listOf(Vector2D())) { acc, (dir, length) ->
+      .trim()
+      .lines()
+      .map { line -> line.split(",").map { Directions.valueOf(it.substring(0, 1)) to it.substring(1).toInt() } }
+      .map { wire ->
+        wire.fold(listOf(Vector2D())) { acc, (dir, length) ->
           val start = acc.last()
           return@fold acc + (1..length).map { start + dir.step * it }
-        } }
-        .map { it.toSet() - Vector2D() }
+        }
+      }
+      .map { it.toSet() - Vector2D() }
 
     return (wire1.intersect(wire2)).map { abs(it.x) + abs(it.y) }.minOrNull()
   }
 
   override fun second(data: String): Any? {
     val (wire1, wire2) = data
-        .trim()
-        .lines()
-        .map { line -> line.split(",").map { Directions.valueOf(it.substring(0, 1)) to it.substring(1).toInt() } }
-        .map { wire -> wire.fold(listOf(Vector2D() to 0)) { acc, (dir, length) ->
+      .trim()
+      .lines()
+      .map { line -> line.split(",").map { Directions.valueOf(it.substring(0, 1)) to it.substring(1).toInt() } }
+      .map { wire ->
+        wire.fold(listOf(Vector2D() to 0)) { acc, (dir, length) ->
           val start = acc.last()
           return@fold acc + (1..length).map { start.first + dir.step * it to start.second + it }
-        } }
-        .map { it.drop(1) }
-        .map { wire -> wire
-            .groupBy(keySelector = { it.first }, valueTransform = { it.second })
-            .mapValues { (_, points) -> points.minOrNull() ?: 1_000_000 }
         }
+      }
+      .map { it.drop(1) }
+      .map { wire ->
+        wire
+          .groupBy(keySelector = { it.first }, valueTransform = { it.second })
+          .mapValues { (_, points) -> points.minOrNull() ?: 1_000_000 }
+      }
 
     return wire1.mapValues { (point, distance) -> distance + (wire2[point] ?: 1_000_000) }
-        .minByOrNull { it.value }
-        ?.value
+      .minByOrNull { it.value }
+      ?.value
   }
 }
 

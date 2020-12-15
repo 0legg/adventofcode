@@ -12,8 +12,8 @@ import kotlin.math.abs
 object Day25 : DayOf2018(25) {
   override fun first(data: String): Any? {
     val points = data.trim()
-        .lines()
-        .map { it.parseInts(",") }
+      .lines()
+      .map { it.parseInts(",") }
 
     val uf = UnionFind(points.size)
 

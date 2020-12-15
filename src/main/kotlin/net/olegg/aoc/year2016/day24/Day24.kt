@@ -28,27 +28,27 @@ object Day24 : DayOf2016(24) {
         val pos = queue.removeFirst()
         val steps = visit[pos] ?: 0
         Neighbors4
-            .map { pos + it.step }
-            .filterNot { it in visit }
-            .filterNot { map[it.y][it.x] == '#' }
-            .also { cells ->
-              cells.forEach { cell -> visit[cell] = steps + 1 }
-              queue += cells
-            }
+          .map { pos + it.step }
+          .filterNot { it in visit }
+          .filterNot { map[it.y][it.x] == '#' }
+          .also { cells ->
+            cells.forEach { cell -> visit[cell] = steps + 1 }
+            queue += cells
+          }
       }
 
       return@map locations.map { visit[it] }
     }
 
     return (1..7)
-        .toList()
-        .permutations()
-        .map { listOf(0) + it }
-        .minOf { route ->
-          route.windowed(2).fold(0) { acc, points ->
-            acc + (distances[points[0]][points[1]] ?: 0)
-          }
+      .toList()
+      .permutations()
+      .map { listOf(0) + it }
+      .minOf { route ->
+        route.windowed(2).fold(0) { acc, points ->
+          acc + (distances[points[0]][points[1]] ?: 0)
         }
+      }
   }
 
   override fun second(data: String): Any? {
@@ -69,27 +69,27 @@ object Day24 : DayOf2016(24) {
         val pos = queue.removeFirst()
         val steps = visit[pos] ?: 0
         Neighbors4
-            .map { pos + it.step }
-            .filterNot { it in visit }
-            .filterNot { map[it.y][it.x] == '#' }
-            .also { cells ->
-              cells.forEach { cell -> visit[cell] = steps + 1 }
-              queue.addAll(cells)
-            }
+          .map { pos + it.step }
+          .filterNot { it in visit }
+          .filterNot { map[it.y][it.x] == '#' }
+          .also { cells ->
+            cells.forEach { cell -> visit[cell] = steps + 1 }
+            queue.addAll(cells)
+          }
       }
 
       return@map locations.map { visit[it] }
     }
 
     return (1..7)
-        .toList()
-        .permutations()
-        .map { listOf(0) + it + listOf(0) }
-        .minOf { route ->
-          route.windowed(2).fold(0) { acc, points ->
-            acc + (distances[points[0]][points[1]] ?: 0)
-          }
+      .toList()
+      .permutations()
+      .map { listOf(0) + it + listOf(0) }
+      .minOf { route ->
+        route.windowed(2).fold(0) { acc, points ->
+          acc + (distances[points[0]][points[1]] ?: 0)
         }
+      }
   }
 }
 

@@ -10,30 +10,30 @@ object Day8 : DayOf2015(8) {
   private val strings = data.trim().lines()
   override fun first(data: String): Any? {
     return strings.sumBy { it.length } -
-        strings.sumBy { line ->
-          line
-              .replace("^\"".toRegex(), "")
-              .replace("\"$".toRegex(), "")
-              .replace("\\\"", "\"")
-              .replace("\\\\", "\\")
-              .replace("\\\\x[0-9a-f]{2}".toRegex(), "#")
-              .length
-        }
+      strings.sumBy { line ->
+        line
+          .replace("^\"".toRegex(), "")
+          .replace("\"$".toRegex(), "")
+          .replace("\\\"", "\"")
+          .replace("\\\\", "\\")
+          .replace("\\\\x[0-9a-f]{2}".toRegex(), "#")
+          .length
+      }
   }
 
   override fun second(data: String): Any? {
     return strings
-        .sumBy { line ->
-          line
-              .map { char ->
-                when (char) {
-                  '\"' -> "\\\""
-                  '\\' -> "\\\\"
-                  else -> "$char"
-                }
-              }
-              .joinToString(prefix = "\"", postfix = "\"", separator = "").length
-        } - strings.sumBy { it.length }
+      .sumBy { line ->
+        line
+          .map { char ->
+            when (char) {
+              '\"' -> "\\\""
+              '\\' -> "\\\\"
+              else -> "$char"
+            }
+          }
+          .joinToString(prefix = "\"", postfix = "\"", separator = "").length
+      } - strings.sumBy { it.length }
   }
 }
 

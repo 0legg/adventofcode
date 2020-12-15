@@ -15,9 +15,9 @@ import net.olegg.aoc.year2019.DayOf2019
 object Day24 : DayOf2019(24) {
   override fun first(data: String): Any? {
     val start = data
-        .trim()
-        .lines()
-        .map { it.toList() }
+      .trim()
+      .lines()
+      .map { it.toList() }
 
     val visited = mutableSetOf<String>()
     var curr = start
@@ -27,8 +27,8 @@ object Day24 : DayOf2019(24) {
       curr = curr.mapIndexed { y, row ->
         row.mapIndexed { x, c ->
           val neighbors = Neighbors4.map { it.step + Vector2D(x, y) }
-              .mapNotNull { curr[it] }
-              .count { it == '#' }
+            .mapNotNull { curr[it] }
+            .count { it == '#' }
           when {
             c == '.' && neighbors in 1..2 -> '#'
             c == '#' && neighbors != 1 -> '.'
@@ -39,17 +39,17 @@ object Day24 : DayOf2019(24) {
     }
 
     return curr.footprint()
-        .reversed()
-        .replace('.', '0')
-        .replace('#', '1')
-        .toBigInteger(2)
+      .reversed()
+      .replace('.', '0')
+      .replace('#', '1')
+      .toBigInteger(2)
   }
 
   override fun second(data: String): Any? {
     val start = data
-        .trim()
-        .lines()
-        .map { it.toList() }
+      .trim()
+      .lines()
+      .map { it.toList() }
 
     val size = start.size
     val center = Vector2D(size / 2, size / 2)
@@ -63,25 +63,25 @@ object Day24 : DayOf2019(24) {
           row.mapIndexed { x, c ->
             val base = Vector2D(x, y)
             val neighbors = Neighbors4.map { it to it.step + base }
-                .flatMap { (dir, point) ->
-                  when {
-                    point == center -> when (dir) {
-                      L -> (0 until size).map { level - 1 to Vector2D(size - 1, it) }
-                      R -> (0 until size).map { level - 1 to Vector2D(0, it) }
-                      U -> (0 until size).map { level - 1 to Vector2D(it, size - 1) }
-                      D -> (0 until size).map { level - 1 to Vector2D(it, 0) }
-                      else -> emptyList()
-                    }
-                    point.x < 0 -> listOf(level + 1 to center + L.step)
-                    point.x >= size -> listOf(level + 1 to center + R.step)
-                    point.y < 0 -> listOf(level + 1 to center + U.step)
-                    point.y >= size -> listOf(level + 1 to center + D.step)
-                    else -> listOf(level to point)
+              .flatMap { (dir, point) ->
+                when {
+                  point == center -> when (dir) {
+                    L -> (0 until size).map { level - 1 to Vector2D(size - 1, it) }
+                    R -> (0 until size).map { level - 1 to Vector2D(0, it) }
+                    U -> (0 until size).map { level - 1 to Vector2D(it, size - 1) }
+                    D -> (0 until size).map { level - 1 to Vector2D(it, 0) }
+                    else -> emptyList()
                   }
+                  point.x < 0 -> listOf(level + 1 to center + L.step)
+                  point.x >= size -> listOf(level + 1 to center + R.step)
+                  point.y < 0 -> listOf(level + 1 to center + U.step)
+                  point.y >= size -> listOf(level + 1 to center + D.step)
+                  else -> listOf(level to point)
                 }
-                .count { (level, point) ->
-                  acc.getValue(level)[point] == '#'
-                }
+              }
+              .count { (level, point) ->
+                acc.getValue(level)[point] == '#'
+              }
             when {
               base == center -> '?'
               c == '.' && neighbors in 1..2 -> '#'
@@ -94,11 +94,11 @@ object Day24 : DayOf2019(24) {
     }
 
     return result.values
-        .sumBy { level ->
-          level.sumBy { row ->
-            row.count { it == '#' }
-          }
+      .sumBy { level ->
+        level.sumBy { row ->
+          row.count { it == '#' }
         }
+      }
   }
 
   private fun List<List<Char>>.footprint() = joinToString("") { it.joinToString("") }

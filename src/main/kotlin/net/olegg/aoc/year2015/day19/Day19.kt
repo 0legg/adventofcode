@@ -8,25 +8,25 @@ import net.olegg.aoc.year2015.DayOf2015
  */
 object Day19 : DayOf2015(19) {
   private val transitions = data.trim()
-      .lines()
-      .dropLast(2)
-      .map { it.split(" => ") }
-      .map { it.first() to it.last() }
+    .lines()
+    .dropLast(2)
+    .map { it.split(" => ") }
+    .map { it.first() to it.last() }
   private val molecule = data.trim().lines().last()
 
   private fun applyTransitions(molecule: String, transition: Pair<Regex, String>): Set<String> {
     val (regex, replacement) = transition
     return regex.findAll(molecule)
-        .map { molecule.replaceRange(it.range, replacement) }
-        .toSet()
+      .map { molecule.replaceRange(it.range, replacement) }
+      .toSet()
   }
 
   override fun first(data: String): Any? {
     return transitions
-        .map { it.first.toRegex() to it.second }
-        .flatMap { applyTransitions(molecule, it) }
-        .toSet()
-        .size
+      .map { it.first.toRegex() to it.second }
+      .flatMap { applyTransitions(molecule, it) }
+      .toSet()
+      .size
   }
 
   override fun second(data: String): Any? {

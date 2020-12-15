@@ -19,9 +19,9 @@ import net.olegg.aoc.year2019.Intcode
 object Day11 : DayOf2019(11) {
   override fun first(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     val result = runBlocking {
       val input = Channel<Long>(Channel.UNLIMITED)
@@ -63,9 +63,9 @@ object Day11 : DayOf2019(11) {
 
   override fun second(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     val result = runBlocking {
       val input = Channel<Long>(Channel.UNLIMITED)
@@ -103,11 +103,13 @@ object Day11 : DayOf2019(11) {
       val maxy = map.map { it.key.y }.maxOrNull() ?: 0
 
       return@runBlocking (miny..maxy).joinToString("\n", prefix = "\n") { y ->
-        (minx..maxx).joinToString("") { x -> when (map.getOrDefault(Vector2D(x, y), 0)) {
-          0L -> "  "
-          1L -> "██"
-          else -> throw IllegalArgumentException()
-        } }
+        (minx..maxx).joinToString("") { x ->
+          when (map.getOrDefault(Vector2D(x, y), 0)) {
+            0L -> "  "
+            1L -> "██"
+            else -> throw IllegalArgumentException()
+          }
+        }
       }
     }
 

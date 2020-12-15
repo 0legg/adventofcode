@@ -74,23 +74,23 @@ class Intcode(program: LongArray) {
   }
 
   data class Op(
-      val length: Int,
-      val eval: suspend Op.(
-          program: Intcode,
-          modes: CharBuffer,
-          input: ReceiveChannel<Long>,
-          output: SendChannel<Long>
-      ) -> Unit
+    val length: Int,
+    val eval: suspend Op.(
+      program: Intcode,
+      modes: CharBuffer,
+      input: ReceiveChannel<Long>,
+      output: SendChannel<Long>
+    ) -> Unit
   ) {
     fun parseArgs(program: Intcode, modes: CharBuffer): List<Arg> = modes.indices
-        .map {
-          when (val mode = modes.get()) {
-            '0' -> Address(program.get())
-            '1' -> Value(program.get())
-            '2' -> Address(program.offset + program.get())
-            else -> throw IllegalArgumentException("Mode $mode is not supported")
-          }
+      .map {
+        when (val mode = modes.get()) {
+          '0' -> Address(program.get())
+          '1' -> Value(program.get())
+          '2' -> Address(program.offset + program.get())
+          else -> throw IllegalArgumentException("Mode $mode is not supported")
         }
+      }
   }
 
   private fun parseOp(rawOp: Long): Pair<Op, CharBuffer>? {
@@ -103,46 +103,46 @@ class Intcode(program: LongArray) {
 
   companion object {
     private val OPS = mapOf(
-        1 to Op(4) { program, modes, _, _ ->
-          val (arg1, arg2, arg3) = parseArgs(program, modes)
-          program[arg3] = program[arg1] + program[arg2]
-        },
-        2 to Op(4) { program, modes, _, _ ->
-          val (arg1, arg2, arg3) = parseArgs(program, modes)
-          program[arg3] = program[arg1] * program[arg2]
-        },
-        3 to Op(2) { program, modes, input, _ ->
-          val (arg1) = parseArgs(program, modes)
-          program[arg1] = input.receive()
-        },
-        4 to Op(2) { program, modes, _, output ->
-          val (arg1) = parseArgs(program, modes)
-          output.send(program[arg1])
-        },
-        5 to Op(3) { program, modes, _, _ ->
-          val (arg1, arg2) = parseArgs(program, modes)
-          if (program[arg1] != 0L) {
-            program.position(program[arg2])
-          }
-        },
-        6 to Op(3) { program, modes, _, _ ->
-          val (arg1, arg2) = parseArgs(program, modes)
-          if (program[arg1] == 0L) {
-            program.position(program[arg2])
-          }
-        },
-        7 to Op(4) { program, modes, _, _ ->
-          val (arg1, arg2, arg3) = parseArgs(program, modes)
-          program[arg3] = if (program[arg1] < program[arg2]) 1L else 0L
-        },
-        8 to Op(4) { program, modes, _, _ ->
-          val (arg1, arg2, arg3) = parseArgs(program, modes)
-          program[arg3] = if (program[arg1] == program[arg2]) 1L else 0L
-        },
-        9 to Op(2) { program, modes, _, _ ->
-          val (arg1) = parseArgs(program, modes)
-          program.offset += program[arg1]
+      1 to Op(4) { program, modes, _, _ ->
+        val (arg1, arg2, arg3) = parseArgs(program, modes)
+        program[arg3] = program[arg1] + program[arg2]
+      },
+      2 to Op(4) { program, modes, _, _ ->
+        val (arg1, arg2, arg3) = parseArgs(program, modes)
+        program[arg3] = program[arg1] * program[arg2]
+      },
+      3 to Op(2) { program, modes, input, _ ->
+        val (arg1) = parseArgs(program, modes)
+        program[arg1] = input.receive()
+      },
+      4 to Op(2) { program, modes, _, output ->
+        val (arg1) = parseArgs(program, modes)
+        output.send(program[arg1])
+      },
+      5 to Op(3) { program, modes, _, _ ->
+        val (arg1, arg2) = parseArgs(program, modes)
+        if (program[arg1] != 0L) {
+          program.position(program[arg2])
         }
+      },
+      6 to Op(3) { program, modes, _, _ ->
+        val (arg1, arg2) = parseArgs(program, modes)
+        if (program[arg1] == 0L) {
+          program.position(program[arg2])
+        }
+      },
+      7 to Op(4) { program, modes, _, _ ->
+        val (arg1, arg2, arg3) = parseArgs(program, modes)
+        program[arg3] = if (program[arg1] < program[arg2]) 1L else 0L
+      },
+      8 to Op(4) { program, modes, _, _ ->
+        val (arg1, arg2, arg3) = parseArgs(program, modes)
+        program[arg3] = if (program[arg1] == program[arg2]) 1L else 0L
+      },
+      9 to Op(2) { program, modes, _, _ ->
+        val (arg1) = parseArgs(program, modes)
+        program.offset += program[arg1]
+      }
     )
   }
 

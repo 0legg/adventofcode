@@ -10,36 +10,36 @@ import net.olegg.aoc.year2017.DayOf2017
 object Day5 : DayOf2017(5) {
   override fun first(data: String): Any? {
     val values = data.parseInts("\n")
-        .toTypedArray()
+      .toTypedArray()
 
     return generateSequence(0) { it + 1 }
-        .scan(Triple(values, 0, 0)) { acc, _ ->
-          Triple(
-              acc.first.copyOf().also { it[acc.second] += 1 },
-              acc.second + acc.first[acc.second],
-              acc.third + 1
-          )
-        }
-        .drop(1)
-        .first { it.second !in values.indices }
-        .third
+      .scan(Triple(values, 0, 0)) { acc, _ ->
+        Triple(
+          acc.first.copyOf().also { it[acc.second] += 1 },
+          acc.second + acc.first[acc.second],
+          acc.third + 1
+        )
+      }
+      .drop(1)
+      .first { it.second !in values.indices }
+      .third
   }
 
   override fun second(data: String): Any? {
     val values = data.parseInts("\n")
-        .toTypedArray()
+      .toTypedArray()
 
     return generateSequence(0) { it + 1 }
-        .scan(Triple(values, 0, 0)) { acc, _ ->
-          Triple(
-              acc.first.copyOf().also { it[acc.second] += if (it[acc.second] < 3) 1 else -1 },
-              acc.second + acc.first[acc.second],
-              acc.third + 1
-          )
-        }
-        .drop(1)
-        .first { it.second !in values.indices }
-        .third
+      .scan(Triple(values, 0, 0)) { acc, _ ->
+        Triple(
+          acc.first.copyOf().also { it[acc.second] += if (it[acc.second] < 3) 1 else -1 },
+          acc.second + acc.first[acc.second],
+          acc.third + 1
+        )
+      }
+      .drop(1)
+      .first { it.second !in values.indices }
+      .third
   }
 }
 

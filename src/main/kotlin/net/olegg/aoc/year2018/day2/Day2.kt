@@ -9,18 +9,18 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day2 : DayOf2018(2) {
   override fun first(data: String): Any? {
     val freqs = data
-        .trim()
-        .lines()
-        .map { char -> char.groupBy { it } }
-        .map { entry -> entry.mapValues { it.value.size } }
+      .trim()
+      .lines()
+      .map { char -> char.groupBy { it } }
+      .map { entry -> entry.mapValues { it.value.size } }
 
     return freqs.count { it.containsValue(2) } * freqs.count { it.containsValue(3) }
   }
 
   override fun second(data: String): Any? {
     val names = data
-        .trim()
-        .lines()
+      .trim()
+      .lines()
 
     names.forEach { first ->
       names.forEach { second ->

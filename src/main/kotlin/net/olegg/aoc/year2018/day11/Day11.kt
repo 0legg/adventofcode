@@ -27,8 +27,8 @@ object Day11 : DayOf2018(11) {
         (x to y) to sum
       }
     }
-        .maxByOrNull { it: Pair<Pair<Int, Int>, Int> -> it.second }
-        ?.let { "${it.first.first},${it.first.second}" }
+      .maxByOrNull { it: Pair<Pair<Int, Int>, Int> -> it.second }
+      ?.let { "${it.first.first},${it.first.second}" }
   }
 
   override fun second(data: String): Any? {
@@ -57,8 +57,8 @@ object Day11 : DayOf2018(11) {
         }
       }
     }
-        .maxByOrNull { it: Pair<Triple<Int, Int, Int>, Int> -> it.second }
-        ?.let { "${it.first.first},${it.first.second},${it.first.third}" }
+      .maxByOrNull { it: Pair<Triple<Int, Int, Int>, Int> -> it.second }
+      ?.let { "${it.first.first},${it.first.second},${it.first.third}" }
   }
 }
 

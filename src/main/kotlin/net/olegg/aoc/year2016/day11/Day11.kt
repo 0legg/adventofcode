@@ -13,28 +13,28 @@ object Day11 : DayOf2016(11) {
 
   override fun first(data: String): Any? {
     val initial = data
-        .trim()
-        .lines()
-        .map { floor ->
-          Pair(
-              GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
-              CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet()
-          )
-        }
+      .trim()
+      .lines()
+      .map { floor ->
+        Pair(
+          GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
+          CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet()
+        )
+      }
 
     return countSteps(initial)
   }
 
   override fun second(data: String): Any? {
     val initial = data
-        .trim()
-        .lines()
-        .map { floor ->
-          Pair(
-              GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
-              CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet()
-          )
-        }
+      .trim()
+      .lines()
+      .map { floor ->
+        Pair(
+          GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
+          CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet()
+        )
+      }
 
     val fixed = initial.mapIndexed { i, floor ->
       when (i) {
@@ -64,8 +64,8 @@ object Day11 : DayOf2016(11) {
       val (floors, elevator, steps) = decompress(queue.removeFirst(), types.size)
       val (gens, chips) = floors[elevator]
       val allMoves = gens.flatMap { a -> gens.map { b -> setOf(a, b) to emptySet<Int>() } } +
-          chips.flatMap { a -> chips.map { b -> emptySet<Int>() to setOf(a, b) } } +
-          gens.intersect(chips).map { setOf(it) to setOf(it) }
+        chips.flatMap { a -> chips.map { b -> emptySet<Int>() to setOf(a, b) } } +
+        gens.intersect(chips).map { setOf(it) to setOf(it) }
       val moves = allMoves.distinct()
       val nextFloors = elevatorMoves[elevator]
 
@@ -77,18 +77,18 @@ object Day11 : DayOf2016(11) {
           } to next
         }
       }
-          .distinctBy { it.first }
-          .filterNot { (floors, _) ->
-            floors.any { (gens, chips) ->
-              gens.isNotEmpty() && (chips - gens).isNotEmpty()
-            }
+        .distinctBy { it.first }
+        .filterNot { (floors, _) ->
+          floors.any { (gens, chips) ->
+            gens.isNotEmpty() && (chips - gens).isNotEmpty()
           }
-          .map { compress(it.first, it.second, types.size) }
-          .filterNot { state -> known.get(state) }
-          .forEach { state ->
-            known.set(state)
-            queue.add(state to steps + 1)
-          }
+        }
+        .map { compress(it.first, it.second, types.size) }
+        .filterNot { state -> known.get(state) }
+        .forEach { state ->
+          known.set(state)
+          queue.add(state to steps + 1)
+        }
     } while (!known.get(all))
 
     return queue.first { it.first == all }.second
@@ -114,9 +114,9 @@ object Day11 : DayOf2016(11) {
     }
 
     return Triple(
-        decompressed,
-        elevator,
-        compressed.second
+      decompressed,
+      elevator,
+      compressed.second
     )
   }
 }

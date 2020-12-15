@@ -9,9 +9,9 @@ import net.olegg.aoc.year2015.DayOf2015
  */
 object Day10 : DayOf2015(10) {
   fun lookAndSay(source: String) = source
-      .toList()
-      .series()
-      .joinToString(separator = "") { "${it.size}${it.first()}" }
+    .toList()
+    .series()
+    .joinToString(separator = "") { "${it.size}${it.first()}" }
 
   override fun first(data: String): Any? {
     return (1..40).fold(data) { acc, _ -> lookAndSay(acc) }.length

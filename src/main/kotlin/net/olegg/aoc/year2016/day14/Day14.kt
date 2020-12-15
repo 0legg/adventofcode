@@ -43,8 +43,8 @@ object Day14 : DayOf2016(14) {
         i++
       }
     }
-        .take(count)
-        .last()
+      .take(count)
+      .last()
   }
 }
 

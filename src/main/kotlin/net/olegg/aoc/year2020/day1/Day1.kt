@@ -10,16 +10,16 @@ import net.olegg.aoc.year2020.DayOf2020
 object Day1 : DayOf2020(1) {
   override fun first(data: String): Any? {
     val nums = data
-        .parseLongs("\n")
-        .toSet()
+      .parseLongs("\n")
+      .toSet()
     val first = nums.first { (2020L - it) in nums }
     return first * (2020L - first)
   }
 
   override fun second(data: String): Any? {
     val nums = data
-        .parseLongs("\n")
-        .toSet()
+      .parseLongs("\n")
+      .toSet()
     val pairs = nums.flatMapIndexed { index, first ->
       nums.drop(index + 1).map { first to it }
     }

@@ -34,7 +34,8 @@ object Day22 : DayOf2018(22) {
 
     val erosions = ErosionCache(depth.toLong(), t)
     val queue = PriorityQueue<Pair<Config, Int>>(
-        compareBy({ it.second }, { it.first.pos.x }, { it.first.pos.y }, { it.first.tool }))
+      compareBy({ it.second }, { it.first.pos.x }, { it.first.pos.y }, { it.first.tool })
+    )
     val start = Config(Vector2D(), Tool.Torch)
     val visited = mutableSetOf<Config>()
     queue.add(start to 0)
@@ -49,14 +50,14 @@ object Day22 : DayOf2018(22) {
       val surface = erosions[pos] % 3
       if (surface !in tool.surfaces) continue
       queue += Tool.values()
-          .filter { it != tool }
-          .filter { surface in it.surfaces }
-          .map { curr.copy(tool = it) to time + 7 }
+        .filter { it != tool }
+        .filter { surface in it.surfaces }
+        .map { curr.copy(tool = it) to time + 7 }
       queue += Neighbors4
-          .map { curr.copy(pos = curr.pos + it.step) }
-          .filter { it.pos.x >= 0 && it.pos.y >= 0 }
-          .filter { erosions[it.pos] % 3 in it.tool.surfaces }
-          .map { it to time + 1 }
+        .map { curr.copy(pos = curr.pos + it.step) }
+        .filter { it.pos.x >= 0 && it.pos.y >= 0 }
+        .filter { erosions[it.pos] % 3 in it.tool.surfaces }
+        .map { it to time + 1 }
     }
     return 0
   }
@@ -86,9 +87,10 @@ object Day22 : DayOf2018(22) {
     Climb(setOf(0, 1)),
     Neither(setOf(1, 2))
   }
+
   private data class Config(
-      val pos: Vector2D,
-      val tool: Tool
+    val pos: Vector2D,
+    val tool: Tool
   )
 }
 

@@ -20,23 +20,23 @@ object Day13 : DayOf2015(13) {
 
   override fun first(data: String): Any? {
     return names
-        .permutations()
-        .map { it + it.first() }
-        .map { order ->
-          order.zipWithNext().sumBy { edges[it] ?: 0 } +
-              order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
-        }
-        .maxOrNull()
+      .permutations()
+      .map { it + it.first() }
+      .map { order ->
+        order.zipWithNext().sumBy { edges[it] ?: 0 } +
+          order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
+      }
+      .maxOrNull()
   }
 
   override fun second(data: String): Any? {
     return names
-        .permutations()
-        .map { order ->
-          order.zipWithNext().sumBy { edges[it] ?: 0 } +
-              order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
-        }
-        .maxOrNull()
+      .permutations()
+      .map { order ->
+        order.zipWithNext().sumBy { edges[it] ?: 0 } +
+          order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
+      }
+      .maxOrNull()
   }
 }
 

@@ -22,9 +22,9 @@ object Day13 : DayOf2019(13) {
 
   override fun first(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     val result = runBlocking {
       val input = Channel<Long>(Channel.UNLIMITED)
@@ -37,10 +37,10 @@ object Day13 : DayOf2019(13) {
       }
 
       val field = output.toList()
-          .map { it.toInt() }
-          .chunked(3)
-          .map { (x, y, tile) -> Vector2D(x, y) to tile }
-          .toMap()
+        .map { it.toInt() }
+        .chunked(3)
+        .map { (x, y, tile) -> Vector2D(x, y) to tile }
+        .toMap()
 
       return@runBlocking field
     }
@@ -50,9 +50,9 @@ object Day13 : DayOf2019(13) {
 
   override fun second(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     val result = runBlocking {
       program[0] = 2L
@@ -111,14 +111,16 @@ object Day13 : DayOf2019(13) {
     val maxy = field.map { it.key.y }.maxOrNull() ?: 0
 
     println((miny..maxy).joinToString("\n", prefix = "\n") { y ->
-      (minx..maxx).joinToString("") { x -> when (field.getOrDefault(Vector2D(x, y), 0)) {
-        0 -> "  "
-        1 -> "██"
-        2 -> "░░"
-        3 -> "=="
-        4 -> "()"
-        else -> throw IllegalArgumentException()
-      } }
+      (minx..maxx).joinToString("") { x ->
+        when (field.getOrDefault(Vector2D(x, y), 0)) {
+          0 -> "  "
+          1 -> "██"
+          2 -> "░░"
+          3 -> "=="
+          4 -> "()"
+          else -> throw IllegalArgumentException()
+        }
+      }
     })
   }
 }

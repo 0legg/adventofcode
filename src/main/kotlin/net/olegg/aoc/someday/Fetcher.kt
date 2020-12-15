@@ -18,12 +18,12 @@ object Fetcher {
   private val client = HttpClient(CIO) {
     install(HttpCookies) {
       storage = ConstantCookiesStorage(
-          Cookie(
-              name = "session",
-              value = BuildConfig.COOKIE,
-              domain = ".adventofcode.com",
-              encoding = CookieEncoding.RAW
-          )
+        Cookie(
+          name = "session",
+          value = BuildConfig.COOKIE,
+          domain = ".adventofcode.com",
+          encoding = CookieEncoding.RAW,
+        )
       )
     }
   }

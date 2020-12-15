@@ -10,23 +10,23 @@ import net.olegg.aoc.year2020.DayOf2020
 object Day3 : DayOf2020(3) {
   override fun first(data: String): Any? {
     val forest = data
-        .trim()
-        .lines()
+      .trim()
+      .lines()
 
     return forest.mapIndexed { row, s -> s[(row * 3) % s.length] }.count { it == '#' }
   }
 
   override fun second(data: String): Any? {
     val forest = data
-        .trim()
-        .lines()
+      .trim()
+      .lines()
 
     val slopes = listOf(
-        Vector2D(1, 1),
-        Vector2D(3, 1),
-        Vector2D(5, 1),
-        Vector2D(7, 1),
-        Vector2D(1, 2),
+      Vector2D(1, 1),
+      Vector2D(3, 1),
+      Vector2D(5, 1),
+      Vector2D(7, 1),
+      Vector2D(1, 2),
     )
 
     val paths = slopes.map { step ->

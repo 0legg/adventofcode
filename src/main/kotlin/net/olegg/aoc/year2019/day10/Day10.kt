@@ -13,18 +13,18 @@ import kotlin.math.sign
 object Day10 : DayOf2019(10) {
   override fun first(data: String): Any? {
     val asteroids = data
-        .trim()
-        .lines()
-        .mapIndexed { y, line ->
-          line.mapIndexedNotNull { x, c -> if (c == '#') Vector2D(x, y) else null }
-        }
-        .flatten()
+      .trim()
+      .lines()
+      .mapIndexed { y, line ->
+        line.mapIndexedNotNull { x, c -> if (c == '#') Vector2D(x, y) else null }
+      }
+      .flatten()
 
     val visible = asteroids.map { base ->
       asteroids.filter { it != base }
-          .map { base.direction(it) }
-          .distinct()
-          .count()
+        .map { base.direction(it) }
+        .distinct()
+        .count()
     }
 
     return visible.maxOrNull()
@@ -32,29 +32,29 @@ object Day10 : DayOf2019(10) {
 
   override fun second(data: String): Any? {
     val asteroids = data
-        .trim()
-        .lines()
-        .mapIndexed { y, line ->
-          line.mapIndexedNotNull { x, c -> if (c == '#') Vector2D(x, y) else null }
-        }
-        .flatten()
+      .trim()
+      .lines()
+      .mapIndexed { y, line ->
+        line.mapIndexedNotNull { x, c -> if (c == '#') Vector2D(x, y) else null }
+      }
+      .flatten()
 
     val base = asteroids.maxByOrNull { curr: Vector2D ->
       asteroids.filter { it != curr }
-          .map { curr.direction(it) }
-          .distinct()
-          .count()
+        .map { curr.direction(it) }
+        .distinct()
+        .count()
     } ?: Vector2D(0, 0)
 
     val lines = (asteroids - base)
-        .groupBy { other -> base.direction(other) }
-        .mapValues { (_, line) -> line.sortedBy { (it - base).length2() } }
-        .toList()
-        .map { (dir, list) -> atan2(-dir.y.toDouble(), dir.x.toDouble()) to list }
-        .sortedByDescending { it.first }
+      .groupBy { other -> base.direction(other) }
+      .mapValues { (_, line) -> line.sortedBy { (it - base).length2() } }
+      .toList()
+      .map { (dir, list) -> atan2(-dir.y.toDouble(), dir.x.toDouble()) to list }
+      .sortedByDescending { it.first }
 
     val linesFromTop = (lines.dropWhile { it.first > atan2(1.0, 0.0) } + lines.takeWhile { it.first > atan2(1.0, 0.0) })
-        .map { it.second }
+      .map { it.second }
 
     val maxLength = linesFromTop.map { it.size }.maxOrNull() ?: 0
 

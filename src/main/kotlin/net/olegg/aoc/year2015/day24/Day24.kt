@@ -11,21 +11,21 @@ object Day24 : DayOf2015(24) {
   override fun first(data: String): Any? {
     val sum = weights.sum() / 3
     return subsets(sum, weights)
-        .groupBy { it.size }
-        .minByOrNull { it.key }
-        ?.value
-        ?.map { it.fold(1L, Long::times) }
-        ?.minOrNull()
+      .groupBy { it.size }
+      .minByOrNull { it.key }
+      ?.value
+      ?.map { it.fold(1L, Long::times) }
+      ?.minOrNull()
   }
 
   override fun second(data: String): Any? {
     val sum = weights.sum() / 4
     return subsets(sum, weights)
-        .groupBy { it.size }
-        .minByOrNull { it.key }
-        ?.value
-        ?.map { it.fold(1L, Long::times) }
-        ?.minOrNull()
+      .groupBy { it.size }
+      .minByOrNull { it.key }
+      ?.value
+      ?.map { it.fold(1L, Long::times) }
+      ?.minOrNull()
   }
 }
 

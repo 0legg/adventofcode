@@ -10,9 +10,9 @@ object Day18 : DayOf2017(18) {
   override fun first(data: String): Any? {
     var sound = 0L
     val ops = data
-        .trimIndent()
-        .lines()
-        .map { it.split(" ") }
+      .trimIndent()
+      .lines()
+      .map { it.split(" ") }
 
     var position = 0
     val regs = mutableMapOf<String, Long>()
@@ -25,7 +25,7 @@ object Day18 : DayOf2017(18) {
         "add" -> regs[op[1]] = extract(regs, op[1]) + extract(regs, op[2])
         "mul" -> regs[op[1]] = extract(regs, op[1]) * extract(regs, op[2])
         "mod" -> regs[op[1]] = (extract(regs, op[1]) % extract(regs, op[2]) +
-            extract(regs, op[2])) % extract(regs, op[2])
+          extract(regs, op[2])) % extract(regs, op[2])
         "rcv" -> if (extract(regs, op[1]) != 0L) return sound
         "jgz" -> if (extract(regs, op[1]) > 0L) position += (extract(regs, op[2]) - 1).toInt()
       }
@@ -44,8 +44,8 @@ object Day18 : DayOf2017(18) {
     val locked = Array(2) { false }
     val stopped = Array(2) { false }
     val ops = data.trimIndent()
-        .lines()
-        .map { it.split(" ") }
+      .lines()
+      .map { it.split(" ") }
 
     while (!locked[active] && !stopped[active]) {
       if (position[active] !in ops.indices) {
@@ -73,7 +73,7 @@ object Day18 : DayOf2017(18) {
         }
         "mod" -> {
           regs[active][op[1]] = (extract(regs[active], op[1]) % extract(regs[active], op[2]) +
-              extract(regs[active], op[2])) % extract(regs[active], op[2]); 1
+            extract(regs[active], op[2])) % extract(regs[active], op[2]); 1
         }
         "rcv" -> if (stacks[active].isNotEmpty()) {
           regs[active][op[1]] = stacks[active].removeFirst()

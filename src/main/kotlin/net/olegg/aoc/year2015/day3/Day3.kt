@@ -13,10 +13,10 @@ import net.olegg.aoc.year2015.DayOf2015
  */
 object Day3 : DayOf2015(3) {
   private val mapping = mapOf(
-      '<' to L,
-      '>' to R,
-      '^' to U,
-      'v' to D
+    '<' to L,
+    '>' to R,
+    '^' to U,
+    'v' to D
   )
   private val moves = data.map { mapping[it]?.step ?: Vector2D() }
 
@@ -26,8 +26,8 @@ object Day3 : DayOf2015(3) {
 
   override fun second(data: String): Any? {
     val (even, odd) = moves
-        .withIndex()
-        .partition { it.index % 2 == 0 }
+      .withIndex()
+      .partition { it.index % 2 == 0 }
     return (visit(even.map { it.value }) + visit(odd.map { it.value })).size
   }
 

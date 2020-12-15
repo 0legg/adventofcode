@@ -15,15 +15,15 @@ object Day22 : DayOf2015(22) {
 
   private val me = Triple(HP, ARMOR, MANA)
   private val boss = data
-      .trim()
-      .lines()
-      .map { it.substringAfterLast(": ").toInt() }
-      .let { it[0] to it[1] }
+    .trim()
+    .lines()
+    .map { it.substringAfterLast(": ").toInt() }
+    .let { it[0] to it[1] }
 
   data class Spell(
-      val cost: Int,
-      val duration: Int,
-      val action: (Pair<Triple<Int, Int, Int>, Pair<Int, Int>>) -> Pair<Triple<Int, Int, Int>, Pair<Int, Int>>
+    val cost: Int,
+    val duration: Int,
+    val action: (Pair<Triple<Int, Int, Int>, Pair<Int, Int>>) -> Pair<Triple<Int, Int, Int>, Pair<Int, Int>>
   )
 
   private val magicMissile = Spell(53, 1) { (me, boss) ->
@@ -52,11 +52,11 @@ object Day22 : DayOf2015(22) {
   private val spells = listOf(magicMissile, drain, shield, poison, recharge)
 
   data class Game(
-      val me: Triple<Int, Int, Int>,
-      val boss: Pair<Int, Int>,
-      val spells: Map<Spell, Int> = mapOf(),
-      val mana: Int = 0,
-      val myMove: Boolean = true
+    val me: Triple<Int, Int, Int>,
+    val boss: Pair<Int, Int>,
+    val spells: Map<Spell, Int> = mapOf(),
+    val mana: Int = 0,
+    val myMove: Boolean = true
   )
 
   fun countMana(mySpells: List<Spell>, bossSpells: List<Spell>): Int {
@@ -66,14 +66,14 @@ object Day22 : DayOf2015(22) {
       val game = queue.removeFirst()
 
       val states = game.spells.keys
-          .fold(game.me to game.boss) { acc, spell -> spell.action(acc) }
-          .let { state ->
-            if (game.spells[shield] != 1) {
-              state
-            } else {
-              state.copy(first = state.first.copy(second = 0))
-            }
+        .fold(game.me to game.boss) { acc, spell -> spell.action(acc) }
+        .let { state ->
+          if (game.spells[shield] != 1) {
+            state
+          } else {
+            state.copy(first = state.first.copy(second = 0))
           }
+        }
 
       if (states.first.first <= 0) {
         continue
@@ -83,25 +83,25 @@ object Day22 : DayOf2015(22) {
         continue
       }
       val activeSpells = game.spells
-          .mapValues { it.value - 1 }
-          .filterValues { it > 0 }
+        .mapValues { it.value - 1 }
+        .filterValues { it > 0 }
 
       val spells = if (game.myMove) {
         mySpells
-            .filter { it.cost <= states.first.third }
-            .filterNot { it in activeSpells }
-            .filter { game.mana + it.cost < best }
+          .filter { it.cost <= states.first.third }
+          .filterNot { it in activeSpells }
+          .filter { game.mana + it.cost < best }
       } else {
         bossSpells
       }
 
       queue += spells.map { spell ->
         game.copy(
-            me = states.first.copy(third = states.first.third - spell.cost),
-            boss = states.second,
-            spells = activeSpells + (spell to spell.duration),
-            mana = game.mana + spell.cost,
-            myMove = !game.myMove
+          me = states.first.copy(third = states.first.third - spell.cost),
+          boss = states.second,
+          spells = activeSpells + (spell to spell.duration),
+          mana = game.mana + spell.cost,
+          myMove = !game.myMove
         )
       }
     }

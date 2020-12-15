@@ -16,13 +16,13 @@ import java.util.PriorityQueue
 object Day18 : DayOf2019(18) {
   override fun first(data: String): Any? {
     val map = data
-        .trim()
-        .lines()
-        .map { it.toList() }
+      .trim()
+      .lines()
+      .map { it.toList() }
 
     val keys = (('a'..'z') + '@')
-        .map { it to (map.find(it) ?: throw IllegalStateException()) }
-        .toMap()
+      .map { it to (map.find(it) ?: throw IllegalStateException()) }
+      .toMap()
     val routes = mutableMapOf<Char, MutableMap<Char, Pair<Int, BitSet>>>()
 
     keys.entries.forEach { (key, position) ->
@@ -32,24 +32,24 @@ object Day18 : DayOf2019(18) {
       while (queue.isNotEmpty()) {
         val (curr, steps, doors) = queue.removeFirst()
         Neighbors4.map { it.step + curr }
-            .filter { map[it] != '#' }
-            .filter { it !in visited }
-            .forEach { next ->
-              visited += next
-              when (val char = map[next]!!) {
-                '.', '#' -> {
-                  queue += Triple(next, steps + 1, doors)
-                }
-                in 'a'..'z' -> {
-                  routes.getOrPut(key) { mutableMapOf() }[char] = steps + 1 to doors
-                  queue += Triple(next, steps + 1, doors)
-                }
-                in 'A'..'Z' -> {
-                  val newDoors = doors.get(0, 26).apply { set(char - 'A') }
-                  queue += Triple(next, steps + 1, newDoors)
-                }
+          .filter { map[it] != '#' }
+          .filter { it !in visited }
+          .forEach { next ->
+            visited += next
+            when (val char = map[next]!!) {
+              '.', '#' -> {
+                queue += Triple(next, steps + 1, doors)
+              }
+              in 'a'..'z' -> {
+                routes.getOrPut(key) { mutableMapOf() }[char] = steps + 1 to doors
+                queue += Triple(next, steps + 1, doors)
+              }
+              in 'A'..'Z' -> {
+                val newDoors = doors.get(0, 26).apply { set(char - 'A') }
+                queue += Triple(next, steps + 1, newDoors)
               }
             }
+          }
       }
     }
 
@@ -65,31 +65,31 @@ object Day18 : DayOf2019(18) {
       }
 
       routes[config.char]
-          .orEmpty()
-          .asSequence()
-          .filterNot { config.keys[it.key - 'a'] }
-          .filter { (_, route) ->
-            val doors = route.second
-            return@filter (0 until 26).none { doors[it] && !config.keys[it] }
+        .orEmpty()
+        .asSequence()
+        .filterNot { config.keys[it.key - 'a'] }
+        .filter { (_, route) ->
+          val doors = route.second
+          return@filter (0 until 26).none { doors[it] && !config.keys[it] }
+        }
+        .map { (next, route) ->
+          return@map Config(
+            char = next,
+            steps = config.steps + route.first,
+            keys = config.keys.get(0, 26).apply { set(next - 'a') }
+          )
+        }
+        .filter { it.steps < best }
+        .filter { it.steps < visited.getOrDefault(it.char to it.keys, Int.MAX_VALUE) }
+        .forEach {
+          visited[it.char to it.keys] = it.steps
+          if (it.keys.cardinality() == 26) {
+            best = minOf(best, it.steps)
+            queue.removeIf { config -> config.steps >= best }
+          } else {
+            queue.offer(it)
           }
-          .map { (next, route) ->
-            return@map Config(
-                char = next,
-                steps = config.steps + route.first,
-                keys = config.keys.get(0, 26).apply { set(next - 'a') }
-            )
-          }
-          .filter { it.steps < best }
-          .filter { it.steps < visited.getOrDefault(it.char to it.keys, Int.MAX_VALUE) }
-          .forEach {
-            visited[it.char to it.keys] = it.steps
-            if (it.keys.cardinality() == 26) {
-              best = minOf(best, it.steps)
-              queue.removeIf { config -> config.steps >= best }
-            } else {
-              queue.offer(it)
-            }
-          }
+        }
     }
 
     return best
@@ -97,9 +97,9 @@ object Day18 : DayOf2019(18) {
 
   override fun second(data: String): Any? {
     val map = data
-        .trim()
-        .lines()
-        .map { it.toMutableList() }
+      .trim()
+      .lines()
+      .map { it.toMutableList() }
     val start = map.find('@') ?: throw IllegalStateException()
     (-1..1).forEach { y ->
       (-1..1).forEach { x ->
@@ -114,8 +114,8 @@ object Day18 : DayOf2019(18) {
     val bots = "@$%&".toList()
 
     val keys = (('a'..'z') + bots)
-        .map { it to (map.find(it) ?: throw IllegalStateException()) }
-        .toMap()
+      .map { it to (map.find(it) ?: throw IllegalStateException()) }
+      .toMap()
     val routes = mutableMapOf<Char, MutableMap<Char, Pair<Int, BitSet>>>()
 
     keys.entries.forEach { (key, position) ->
@@ -125,24 +125,24 @@ object Day18 : DayOf2019(18) {
       while (queue.isNotEmpty()) {
         val (curr, steps, doors) = queue.removeFirst()
         Neighbors4.map { it.step + curr }
-            .filter { map[it] != '#' }
-            .filter { it !in visited }
-            .forEach { next ->
-              visited += next
-              when (val char = map[next]!!) {
-                '.', in bots -> {
-                  queue += Triple(next, steps + 1, doors)
-                }
-                in 'a'..'z' -> {
-                  routes.getOrPut(key) { mutableMapOf() }[char] = steps + 1 to doors
-                  queue += Triple(next, steps + 1, doors)
-                }
-                in 'A'..'Z' -> {
-                  val newDoors = doors.get(0, 26).apply { set(char - 'A') }
-                  queue += Triple(next, steps + 1, newDoors)
-                }
+          .filter { map[it] != '#' }
+          .filter { it !in visited }
+          .forEach { next ->
+            visited += next
+            when (val char = map[next]!!) {
+              '.', in bots -> {
+                queue += Triple(next, steps + 1, doors)
+              }
+              in 'a'..'z' -> {
+                routes.getOrPut(key) { mutableMapOf() }[char] = steps + 1 to doors
+                queue += Triple(next, steps + 1, doors)
+              }
+              in 'A'..'Z' -> {
+                val newDoors = doors.get(0, 26).apply { set(char - 'A') }
+                queue += Triple(next, steps + 1, newDoors)
               }
             }
+          }
       }
     }
 
@@ -158,47 +158,47 @@ object Day18 : DayOf2019(18) {
       }
 
       config.bots
-          .toList()
-          .flatMap { key -> routes[key].orEmpty().map { Triple(key, it.key, it.value) } }
-          .asSequence()
-          .filterNot { config.keys[it.second - 'a'] }
-          .filter { (_, _, route) ->
-            val doors = route.second
-            return@filter (0 until 26).none { doors[it] && !config.keys[it] }
+        .toList()
+        .flatMap { key -> routes[key].orEmpty().map { Triple(key, it.key, it.value) } }
+        .asSequence()
+        .filterNot { config.keys[it.second - 'a'] }
+        .filter { (_, _, route) ->
+          val doors = route.second
+          return@filter (0 until 26).none { doors[it] && !config.keys[it] }
+        }
+        .map { (curr, next, route) ->
+          return@map MultiConfig(
+            bots = config.bots.replace(curr, next),
+            steps = config.steps + route.first,
+            keys = config.keys.get(0, 26).apply { set(next - 'a') }
+          )
+        }
+        .filter { it.steps < best }
+        .filter { it.steps < visited.getOrDefault(it.bots to it.keys, Int.MAX_VALUE) }
+        .forEach {
+          visited[it.bots to it.keys] = it.steps
+          if (it.keys.cardinality() == 26) {
+            best = minOf(best, it.steps)
+            queue.removeIf { config -> config.steps >= best }
+          } else {
+            queue.offer(it)
           }
-          .map { (curr, next, route) ->
-            return@map MultiConfig(
-                bots = config.bots.replace(curr, next),
-                steps = config.steps + route.first,
-                keys = config.keys.get(0, 26).apply { set(next - 'a') }
-            )
-          }
-          .filter { it.steps < best }
-          .filter { it.steps < visited.getOrDefault(it.bots to it.keys, Int.MAX_VALUE) }
-          .forEach {
-            visited[it.bots to it.keys] = it.steps
-            if (it.keys.cardinality() == 26) {
-              best = minOf(best, it.steps)
-              queue.removeIf { config -> config.steps >= best }
-            } else {
-              queue.offer(it)
-            }
-          }
+        }
     }
 
     return best
   }
 
   data class Config(
-      val char: Char = '@',
-      val steps: Int = 0,
-      val keys: BitSet = BitSet(26)
+    val char: Char = '@',
+    val steps: Int = 0,
+    val keys: BitSet = BitSet(26)
   )
 
   data class MultiConfig(
-      val bots: String = "@$%&",
-      val steps: Int = 0,
-      val keys: BitSet = BitSet(26)
+    val bots: String = "@$%&",
+    val steps: Int = 0,
+    val keys: BitSet = BitSet(26)
   )
 }
 

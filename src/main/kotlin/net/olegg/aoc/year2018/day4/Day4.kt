@@ -12,21 +12,21 @@ import java.time.temporal.ChronoUnit
 object Day4 : DayOf2018(4) {
   override fun first(data: String): Any? {
     val events = data
-        .trim()
-        .lines()
-        .mapNotNull { Event.fromString(it) }
-        .sortedBy { it.time }
-        .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
-          if (event.id == -1) event.copy(id = prev.id) else event
-        }
-        .drop(1)
+      .trim()
+      .lines()
+      .mapNotNull { Event.fromString(it) }
+      .sortedBy { it.time }
+      .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
+        if (event.id == -1) event.copy(id = prev.id) else event
+      }
+      .drop(1)
 
     val sleeps = events
-        .zipWithNext { prev, curr ->
-          if (prev.type == Event.Type.SLEEP) Triple(prev.id, prev.time, curr.time) else null
-        }
-        .filterNotNull()
-        .groupBy { it.first }
+      .zipWithNext { prev, curr ->
+        if (prev.type == Event.Type.SLEEP) Triple(prev.id, prev.time, curr.time) else null
+      }
+      .filterNotNull()
+      .groupBy { it.first }
 
     val sleeper = sleeps.maxByOrNull { entry ->
       entry.value.sumBy { it.second.until(it.third, ChronoUnit.MINUTES).toInt() }
@@ -44,21 +44,21 @@ object Day4 : DayOf2018(4) {
 
   override fun second(data: String): Any? {
     val events = data
-        .trim()
-        .lines()
-        .mapNotNull { Event.fromString(it) }
-        .sortedBy { it.time }
-        .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
-          if (event.id == -1) event.copy(id = prev.id) else event
-        }
-        .drop(1)
+      .trim()
+      .lines()
+      .mapNotNull { Event.fromString(it) }
+      .sortedBy { it.time }
+      .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
+        if (event.id == -1) event.copy(id = prev.id) else event
+      }
+      .drop(1)
 
     val sleeps = events
-        .zipWithNext { prev, curr ->
-          if (prev.type == Event.Type.SLEEP) Triple(prev.id, prev.time, curr.time) else null
-        }
-        .filterNotNull()
-        .groupBy { it.first }
+      .zipWithNext { prev, curr ->
+        if (prev.type == Event.Type.SLEEP) Triple(prev.id, prev.time, curr.time) else null
+      }
+      .filterNotNull()
+      .groupBy { it.first }
 
     val freqs = sleeps.mapValues { entry ->
       val minutes = IntArray(60)
@@ -69,10 +69,10 @@ object Day4 : DayOf2018(4) {
     }
 
     return freqs
-        .maxByOrNull { it.value.maxOrNull() ?: 0 }
-        ?.let { sleeper ->
-          sleeper.key * (sleeper.value.withIndex().maxByOrNull { it.value }?.index ?: 0)
-        }
+      .maxByOrNull { it.value.maxOrNull() ?: 0 }
+      ?.let { sleeper ->
+        sleeper.key * (sleeper.value.withIndex().maxByOrNull { it.value }?.index ?: 0)
+      }
   }
 
   data class Event(val id: Int, val time: LocalDateTime, val type: Type) {

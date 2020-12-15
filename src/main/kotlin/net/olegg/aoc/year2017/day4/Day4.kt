@@ -9,21 +9,21 @@ import net.olegg.aoc.year2017.DayOf2017
 object Day4 : DayOf2017(4) {
   override fun first(data: String): Any? {
     return data
-        .trim()
-        .lines()
-        .map { it.split(" ") }
-        .filter { it.size == it.toSet().size }
-        .count()
+      .trim()
+      .lines()
+      .map { it.split(" ") }
+      .filter { it.size == it.toSet().size }
+      .count()
   }
 
   override fun second(data: String): Any? {
     return data
-        .trim()
-        .lines()
-        .map { it.split(" ") }
-        .map { it.map { String(it.toCharArray().sortedArray()) } }
-        .filter { it.size == it.toSet().size }
-        .count()
+      .trim()
+      .lines()
+      .map { it.split(" ") }
+      .map { it.map { String(it.toCharArray().sortedArray()) } }
+      .filter { it.size == it.toSet().size }
+      .count()
   }
 }
 

@@ -11,37 +11,37 @@ object Day15 : DayOf2015(15) {
   private val PATTERN = ".* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.*".toRegex()
 
   val items = data
-      .lines()
-      .mapNotNull { line ->
-        PATTERN.matchEntire(line)?.let { match ->
-          match.destructured.toList().map { it.toInt() }
-        }
+    .lines()
+    .mapNotNull { line ->
+      PATTERN.matchEntire(line)?.let { match ->
+        match.destructured.toList().map { it.toInt() }
       }
+    }
 
   override fun first(data: String): Any? {
     val itemsValues = (0..3).map { value -> items.map { it[value] } }
     return splitRange(items.size, spoons)
-        .map { split ->
-          itemsValues.map { item ->
-            item.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0)
-          }
+      .map { split ->
+        itemsValues.map { item ->
+          item.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0)
         }
-        .map { it.reduce { acc, value -> acc * value } }
-        .maxOrNull()
+      }
+      .map { it.reduce { acc, value -> acc * value } }
+      .maxOrNull()
   }
 
   override fun second(data: String): Any? {
     val itemsValues = (0..3).map { value -> items.map { it[value] } }
     val calories = items.map { it[4] }
     return splitRange(items.size, spoons)
-        .filter { it.mapIndexed { index, value -> calories[index] * value }.sum() == 500 }
-        .map { split ->
-          itemsValues.map { item ->
-            item.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0)
-          }
+      .filter { it.mapIndexed { index, value -> calories[index] * value }.sum() == 500 }
+      .map { split ->
+        itemsValues.map { item ->
+          item.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0)
         }
-        .map { it.reduce { acc, value -> acc * value } }
-        .maxOrNull()
+      }
+      .map { it.reduce { acc, value -> acc * value } }
+      .maxOrNull()
   }
 }
 

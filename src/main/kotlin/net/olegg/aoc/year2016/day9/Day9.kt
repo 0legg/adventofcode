@@ -25,12 +25,12 @@ object Day9 : DayOf2016(9) {
       val (matchStart, matchEnd) = (match.range.first to match.range.last)
       return@let if (unfold) {
         matchStart +
-            repeats * measure(data.substring(matchEnd + 1, matchEnd + 1 + length), true) +
-            measure(data.substring(matchEnd + 1 + length), true)
+          repeats * measure(data.substring(matchEnd + 1, matchEnd + 1 + length), true) +
+          measure(data.substring(matchEnd + 1 + length), true)
       } else {
         matchStart +
-            repeats * length +
-            measure(data.substring(matchEnd + 1 + length), false)
+          repeats * length +
+          measure(data.substring(matchEnd + 1 + length), false)
       }
     } ?: data.length.toLong()
   }

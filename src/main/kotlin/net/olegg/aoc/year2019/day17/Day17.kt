@@ -24,9 +24,9 @@ import net.olegg.aoc.year2019.Intcode
 object Day17 : DayOf2019(17) {
   override fun first(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     return runBlocking {
       val input = Channel<Long>(Channel.UNLIMITED)
@@ -39,11 +39,11 @@ object Day17 : DayOf2019(17) {
       }
 
       val map = output.toList()
-          .map { it.toChar() }
-          .joinToString(separator = "")
-          .trim()
-          .lines()
-          .map { it.toList() }
+        .map { it.toChar() }
+        .joinToString(separator = "")
+        .trim()
+        .lines()
+        .map { it.toList() }
 
       return@runBlocking map.mapIndexed { y, row ->
         row.mapIndexedNotNull { x, c ->
@@ -59,9 +59,9 @@ object Day17 : DayOf2019(17) {
 
   override fun second(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     val interactive = program.copyOf().also { it[0] = 2 }
 
@@ -76,11 +76,11 @@ object Day17 : DayOf2019(17) {
       }
 
       return@runBlocking output.toList()
-          .map { it.toChar() }
-          .joinToString(separator = "")
-          .trim()
-          .lines()
-          .map { it.toList() }
+        .map { it.toChar() }
+        .joinToString(separator = "")
+        .trim()
+        .lines()
+        .map { it.toList() }
     }
 
     return runBlocking {
@@ -116,19 +116,19 @@ object Day17 : DayOf2019(17) {
         return@generateSequence when {
           map[left] == '#' -> {
             val length = generateSequence(1) { it + 1 }
-                .map { from + leftStep.step * it }
-                .takeWhile { map[it] == '#' }
-                .toList()
-                .size
+              .map { from + leftStep.step * it }
+              .takeWhile { map[it] == '#' }
+              .toList()
+              .size
 
             Triple('L' to length, from + leftStep.step * length, leftStep)
           }
           map[right] == '#' -> {
             val length = generateSequence(1) { it + 1 }
-                .map { from + rightStep.step * it }
-                .takeWhile { map[it] == '#' }
-                .toList()
-                .size
+              .map { from + rightStep.step * it }
+              .takeWhile { map[it] == '#' }
+              .toList()
+              .size
 
             Triple('R' to length, from + rightStep.step * length, rightStep)
           }
@@ -140,9 +140,9 @@ object Day17 : DayOf2019(17) {
       val longProgram = movement.map { it.first }.drop(1).toList()
 
       val maybeAs = longProgram
-          .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
-          .drop(1)
-          .takeWhile { it.stringify().length <= 20 }
+        .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
+        .drop(1)
+        .takeWhile { it.stringify().length <= 20 }
 
       val dicts = maybeAs.flatMap { a ->
         val (alength, aposition) = generateSequence(0) { acc ->
@@ -153,10 +153,10 @@ object Day17 : DayOf2019(17) {
         }.toList().let { it.size - 1 to it.last() }
 
         val maybeBs = longProgram
-            .subList(aposition, longProgram.size)
-            .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
-            .drop(1)
-            .takeWhile { it.stringify().length <= 20 }
+          .subList(aposition, longProgram.size)
+          .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
+          .drop(1)
+          .takeWhile { it.stringify().length <= 20 }
 
         maybeBs.flatMap { b ->
           val (blength, bposition) = generateSequence(aposition) { acc ->
@@ -168,10 +168,10 @@ object Day17 : DayOf2019(17) {
           }.toList().let { alength + it.size - 1 to it.last() }
 
           val maybeCs = longProgram
-              .subList(bposition, longProgram.size)
-              .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
-              .drop(1)
-              .takeWhile { it.stringify().length <= 20 }
+            .subList(bposition, longProgram.size)
+            .scan(emptyList<Pair<Char, Int>>()) { acc, value -> acc + value }
+            .drop(1)
+            .takeWhile { it.stringify().length <= 20 }
 
           maybeCs.mapNotNull { c ->
             val (clength, cposition) = generateSequence(bposition) { acc ->
@@ -200,10 +200,10 @@ object Day17 : DayOf2019(17) {
       }.last().second.joinToString(separator = ",")
 
       listOf(encoding, a.stringify(), b.stringify(), c.stringify(), "n")
-          .joinToString(separator = "\n", postfix = "\n")
-          .forEach {
-            input.send(it.toLong())
-          }
+        .joinToString(separator = "\n", postfix = "\n")
+        .forEach {
+          input.send(it.toLong())
+        }
 
       return@runBlocking output.toList().last()
     }

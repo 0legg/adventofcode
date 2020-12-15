@@ -21,9 +21,9 @@ import net.olegg.aoc.year2019.Intcode
 object Day9 : DayOf2019(9) {
   override fun first(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     val result = runBlocking {
       val input = flowOf(1L).produceIn(GlobalScope)
@@ -43,9 +43,9 @@ object Day9 : DayOf2019(9) {
 
   override fun second(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     val result = runBlocking {
       val input = flowOf(2L).produceIn(GlobalScope)

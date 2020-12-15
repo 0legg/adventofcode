@@ -25,9 +25,9 @@ object Day6 : DayOf2017(6) {
         val bonus = max % curr.size
 
         return@mapIndexed add +
-            (if (index == position) 0 else value) +
-            (if (index in (position + 1)..(position + bonus)) 1 else 0) +
-            (if ((position + bonus >= curr.size) && (index in 0..(position + bonus) % curr.size)) 1 else 0)
+          (if (index == position) 0 else value) +
+          (if (index in (position + 1)..(position + bonus)) 1 else 0) +
+          (if ((position + bonus >= curr.size) && (index in 0..(position + bonus) % curr.size)) 1 else 0)
       }
     }
     return steps
@@ -50,9 +50,9 @@ object Day6 : DayOf2017(6) {
         val bonus = max % curr.size
 
         return@mapIndexed add +
-            (if (index == position) 0 else value) +
-            (if (index in (position + 1)..(position + bonus)) 1 else 0) +
-            (if ((position + bonus >= curr.size) && (index in 0..(position + bonus) % curr.size)) 1 else 0)
+          (if (index == position) 0 else value) +
+          (if (index in (position + 1)..(position + bonus)) 1 else 0) +
+          (if ((position + bonus >= curr.size) && (index in 0..(position + bonus) % curr.size)) 1 else 0)
       }
     }
     return steps - (seen[curr] ?: 0)

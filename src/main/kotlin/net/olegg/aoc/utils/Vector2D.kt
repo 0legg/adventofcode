@@ -11,8 +11,8 @@ import net.olegg.aoc.utils.Directions.UR
 import kotlin.math.abs
 
 data class Vector2D(
-    var x: Int = 0,
-    var y: Int = 0
+  var x: Int = 0,
+  var y: Int = 0,
 ) {
   operator fun plus(other: Vector2D) = Vector2D(x + other.x, y + other.y)
   operator fun plusAssign(other: Vector2D) = run { x += other.x; y += other.y }

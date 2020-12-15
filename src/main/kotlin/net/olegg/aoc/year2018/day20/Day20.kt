@@ -15,10 +15,10 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day20 : DayOf2018(20) {
   private val START = Vector2D()
   private val MOVES = mapOf(
-      'W' to L,
-      'E' to R,
-      'N' to U,
-      'S' to D
+    'W' to L,
+    'E' to R,
+    'N' to U,
+    'S' to D
   )
 
   override fun first(data: String): Any? {
@@ -59,10 +59,10 @@ object Day20 : DayOf2018(20) {
       val curr = queue.removeFirst()
       val dist = visited.getValue(curr) + 1
       val nexts = Neighbors4
-          .map { curr + it.step }
-          .filter { it in verts }
-          .filter { it !in visited }
-          .filter { curr to it in edges }
+        .map { curr + it.step }
+        .filter { it in verts }
+        .filter { it !in visited }
+        .filter { curr to it in edges }
 
       queue += nexts
       visited += nexts.map { it to dist }

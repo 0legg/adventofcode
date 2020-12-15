@@ -16,40 +16,40 @@ object Day16 : DayOf2018(16) {
   override fun first(data: String): Any? {
     val firstPart = data.split("\n\n\n\n")[0]
     val inputs = firstPart
-        .split("\n\n")
-        .map { sample ->
-          val (beforeRaw, commandRaw, afterRaw) = sample.split("\n")
-          val before = REGS_PATTERN.find(beforeRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
-          val command = OPS_PATTERN.find(commandRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
-          val after = REGS_PATTERN.find(afterRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
+      .split("\n\n")
+      .map { sample ->
+        val (beforeRaw, commandRaw, afterRaw) = sample.split("\n")
+        val before = REGS_PATTERN.find(beforeRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
+        val command = OPS_PATTERN.find(commandRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
+        val after = REGS_PATTERN.find(afterRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
 
-          return@map Triple(before, command, after)
-        }
+        return@map Triple(before, command, after)
+      }
 
     return inputs
-        .map { (before, command, after) ->
-          Ops.values().count { op ->
-            val beforeArray = before.toLongArray()
-            val vmcommand = Command(op, command[1], command[2], command[3])
-            vmcommand.apply(beforeArray)
-            return@count beforeArray.toList() == after
-          }
+      .map { (before, command, after) ->
+        Ops.values().count { op ->
+          val beforeArray = before.toLongArray()
+          val vmcommand = Command(op, command[1], command[2], command[3])
+          vmcommand.apply(beforeArray)
+          return@count beforeArray.toList() == after
         }
-        .count { it >= 3 }
+      }
+      .count { it >= 3 }
   }
 
   override fun second(data: String): Any? {
     val (firstPart, secondPart) = data.split("\n\n\n\n")
     val inputs = firstPart
-        .split("\n\n")
-        .map { sample ->
-          val (beforeRaw, commandRaw, afterRaw) = sample.split("\n")
-          val before = REGS_PATTERN.find(beforeRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
-          val command = OPS_PATTERN.find(commandRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
-          val after = REGS_PATTERN.find(afterRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
+      .split("\n\n")
+      .map { sample ->
+        val (beforeRaw, commandRaw, afterRaw) = sample.split("\n")
+        val before = REGS_PATTERN.find(beforeRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
+        val command = OPS_PATTERN.find(commandRaw)?.destructured?.toList()?.map { it.toInt() } ?: listOf(0, 0, 0, 0)
+        val after = REGS_PATTERN.find(afterRaw)?.destructured?.toList()?.map { it.toLong() } ?: EMPTY
 
-          return@map Triple(before, command, after)
-        }
+        return@map Triple(before, command, after)
+      }
 
     val possible = List(16) { Ops.values().toMutableSet() }
     inputs.forEach { (before, command, after) ->
@@ -63,15 +63,15 @@ object Day16 : DayOf2018(16) {
       if (possible[command[0]].size == 1) {
         val op = possible[command[0]].first()
         possible
-            .filterIndexed { index, _ -> index != command[0] }
-            .forEach { it.remove(op) }
+          .filterIndexed { index, _ -> index != command[0] }
+          .forEach { it.remove(op) }
       }
     }
     val ops = possible.map { it.first() }
 
     val program = secondPart
-        .split("\n")
-        .mapNotNull { line -> OPS_PATTERN.find(line)?.destructured?.toList()?.map { it.toInt() } }
+      .split("\n")
+      .mapNotNull { line -> OPS_PATTERN.find(line)?.destructured?.toList()?.map { it.toInt() } }
 
     val regs = EMPTY.toLongArray()
     program.forEach { command ->

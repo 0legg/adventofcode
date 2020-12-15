@@ -10,11 +10,11 @@ import java.math.BigInteger
  */
 object Day11 : DayOf2015(11) {
   private val MAPPINGS = ('a'..'z')
-      .mapIndexed { index, char -> char to BigInteger.valueOf(index.toLong()) }
-      .toMap()
+    .mapIndexed { index, char -> char to BigInteger.valueOf(index.toLong()) }
+    .toMap()
   private val UNMAPPINGS = ('a'..'z')
-      .mapIndexed { index, char -> BigInteger.valueOf(index.toLong()) to char }
-      .toMap()
+    .mapIndexed { index, char -> BigInteger.valueOf(index.toLong()) to char }
+    .toMap()
   private val TRIPLES = ('a'..'x').map { String(charArrayOf(it, it + 1, it + 2)) }
   private val SHIFT = BigInteger.valueOf(26)
 
@@ -37,23 +37,23 @@ object Day11 : DayOf2015(11) {
 
   fun password(password: String): String {
     return passwordList(password)
-        .drop(1)
-        .filterNot { string ->
-          "iol".any { string.contains(it) }
-        }
-        .filter { string ->
-          TRIPLES.any { string.contains(it) }
-        }
-        .filter { string ->
-          string
-              .toList()
-              .series()
-              .filter { it.size > 1 }
-              .flatten()
-              .joinToString(separator = "")
-              .length > 3
-        }
-        .first()
+      .drop(1)
+      .filterNot { string ->
+        "iol".any { string.contains(it) }
+      }
+      .filter { string ->
+        TRIPLES.any { string.contains(it) }
+      }
+      .filter { string ->
+        string
+          .toList()
+          .series()
+          .filter { it.size > 1 }
+          .flatten()
+          .joinToString(separator = "")
+          .length > 3
+      }
+      .first()
   }
 
   override fun first(data: String): Any? {

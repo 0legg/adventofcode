@@ -12,20 +12,20 @@ object Day10 : DayOf2018(10) {
 
   override fun first(data: String): Any? {
     var points = data
-        .trim()
-        .lines()
-        .mapNotNull { line ->
-          PATTERN.find(line)?.let { match ->
-            val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
-            return@let (x to y) to (vx to vy)
-          }
+      .trim()
+      .lines()
+      .mapNotNull { line ->
+        PATTERN.find(line)?.let { match ->
+          val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
+          return@let (x to y) to (vx to vy)
         }
+      }
 
     do {
       points = points.map { it.copy(first = it.first + it.second) }
       val height = points
-          .map { it.first.second }
-          .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
+        .map { it.first.second }
+        .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
     } while (height > HEIGHT)
 
     val coords = points.map { it.first }
@@ -48,21 +48,21 @@ object Day10 : DayOf2018(10) {
 
   override fun second(data: String): Any? {
     var points = data
-        .trim()
-        .lines()
-        .mapNotNull { line ->
-          PATTERN.find(line)?.let { match ->
-            val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
-            return@let (x to y) to (vx to vy)
-          }
+      .trim()
+      .lines()
+      .mapNotNull { line ->
+        PATTERN.find(line)?.let { match ->
+          val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
+          return@let (x to y) to (vx to vy)
         }
+      }
     var seconds = 0
     do {
       seconds++
       points = points.map { it.copy(first = it.first + it.second) }
       val height = points
-          .map { it.first.second }
-          .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
+        .map { it.first.second }
+        .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
     } while (height > HEIGHT)
 
     return seconds

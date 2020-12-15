@@ -9,10 +9,10 @@ import net.olegg.aoc.year2019.DayOf2019
 object Day6 : DayOf2019(6) {
   override fun first(data: String): Any? {
     val orbits = data
-        .trim()
-        .lines()
-        .map { line -> line.split(")").let { it.first() to it.last() } }
-        .toMutableList()
+      .trim()
+      .lines()
+      .map { line -> line.split(")").let { it.first() to it.last() } }
+      .toMutableList()
 
     val available = orbits.map { it.second }.toMutableSet()
     val counts = orbits.flatMap { it.toList() }.map { it to 0 }.toMap().toMutableMap()
@@ -30,10 +30,10 @@ object Day6 : DayOf2019(6) {
 
   override fun second(data: String): Any? {
     val orbits = data
-        .trim()
-        .lines()
-        .map { line -> line.split(")").let { it.last() to it.first() } }
-        .toMap()
+      .trim()
+      .lines()
+      .map { line -> line.split(")").let { it.last() to it.first() } }
+      .toMap()
 
     val you = mutableListOf("YOU")
     while (you.last() in orbits) {

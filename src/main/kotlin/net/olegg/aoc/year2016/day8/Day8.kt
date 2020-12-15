@@ -12,37 +12,37 @@ object Day8 : DayOf2016(8) {
   override fun first(data: String): Any? {
 
     return applyOperations(50, 6, data.trim().lines())
-        .sumBy { row -> row.count { it } }
+      .sumBy { row -> row.count { it } }
   }
 
   override fun second(data: String): Any? {
     return applyOperations(50, 6, data.trim().lines())
-        .joinToString(separator = "\n", prefix = "\n") { row ->
-          row.joinToString(separator = "") { if (it) "#" else "." }
-        }
+      .joinToString(separator = "\n", prefix = "\n") { row ->
+        row.joinToString(separator = "") { if (it) "#" else "." }
+      }
   }
 
   private fun applyOperations(width: Int, height: Int, ops: List<String>): Array<BooleanArray> {
     val screen = Array(height) { BooleanArray(width) }
     ops
-        .mapNotNull { PATTERN.matchEntire(it) }
-        .map { Triple(it.groupValues[1], it.groupValues[2].toInt(), it.groupValues[3].toInt()) }
-        .forEach { (command, first, second) ->
-          when (command) {
-            "rect " ->
-              (0 until second).forEach { y -> screen[y].fill(true, 0, first) }
-            "rotate row y=" -> {
-              val row = BooleanArray(width)
-              (0 until width).forEach { row[(it + second) % width] = screen[first][it] }
-              (0 until width).forEach { screen[first][it] = row[it] }
-            }
-            "rotate column x=" -> {
-              val column = BooleanArray(height)
-              (0 until height).forEach { column[(it + second) % height] = screen[it][first] }
-              (0 until height).forEach { screen[it][first] = column[it] }
-            }
+      .mapNotNull { PATTERN.matchEntire(it) }
+      .map { Triple(it.groupValues[1], it.groupValues[2].toInt(), it.groupValues[3].toInt()) }
+      .forEach { (command, first, second) ->
+        when (command) {
+          "rect " ->
+            (0 until second).forEach { y -> screen[y].fill(true, 0, first) }
+          "rotate row y=" -> {
+            val row = BooleanArray(width)
+            (0 until width).forEach { row[(it + second) % width] = screen[first][it] }
+            (0 until width).forEach { screen[first][it] = row[it] }
+          }
+          "rotate column x=" -> {
+            val column = BooleanArray(height)
+            (0 until height).forEach { column[(it + second) % height] = screen[it][first] }
+            (0 until height).forEach { screen[it][first] = column[it] }
           }
         }
+      }
 
     return screen
   }

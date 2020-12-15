@@ -14,8 +14,8 @@ import kotlin.math.abs
 object Day19 : DayOf2017(19) {
   override fun first(data: String): Any? {
     val map = data
-        .lines()
-        .map { it.toList() }
+      .lines()
+      .map { it.toList() }
 
     var pos = Vector2D(map[0].indexOfFirst { it == '|' }, 0)
     var dir = Vector2D(0, 1)
@@ -26,7 +26,7 @@ object Day19 : DayOf2017(19) {
         result.append(char)
       }
       val dirs = listOf(dir) +
-          Neighbors4.map { it.step }.filter { abs(it.x) != abs(dir.x) || abs(it.y) != abs(dir.y) }
+        Neighbors4.map { it.step }.filter { abs(it.x) != abs(dir.x) || abs(it.y) != abs(dir.y) }
       val newDir = dirs.firstOrNull { curr ->
         val next = pos + curr
         map.fit(next) && map[next] != ' '
@@ -43,8 +43,8 @@ object Day19 : DayOf2017(19) {
 
   override fun second(data: String): Any? {
     val map = data
-        .lines()
-        .map { it.toList() }
+      .lines()
+      .map { it.toList() }
 
     var pos = Vector2D(map[0].indexOfFirst { it == '|' }, 0)
     var dir = Vector2D(0, 1)
@@ -52,7 +52,7 @@ object Day19 : DayOf2017(19) {
     while (true) {
       steps += 1
       val dirs = listOf(dir) +
-          Neighbors4.map { it.step }.filter { abs(it.x) != abs(dir.x) || abs(it.y) != abs(dir.y) }
+        Neighbors4.map { it.step }.filter { abs(it.x) != abs(dir.x) || abs(it.y) != abs(dir.y) }
       val newDir = dirs.firstOrNull { curr ->
         val next = pos + curr
         map.fit(next) && map[next] != ' '
