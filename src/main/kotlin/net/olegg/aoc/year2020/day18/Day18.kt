@@ -12,6 +12,26 @@ object Day18 : DayOf2020(18) {
       .trim()
       .lines()
 
+    return solve(entries) { when(it) {
+      '*' -> 1
+      '+' -> 1
+      else -> -1
+    } }
+  }
+
+  override fun second(data: String): Any? {
+    val entries = data
+      .trim()
+      .lines()
+
+    return solve(entries) { when(it) {
+      '*' -> 1
+      '+' -> 2
+      else -> -1
+    } }
+  }
+
+  private fun solve(entries: List<String>, precedence: (Char) -> Int): Long {
     val values = entries.map { entry ->
       val numQueue = ArrayDeque<Char>()
       val opQueue = ArrayDeque<Char>()
@@ -19,7 +39,14 @@ object Day18 : DayOf2020(18) {
       entry.reversed().forEach { char ->
         when (char) {
           in '0'..'9' -> numQueue += char
-          '+', '*', ')' -> opQueue += char
+          ')' -> opQueue += char
+          '+', '*' -> {
+            val cp = precedence(char)
+            while (opQueue.isNotEmpty() && precedence(opQueue.last()) > cp) {
+              numQueue += opQueue.removeLast()
+            }
+            opQueue += char
+          }
           '(' -> {
             while (opQueue.last() != ')') {
               numQueue += opQueue.removeLast()
