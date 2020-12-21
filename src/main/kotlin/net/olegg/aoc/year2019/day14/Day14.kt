@@ -11,14 +11,14 @@ object Day14 : DayOf2019(14) {
 
   override fun first(data: String): Any? {
     val forms = data
-        .trim()
-        .lines()
-        .map { line ->
-          val raw = line.replace(" => ", ", ")
-            .split(", ")
-            .map { chunk -> chunk.split(" ").let { it.last() to it.first().toInt() } }
-          return@map raw.last().first to (raw.last().second to raw.dropLast(1))
-        }
+      .trim()
+      .lines()
+      .map { line ->
+        val raw = line.replace(" => ", ", ")
+          .split(", ")
+          .map { chunk -> chunk.split(" ").let { it.last() to it.first().toInt() } }
+        return@map raw.last().first to (raw.last().second to raw.dropLast(1))
+      }
 
     val nodes = forms.flatMap { (from, toList) -> toList.second.map { it.first } + from }.toSet()
     val edges = forms.flatMap { (from, toList) -> toList.second.map { from to it.first } }.toMutableSet()
@@ -54,14 +54,14 @@ object Day14 : DayOf2019(14) {
 
   override fun second(data: String): Any? {
     val forms = data
-        .trim()
-        .lines()
-        .map { line ->
-          val raw = line.replace(" => ", ", ")
-              .split(", ")
-              .map { chunk -> chunk.split(" ").let { it.last() to it.first().toLong() } }
-          return@map raw.last().first to (raw.last().second to raw.dropLast(1))
-        }
+      .trim()
+      .lines()
+      .map { line ->
+        val raw = line.replace(" => ", ", ")
+          .split(", ")
+          .map { chunk -> chunk.split(" ").let { it.last() to it.first().toLong() } }
+        return@map raw.last().first to (raw.last().second to raw.dropLast(1))
+      }
 
     val nodes = forms.flatMap { (from, toList) -> toList.second.map { it.first } + from }.toSet()
     val edges = forms.flatMap { (from, toList) -> toList.second.map { from to it.first } }.toMutableSet()

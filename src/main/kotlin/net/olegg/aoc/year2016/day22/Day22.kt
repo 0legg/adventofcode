@@ -11,49 +11,49 @@ object Day22 : DayOf2016(22) {
 
   override fun first(data: String): Any? {
     val machines = data
-        .lines()
-        .mapNotNull { line ->
-          pattern.matchEntire(line)
-              ?.groupValues
-              ?.let { values ->
-                values.subList(1, 6).map { it.toInt() }
-              }
-        }
+      .lines()
+      .mapNotNull { line ->
+        pattern.matchEntire(line)
+          ?.groupValues
+          ?.let { values ->
+            values.subList(1, 6).map { it.toInt() }
+          }
+      }
 
     return machines
-        .filter { it[3] != 0 }
-        .flatMap { a ->
-          machines.filter { it != a }
-              .filter { it[4] >= a[3] }
-              .map { b -> a to b }
-        }
-        .size
+      .filter { it[3] != 0 }
+      .flatMap { a ->
+        machines.filter { it != a }
+          .filter { it[4] >= a[3] }
+          .map { b -> a to b }
+      }
+      .size
   }
 
   override fun second(data: String): Any? {
     val machines = data
-        .lines()
-        .mapNotNull { line ->
-          pattern.matchEntire(line)
-              ?.groupValues
-              ?.let { values ->
-                values.subList(1, 6).map { it.toInt() }
-              }
-        }
+      .lines()
+      .mapNotNull { line ->
+        pattern.matchEntire(line)
+          ?.groupValues
+          ?.let { values ->
+            values.subList(1, 6).map { it.toInt() }
+          }
+      }
 
     return machines
-        .groupBy { it[1] }
-        .toSortedMap()
-        .map { (_, row) ->
-          row.sortedBy { it[0] }.joinToString(separator = "") { cell ->
-            when (cell[3]) {
-              0 -> "_"
-              in 1..100 -> "."
-              else -> "#"
-            }
+      .groupBy { it[1] }
+      .toSortedMap()
+      .map { (_, row) ->
+        row.sortedBy { it[0] }.joinToString(separator = "") { cell ->
+          when (cell[3]) {
+            0 -> "_"
+            in 1..100 -> "."
+            else -> "#"
           }
         }
-        .joinToString(separator = "\n", prefix = "\n")
+      }
+      .joinToString(separator = "\n", prefix = "\n")
   }
 }
 

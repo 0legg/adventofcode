@@ -9,11 +9,11 @@ import net.olegg.aoc.year2017.DayOf2017
 object Day1 : DayOf2017(1) {
   override fun first(data: String): Any? {
     return data.trim()
-        .let { it + it[0] }
-        .windowed(2)
-        .filter { it[0] == it[1] }
-        .map { Character.digit(it[0], 10) }
-        .sum()
+      .let { it + it[0] }
+      .windowed(2)
+      .filter { it[0] == it[1] }
+      .map { Character.digit(it[0], 10) }
+      .sum()
   }
 
   override fun second(data: String): Any? {
@@ -21,9 +21,9 @@ object Day1 : DayOf2017(1) {
     val shifted = data.substring(data.length / 2, data.length) + data.substring(0, data.length / 2)
 
     return source.zip(shifted)
-        .filter { it.first == it.second }
-        .map { Character.digit(it.first, 10) }
-        .sum()
+      .filter { it.first == it.second }
+      .map { Character.digit(it.first, 10) }
+      .sum()
   }
 }
 

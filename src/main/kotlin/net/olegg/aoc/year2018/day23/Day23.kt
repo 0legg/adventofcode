@@ -13,14 +13,14 @@ object Day23 : DayOf2018(23) {
 
   override fun first(data: String): Any? {
     val bots = data
-        .trim()
-        .lines()
-        .mapNotNull { line ->
-          PATTERN.matchEntire(line)?.let { match ->
-            val (x, y, z, r) = match.groupValues.drop(1).map { it.toLong() }
-            return@mapNotNull Bot(x, y, z, r)
-          }
+      .trim()
+      .lines()
+      .mapNotNull { line ->
+        PATTERN.matchEntire(line)?.let { match ->
+          val (x, y, z, r) = match.groupValues.drop(1).map { it.toLong() }
+          return@mapNotNull Bot(x, y, z, r)
         }
+      }
 
     val strong = bots.maxByOrNull { it: Bot -> it.r } ?: bots.first()
 
@@ -29,14 +29,14 @@ object Day23 : DayOf2018(23) {
 
   override fun second(data: String): Any? {
     val bots = data
-        .trim()
-        .lines()
-        .mapNotNull { line ->
-          PATTERN.matchEntire(line)?.let { match ->
-            val (x, y, z, r) = match.groupValues.drop(1).map { it.toLong() }
-            return@mapNotNull Bot(x, y, z, r)
-          }
+      .trim()
+      .lines()
+      .mapNotNull { line ->
+        PATTERN.matchEntire(line)?.let { match ->
+          val (x, y, z, r) = match.groupValues.drop(1).map { it.toLong() }
+          return@mapNotNull Bot(x, y, z, r)
         }
+      }
 
     var best = bots.count { it.distance(0, 0, 0) <= it.r } to 0L
     val minX = bots.map { it.x }.minOrNull() ?: 0
@@ -65,8 +65,8 @@ object Day23 : DayOf2018(23) {
         continue
       }
       val splits = box.split()
-          .map { newBox -> newBox to selected.count { it.distance(newBox) <= it.r } }
-          .filter { it.second >= best.first }
+        .map { newBox -> newBox to selected.count { it.distance(newBox) <= it.r } }
+        .filter { it.second >= best.first }
 
       queue.addAll(splits)
     }
@@ -75,10 +75,10 @@ object Day23 : DayOf2018(23) {
   }
 
   data class Bot(
-      val x: Long,
-      val y: Long,
-      val z: Long,
-      val r: Long
+    val x: Long,
+    val y: Long,
+    val z: Long,
+    val r: Long
   ) {
     fun distance(other: Bot): Long {
       return abs(x - other.x) + abs(y - other.y) + abs(z - other.z)
@@ -94,26 +94,26 @@ object Day23 : DayOf2018(23) {
   }
 
   data class Box(
-      val minX: Long,
-      val minY: Long,
-      val minZ: Long,
-      val maxX: Long,
-      val maxY: Long,
-      val maxZ: Long
+    val minX: Long,
+    val minY: Long,
+    val minZ: Long,
+    val maxX: Long,
+    val maxY: Long,
+    val maxZ: Long
   ) {
     fun split(): List<Box> {
       val midX = (minX + maxX) / 2
       val midY = (minY + maxY) / 2
       val midZ = (minZ + maxZ) / 2
       return listOf(
-          Box(minX, minY, minZ, midX, midY, midZ),
-          Box(midX + 1, minY, minZ, maxX, midY, midZ),
-          Box(minX, midY + 1, minZ, midX, maxY, midZ),
-          Box(midX + 1, midY + 1, minZ, maxX, maxY, midZ),
-          Box(minX, minY, midZ + 1, midX, midY, maxZ),
-          Box(midX + 1, minY, midZ + 1, maxX, midY, maxZ),
-          Box(minX, midY + 1, midZ + 1, midX, maxY, maxZ),
-          Box(midX + 1, midY + 1, midZ + 1, maxX, maxY, maxZ)
+        Box(minX, minY, minZ, midX, midY, midZ),
+        Box(midX + 1, minY, minZ, maxX, midY, midZ),
+        Box(minX, midY + 1, minZ, midX, maxY, midZ),
+        Box(midX + 1, midY + 1, minZ, maxX, maxY, midZ),
+        Box(minX, minY, midZ + 1, midX, midY, maxZ),
+        Box(midX + 1, minY, midZ + 1, maxX, midY, maxZ),
+        Box(minX, midY + 1, midZ + 1, midX, maxY, maxZ),
+        Box(midX + 1, midY + 1, midZ + 1, maxX, maxY, maxZ)
       )
     }
 

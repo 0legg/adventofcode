@@ -27,9 +27,10 @@ object Day22 : DayOf2017(22) {
       val newDir = (if (curr) CW[dir] else CCW[dir]) ?: dir
       map[pos] = !curr
       return@fold Triple(
-          pos + newDir.step,
-          newDir,
-          if (curr) state else state + 1)
+        pos + newDir.step,
+        newDir,
+        if (curr) state else state + 1
+      )
     }.third
   }
 
@@ -54,9 +55,10 @@ object Day22 : DayOf2017(22) {
       } ?: dir
       map[pos] = (curr + 1) % 4
       return@fold Triple(
-          pos + newDir.step,
-          newDir,
-          if (curr == 1) state + 1 else state)
+        pos + newDir.step,
+        newDir,
+        if (curr == 1) state + 1 else state
+      )
     }.third
   }
 }

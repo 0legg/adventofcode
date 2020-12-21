@@ -50,10 +50,14 @@ object Day23 : DayOf2015(23) {
         command.matches(JIE_MATCHER) -> {
           val match = JIE_MATCHER.find(command)?.groups
           when (match?.get(1)?.value) {
-            "a" -> state.copy(third = state.third +
-                if (state.first % 2 == 0) (match[2]?.value?.toInt() ?: 0) else 1)
-            "b" -> state.copy(third = state.third +
-                if (state.second % 2 == 0) (match[2]?.value?.toInt() ?: 0) else 1)
+            "a" -> state.copy(
+              third = state.third +
+                if (state.first % 2 == 0) (match[2]?.value?.toInt() ?: 0) else 1
+            )
+            "b" -> state.copy(
+              third = state.third +
+                if (state.second % 2 == 0) (match[2]?.value?.toInt() ?: 0) else 1
+            )
             else -> state
           }
         }
@@ -61,10 +65,14 @@ object Day23 : DayOf2015(23) {
         command.matches(JIO_MATCHER) -> {
           val match = JIO_MATCHER.find(command)?.groups
           when (match?.get(1)?.value) {
-            "a" -> state.copy(third = state.third +
-                if (state.first == 1) (match[2]?.value?.toInt() ?: 0) else 1)
-            "b" -> state.copy(third = state.third +
-                if (state.second == 1) (match[2]?.value?.toInt() ?: 0) else 1)
+            "a" -> state.copy(
+              third = state.third +
+                if (state.first == 1) (match[2]?.value?.toInt() ?: 0) else 1
+            )
+            "b" -> state.copy(
+              third = state.third +
+                if (state.second == 1) (match[2]?.value?.toInt() ?: 0) else 1
+            )
             else -> state
           }
         }

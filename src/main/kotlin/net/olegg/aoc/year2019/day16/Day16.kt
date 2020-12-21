@@ -10,26 +10,26 @@ import kotlin.math.abs
 object Day16 : DayOf2019(16) {
   override fun first(data: String): Any? {
     val input = data
-        .trim()
-        .map { it - '0' }
+      .trim()
+      .map { it - '0' }
 
     return (0 until 100)
-        .fold(input) { list, _ ->
-          list.indices.map { index ->
-            list.asSequence()
-                .zip(makePhase(index + 1)) { a, b -> a * b }
-                .sum()
-                .let { abs(it % 10) }
-          }
+      .fold(input) { list, _ ->
+        list.indices.map { index ->
+          list.asSequence()
+            .zip(makePhase(index + 1)) { a, b -> a * b }
+            .sum()
+            .let { abs(it % 10) }
         }
-        .take(8)
-        .joinToString(separator = "")
+      }
+      .take(8)
+      .joinToString(separator = "")
   }
 
   override fun second(data: String): Any? {
     val input = data
-        .trim()
-        .map { it - '0' }
+      .trim()
+      .map { it - '0' }
 
     val position = data.substring(0, 7).toInt()
 
@@ -42,13 +42,13 @@ object Day16 : DayOf2019(16) {
     val tail = largeInput.drop(position).toList().asReversed()
 
     return (0 until 100)
-        .fold(tail) { list, _ ->
-          list.runningReduce { acc, item -> acc + item }
-              .map { abs(it % 10) }
-        }
-        .takeLast(8)
-        .reversed()
-        .joinToString(separator = "")
+      .fold(tail) { list, _ ->
+        list.runningReduce { acc, item -> acc + item }
+          .map { abs(it % 10) }
+      }
+      .takeLast(8)
+      .reversed()
+      .joinToString(separator = "")
   }
 
   private val BASE_PHASE = listOf(0, 1, 0, -1)

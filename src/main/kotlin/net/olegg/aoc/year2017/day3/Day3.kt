@@ -48,8 +48,8 @@ object Day3 : DayOf2017(3) {
       }
 
       val value = (-1..1).flatMap { x -> (-1..1).map { y -> x to y } }
-          .mapNotNull { visited[position.first + it.first to position.second + it.second] }
-          .sum()
+        .mapNotNull { visited[position.first + it.first to position.second + it.second] }
+        .sum()
       current = position to value
       visited += current
     }

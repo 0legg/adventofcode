@@ -10,11 +10,11 @@ import net.olegg.aoc.year2017.DayOf2017
 object Day12 : DayOf2017(12) {
   override fun first(data: String): Any? {
     val nodes = data.trimIndent()
-        .lines()
-        .map { it.replace("[<\\->,]".toRegex(), "") }
-        .map { it.parseInts() }
-        .map { it[0] to it.subList(1, it.size).toSet() }
-        .toMap()
+      .lines()
+      .map { it.replace("[<\\->,]".toRegex(), "") }
+      .map { it.parseInts() }
+      .map { it[0] to it.subList(1, it.size).toSet() }
+      .toMap()
 
     val visited = mutableSetOf(0)
     val queue = ArrayDeque(listOf(0))
@@ -30,12 +30,12 @@ object Day12 : DayOf2017(12) {
 
   override fun second(data: String): Any? {
     val nodes = data.trimIndent()
-        .lines()
-        .map { it.replace("[<\\->,]".toRegex(), "") }
-        .map { it.parseInts() }
-        .map { it[0] to it.subList(1, it.size).toSet() }
-        .toMap()
-        .toMutableMap()
+      .lines()
+      .map { it.replace("[<\\->,]".toRegex(), "") }
+      .map { it.parseInts() }
+      .map { it[0] to it.subList(1, it.size).toSet() }
+      .toMap()
+      .toMutableMap()
 
     var components = 0
     while (nodes.isNotEmpty()) {

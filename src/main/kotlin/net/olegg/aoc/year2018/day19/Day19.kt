@@ -21,20 +21,20 @@ object Day19 : DayOf2018(19) {
 
   private fun solve(data: String, registers: List<Long>): Long {
     val pointer = data
-        .trim()
-        .lines()
-        .first()
-        .let { it.split(" ")[1].toIntOrNull() ?: 0 }
+      .trim()
+      .lines()
+      .first()
+      .let { it.split(" ")[1].toIntOrNull() ?: 0 }
     val program = data
-        .trim()
-        .lines()
-        .drop(1)
-        .mapNotNull { line ->
-          OPS_PATTERN.matchEntire(line)?.let { match ->
-            val (opRaw, aRaw, bRaw, cRaw) = match.destructured
-            return@mapNotNull Command(Ops.valueOf(opRaw.toUpperCase()), aRaw.toInt(), bRaw.toInt(), cRaw.toInt())
-          }
+      .trim()
+      .lines()
+      .drop(1)
+      .mapNotNull { line ->
+        OPS_PATTERN.matchEntire(line)?.let { match ->
+          val (opRaw, aRaw, bRaw, cRaw) = match.destructured
+          return@mapNotNull Command(Ops.valueOf(opRaw.toUpperCase()), aRaw.toInt(), bRaw.toInt(), cRaw.toInt())
         }
+      }
 
     val regs = registers.toLongArray()
 

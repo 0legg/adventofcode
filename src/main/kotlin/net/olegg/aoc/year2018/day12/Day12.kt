@@ -17,8 +17,8 @@ object Day12 : DayOf2018(12) {
 
   private fun solve(data: String, gens: Long): Long {
     val initialStateRaw = data
-        .lines()[0]
-        .substringAfter(": ")
+      .lines()[0]
+      .substringAfter(": ")
 
     val initialShift = initialStateRaw.indexOf('#').toLong()
     val initialState = initialStateRaw.trim('.') to (0L to initialShift)
@@ -28,20 +28,20 @@ object Day12 : DayOf2018(12) {
     val states = mutableMapOf(initialState)
 
     val rules = data
-        .trim()
-        .lines()
-        .drop(2)
-        .map { line ->
-          line.split(" => ".toRegex()).let { it.first() to it.last() }
-        }
-        .toMap()
+      .trim()
+      .lines()
+      .drop(2)
+      .map { line ->
+        line.split(" => ".toRegex()).let { it.first() to it.last() }
+      }
+      .toMap()
 
     val finalState = (1..gens).fold(initialState) { state, gen ->
       val tempState = padding + state.first + padding
       val newStateRaw = tempState
-          .windowed(size = 5)
-          .map { rules.getOrDefault(it, '.') }
-          .joinToString(separator = "")
+        .windowed(size = 5)
+        .map { rules.getOrDefault(it, '.') }
+        .joinToString(separator = "")
       val shift = newStateRaw.indexOf('#') + state.second.second - 2
       val newState = newStateRaw.trim('.') to (gen to shift)
       if (newState.first in states) {
@@ -51,24 +51,24 @@ object Day12 : DayOf2018(12) {
         val aggregateShift = shift + cycleShift * ((gens - gen) / cycle)
         val tail = (gens - gen) % cycle
         val finalValue = states.entries
-            .find { it.value.first == oldGen + tail }
-            ?.toPair()
-            ?: "" to (0L to 0L)
+          .find { it.value.first == oldGen + tail }
+          ?.toPair()
+          ?: "" to (0L to 0L)
 
         val final = finalValue.first to (gens to aggregateShift + finalValue.second.second - oldShift)
         return final
-            .first
-            .mapIndexed { index, c -> if (c == '#') index + final.second.second else 0L }
-            .sum()
+          .first
+          .mapIndexed { index, c -> if (c == '#') index + final.second.second else 0L }
+          .sum()
       }
       states += newState
       newState
     }
 
     return finalState
-        .first
-        .mapIndexed { index, c -> if (c == '#') index + finalState.second.second else 0L }
-        .sum()
+      .first
+      .mapIndexed { index, c -> if (c == '#') index + finalState.second.second else 0L }
+      .sum()
   }
 }
 

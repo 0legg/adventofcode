@@ -17,9 +17,9 @@ import net.olegg.aoc.year2019.Intcode
 object Day19 : DayOf2019(19) {
   override fun first(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     return runBlocking {
       val output = Channel<Long>(Channel.UNLIMITED)
@@ -46,9 +46,9 @@ object Day19 : DayOf2019(19) {
 
   override fun second(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     return runBlocking {
       val stepRight = Vector2D(1, 0)

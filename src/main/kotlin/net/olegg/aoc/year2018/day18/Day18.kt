@@ -12,18 +12,18 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day18 : DayOf2018(18) {
   override fun first(data: String): Any? {
     val map = data
-        .trim()
-        .lines()
-        .map { it.toList() }
+      .trim()
+      .lines()
+      .map { it.toList() }
 
     return solve(map, 10)
   }
 
   override fun second(data: String): Any? {
     val map = data
-        .trim()
-        .lines()
-        .map { it.toList() }
+      .trim()
+      .lines()
+      .map { it.toList() }
 
     return solve(map, 1000000000)
   }
@@ -35,8 +35,8 @@ object Day18 : DayOf2018(18) {
         row.mapIndexed { x, c ->
           val pos = Vector2D(x, y)
           val adjacent = Neighbors8
-              .map { pos + it.step }
-              .mapNotNull { acc[it] }
+            .map { pos + it.step }
+            .mapNotNull { acc[it] }
           when (c) {
             '.' -> if (adjacent.count { it == '|' } >= 3) '|' else '.'
             '|' -> if (adjacent.count { it == '#' } >= 3) '#' else '|'
@@ -52,9 +52,9 @@ object Day18 : DayOf2018(18) {
         val tail = (minutes - head) % cycle
         val target = head + tail
         val final = cache
-            .filterValues { it == target }
-            .keys
-            .first()
+          .filterValues { it == target }
+          .keys
+          .first()
 
         return final.count { it == '#' } * final.count { it == '|' }
       }

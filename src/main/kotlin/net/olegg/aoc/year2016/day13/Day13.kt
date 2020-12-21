@@ -22,10 +22,10 @@ object Day13 : DayOf2016(13) {
       val (pos, step) = queue.removeFirst()
 
       val nexts = Neighbors4
-          .map { pos + it.step }
-          .filter { it.x >= 0 && it.y >= 0 }
-          .filter { it.isOpen(fav) }
-          .filterNot { it in known }
+        .map { pos + it.step }
+        .filter { it.x >= 0 && it.y >= 0 }
+        .filter { it.isOpen(fav) }
+        .filterNot { it in known }
 
       nexts.forEach { next ->
         known[next] = step + 1
@@ -48,10 +48,10 @@ object Day13 : DayOf2016(13) {
       val (pos, step) = queue.removeFirst()
 
       val nexts = Neighbors4
-          .map { pos + it.step }
-          .filter { it.x >= 0 && it.y >= 0 }
-          .filter { it.isOpen(fav) }
-          .filterNot { it in known }
+        .map { pos + it.step }
+        .filter { it.x >= 0 && it.y >= 0 }
+        .filter { it.isOpen(fav) }
+        .filterNot { it in known }
 
       nexts.forEach { next ->
         known[next] = step + 1
@@ -63,7 +63,7 @@ object Day13 : DayOf2016(13) {
   }
 
   private fun Vector2D.isOpen(fav: Int) =
-      Integer.bitCount(x * x + 3 * x + 2 * x * y + y + y * y + fav) % 2 == 0
+    Integer.bitCount(x * x + 3 * x + 2 * x * y + y + y * y + fav) % 2 == 0
 }
 
 fun main() = SomeDay.mainify(Day13)

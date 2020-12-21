@@ -11,10 +11,10 @@ object Day2 : DayOf2020(2) {
 
   override fun first(data: String): Any? {
     val values = data
-        .trim()
-        .lines()
-        .mapNotNull { PATTERN.find(it) }
-        .map { it.groupValues.drop(1) }
+      .trim()
+      .lines()
+      .mapNotNull { PATTERN.find(it) }
+      .map { it.groupValues.drop(1) }
 
     return values.count { (low, high, char, string) ->
       val lowInt = low.toInt()
@@ -26,10 +26,10 @@ object Day2 : DayOf2020(2) {
 
   override fun second(data: String): Any? {
     val values = data
-        .trim()
-        .lines()
-        .mapNotNull { PATTERN.find(it) }
-        .map { it.groupValues.drop(1) }
+      .trim()
+      .lines()
+      .mapNotNull { PATTERN.find(it) }
+      .map { it.groupValues.drop(1) }
 
     return values.count { (low, high, char, string) ->
       val lowInt = low.toInt() - 1

@@ -3,9 +3,9 @@ package net.olegg.aoc.utils
 import kotlin.math.abs
 
 data class Vector3D(
-    var x: Int = 0,
-    var y: Int = 0,
-    var z: Int = 0
+  var x: Int = 0,
+  var y: Int = 0,
+  var z: Int = 0,
 ) {
   operator fun plus(other: Vector3D) = Vector3D(x + other.x, y + other.y, z + other.z)
   operator fun plusAssign(other: Vector3D) = run { x += other.x; y += other.y; z += other.z }

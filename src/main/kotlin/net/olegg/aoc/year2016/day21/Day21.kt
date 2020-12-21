@@ -158,17 +158,17 @@ object Day21 : DayOf2016(21) {
 
   override fun first(data: String): Any? {
     val ops = data
-        .trim()
-        .lines()
-        .mapNotNull { Op.fromString(it) }
+      .trim()
+      .lines()
+      .mapNotNull { Op.fromString(it) }
     return scramble("abcdefgh", ops)
   }
 
   override fun second(data: String): Any? {
     val ops = data
-        .trim()
-        .lines()
-        .mapNotNull { Op.fromString(it) }
+      .trim()
+      .lines()
+      .mapNotNull { Op.fromString(it) }
     return unscramble("fbgdceah", ops)
   }
 

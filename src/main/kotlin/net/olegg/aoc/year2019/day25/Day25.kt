@@ -17,9 +17,9 @@ object Day25 : DayOf2019(25) {
   @ExperimentalCoroutinesApi
   override fun first(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     return runBlocking {
       val input = Channel<Long>(Channel.UNLIMITED)
@@ -39,8 +39,8 @@ object Day25 : DayOf2019(25) {
       do {
         val command = readLine().orEmpty()
         (command + "\n")
-            .map { it.toLong() }
-            .forEach { input.send(it) }
+          .map { it.toLong() }
+          .forEach { input.send(it) }
       } while (command != "!quit")
 
       return@runBlocking 0

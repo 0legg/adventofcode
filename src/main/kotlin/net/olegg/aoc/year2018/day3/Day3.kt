@@ -9,9 +9,9 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day3 : DayOf2018(3) {
   override fun first(data: String): Any? {
     val requests = data
-        .trim()
-        .lines()
-        .mapNotNull { Request.fromString(it) }
+      .trim()
+      .lines()
+      .mapNotNull { Request.fromString(it) }
     val width = requests.map { it.left + it.width }.maxOrNull() ?: 0
     val height = requests.map { it.top + it.height }.maxOrNull() ?: 0
 
@@ -30,21 +30,21 @@ object Day3 : DayOf2018(3) {
 
   override fun second(data: String): Any? {
     val requests = data
-        .trim()
-        .lines()
-        .mapNotNull { Request.fromString(it) }
+      .trim()
+      .lines()
+      .mapNotNull { Request.fromString(it) }
 
     return requests
-        .first { request -> requests.none { it.intersects(request) } }
-        .id
+      .first { request -> requests.none { it.intersects(request) } }
+      .id
   }
 
   data class Request(
-      val id: Int,
-      val left: Int,
-      val top: Int,
-      val width: Int,
-      val height: Int
+    val id: Int,
+    val left: Int,
+    val top: Int,
+    val width: Int,
+    val height: Int
   ) {
     companion object {
       private val PATTERN = "#(\\d+) @ (\\d+),(\\d+): (\\d+)x(\\d+)".toRegex()
@@ -53,11 +53,11 @@ object Day3 : DayOf2018(3) {
         return PATTERN.matchEntire(data)?.let { match ->
           val tokens = match.destructured.toList().map { it.toInt() }
           Request(
-              id = tokens[0],
-              left = tokens[1],
-              top = tokens[2],
-              width = tokens[3],
-              height = tokens[4]
+            id = tokens[0],
+            left = tokens[1],
+            top = tokens[2],
+            width = tokens[3],
+            height = tokens[4]
           )
         }
       }
@@ -65,10 +65,10 @@ object Day3 : DayOf2018(3) {
 
     fun intersects(other: Request): Boolean {
       return !((id == other.id) ||
-          (left + width <= other.left) ||
-          (other.left + other.width <= left) ||
-          (top + height <= other.top) ||
-          (other.top + other.height <= top))
+        (left + width <= other.left) ||
+        (other.left + other.width <= left) ||
+        (top + height <= other.top) ||
+        (other.top + other.height <= top))
     }
   }
 }

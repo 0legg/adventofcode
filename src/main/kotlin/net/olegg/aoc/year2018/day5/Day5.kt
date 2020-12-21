@@ -9,7 +9,7 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day5 : DayOf2018(5) {
   override fun first(data: String): Any? {
     val bad = ('a'..'z').map { a -> "$a${a.toUpperCase()}" } +
-        ('A'..'Z').map { a -> "$a${a.toLowerCase()}" }
+      ('A'..'Z').map { a -> "$a${a.toLowerCase()}" }
     var curr = data.trim()
     do {
       val prev = curr
@@ -21,21 +21,21 @@ object Day5 : DayOf2018(5) {
 
   override fun second(data: String): Any? {
     val bad = ('a'..'z').map { a -> "$a${a.toUpperCase()}" } +
-        ('A'..'Z').map { a -> "$a${a.toLowerCase()}" }
+      ('A'..'Z').map { a -> "$a${a.toLowerCase()}" }
 
     val source = data.trim()
     val filtered = ('a'..'z').map { a -> source.replace("$a", "").replace("${a.toUpperCase()}", "") }
 
     return filtered
-        .map { polymer ->
-          var curr = polymer
-          do {
-            val prev = curr
-            curr = bad.fold(curr) { acc, token -> acc.replace(token, "") }
-          } while (prev != curr)
-          return@map curr.length
-        }
-        .minOrNull()
+      .map { polymer ->
+        var curr = polymer
+        do {
+          val prev = curr
+          curr = bad.fold(curr) { acc, token -> acc.replace(token, "") }
+        } while (prev != curr)
+        return@map curr.length
+      }
+      .minOrNull()
   }
 }
 

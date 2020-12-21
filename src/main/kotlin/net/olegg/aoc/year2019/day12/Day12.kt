@@ -13,14 +13,14 @@ object Day12 : DayOf2019(12) {
   private val PATTERN = "<.=(-?\\d+), .=(-?\\d+), .=(-?\\d+)>".toRegex()
   override fun first(data: String): Any? {
     val initial = data
-        .trim()
-        .lines()
-        .mapNotNull { line ->
-          PATTERN.find(line)?.let { match ->
-            val (x, y, z) = match.destructured.toList().map { it.toInt() }
-            return@let Vector3D(x, y, z)
-          }
+      .trim()
+      .lines()
+      .mapNotNull { line ->
+        PATTERN.find(line)?.let { match ->
+          val (x, y, z) = match.destructured.toList().map { it.toInt() }
+          return@let Vector3D(x, y, z)
         }
+      }
 
     val planets = initial.map { it to Vector3D() }
     repeat(1000) {
@@ -41,14 +41,14 @@ object Day12 : DayOf2019(12) {
 
   override fun second(data: String): Any? {
     val initial = data
-        .trim()
-        .lines()
-        .mapNotNull { line ->
-          PATTERN.find(line)?.let { match ->
-            val (x, y, z) = match.destructured.toList().map { it.toInt() }
-            return@let Vector3D(x, y, z)
-          }
+      .trim()
+      .lines()
+      .mapNotNull { line ->
+        PATTERN.find(line)?.let { match ->
+          val (x, y, z) = match.destructured.toList().map { it.toInt() }
+          return@let Vector3D(x, y, z)
         }
+      }
 
     val planets = initial.map { it to Vector3D() }
     val footprints = List(3) { mutableMapOf<List<Int>, Long>() }

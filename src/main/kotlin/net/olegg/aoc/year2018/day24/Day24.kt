@@ -9,20 +9,20 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day24 : DayOf2018(24) {
   override fun first(data: String): Any? {
     val (immune, infection) = data
-        .trim()
-        .split("\n\n")
-        .map { it.lines().drop(1) }
-        .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
+      .trim()
+      .split("\n\n")
+      .map { it.lines().drop(1) }
+      .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
 
     return solve(immune + infection).sumBy { it.units.toInt() }
   }
 
   override fun second(data: String): Any? {
     val (immune, infection) = data
-        .trim()
-        .split("\n\n")
-        .map { it.lines().drop(1) }
-        .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
+      .trim()
+      .split("\n\n")
+      .map { it.lines().drop(1) }
+      .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
 
     generateSequence(0) { it + 1 }.forEach { boost ->
       val boosted = immune.map { it.copy(attack = it.attack + boost) }
@@ -44,40 +44,40 @@ object Day24 : DayOf2018(24) {
       val attacks = mutableMapOf<Pair<Int, Int>, Group?>()
 
       board
-          .sortedWith(
-              compareByDescending<Group> { it.power() }
-                  .thenByDescending { it.initiative }
-          )
-          .forEach { group ->
-            val targets = board
-                .filter { it.system != group.system }
-                .filterNot { it in attacks.values }
+        .sortedWith(
+          compareByDescending<Group> { it.power() }
+            .thenByDescending { it.initiative }
+        )
+        .forEach { group ->
+          val targets = board
+            .filter { it.system != group.system }
+            .filterNot { it in attacks.values }
 
-            targets
-                .map { it to group.damage(it) }
-                .filterNot { it.second == 0L }
-                .sortedWith(
-                    compareByDescending<Pair<Group, Long>> { it.second }
-                        .thenByDescending { it.first.power() }
-                        .thenByDescending { it.first.initiative }
-                )
-                .firstOrNull()
-                ?.let { attacks[group.system to group.index] = it.first }
-          }
+          targets
+            .map { it to group.damage(it) }
+            .filterNot { it.second == 0L }
+            .sortedWith(
+              compareByDescending<Pair<Group, Long>> { it.second }
+                .thenByDescending { it.first.power() }
+                .thenByDescending { it.first.initiative }
+            )
+            .firstOrNull()
+            ?.let { attacks[group.system to group.index] = it.first }
+        }
 
       val killed = board
-          .sortedByDescending { it.initiative }
-          .mapNotNull { group ->
-            group.takeIf { it.units > 0 }
-                ?.let {
-                  attacks[group.system to group.index]?.let { target ->
-                    (group.damage(target) / target.hit).also {
-                      target.units -= it
-                    }
-                  }
+        .sortedByDescending { it.initiative }
+        .mapNotNull { group ->
+          group.takeIf { it.units > 0 }
+            ?.let {
+              attacks[group.system to group.index]?.let { target ->
+                (group.damage(target) / target.hit).also {
+                  target.units -= it
                 }
-          }
-          .sum()
+              }
+            }
+        }
+        .sum()
 
       if (killed == 0L) {
         return emptyList()
@@ -88,19 +88,19 @@ object Day24 : DayOf2018(24) {
   }
 
   data class Group(
-      var units: Long,
-      val hit: Long,
-      val weak: Set<String>,
-      val immune: Set<String>,
-      val attack: Long,
-      val type: String,
-      val initiative: Int,
-      val index: Int,
-      val system: Int
+    var units: Long,
+    val hit: Long,
+    val weak: Set<String>,
+    val immune: Set<String>,
+    val attack: Long,
+    val type: String,
+    val initiative: Int,
+    val index: Int,
+    val system: Int
   ) {
     companion object {
       private val PATTERN = ("(-?\\d+) units each with (-?\\d+) hit points" +
-          " ?\\(?([^)]*)\\)? with an attack that does (-?\\d+) (\\w+) damage at initiative (-?\\d+)").toRegex()
+        " ?\\(?([^)]*)\\)? with an attack that does (-?\\d+) (\\w+) damage at initiative (-?\\d+)").toRegex()
 
       fun from(string: String, index: Int, system: Int): Group? {
         return PATTERN.matchEntire(string)?.let { match ->
@@ -108,27 +108,27 @@ object Day24 : DayOf2018(24) {
           val weak = mutableSetOf<String>()
           val immune = mutableSetOf<String>()
           specRaw
-              .takeIf { it.isNotBlank() }
-              ?.split("; ")
-              ?.forEach { spec ->
-                val (kind, typesRaw) = spec.split(" to ")
-                val types = typesRaw.split(", ")
-                when (kind) {
-                  "weak" -> weak += types
-                  "immune" -> immune += types
-                }
+            .takeIf { it.isNotBlank() }
+            ?.split("; ")
+            ?.forEach { spec ->
+              val (kind, typesRaw) = spec.split(" to ")
+              val types = typesRaw.split(", ")
+              when (kind) {
+                "weak" -> weak += types
+                "immune" -> immune += types
               }
+            }
 
           return@let Group(
-              units = unitsRaw.toLong(),
-              hit = hitRaw.toLong(),
-              weak = weak,
-              immune = immune,
-              attack = attackRaw.toLong(),
-              type = type,
-              initiative = initiativeRaw.toInt(),
-              index = index,
-              system = system
+            units = unitsRaw.toLong(),
+            hit = hitRaw.toLong(),
+            weak = weak,
+            immune = immune,
+            attack = attackRaw.toLong(),
+            type = type,
+            initiative = initiativeRaw.toInt(),
+            index = index,
+            system = system
           )
         }
       }

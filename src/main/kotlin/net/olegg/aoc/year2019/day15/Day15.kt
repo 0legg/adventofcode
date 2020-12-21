@@ -22,9 +22,9 @@ import net.olegg.aoc.year2019.Intcode
 object Day15 : DayOf2019(15) {
   override fun first(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     val map = mutableMapOf(Vector2D() to (1L to 0))
 
@@ -57,8 +57,8 @@ object Day15 : DayOf2019(15) {
                   map[newPosition] = result to curr.distance
                   stack += Move.Return(returns[curr.dir] ?: throw IllegalStateException())
                   stack += Neighbors4.filter { it != returns[curr.dir] }
-                      .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
-                      .map { Move.Forward(it, newPosition, curr.distance + 1) }
+                    .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
+                    .map { Move.Forward(it, newPosition, curr.distance + 1) }
                 }
               }
             }
@@ -72,9 +72,9 @@ object Day15 : DayOf2019(15) {
 
   override fun second(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     val map = mutableMapOf(Vector2D() to (1L to 0))
 
@@ -107,8 +107,8 @@ object Day15 : DayOf2019(15) {
                   map[newPosition] = result to curr.distance
                   stack += Move.Return(returns[curr.dir] ?: throw IllegalStateException())
                   stack += Neighbors4.filter { it != returns[curr.dir] }
-                      .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
-                      .map { Move.Forward(it, newPosition, curr.distance + 1) }
+                    .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
+                    .map { Move.Forward(it, newPosition, curr.distance + 1) }
                 }
               }
             }
@@ -123,12 +123,12 @@ object Day15 : DayOf2019(15) {
     while (queue.isNotEmpty()) {
       val curr = queue.removeFirst()
       Neighbors4.map { curr.first + it.step }
-          .filter { it !in filledMap }
-          .filter { map[it]?.first == 1L }
-          .forEach {
-            filledMap[it] = curr.second + 1
-            queue.add(it to curr.second + 1)
-          }
+        .filter { it !in filledMap }
+        .filter { map[it]?.first == 1L }
+        .forEach {
+          filledMap[it] = curr.second + 1
+          queue.add(it to curr.second + 1)
+        }
     }
 
     return filledMap.values.maxOrNull()
@@ -138,13 +138,13 @@ object Day15 : DayOf2019(15) {
     abstract val dir: Directions
 
     data class Forward(
-        override val dir: Directions,
-        val position: Vector2D,
-        val distance: Int
+      override val dir: Directions,
+      val position: Vector2D,
+      val distance: Int
     ) : Move()
 
     data class Return(
-        override val dir: Directions
+      override val dir: Directions
     ) : Move()
   }
 

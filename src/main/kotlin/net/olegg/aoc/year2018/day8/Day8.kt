@@ -10,16 +10,16 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day8 : DayOf2018(8) {
   override fun first(data: String): Any? {
     val numbers = data
-        .trim()
-        .parseInts()
+      .trim()
+      .parseInts()
 
     return sumMetadata(ArrayDeque(numbers))
   }
 
   override fun second(data: String): Any? {
     val numbers = data
-        .trim()
-        .parseInts()
+      .trim()
+      .parseInts()
 
     return sumValues(ArrayDeque(numbers))
   }
@@ -36,8 +36,8 @@ object Day8 : DayOf2018(8) {
     val metadata = data.removeFirst()
 
     val childValues = (0 until child)
-        .map { it to sumValues(data) }
-        .toMap()
+      .map { it to sumValues(data) }
+      .toMap()
 
     return (0 until metadata).sumBy {
       if (child > 0) {

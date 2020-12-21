@@ -13,15 +13,15 @@ object Day6 : DayOf2018(6) {
 
   override fun first(data: String): Any? {
     val points = data
-        .trim()
-        .lines()
-        .mapNotNull { line ->
-          PATTERN.matchEntire(line)
-              ?.destructured
-              ?.toList()
-              ?.map { it.toInt() }
-              ?.let { it.first() to it.last() }
-        }
+      .trim()
+      .lines()
+      .mapNotNull { line ->
+        PATTERN.matchEntire(line)
+          ?.destructured
+          ?.toList()
+          ?.map { it.toInt() }
+          ?.let { it.first() to it.last() }
+      }
 
     val left = points.minByOrNull { it.first }?.first ?: Int.MIN_VALUE
     val top = points.minByOrNull { it.second }?.second ?: Int.MIN_VALUE
@@ -29,35 +29,35 @@ object Day6 : DayOf2018(6) {
     val bottom = points.maxByOrNull { it: Pair<Int, Int> -> it.second }?.second ?: Int.MAX_VALUE
 
     val area = (top..bottom)
-        .flatMap { y ->
-          (left..right).mapNotNull { x ->
-            val dist = points.map { abs(x - it.first) + abs(y - it.second) }
-            val best = dist.minOrNull() ?: 0
-            if (dist.count { it == best } == 1) dist.indexOfFirst { it == best } else null
-          }
+      .flatMap { y ->
+        (left..right).mapNotNull { x ->
+          val dist = points.map { abs(x - it.first) + abs(y - it.second) }
+          val best = dist.minOrNull() ?: 0
+          if (dist.count { it == best } == 1) dist.indexOfFirst { it == best } else null
         }
+      }
 
     return area
-        .groupBy { it }
-        .mapValues { it.value.size }
-        .filterKeys { key ->
-          points[key].first !in listOf(left, right) && points[key].second !in listOf(top, bottom)
-        }
-        .maxByOrNull { it.value }
-        ?.value
+      .groupBy { it }
+      .mapValues { it.value.size }
+      .filterKeys { key ->
+        points[key].first !in listOf(left, right) && points[key].second !in listOf(top, bottom)
+      }
+      .maxByOrNull { it.value }
+      ?.value
   }
 
   override fun second(data: String): Any? {
     val points = data
-        .trim()
-        .lines()
-        .mapNotNull { line ->
-          PATTERN.matchEntire(line)
-              ?.destructured
-              ?.toList()
-              ?.map { it.toInt() }
-              ?.let { it.first() to it.last() }
-        }
+      .trim()
+      .lines()
+      .mapNotNull { line ->
+        PATTERN.matchEntire(line)
+          ?.destructured
+          ?.toList()
+          ?.map { it.toInt() }
+          ?.let { it.first() to it.last() }
+      }
 
     val left = points.minByOrNull { it.first }?.first ?: Int.MIN_VALUE
     val top = points.minByOrNull { it.second }?.second ?: Int.MIN_VALUE
@@ -67,12 +67,12 @@ object Day6 : DayOf2018(6) {
     val padding = TOTAL / points.size + 1
 
     return (top - padding..bottom + padding)
-        .flatMap { y ->
-          (left - padding..right + padding).map { x ->
-            points.sumBy { abs(x - it.first) + abs(y - it.second) }
-          }
+      .flatMap { y ->
+        (left - padding..right + padding).map { x ->
+          points.sumBy { abs(x - it.first) + abs(y - it.second) }
         }
-        .count { it < TOTAL }
+      }
+      .count { it < TOTAL }
   }
 }
 

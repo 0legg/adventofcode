@@ -17,9 +17,9 @@ import net.olegg.aoc.year2019.Intcode
 object Day23 : DayOf2019(23) {
   override fun first(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     return runBlocking {
       val inputs = List(50) { Channel<Long>(Channel.UNLIMITED) }
@@ -48,17 +48,17 @@ object Day23 : DayOf2019(23) {
           }
         }
         inputs
-            .filter { it.isEmpty }
-            .forEach { it.send(-1L) }
+          .filter { it.isEmpty }
+          .forEach { it.send(-1L) }
       }
     }
   }
 
   override fun second(data: String): Any? {
     val program = data
-        .trim()
-        .parseLongs(",")
-        .toLongArray()
+      .trim()
+      .parseLongs(",")
+      .toLongArray()
 
     return runBlocking {
       val inputs = List(50) { Channel<Long>(Channel.UNLIMITED) }
@@ -107,13 +107,13 @@ object Day23 : DayOf2019(23) {
             }
           } else {
             inputs
-                .filter { it.isEmpty }
-                .forEach { it.send(-1L) }
+              .filter { it.isEmpty }
+              .forEach { it.send(-1L) }
           }
         } else {
           inputs
-              .filter { it.isEmpty }
-              .forEach { it.send(-1L) }
+            .filter { it.isEmpty }
+            .forEach { it.send(-1L) }
         }
       }
     }
