@@ -41,6 +41,58 @@ object Day23 : DayOf2020(23) {
 
     return result.joinToString("")
   }
+
+  override fun second(data: String): Any? {
+    val initialItems = data
+      .trim()
+      .map { it.toString().toInt() }
+
+    val items = initialItems + ((initialItems.maxOf { it } + 1)..1_000_000).toList()
+
+    val min = items.minOf { it }
+    val max = items.maxOf { it }
+
+    val all = List(1_000_000 + 1) { Item(it) }
+
+    val queue = items.map { all[it] }
+    queue.zipWithNext().forEach { (prev, next) ->
+      prev.next = next.value
+    }
+    queue.last().next = queue.first().value
+
+    var head = queue.first()
+
+    repeat(10_000_000) {
+      val took = (0 until 3).scan(head) { acc, _ -> all[acc.next] }
+      val excluded = took.map { it.value }
+      var place = head.value - 1
+      while (place < min || place in excluded) {
+        place--
+        if (place < min) {
+          place = max
+        }
+      }
+
+      val broken = took[3].next
+      val insertion = all[place]
+      val next = insertion.next
+      insertion.next = took[1].value
+      took[3].next = next
+
+      head.next = broken
+      head = all[broken]
+    }
+
+    val first = all[all[1].next]
+    val second = all[first.next]
+
+    return first.value.toLong() * second.value.toLong()
+  }
+
+  data class Item(
+    val value: Int,
+    var next: Int = 0,
+  )
 }
 
 fun main() = SomeDay.mainify(Day23)
