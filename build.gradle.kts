@@ -4,7 +4,7 @@ plugins {
   kotlin("jvm")
   kotlin("plugin.serialization")
   idea
-  id("de.fuerstenau.buildconfig")
+  id("com.github.gmazzo.buildconfig")
   id("io.gitlab.arturbosch.detekt")
 }
 
@@ -12,11 +12,13 @@ group = "net.olegg.aoc"
 version = "2020.0.0"
 
 repositories {
+  mavenCentral()
   jcenter()
 }
 
 buildConfig {
-  buildConfigField("String", "COOKIE", project.findProperty("COOKIE")?.toString() ?: "Please provide cookie")
+  packageName(project.group.toString())
+  buildConfigField("String", "COOKIE", "\"${project.findProperty("COOKIE")?.toString() ?: "Please provide cookie"}\"")
 }
 
 detekt {
@@ -37,23 +39,23 @@ tasks.withType<KotlinCompile> {
   kotlinOptions {
     jvmTarget = "1.8"
     allWarningsAsErrors = true
-    freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+    freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
   }
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:_")
+  implementation(Kotlin.stdlib.jdk8)
   implementation("org.jetbrains.kotlin:kotlin-reflect:_")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:_")
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:_")
+  implementation(KotlinX.coroutines.core)
+  implementation(KotlinX.serialization.json)
 
-  implementation("io.ktor:ktor-client-cio:_")
+  implementation(Ktor.client.cio)
 
   implementation("org.funktionale:funktionale-memoization:_")
 
   detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
 
-  testImplementation("org.jetbrains.kotlin:kotlin-test:_")
-  testImplementation("org.spekframework.spek2:spek-dsl-jvm:_")
-  testRuntimeOnly("org.spekframework.spek2:spek-runner-junit5:_")
+  testImplementation(Kotlin.test)
+  testImplementation(Testing.spek.dsl.jvm)
+  testRuntimeOnly(Testing.spek.runner.junit5)
 }
