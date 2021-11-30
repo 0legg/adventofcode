@@ -3,7 +3,6 @@ package net.olegg.aoc.year2020.day16
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.parseLongs
-import net.olegg.aoc.utils.permutations
 import net.olegg.aoc.utils.toPair
 import net.olegg.aoc.year2020.DayOf2020
 

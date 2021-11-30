@@ -18,8 +18,8 @@ object Day22 : DayOf2018(22) {
     val t = Vector2D(tx, ty)
     val erosion = ErosionCache(depth.toLong(), t)
 
-    return (0..tx).sumBy { x ->
-      (0..ty).sumBy { y ->
+    return (0..tx).sumOf { x ->
+      (0..ty).sumOf { y ->
         erosion[Vector2D(x, y)].toInt() % 3
       }
     }

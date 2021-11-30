@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
   kotlin("jvm")
   kotlin("plugin.serialization")
-  idea
   id("com.github.gmazzo.buildconfig")
   id("io.gitlab.arturbosch.detekt")
 }
@@ -25,15 +24,16 @@ detekt {
   config = files("detekt.yml")
 }
 
-configure<JavaPluginConvention> {
-  sourceCompatibility = JavaVersion.VERSION_1_8
-}
-
 tasks.withType<KotlinCompile> {
   kotlinOptions {
     jvmTarget = "1.8"
     allWarningsAsErrors = true
-    freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+    freeCompilerArgs += listOf(
+      "-Xopt-in=kotlin.RequiresOptIn",
+      "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+      "-Xopt-in=kotlinx.coroutines.ObsoleteCoroutinesApi",
+      "-Xopt-in=kotlinx.coroutines.FlowPreview",
+    )
   }
 }
 

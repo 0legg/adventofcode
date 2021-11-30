@@ -34,7 +34,7 @@ object Day12 : DayOf2019(12) {
       planets.forEach { (position, speed) -> position += speed }
     }
 
-    return planets.sumBy {
+    return planets.sumOf {
       it.first.manhattan() * it.second.manhattan()
     }
   }

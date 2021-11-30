@@ -1,6 +1,5 @@
 package net.olegg.aoc.year2019.day13
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.toList
 import kotlinx.coroutines.coroutineScope
@@ -16,7 +15,6 @@ import kotlin.math.sign
 /**
  * See [Year 2019, Day 13](https://adventofcode.com/2019/day/13)
  */
-@ExperimentalCoroutinesApi
 object Day13 : DayOf2019(13) {
   private val SCORE = Vector2D(-1, 0)
 
@@ -125,5 +123,4 @@ object Day13 : DayOf2019(13) {
   }
 }
 
-@ExperimentalCoroutinesApi
 fun main() = SomeDay.mainify(Day13)

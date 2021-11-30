@@ -23,7 +23,7 @@ object Day17 : DayOf2016(17) {
       val (x, y, tail) = queue.removeAt(0)
 
       val next = moves
-        .zip("$data$tail".md5().substring(0, 4).toUpperCase().toList())
+        .zip("$data$tail".md5().substring(0, 4).uppercase().toList())
         .filter { it.second in "BCDEF" }
         .map { Triple(x + it.first.first, y + it.first.second, tail + it.first.third) }
         .filter { it.first in 1..4 && it.second in 1..4 }
@@ -57,7 +57,7 @@ object Day17 : DayOf2016(17) {
       }
 
       val next = moves
-        .zip("$data$tail".md5().substring(0, 4).toUpperCase().toList())
+        .zip("$data$tail".md5().substring(0, 4).uppercase().toList())
         .filter { it.second in "BCDEF" }
         .map { Triple(x + it.first.first, y + it.first.second, tail + it.first.third) }
         .filter { it.first in 1..4 && it.second in 1..4 }

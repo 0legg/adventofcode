@@ -8,6 +8,7 @@ import net.olegg.aoc.year2016.DayOf2016
  */
 object Day4 : DayOf2016(4) {
   private val ROOM_PATTERN = "^(.+)-(\\d+)\\[(.+)\\]$".toRegex()
+  private const val A_CODE = 'a'.code
 
   override fun first(data: String): Any? {
     val rooms = data
@@ -29,7 +30,7 @@ object Day4 : DayOf2016(4) {
         .take(5)
         .map { it.first }
         .joinToString(separator = "")
-    }.sumBy { it.second }
+    }.sumOf { it.second }
   }
 
   override fun second(data: String): Any? {
@@ -43,16 +44,13 @@ object Day4 : DayOf2016(4) {
         }
       }
 
-    val a = 'a'.toInt()
+    val decrypted = rooms.associate { (name, id) ->
+      name.asSequence()
+        .map { char -> if (char == '-') ' ' else ((char.code - A_CODE + id) % 26 + A_CODE).toChar() }
+        .joinToString(separator = "") to id
+    }
 
-    return rooms
-      .map { (name, id) ->
-        name.map { char ->
-          if (char == '-') ' ' else ((char.toInt() - a + id) % 26 + a).toChar()
-        }
-          .joinToString(separator = "") to id
-      }
-      .joinToString(separator = "\n")
+    return decrypted["northpole object storage"]
   }
 }
 

@@ -28,7 +28,7 @@ object Day8 : DayOf2018(8) {
     val child = data.removeFirst()
     val metadata = data.removeFirst()
 
-    return (0 until child).sumBy { sumMetadata(data) } + (0 until metadata).sumBy { data.removeFirst() }
+    return (0 until child).sumOf { sumMetadata(data) } + (0 until metadata).sumOf { data.removeFirst() }
   }
 
   private fun sumValues(data: ArrayDeque<Int>): Int {
@@ -39,7 +39,7 @@ object Day8 : DayOf2018(8) {
       .map { it to sumValues(data) }
       .toMap()
 
-    return (0 until metadata).sumBy {
+    return (0 until metadata).sumOf {
       if (child > 0) {
         childValues[data.removeFirst() - 1] ?: 0
       } else {

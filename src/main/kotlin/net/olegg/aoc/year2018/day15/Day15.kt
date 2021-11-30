@@ -42,7 +42,7 @@ object Day15 : DayOf2018(15) {
         }
 
         if (characters.none { it.hit > 0 && it.type != character.type }) {
-          return round * characters.filter { it.hit > 0 && it.type == character.type }.sumBy { it.hit }
+          return round * characters.filter { it.hit > 0 && it.type == character.type }.sumOf { it.hit }
         }
 
         val targets = characters.filter { it.hit > 0 && it.type != character.type }
@@ -174,7 +174,7 @@ object Day15 : DayOf2018(15) {
 
           if (characters.none { it.hit > 0 && it.type != character.type }) {
             if (characters.count { it.hit > 0 && it.type == 'E' } == elves) {
-              return round * characters.filter { it.hit > 0 && it.type == character.type }.sumBy { it.hit }
+              return round * characters.filter { it.hit > 0 && it.type == character.type }.sumOf { it.hit }
             }
           }
 

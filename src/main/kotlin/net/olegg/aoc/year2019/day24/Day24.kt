@@ -94,8 +94,8 @@ object Day24 : DayOf2019(24) {
     }
 
     return result.values
-      .sumBy { level ->
-        level.sumBy { row ->
+      .sumOf { level ->
+        level.sumOf { row ->
           row.count { it == '#' }
         }
       }

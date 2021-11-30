@@ -3,7 +3,6 @@ package net.olegg.aoc.year2020.day4
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.toPair
 import net.olegg.aoc.year2020.DayOf2020
-import java.lang.Exception
 
 /**
  * See [Year 2020, Day 4](https://adventofcode.com/2020/day/4)

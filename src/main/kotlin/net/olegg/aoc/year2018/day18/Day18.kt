@@ -63,7 +63,7 @@ object Day18 : DayOf2018(18) {
       return@fold curr
     }
 
-    return after.sumBy { row -> row.count { it == '#' } } * after.sumBy { row -> row.count { it == '|' } }
+    return after.sumOf { row -> row.count { it == '#' } } * after.sumOf { row -> row.count { it == '|' } }
   }
 }
 

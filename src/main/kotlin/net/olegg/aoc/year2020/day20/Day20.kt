@@ -148,7 +148,7 @@ object Day20 : DayOf2020(20) {
       }
     }
 
-    return finalGrid.sumBy { row -> row.count { it == '#' } }
+    return finalGrid.sumOf { row -> row.count { it == '#' } }
   }
 
   private fun profile(tile: List<List<Char>>): List<Int> {

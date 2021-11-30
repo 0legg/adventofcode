@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2019
 
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel
 import net.olegg.aoc.year2019.Intcode.Arg.Address
@@ -13,7 +14,10 @@ class Intcode(program: LongArray) {
   private var offset = 0L
   private var memory = LongBuffer.wrap(program)
 
-  suspend fun eval(input: ReceiveChannel<Long> = Channel(), output: SendChannel<Long> = Channel()) {
+  suspend fun eval(
+    input: ReceiveChannel<Long> = Channel(capacity = UNLIMITED),
+    output: SendChannel<Long> = Channel(capacity = UNLIMITED),
+  ) {
     while (memory.hasRemaining()) {
       val rawOp = memory.get()
       parseOp(rawOp)?.let { (op, modes) ->

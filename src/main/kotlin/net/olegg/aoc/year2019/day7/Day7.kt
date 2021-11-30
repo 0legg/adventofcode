@@ -1,6 +1,5 @@
 package net.olegg.aoc.year2019.day7
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
@@ -17,7 +16,6 @@ import net.olegg.aoc.year2019.Intcode
 /**
  * See [Year 2019, Day 7](https://adventofcode.com/2019/day/7)
  */
-@ExperimentalCoroutinesApi
 object Day7 : DayOf2019(7) {
   override fun first(data: String): Any? {
     val program = data
@@ -93,5 +91,4 @@ object Day7 : DayOf2019(7) {
   }
 }
 
-@ExperimentalCoroutinesApi
 fun main() = SomeDay.mainify(Day7)

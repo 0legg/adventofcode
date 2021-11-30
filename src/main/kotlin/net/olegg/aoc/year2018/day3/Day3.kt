@@ -25,7 +25,7 @@ object Day3 : DayOf2018(3) {
       }
     }
 
-    return field.sumBy { row -> row.count { it > 1 } }
+    return field.sumOf { row -> row.count { it > 1 } }
   }
 
   override fun second(data: String): Any? {
