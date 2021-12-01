@@ -13,6 +13,15 @@ object Day1 : DayOf2021(1) {
 
     return nums.windowed(2).count { it.first() < it.last() }
   }
+
+  override fun second(data: String): Any? {
+    val nums = data.parseInts(delimiters = "\n")
+
+    return nums.windowed(3)
+      .map { it.sum() }
+      .windowed(2)
+      .count { it.first() < it.last() }
+  }
 }
 
 fun main() = SomeDay.mainify(Day1)
