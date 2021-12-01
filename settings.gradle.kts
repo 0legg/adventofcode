@@ -1,10 +1,11 @@
-import de.fayard.refreshVersions.bootstrapRefreshVersions
-
-buildscript {
-  repositories { gradlePluginPortal() }
-  dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.7")
+pluginManagement {
+  repositories {
+    gradlePluginPortal()
+  }
 }
 
-bootstrapRefreshVersions()
+plugins {
+  id("de.fayard.refreshVersions") version "0.23.0"
+}
 
 rootProject.name = "advent-of-code"

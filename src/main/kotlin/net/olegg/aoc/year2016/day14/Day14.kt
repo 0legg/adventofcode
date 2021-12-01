@@ -3,7 +3,6 @@ package net.olegg.aoc.year2016.day14
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.md5
 import net.olegg.aoc.year2016.DayOf2016
-import org.funktionale.memoization.memoize
 
 /**
  * See [Year 2016, Day 14](https://adventofcode.com/2016/day/14)
@@ -12,19 +11,27 @@ object Day14 : DayOf2016(14) {
   private val MATCH_3 = "(.)(\\1)(\\1)".toRegex()
 
   override fun first(data: String): Any? {
+    val trimmed = data.trim()
+    val cache = mutableMapOf<Int, String>()
     val hash = { n: Int ->
-      "$data$n".md5()
-    }.memoize()
+      cache.getOrPut(n) {
+        "$trimmed$n".md5()
+      }
+    }
 
     return solve(64, hash)
   }
 
   override fun second(data: String): Any? {
+    val trimmed = data.trim()
+    val cache = mutableMapOf<Int, String>()
     val hash = { n: Int ->
-      (0..2016).fold("$data$n") { acc, _ ->
-        acc.md5()
+      cache.getOrPut(n) {
+        (0..2016).fold("$trimmed$n") { acc, _ ->
+          acc.md5()
+        }
       }
-    }.memoize()
+    }
 
     return solve(64, hash)
   }

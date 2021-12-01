@@ -1,8 +1,5 @@
 package net.olegg.aoc.year2019.day9
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.toList
 import kotlinx.coroutines.flow.flowOf
@@ -17,7 +14,6 @@ import net.olegg.aoc.year2019.Intcode
 /**
  * See [Year 2019, Day 9](https://adventofcode.com/2019/day/9)
  */
-@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 object Day9 : DayOf2019(9) {
   override fun first(data: String): Any? {
     val program = data
@@ -26,7 +22,7 @@ object Day9 : DayOf2019(9) {
       .toLongArray()
 
     val result = runBlocking {
-      val input = flowOf(1L).produceIn(GlobalScope)
+      val input = flowOf(1L).produceIn(this)
       val output = Channel<Long>(Channel.UNLIMITED)
 
       launch {
@@ -48,7 +44,7 @@ object Day9 : DayOf2019(9) {
       .toLongArray()
 
     val result = runBlocking {
-      val input = flowOf(2L).produceIn(GlobalScope)
+      val input = flowOf(2L).produceIn(this)
       val output = Channel<Long>(Channel.UNLIMITED)
 
       launch {

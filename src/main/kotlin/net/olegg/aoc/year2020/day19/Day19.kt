@@ -21,10 +21,12 @@ object Day19 : DayOf2020(19) {
     val rules = rulesList
       .lines()
       .map { it.split(": ").toPair() }
-      .map { (num, rule) -> num.toInt() to when {
-        CHAR_RULE_PATTERN.matches(rule) -> CharRule(rule.trim('\"').first())
-        else -> RefRule(rule.split('|').map { it.parseInts(" ") })
-      } }
+      .map { (num, rule) ->
+        num.toInt() to when {
+          CHAR_RULE_PATTERN.matches(rule) -> CharRule(rule.trim('\"').first())
+          else -> RefRule(rule.split('|').map { it.parseInts(" ") })
+        }
+      }
       .toMap()
 
     return solve(rules, messages.lines())
@@ -38,15 +40,19 @@ object Day19 : DayOf2020(19) {
     val rules = rulesList
       .lines()
       .map { it.split(": ").toPair() }
-      .map { (num, rule) -> num to when(num) {
-        "8" -> "42 | 42 8"
-        "11" -> "42 31 | 42 11 31"
-        else -> rule
-      } }
-      .map { (num, rule) -> num.toInt() to when {
-        CHAR_RULE_PATTERN.matches(rule) -> CharRule(rule.trim('\"').first())
-        else -> RefRule(rule.split('|').map { it.parseInts(" ") })
-      } }
+      .map { (num, rule) ->
+        num to when (num) {
+          "8" -> "42 | 42 8"
+          "11" -> "42 31 | 42 11 31"
+          else -> rule
+        }
+      }
+      .map { (num, rule) ->
+        num.toInt() to when {
+          CHAR_RULE_PATTERN.matches(rule) -> CharRule(rule.trim('\"').first())
+          else -> RefRule(rule.split('|').map { it.parseInts(" ") })
+        }
+      }
       .toMap()
 
     return solve(rules, messages.lines())
@@ -81,8 +87,8 @@ object Day19 : DayOf2020(19) {
   }
 
   sealed class Rule {
-    data class CharRule(val char: Char): Rule()
-    data class RefRule(val refs: List<List<Int>>): Rule()
+    data class CharRule(val char: Char) : Rule()
+    data class RefRule(val refs: List<List<Int>>) : Rule()
   }
 }
 

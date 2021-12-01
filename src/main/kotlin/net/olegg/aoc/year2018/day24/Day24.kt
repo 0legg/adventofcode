@@ -14,7 +14,7 @@ object Day24 : DayOf2018(24) {
       .map { it.lines().drop(1) }
       .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
 
-    return solve(immune + infection).sumBy { it.units.toInt() }
+    return solve(immune + infection).sumOf { it.units.toInt() }
   }
 
   override fun second(data: String): Any? {
@@ -30,8 +30,8 @@ object Day24 : DayOf2018(24) {
       val result = solve(boosted + infection)
       when {
         result.isEmpty() -> println("Boost $boost, stalemate")
-        result.first().system == immune.first().system -> return result.sumBy { it.units.toInt() }
-        else -> println("Boost $boost, ${result.sumBy { it.units.toInt() }} units remaining")
+        result.first().system == immune.first().system -> return result.sumOf { it.units.toInt() }
+        else -> println("Boost $boost, ${result.sumOf { it.units.toInt() }} units remaining")
       }
     }
 
@@ -99,8 +99,10 @@ object Day24 : DayOf2018(24) {
     val system: Int
   ) {
     companion object {
-      private val PATTERN = ("(-?\\d+) units each with (-?\\d+) hit points" +
-        " ?\\(?([^)]*)\\)? with an attack that does (-?\\d+) (\\w+) damage at initiative (-?\\d+)").toRegex()
+      private val PATTERN = (
+        "(-?\\d+) units each with (-?\\d+) hit points" +
+          " ?\\(?([^)]*)\\)? with an attack that does (-?\\d+) (\\w+) damage at initiative (-?\\d+)"
+        ).toRegex()
 
       fun from(string: String, index: Int, system: Int): Group? {
         return PATTERN.matchEntire(string)?.let { match ->

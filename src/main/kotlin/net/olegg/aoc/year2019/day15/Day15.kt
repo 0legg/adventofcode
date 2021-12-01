@@ -1,6 +1,6 @@
 package net.olegg.aoc.year2019.day15
 
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -32,7 +32,7 @@ object Day15 : DayOf2019(15) {
       val input = Channel<Long>(Channel.UNLIMITED)
       val output = Channel<Long>(Channel.UNLIMITED)
 
-      GlobalScope.launch {
+      launch(Dispatchers.Default) {
         val intcode = Intcode(program)
         intcode.eval(input, output)
         output.close()
@@ -82,7 +82,7 @@ object Day15 : DayOf2019(15) {
       val input = Channel<Long>(Channel.UNLIMITED)
       val output = Channel<Long>(Channel.UNLIMITED)
 
-      GlobalScope.launch {
+      launch(Dispatchers.Default) {
         val intcode = Intcode(program)
         intcode.eval(input, output)
         output.close()

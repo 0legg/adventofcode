@@ -24,11 +24,11 @@ object Day10 : DayOf2020(10) {
     val adapters = data.parseInts(delimiters = "\n").sorted()
     val jolts = listOf(0) + adapters + listOf(adapters.last() + 3)
 
-    val options = jolts.map { it to 0L }.toMap().toMutableMap()
+    val options = jolts.associateWith { 0L }.toMutableMap()
     options[0] = 1L
 
     jolts.forEach { value ->
-      (1..3).forEach { add ->
+      for (add in 1..3) {
         val next = add + value
         if (next in options) {
           options[next] = options[next]!! + options[value]!!

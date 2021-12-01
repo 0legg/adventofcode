@@ -55,7 +55,7 @@ object Day21 : DayOf2017(21) {
               .toList()
           } ?: acc
       }
-      .sumBy { row -> row.count { it == '#' } }
+      .sumOf { row -> row.count { it == '#' } }
   }
 
   private fun lex(grid: List<List<Char>>): List<List<Char>> {

@@ -1,7 +1,6 @@
 package net.olegg.aoc.year2020.day25
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2020.DayOf2020
 
@@ -9,8 +8,8 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 25](https://adventofcode.com/2020/day/25)
  */
 object Day25 : DayOf2020(25) {
-  private val modulo = 20201227L
-  
+  private const val modulo = 20201227L
+
   override fun first(data: String): Any? {
     val items = data
       .trim()

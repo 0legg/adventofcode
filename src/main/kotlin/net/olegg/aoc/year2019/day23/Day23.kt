@@ -1,7 +1,6 @@
 package net.olegg.aoc.year2019.day23
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -13,7 +12,6 @@ import net.olegg.aoc.year2019.Intcode
 /**
  * See [Year 2019, Day 23](https://adventofcode.com/2019/day/23)
  */
-@ExperimentalCoroutinesApi
 object Day23 : DayOf2019(23) {
   override fun first(data: String): Any? {
     val program = data
@@ -28,7 +26,7 @@ object Day23 : DayOf2019(23) {
       repeat(50) {
         inputs[it].send(it.toLong())
 
-        GlobalScope.launch {
+        launch(Dispatchers.Default) {
           val intcode = Intcode(program.copyOf())
           intcode.eval(inputs[it], outputs[it])
         }
@@ -36,7 +34,7 @@ object Day23 : DayOf2019(23) {
 
       while (true) {
         outputs.forEach { output ->
-          output.poll()?.let { dst ->
+          output.tryReceive().getOrNull()?.let { dst ->
             val x = output.receive()
             val y = output.receive()
             if (dst == 255L) {
@@ -69,7 +67,7 @@ object Day23 : DayOf2019(23) {
       repeat(50) {
         inputs[it].send(it.toLong())
 
-        GlobalScope.launch {
+        launch(Dispatchers.Default) {
           val intcode = Intcode(program.copyOf())
           intcode.eval(inputs[it], outputs[it])
         }
@@ -79,7 +77,7 @@ object Day23 : DayOf2019(23) {
 
       while (true) {
         outputs.forEach { output ->
-          output.poll()?.let { dst ->
+          output.tryReceive().getOrNull()?.let { dst ->
             val x = output.receive()
             val y = output.receive()
             if (dst == 255L) {
@@ -94,7 +92,7 @@ object Day23 : DayOf2019(23) {
 
         val empty = inputs.count { it.isEmpty }
         if (empty == 50) {
-          val natValues = generateSequence { nat.poll() }.toList()
+          val natValues = generateSequence { nat.tryReceive().getOrNull() }.toList()
 
           if (natValues.isNotEmpty()) {
             val (x, y) = natValues.takeLast(2)
@@ -120,5 +118,4 @@ object Day23 : DayOf2019(23) {
   }
 }
 
-@ExperimentalCoroutinesApi
 fun main() = SomeDay.mainify(Day23)

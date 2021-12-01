@@ -23,8 +23,8 @@ object Day13 : DayOf2015(13) {
       .permutations()
       .map { it + it.first() }
       .map { order ->
-        order.zipWithNext().sumBy { edges[it] ?: 0 } +
-          order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
+        order.zipWithNext().sumOf { edges[it] ?: 0 } +
+          order.reversed().zipWithNext().sumOf { edges[it] ?: 0 }
       }
       .maxOrNull()
   }
@@ -33,8 +33,8 @@ object Day13 : DayOf2015(13) {
     return names
       .permutations()
       .map { order ->
-        order.zipWithNext().sumBy { edges[it] ?: 0 } +
-          order.reversed().zipWithNext().sumBy { edges[it] ?: 0 }
+        order.zipWithNext().sumOf { edges[it] ?: 0 } +
+          order.reversed().zipWithNext().sumOf { edges[it] ?: 0 }
       }
       .maxOrNull()
   }

@@ -15,7 +15,7 @@ object Day17 : DayOf2018(17) {
   override fun first(data: String): Any? {
     val (xs, ys, map) = fill(data)
 
-    return ys.sumBy { y ->
+    return ys.sumOf { y ->
       xs.count { x ->
         map[y][x] in WATER
       }
@@ -25,7 +25,7 @@ object Day17 : DayOf2018(17) {
   override fun second(data: String): Any? {
     val (xs, ys, map) = fill(data)
 
-    return ys.sumBy { y ->
+    return ys.sumOf { y ->
       xs.count { x ->
         map[y][x] == '~'
       }

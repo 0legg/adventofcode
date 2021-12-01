@@ -1,6 +1,5 @@
 package net.olegg.aoc.year2019.day2
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.channels.toList
@@ -15,7 +14,6 @@ import net.olegg.aoc.year2019.Intcode
 /**
  * See [Year 2019, Day 2](https://adventofcode.com/2019/day/2)
  */
-@ExperimentalCoroutinesApi
 object Day2 : DayOf2019(2) {
   override fun first(data: String): Any? {
     val program = data
@@ -51,7 +49,7 @@ object Day2 : DayOf2019(2) {
               newProgram[1] = noun.toLong()
               newProgram[2] = verb.toLong()
 
-              val intcode = Intcode(program)
+              val intcode = Intcode(newProgram)
               intcode.eval()
 
               if (newProgram[0] == 19690720L) {
@@ -70,5 +68,4 @@ object Day2 : DayOf2019(2) {
   }
 }
 
-@ExperimentalCoroutinesApi
 fun main() = SomeDay.mainify(Day2)

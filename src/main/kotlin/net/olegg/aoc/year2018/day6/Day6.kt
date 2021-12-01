@@ -69,7 +69,7 @@ object Day6 : DayOf2018(6) {
     return (top - padding..bottom + padding)
       .flatMap { y ->
         (left - padding..right + padding).map { x ->
-          points.sumBy { abs(x - it.first) + abs(y - it.second) }
+          points.sumOf { abs(x - it.first) + abs(y - it.second) }
         }
       }
       .count { it < TOTAL }

@@ -24,7 +24,7 @@ object Day21 : DayOf2018(21) {
       .mapNotNull { line ->
         OPS_PATTERN.matchEntire(line)?.let { match ->
           val (opRaw, aRaw, bRaw, cRaw) = match.destructured
-          return@mapNotNull Command(Ops.valueOf(opRaw.toUpperCase()), aRaw.toInt(), bRaw.toInt(), cRaw.toInt())
+          return@mapNotNull Command(Ops.valueOf(opRaw.uppercase()), aRaw.toInt(), bRaw.toInt(), cRaw.toInt())
         }
       }
 
@@ -59,7 +59,7 @@ object Day21 : DayOf2018(21) {
       .mapNotNull { line ->
         OPS_PATTERN.matchEntire(line)?.let { match ->
           val (opRaw, aRaw, bRaw, cRaw) = match.destructured
-          return@mapNotNull Command(Ops.valueOf(opRaw.toUpperCase()), aRaw.toInt(), bRaw.toInt(), cRaw.toInt())
+          return@mapNotNull Command(Ops.valueOf(opRaw.uppercase()), aRaw.toInt(), bRaw.toInt(), cRaw.toInt())
         }
       }
 

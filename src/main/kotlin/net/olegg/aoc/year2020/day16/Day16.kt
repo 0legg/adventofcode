@@ -3,7 +3,6 @@ package net.olegg.aoc.year2020.day16
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.parseLongs
-import net.olegg.aoc.utils.permutations
 import net.olegg.aoc.utils.toPair
 import net.olegg.aoc.year2020.DayOf2020
 
@@ -51,14 +50,15 @@ object Day16 : DayOf2020(16) {
 
     val rangeValues = ranges
       .lines()
-      .map { line -> RANGE_PATTERN.find(line)
-        ?.groupValues
-        ?.drop(1)
-        .orEmpty()
-        .map { it.toInt() }
-        .windowed(2)
-        .map { it.first()..it.last() }
-        .toPair()
+      .map { line ->
+        RANGE_PATTERN.find(line)
+          ?.groupValues
+          ?.drop(1)
+          .orEmpty()
+          .map { it.toInt() }
+          .windowed(2)
+          .map { it.first()..it.last() }
+          .toPair()
       }
 
     rangeValues.forEach {
