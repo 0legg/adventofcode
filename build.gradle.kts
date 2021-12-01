@@ -29,12 +29,6 @@ configure<JavaPluginConvention> {
   sourceCompatibility = JavaVersion.VERSION_1_8
 }
 
-tasks.withType<Test> {
-  useJUnitPlatform {
-    includeEngines("spek2")
-  }
-}
-
 tasks.withType<KotlinCompile> {
   kotlinOptions {
     jvmTarget = "1.8"
@@ -54,8 +48,4 @@ dependencies {
   implementation("org.funktionale:funktionale-memoization:_")
 
   detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
-
-  testImplementation(Kotlin.test)
-  testImplementation(Testing.spek.dsl.jvm)
-  testRuntimeOnly(Testing.spek.runner.junit5)
 }
