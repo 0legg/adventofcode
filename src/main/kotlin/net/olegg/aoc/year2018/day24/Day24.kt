@@ -99,8 +99,10 @@ object Day24 : DayOf2018(24) {
     val system: Int
   ) {
     companion object {
-      private val PATTERN = ("(-?\\d+) units each with (-?\\d+) hit points" +
-        " ?\\(?([^)]*)\\)? with an attack that does (-?\\d+) (\\w+) damage at initiative (-?\\d+)").toRegex()
+      private val PATTERN = (
+        "(-?\\d+) units each with (-?\\d+) hit points" +
+          " ?\\(?([^)]*)\\)? with an attack that does (-?\\d+) (\\w+) damage at initiative (-?\\d+)"
+        ).toRegex()
 
       fun from(string: String, index: Int, system: Int): Group? {
         return PATTERN.matchEntire(string)?.let { match ->

@@ -47,9 +47,10 @@ object Day17 : DayOf2020(17) {
         .groupBy { it }
         .mapValues { it.value.size }
 
-      return@fold (state.filter { neighborCount[it] in 2..3 } +
-        neighborCount.filter { it.key !in state && it.value == 3 }.map { it.key })
-        .toSet()
+      val alive = state.filter { neighborCount[it] in 2..3 }
+      val born = neighborCount.filter { it.key !in state && it.value == 3 }.map { it.key }
+
+      return@fold (alive + born).toSet()
     }
 
     return finalState.size
@@ -74,9 +75,10 @@ object Day17 : DayOf2020(17) {
         .groupBy { it }
         .mapValues { it.value.size }
 
-      return@fold (state.filter { neighborCount[it] in 2..3 } +
-        neighborCount.filter { it.key !in state && it.value == 3 }.map { it.key })
-        .toSet()
+      val alive = state.filter { neighborCount[it] in 2..3 }
+      val born = neighborCount.filter { it.key !in state && it.value == 3 }.map { it.key }
+
+      return@fold (alive + born).toSet()
     }
 
     return finalState.size

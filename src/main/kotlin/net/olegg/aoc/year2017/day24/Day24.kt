@@ -19,12 +19,13 @@ object Day24 : DayOf2017(24) {
       }
 
     var best = 0
-    val queue = ArrayDeque(ports.filter { it.first == 0 || it.second == 0 }
+    val start = ports
+      .filter { it.first == 0 || it.second == 0 }
       .map { port ->
         val next = if (port.first == 0) port.second else port.first
         return@map Triple(next, next, BitSet(ports.size).also { it.set(port.third) })
       }
-    )
+    val queue = ArrayDeque(start)
 
     val visited = queue.map { it.first to it.third }.toMutableSet()
 
@@ -61,12 +62,13 @@ object Day24 : DayOf2017(24) {
         Triple(value.minOrNull() ?: 0, value.maxOrNull() ?: 0, index)
       }
 
-    val queue = ArrayDeque(ports.filter { it.first == 0 || it.second == 0 }
+    val start = ports
+      .filter { it.first == 0 || it.second == 0 }
       .map { port ->
         val next = if (port.first == 0) port.second else port.first
         return@map Triple(next, (2 to next), BitSet(ports.size).also { it.set(port.third) })
       }
-    )
+    val queue = ArrayDeque(start)
 
     val visited = queue.map { it.first to it.third }.toMutableSet()
     var best = 0 to 0

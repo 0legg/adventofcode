@@ -12,11 +12,13 @@ object Day18 : DayOf2020(18) {
       .trim()
       .lines()
 
-    return solve(entries) { when(it) {
-      '*' -> 1
-      '+' -> 1
-      else -> -1
-    } }
+    return solve(entries) {
+      when (it) {
+        '*' -> 1
+        '+' -> 1
+        else -> -1
+      }
+    }
   }
 
   override fun second(data: String): Any? {
@@ -24,11 +26,13 @@ object Day18 : DayOf2020(18) {
       .trim()
       .lines()
 
-    return solve(entries) { when(it) {
-      '*' -> 1
-      '+' -> 2
-      else -> -1
-    } }
+    return solve(entries) {
+      when (it) {
+        '*' -> 1
+        '+' -> 2
+        else -> -1
+      }
+    }
   }
 
   private fun solve(entries: List<String>, precedence: (Char) -> Int): Long {

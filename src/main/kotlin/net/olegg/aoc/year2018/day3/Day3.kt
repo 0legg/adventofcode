@@ -35,7 +35,7 @@ object Day3 : DayOf2018(3) {
       .mapNotNull { Request.fromString(it) }
 
     return requests
-      .first { request -> requests.none { it.intersects(request) } }
+      .first { request -> requests.all { it.notIntersects(request) } }
       .id
   }
 
@@ -63,12 +63,12 @@ object Day3 : DayOf2018(3) {
       }
     }
 
-    fun intersects(other: Request): Boolean {
-      return !((id == other.id) ||
+    fun notIntersects(other: Request): Boolean {
+      return (id == other.id) ||
         (left + width <= other.left) ||
         (other.left + other.width <= left) ||
         (top + height <= other.top) ||
-        (other.top + other.height <= top))
+        (other.top + other.height <= top)
     }
   }
 }
