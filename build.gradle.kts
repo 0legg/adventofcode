@@ -12,7 +12,6 @@ version = "2020.0.0"
 
 repositories {
   mavenCentral()
-  jcenter()
 }
 
 buildConfig {
@@ -44,8 +43,6 @@ dependencies {
   implementation(KotlinX.serialization.json)
 
   implementation(Ktor.client.cio)
-
-  implementation("org.funktionale:funktionale-memoization:_")
 
   detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
 }
