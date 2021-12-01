@@ -9,7 +9,7 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day7 : DayOf2020(7) {
   private val PATTERN = "(\\d+) ([^\\d]*) bags?".toRegex()
-  private val MINE = "shiny gold"
+  private const val MINE = "shiny gold"
 
   override fun first(data: String): Any? {
     val rules = data

@@ -23,7 +23,7 @@ object Day11 : DayOf2018(11) {
 
     return (1..298).flatMap { y ->
       (1..298).map { x ->
-        val sum = (-1..1).sumBy { dy -> (-1..1).sumBy { dx -> grid[y + dy][x + dx] } }
+        val sum = (-1..1).sumOf { dy -> (-1..1).sumOf { dx -> grid[y + dy][x + dx] } }
         (x to y) to sum
       }
     }
@@ -49,7 +49,7 @@ object Day11 : DayOf2018(11) {
       (0..299).flatMap { x ->
         (0..299).mapNotNull { size ->
           return@mapNotNull if (x + size < 300 && y + size < 300) {
-            val sum = (0..size).sumBy { dy -> (0..size).sumBy { dx -> grid[y + dy][x + dx] } }
+            val sum = (0..size).sumOf { dy -> (0..size).sumOf { dx -> grid[y + dy][x + dx] } }
             Triple(x + 1, y + 1, size + 1) to sum
           } else {
             null

@@ -7,14 +7,12 @@ import io.ktor.client.features.cookies.HttpCookies
 import io.ktor.client.request.get
 import io.ktor.http.Cookie
 import io.ktor.http.CookieEncoding
-import io.ktor.util.KtorExperimentalAPI
 import net.olegg.aoc.BuildConfig
 
 /**
  * Network client.
  */
 object Fetcher {
-  @OptIn(KtorExperimentalAPI::class)
   private val client = HttpClient(CIO) {
     install(HttpCookies) {
       storage = ConstantCookiesStorage(

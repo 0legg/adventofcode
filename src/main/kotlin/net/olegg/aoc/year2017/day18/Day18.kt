@@ -24,8 +24,8 @@ object Day18 : DayOf2017(18) {
         "set" -> regs[op[1]] = extract(regs, op[2])
         "add" -> regs[op[1]] = extract(regs, op[1]) + extract(regs, op[2])
         "mul" -> regs[op[1]] = extract(regs, op[1]) * extract(regs, op[2])
-        "mod" -> regs[op[1]] = (extract(regs, op[1]) % extract(regs, op[2]) +
-          extract(regs, op[2])) % extract(regs, op[2])
+        "mod" -> regs[op[1]] =
+          (extract(regs, op[1]) % extract(regs, op[2]) + extract(regs, op[2])) % extract(regs, op[2])
         "rcv" -> if (extract(regs, op[1]) != 0L) return sound
         "jgz" -> if (extract(regs, op[1]) > 0L) position += (extract(regs, op[2]) - 1).toInt()
       }
@@ -63,17 +63,26 @@ object Day18 : DayOf2017(18) {
           1
         }
         "set" -> {
-          regs[active][op[1]] = extract(regs[active], op[2]); 1
+          regs[active][op[1]] = extract(regs[active], op[2])
+          1
         }
         "add" -> {
-          regs[active][op[1]] = extract(regs[active], op[1]) + extract(regs[active], op[2]); 1
+          val a = extract(regs[active], op[1])
+          val b = extract(regs[active], op[2])
+          regs[active][op[1]] = a + b
+          1
         }
         "mul" -> {
-          regs[active][op[1]] = extract(regs[active], op[1]) * extract(regs[active], op[2]); 1
+          val a = extract(regs[active], op[1])
+          val b = extract(regs[active], op[2])
+          regs[active][op[1]] = a * b
+          1
         }
         "mod" -> {
-          regs[active][op[1]] = (extract(regs[active], op[1]) % extract(regs[active], op[2]) +
-            extract(regs[active], op[2])) % extract(regs[active], op[2]); 1
+          val a = extract(regs[active], op[1])
+          val b = extract(regs[active], op[2])
+          regs[active][op[1]] = ((a % b) + b) % b
+          1
         }
         "rcv" -> if (stacks[active].isNotEmpty()) {
           regs[active][op[1]] = stacks[active].removeFirst()

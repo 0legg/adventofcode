@@ -12,7 +12,7 @@ object Day8 : DayOf2016(8) {
   override fun first(data: String): Any? {
 
     return applyOperations(50, 6, data.trim().lines())
-      .sumBy { row -> row.count { it } }
+      .sumOf { row -> row.count { it } }
   }
 
   override fun second(data: String): Any? {

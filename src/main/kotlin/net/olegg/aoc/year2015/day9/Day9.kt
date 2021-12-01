@@ -31,7 +31,7 @@ object Day9 : DayOf2015(9) {
         city
           .zipWithNext()
           .map { edges[it] ?: 0 }
-          .sumBy { it }
+          .sumOf { it }
       }.minByOrNull { it }
   }
 
@@ -41,7 +41,7 @@ object Day9 : DayOf2015(9) {
         city
           .zipWithNext()
           .map { edges[it] ?: 0 }
-          .sumBy { it }
+          .sumOf { it }
       }.maxByOrNull { it }
   }
 }

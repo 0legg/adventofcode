@@ -32,7 +32,7 @@ object Day11 : DayOf2020(11) {
     return steps
       .first { it.first() == it.last() }
       .first()
-      .sumBy { line -> line.count { it == '#' } }
+      .sumOf { line -> line.count { it == '#' } }
   }
 
   override fun second(data: String): Any? {
@@ -66,7 +66,7 @@ object Day11 : DayOf2020(11) {
     return steps
       .first { it.first() == it.last() }
       .first()
-      .sumBy { line -> line.count { it == '#' } }
+      .sumOf { line -> line.count { it == '#' } }
   }
 }
 

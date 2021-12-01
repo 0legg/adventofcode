@@ -29,7 +29,7 @@ object Day4 : DayOf2018(4) {
       .groupBy { it.first }
 
     val sleeper = sleeps.maxByOrNull { entry ->
-      entry.value.sumBy { it.second.until(it.third, ChronoUnit.MINUTES).toInt() }
+      entry.value.sumOf { it.second.until(it.third, ChronoUnit.MINUTES).toInt() }
     }
 
     return sleeper?.let { best ->

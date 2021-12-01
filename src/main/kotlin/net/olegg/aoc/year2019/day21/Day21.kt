@@ -1,6 +1,6 @@
 package net.olegg.aoc.year2019.day21
 
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.toList
 import kotlinx.coroutines.launch
@@ -32,7 +32,7 @@ object Day21 : DayOf2019(21) {
         AND D J
       """.trimIndent().lines()
 
-      GlobalScope.launch {
+      launch(Dispatchers.Default) {
         val intcode = Intcode(program.copyOf())
         intcode.eval(input, output)
         input.close()
@@ -43,7 +43,7 @@ object Day21 : DayOf2019(21) {
 
       val result = output.toList()
 
-      println(result.dropLastWhile { it > 255 }.map { it.toChar() }.joinToString(""))
+      println(result.dropLastWhile { it > 255 }.map { it.toInt().toChar() }.joinToString(""))
 
       return@runBlocking result.last().takeIf { it > 255 } ?: -1
     }
@@ -69,7 +69,7 @@ object Day21 : DayOf2019(21) {
         AND D J
       """.trimIndent().lines()
 
-      GlobalScope.launch {
+      launch(Dispatchers.Default) {
         val intcode = Intcode(program.copyOf())
         intcode.eval(input, output)
         input.close()
@@ -80,7 +80,7 @@ object Day21 : DayOf2019(21) {
 
       val result = output.toList()
 
-      println(result.dropLastWhile { it > 255 }.map { it.toChar() }.joinToString(""))
+      println(result.dropLastWhile { it > 255 }.map { it.toInt().toChar() }.joinToString(""))
 
       return@runBlocking result.last().takeIf { it > 255 } ?: -1
     }
@@ -88,7 +88,7 @@ object Day21 : DayOf2019(21) {
 
   private suspend fun Channel<Long>.sendCommand(program: String) {
     (program + "\n").forEach {
-      send(it.toLong())
+      send(it.code.toLong())
     }
   }
 }

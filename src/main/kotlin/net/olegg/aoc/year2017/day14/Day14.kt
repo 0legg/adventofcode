@@ -15,9 +15,9 @@ object Day14 : DayOf2017(14) {
     val key = data.trimIndent()
     return (0..127)
       .map { "$key-$it" }
-      .sumBy { line ->
+      .sumOf { line ->
         line
-          .map { it.toInt() }
+          .map { it.code }
           .let { it + listOf(17, 31, 73, 47, 23) }
           .let { list ->
             (0 until 64).fold(emptyList<Int>()) { acc, _ -> acc + list }
@@ -27,13 +27,13 @@ object Day14 : DayOf2017(14) {
             val curr = prev.subList(0, acc.second) +
               prev.subList(acc.second, acc.second + value).reversed() +
               prev.subList(acc.second + value, prev.size)
-            val next = (curr.subList(acc.first.size, acc.first.size + acc.second) +
-              curr.subList(acc.second, acc.first.size))
+            val next = curr.subList(acc.first.size, acc.first.size + acc.second) +
+              curr.subList(acc.second, acc.first.size)
             return@foldIndexed next to ((acc.second + value + index) % acc.first.size)
           }
           .first
           .chunked(16) { chunk -> chunk.reduce { acc, value -> acc xor value } }
-          .sumBy { Integer.bitCount(it) }
+          .sumOf { Integer.bitCount(it) }
       }
   }
 
@@ -44,7 +44,7 @@ object Day14 : DayOf2017(14) {
       .map { "$key-$it" }
       .map { line ->
         line
-          .map { it.toInt() }
+          .map { it.code }
           .let { it + listOf(17, 31, 73, 47, 23) }
           .let { list -> (0 until 64).fold(emptyList<Int>()) { acc, _ -> acc + list } }
           .foldIndexed(List(256) { it } to 0) { index, acc, value ->
@@ -52,8 +52,8 @@ object Day14 : DayOf2017(14) {
             val curr = prev.subList(0, acc.second) +
               prev.subList(acc.second, acc.second + value).reversed() +
               prev.subList(acc.second + value, prev.size)
-            val next = (curr.subList(acc.first.size, acc.first.size + acc.second) +
-              curr.subList(acc.second, acc.first.size))
+            val next = curr.subList(acc.first.size, acc.first.size + acc.second) +
+              curr.subList(acc.second, acc.first.size)
             return@foldIndexed next to ((acc.second + value + index) % acc.first.size)
           }
           .first

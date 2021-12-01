@@ -33,14 +33,14 @@ object Day20 : DayOf2016(20) {
       .forEach { mask ->
         val join = banned.filter { mask.overlaps(it) } + listOf(mask)
         banned.removeAll(join)
-
-        banned.add(join.fold(LongRange.EMPTY) { acc, next ->
+        val toBan = join.fold(LongRange.EMPTY) { acc, next ->
           if (acc.isEmpty()) {
             next
           } else {
             minOf(acc.first, next.first)..maxOf(acc.last, next.last)
           }
-        })
+        }
+        banned.add(toBan)
       }
     return banned
   }

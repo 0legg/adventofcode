@@ -16,7 +16,6 @@ object Day21 : DayOf2020(21) {
       .map { it.split("contains").toPair() }
       .map { it.first.trim().split(" ").toSet() to it.second.trim().split(" ").toSet() }
 
-    //val allAllergens = foods.flatMap { it.second }.toSet()
     val allItems = foods.flatMap { it.first }.toSet()
 
     val possible = foods
@@ -24,9 +23,10 @@ object Day21 : DayOf2020(21) {
         allergens.map { it to items }
       }
       .groupBy { it.first }
-      .mapValues { it.value.map { mapping -> mapping.second }
-        .fold(allItems) { acc, value -> acc.intersect(value) }
-        .toMutableSet()
+      .mapValues {
+        it.value.map { mapping -> mapping.second }
+          .fold(allItems) { acc, value -> acc.intersect(value) }
+          .toMutableSet()
       }
       .toMutableMap()
 
@@ -55,7 +55,6 @@ object Day21 : DayOf2020(21) {
       .map { it.split("contains").toPair() }
       .map { it.first.trim().split(" ").toSet() to it.second.trim().split(" ").toSet() }
 
-    //val allAllergens = foods.flatMap { it.second }.toSet()
     val allItems = foods.flatMap { it.first }.toSet()
 
     val possible = foods
@@ -63,9 +62,10 @@ object Day21 : DayOf2020(21) {
         allergens.map { it to items }
       }
       .groupBy { it.first }
-      .mapValues { it.value.map { mapping -> mapping.second }
-        .fold(allItems) { acc, value -> acc.intersect(value) }
-        .toMutableSet()
+      .mapValues {
+        it.value.map { mapping -> mapping.second }
+          .fold(allItems) { acc, value -> acc.intersect(value) }
+          .toMutableSet()
       }
       .toMutableMap()
 

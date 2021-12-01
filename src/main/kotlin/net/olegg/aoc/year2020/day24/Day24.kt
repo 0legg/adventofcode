@@ -17,6 +17,7 @@ object Day24 : DayOf2020(24) {
     "sw" to Vector3D(-1, 0, 1),
     "se" to Vector3D(0, -1, 1),
   )
+
   override fun first(data: String): Any? {
     val items = data
       .trim()

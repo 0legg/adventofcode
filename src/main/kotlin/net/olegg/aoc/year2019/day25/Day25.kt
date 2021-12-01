@@ -1,7 +1,6 @@
 package net.olegg.aoc.year2019.day25
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -14,7 +13,6 @@ import net.olegg.aoc.year2019.Intcode
  * See [Year 2019, Day 25](https://adventofcode.com/2019/day/25)
  */
 object Day25 : DayOf2019(25) {
-  @ExperimentalCoroutinesApi
   override fun first(data: String): Any? {
     val program = data
       .trim()
@@ -25,21 +23,21 @@ object Day25 : DayOf2019(25) {
       val input = Channel<Long>(Channel.UNLIMITED)
       val output = Channel<Long>(Channel.UNLIMITED)
 
-      GlobalScope.launch {
+      launch(Dispatchers.Default) {
         val intcode = Intcode(program)
         intcode.eval(input, output)
       }
 
-      GlobalScope.launch {
+      launch(Dispatchers.Default) {
         while (!output.isClosedForReceive) {
-          print(output.receive().toChar())
+          print(output.receive().toInt().toChar())
         }
       }
 
       do {
         val command = readLine().orEmpty()
         (command + "\n")
-          .map { it.toLong() }
+          .map { it.code.toLong() }
           .forEach { input.send(it) }
       } while (command != "!quit")
 

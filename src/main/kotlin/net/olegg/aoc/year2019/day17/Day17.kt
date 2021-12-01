@@ -1,6 +1,6 @@
 package net.olegg.aoc.year2019.day17
 
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.toList
 import kotlinx.coroutines.launch
@@ -32,14 +32,14 @@ object Day17 : DayOf2019(17) {
       val input = Channel<Long>(Channel.UNLIMITED)
       val output = Channel<Long>(Channel.UNLIMITED)
 
-      GlobalScope.launch {
+      launch(Dispatchers.Default) {
         val intcode = Intcode(program)
         intcode.eval(input, output)
         output.close()
       }
 
       val map = output.toList()
-        .map { it.toChar() }
+        .map { it.toInt().toChar() }
         .joinToString(separator = "")
         .trim()
         .lines()
@@ -52,7 +52,7 @@ object Day17 : DayOf2019(17) {
           return@mapIndexedNotNull x.takeIf {
             c == '#' && Neighbors4.map { pos + it.step }.all { map[it] == '#' }
           }
-        }.sumBy { it * y }
+        }.sumOf { it * y }
       }.sum()
     }
   }
@@ -76,7 +76,7 @@ object Day17 : DayOf2019(17) {
       }
 
       return@runBlocking output.toList()
-        .map { it.toChar() }
+        .map { it.toInt().toChar() }
         .joinToString(separator = "")
         .trim()
         .lines()
@@ -87,7 +87,7 @@ object Day17 : DayOf2019(17) {
       val input = Channel<Long>(Channel.UNLIMITED)
       val output = Channel<Long>(Channel.UNLIMITED)
 
-      GlobalScope.launch {
+      launch(Dispatchers.Default) {
         val intcode = Intcode(interactive)
         intcode.eval(input, output)
         output.close()
@@ -202,7 +202,7 @@ object Day17 : DayOf2019(17) {
       listOf(encoding, a.stringify(), b.stringify(), c.stringify(), "n")
         .joinToString(separator = "\n", postfix = "\n")
         .forEach {
-          input.send(it.toLong())
+          input.send(it.code.toLong())
         }
 
       return@runBlocking output.toList().last()

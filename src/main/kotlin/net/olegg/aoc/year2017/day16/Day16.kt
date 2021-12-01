@@ -44,7 +44,7 @@ object Day16 : DayOf2017(16) {
     var curr = "abcdefghijklmnop" to 0
     val seen = listOf(curr).toMap().toMutableMap()
 
-    for (i in 0 until 1000000000) {
+    repeat(1000000000) {
       val next = dance.fold(StringBuilder(curr.first)) { acc, op ->
         when (op[0]) {
           's' -> {

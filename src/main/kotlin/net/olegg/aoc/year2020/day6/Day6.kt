@@ -13,7 +13,7 @@ object Day6 : DayOf2020(6) {
       .split("\n\n")
       .map { it.replace("\n", "") }
       .map { it.toSet() }
-      .sumBy { it.size }
+      .sumOf { it.size }
   }
 
   override fun second(data: String): Any? {
@@ -22,7 +22,7 @@ object Day6 : DayOf2020(6) {
       .split("\n\n")
       .map { it.split("\n") }
       .map { lines -> lines.map { it.toSet() }.reduce { a, b -> a.intersect(b) } }
-      .sumBy { it.size }
+      .sumOf { it.size }
   }
 }
 

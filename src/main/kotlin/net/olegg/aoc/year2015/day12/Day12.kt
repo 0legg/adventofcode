@@ -26,16 +26,16 @@ object Day12 : DayOf2015(12) {
   private fun sumRecursive(json: JsonElement): Int {
     return when (json) {
       is JsonPrimitive -> json.contentOrNull?.toIntOrNull() ?: 0
-      is JsonObject -> json.values.sumBy { sumRecursive(it) }
-      is JsonArray -> json.sumBy { sumRecursive(it) }
+      is JsonObject -> json.values.sumOf { sumRecursive(it) }
+      is JsonArray -> json.sumOf { sumRecursive(it) }
     }
   }
 
   private fun sumRecursiveRed(json: JsonElement): Int {
     return when (json) {
       is JsonPrimitive -> json.contentOrNull?.toIntOrNull() ?: 0
-      is JsonObject -> if (JsonPrimitive("red") in json.values) 0 else json.values.sumBy { sumRecursiveRed(it) }
-      is JsonArray -> json.sumBy { sumRecursiveRed(it) }
+      is JsonObject -> if (JsonPrimitive("red") in json.values) 0 else json.values.sumOf { sumRecursiveRed(it) }
+      is JsonArray -> json.sumOf { sumRecursiveRed(it) }
     }
   }
 }
