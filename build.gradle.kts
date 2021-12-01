@@ -30,7 +30,6 @@ tasks.withType<KotlinCompile> {
     freeCompilerArgs += listOf(
       "-Xopt-in=kotlin.RequiresOptIn",
       "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-      "-Xopt-in=kotlinx.coroutines.ObsoleteCoroutinesApi",
       "-Xopt-in=kotlinx.coroutines.FlowPreview",
     )
   }
