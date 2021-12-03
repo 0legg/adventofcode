@@ -20,6 +20,33 @@ object Day3 : DayOf2021(3) {
     val epsilon = counts.joinToString(separator = "") { if (it * 2 >= values.size) "0" else "1" }.toInt(2)
     return gamma * epsilon
   }
+
+  override fun second(data: String): Any? {
+    val values = data.trim().lines()
+    val length = values.first().length
+
+    val oxygen = (0 until length)
+      .fold(values) { acc, position ->
+        if (acc.size == 1) return@fold acc
+        val sum = acc.sumOf { it[position].digitToInt() }
+        val char = if (sum * 2 >= acc.size) '1' else '0'
+        return@fold acc.filter { it[position] == char }
+      }
+      .first()
+      .toInt(2)
+
+    val co2 = (0 until length)
+      .fold(values) { acc, position ->
+        if (acc.size == 1) return@fold acc
+        val sum = acc.sumOf { it[position].digitToInt() }
+        val char = if (sum * 2 < acc.size) '1' else '0'
+        return@fold acc.filter { it[position] == char }
+      }
+      .first()
+      .toInt(2)
+
+    return oxygen * co2
+  }
 }
 
 fun main() = SomeDay.mainify(Day3)
