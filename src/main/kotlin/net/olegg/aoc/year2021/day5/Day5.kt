@@ -36,6 +36,36 @@ object Day5 : DayOf2021(5) {
 
     return points.count { it.value > 1 }
   }
+
+  override fun second(data: String): Any? {
+    val vectors = data.trim()
+      .lines()
+      .map { it.split(" -> ") }
+      .map { line ->
+        line.first().parseInts(",").let { Vector2D(it.first(), it.last()) } to
+          line.last().parseInts(",").let { Vector2D(it.first(), it.last()) } }
+
+    val points = mutableMapOf<Vector2D, Int>()
+
+    vectors
+      .filterNot { (begin, end) -> begin == end }
+      .filter { (begin, end) ->
+        begin.x == end.x ||
+          begin.y == end.y ||
+          (end.x - begin.x).absoluteValue == (end.y - begin.y).absoluteValue
+      }
+      .forEach { (begin, end) ->
+        val dir = Vector2D((end.x - begin.x).sign, (end.y - begin.y).sign)
+        var curr = begin
+        while (curr != end) {
+          points[curr] = points.getOrDefault(curr, 0) + 1
+          curr = curr + dir
+        }
+        points[curr] = points.getOrDefault(curr, 0) + 1
+      }
+
+    return points.count { it.value > 1 }
+  }
 }
 
 fun main() = SomeDay.mainify(Day5)
