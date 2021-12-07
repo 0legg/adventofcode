@@ -19,6 +19,20 @@ object Day7 : DayOf2021(7) {
       positions.sumOf { abs(it - pos) }
     }
   }
+
+  override fun second(data: String): Any? {
+    val positions = data.trim().parseInts(",")
+
+    val min = positions.minOf { it }
+    val max = positions.maxOf { it }
+
+    return (min..max).minOf { pos ->
+      positions.sumOf {
+        val dist = abs(it - pos)
+        dist * (dist + 1) / 2
+      }
+    }
+  }
 }
 
 fun main() = SomeDay.mainify(Day7)
