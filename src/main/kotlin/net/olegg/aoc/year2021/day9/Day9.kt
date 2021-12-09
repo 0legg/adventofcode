@@ -18,12 +18,53 @@ object Day9 : DayOf2021(9) {
     return points.mapIndexed { y, line ->
       line.filterIndexed { x, value ->
         val point = Vector2D(x, y)
-        Neighbors4.map { point + it.step }
-          .all { neighbor ->
-            points[neighbor]?.let { it > value } ?: true
-          }
+        Neighbors4.map { point + it.step }.all { neighbor ->
+          points[neighbor]?.let { it > value } ?: true
+        }
       }.sumOf { it + 1 }
     }.sum()
+  }
+
+  override fun second(data: String): Any? {
+    val points = data.trim()
+      .lines()
+      .map { line -> line.toList().map { it.digitToInt() } }
+
+    val low = points.flatMapIndexed { y, line ->
+      line.mapIndexedNotNull { x, value ->
+        val point = Vector2D(x, y)
+        point.takeIf {
+          Neighbors4.map { point + it.step }.all { neighbor ->
+            points[neighbor]?.let { it > value } ?: true
+          }
+        }
+      }
+    }
+
+    val basins = low.map { start ->
+      val startValue = points[start]!!
+      val seen = mutableMapOf<Vector2D, Int>()
+      val queue = ArrayDeque(listOf(start to startValue))
+
+      while (queue.isNotEmpty()) {
+        val (curr, value) = queue.removeFirst()
+        if (curr !in seen) {
+          seen[curr] = value
+          val next = Neighbors4.map { curr + it.step }
+            .mapNotNull { neighbor -> points[neighbor]?.let { neighbor to it } }
+            .filter { it.second > value && it.second != 9 }
+
+          queue += next
+        }
+      }
+
+      seen
+    }
+
+    return basins.map { it.size }
+      .sorted()
+      .takeLast(3)
+      .reduce { a, b -> a * b }
   }
 }
 
