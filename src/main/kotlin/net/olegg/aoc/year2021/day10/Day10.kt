@@ -22,6 +22,37 @@ object Day10 : DayOf2021(10) {
       return@sumOf 0L
     }
   }
+
+  override fun second(data: String): Any? {
+    return data.trim().lines()
+      .mapNotNull { line ->
+        val queue = ArrayDeque<Char>()
+        line.forEach { char ->
+          when (char) {
+            in "(<[{" -> queue.addLast(char)
+            ')' -> if (queue.lastOrNull() == '(') queue.removeLast() else return@mapNotNull null
+            ']' -> if (queue.lastOrNull() == '[') queue.removeLast() else return@mapNotNull null
+            '}' -> if (queue.lastOrNull() == '{') queue.removeLast() else return@mapNotNull null
+            '>' -> if (queue.lastOrNull() == '<') queue.removeLast() else return@mapNotNull null
+          }
+        }
+        return@mapNotNull queue.toList().reversed()
+      }
+      .filter { it.isNotEmpty() }
+      .map { tail ->
+        tail.fold(0L) { acc, char ->
+          acc * 5L + when (char) {
+            '(' -> 1
+            '[' -> 2
+            '{' -> 3
+            '<' -> 4
+            else -> 0
+          }
+        }
+      }
+      .sorted()
+      .let { it[it.size / 2] }
+  }
 }
 
 fun main() = SomeDay.mainify(Day10)
