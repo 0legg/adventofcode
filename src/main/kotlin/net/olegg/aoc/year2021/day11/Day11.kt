@@ -51,6 +51,49 @@ object Day11 : DayOf2021(11) {
 
     return result
   }
+
+  override fun second(data: String): Any? {
+    val start = data.trim()
+      .lines()
+      .map { line -> line.map { it.digitToInt() } }
+
+    val allSize = start.flatten().size
+
+    return generateSequence(1) { it + 1 }
+      .scan(Triple(start, 0, 0)) { (field, _, _), step ->
+        val new = field.map { line ->
+          line.map { it + 1 }.toMutableList()
+        }
+
+        val toFlash = new.flatMapIndexed { y, line ->
+          line.mapIndexedNotNull { x, value ->
+            Vector2D(x, y).takeIf { value > 9 }
+          }
+        }
+
+        val flashed = mutableSetOf<Vector2D>()
+        val queue = ArrayDeque(toFlash)
+        while (queue.isNotEmpty()) {
+          val curr = queue.removeFirst()
+          if (curr !in flashed) {
+            flashed += curr
+            Neighbors8.map { curr + it.step }
+              .filter { it !in flashed }
+              .filter { new.fit(it) }
+              .forEach { new[it] = new[it]!! + 1 }
+            queue += Neighbors8.map { curr + it.step }
+              .filter { new.fit(it) }
+              .filter { new[it]!! > 9 }
+          }
+        }
+
+        flashed.forEach { new[it] = 0 }
+
+        return@scan Triple(new.map { it.toList() }, flashed.size, step)
+      }
+      .first { it.second == allSize }
+      .third
+  }
 }
 
 fun main() = SomeDay.mainify(Day11)
