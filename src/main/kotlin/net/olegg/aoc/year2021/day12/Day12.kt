@@ -40,6 +40,51 @@ object Day12 : DayOf2021(12) {
 
     return finish.size
   }
+
+  override fun second(data: String): Any? {
+    val edges = data.trim()
+      .lines()
+      .map { it.split("-") }
+      .flatMap { listOf(it.first() to it.last(), it.last() to it.first()) }
+      .groupBy(
+        keySelector = { it.first },
+        valueTransform = { it.second },
+      )
+      .mapValues { it.value.sorted() }
+
+    val visited = mutableSetOf<List<String>>()
+    val finish = mutableSetOf<List<String>>()
+    val queue = ArrayDeque(listOf(listOf("start") to false))
+
+    while (queue.isNotEmpty()) {
+      val (curr, twice) = queue.removeFirst()
+      if (curr !in visited) {
+        visited += curr
+        val tail = curr.last()
+        val nexts = edges[tail].orEmpty()
+        if ("end" in nexts) {
+          finish += curr + "end"
+        }
+        queue += nexts
+          .filter { it !in setOf("start", "end") }
+          .filter { it.uppercase() == it || it !in curr }
+          .map { curr + it }
+          .filter { it !in visited }
+          .map { it to twice }
+
+        if (!twice) {
+          queue += nexts
+            .filter { it !in setOf("start", "end") }
+            .filter { it.lowercase() == it && it in curr }
+            .map { curr + it }
+            .filter { it !in visited }
+            .map { it to true }
+        }
+      }
+    }
+
+    return finish.size
+  }
 }
 
 fun main() = SomeDay.mainify(Day12)
