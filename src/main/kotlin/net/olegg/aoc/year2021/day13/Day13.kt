@@ -30,6 +30,38 @@ object Day13 : DayOf2021(13) {
       }
     }.toSet().size
   }
+
+  override fun second(data: String): Any? {
+    val (rawDots, rawFolds) = data.trim().split("\n\n")
+    val points = rawDots.lines()
+      .map { it.parseInts(",") }
+      .map { Vector2D(it.first(), it.last()) }
+      .toSet()
+
+    val folds = rawFolds.lines()
+      .map { it.split("=") }
+      .map { it.first().last() to it.last().toInt() }
+
+    val final = folds.fold(points) { acc, fold ->
+      acc.map {
+        when {
+          fold.first == 'x' && it.x > fold.second -> Vector2D(2 * fold.second - it.x, it.y)
+          fold.first == 'y' && it.y > fold.second -> Vector2D(it.x, 2 * fold.second - it.y)
+          else -> it
+        }
+      }.toSet()
+    }
+
+    val minX = final.minOf { it.x }
+    val maxX = final.maxOf { it.x }
+    val minY = final.minOf { it.y }
+    val maxY = final.maxOf { it.y }
+    return (minY..maxY).joinToString(prefix = "\n", separator = "\n") { y ->
+      (minX..maxX).joinToString(separator = "") { x ->
+        if (Vector2D(x, y) in final) "##" else ".."
+      }
+    }
+  }
 }
 
 fun main() = SomeDay.mainify(Day13)
