@@ -18,12 +18,42 @@ object Day15 : DayOf2021(15) {
       .map { line -> 
         line.map { it.digitToInt() }
       }
-    
+
+    return solve(map)
+  }
+
+  override fun second(data: String): Any? {
+    val map = data.trim()
+      .lines()
+      .map { line ->
+        line.map { it.digitToInt() }
+      }
+
+    val mappings = (1..9).associateWith { start ->
+      (1..9).scan(start) { acc, _ ->
+        if (acc < 9) acc + 1 else 1
+      }
+    }
+
+    val largeMap = (0..4).flatMap { dy ->
+      map.map { row ->
+        (0..4).flatMap { dx ->
+          row.map { value ->
+            mappings[value]!![dx + dy]
+          }
+        }
+      }
+    }
+
+    return solve(largeMap)
+  }
+
+  private fun solve(map: List<List<Int>>): Int {
     val best = map.map { line ->
       line.map { 1_000_000 }.toMutableList()
     }
     best[Vector2D(0, 0)] = 0
-    
+
     val queue = ArrayDeque(listOf(Vector2D(0, 0)))
     while (queue.isNotEmpty()) {
       val curr = queue.removeFirst()
