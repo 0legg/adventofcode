@@ -26,6 +26,17 @@ object Day16 : DayOf2021(16) {
     return root.sumVersions()
   }
 
+  override fun second(data: String): Any? {
+    val binary = data.trim()
+      .map { it.digitToInt(16) }
+      .joinToString("") { it.toString(2).padStart(4, '0') }
+
+    val buffer = CharBuffer.wrap(binary)
+    val root = readPacket(buffer)
+
+    return root.value()
+  }
+
   private fun readPacket(buffer: CharBuffer): Packet {
     val version = buffer.consume(3).toInt(2)
     val type = buffer.consume(3).toInt(2)
@@ -63,6 +74,7 @@ object Day16 : DayOf2021(16) {
         Body.Nested(
           lengthType = lengthType,
           packets = packets,
+          operation = Body.Nested.Operation.mappings[type]!!
         )
       }
     }
@@ -78,12 +90,18 @@ object Day16 : DayOf2021(16) {
     val version: Int,
     val type: Int,
     val body: Body,
-  )
+  ) {
+    fun value(): BigInteger = body.value()
+  }
 
   sealed class Body {
+    abstract fun value(): BigInteger
+
     data class Literal(
       val number: BigInteger,
     ) : Body() {
+      override fun value(): BigInteger = number
+
       companion object {
         const val TYPE = 4
       }
@@ -92,7 +110,76 @@ object Day16 : DayOf2021(16) {
     data class Nested(
       val lengthType: Int,
       val packets: List<Packet>,
-    ) : Body()
+      val operation: Operation,
+    ) : Body() {
+      override fun value(): BigInteger = operation(packets)
+
+      sealed interface Operation {
+        operator fun invoke(packets: List<Packet>): BigInteger
+
+        object Sum : Operation {
+          override fun invoke(packets: List<Packet>): BigInteger {
+            return packets.sumOf { it.value() }
+          }
+          const val TYPE = 0
+        }
+
+        object Product : Operation {
+          override fun invoke(packets: List<Packet>): BigInteger {
+            return packets.map { it.value() }.reduce(BigInteger::multiply)
+          }
+
+          const val TYPE = 1
+        }
+
+        object Minimum : Operation {
+          override fun invoke(packets: List<Packet>): BigInteger {
+            return packets.minOf { it.value() }
+          }
+          const val TYPE = 2
+        }
+
+        object Maximum : Operation {
+          override fun invoke(packets: List<Packet>): BigInteger {
+            return packets.maxOf { it.value() }
+          }
+          const val TYPE = 3
+        }
+
+        object GreaterThan : Operation {
+          override fun invoke(packets: List<Packet>): BigInteger {
+            return if (packets[0].value() > packets[1].value()) BigInteger.ONE else BigInteger.ZERO
+          }
+          const val TYPE = 5
+        }
+
+        object LessThan : Operation {
+          override fun invoke(packets: List<Packet>): BigInteger {
+            return if (packets[0].value() < packets[1].value()) BigInteger.ONE else BigInteger.ZERO
+          }
+          const val TYPE = 6
+        }
+
+        object Equal : Operation {
+          override fun invoke(packets: List<Packet>): BigInteger {
+            return if (packets[0].value() == packets[1].value()) BigInteger.ONE else BigInteger.ZERO
+          }
+          const val TYPE = 7
+        }
+        
+        companion object {
+          val mappings = mapOf(
+            Sum.TYPE to Sum,
+            Product.TYPE to Product,
+            Minimum.TYPE to Minimum,
+            Maximum.TYPE to Maximum,
+            GreaterThan.TYPE to GreaterThan,
+            LessThan.TYPE to LessThan,
+            Equal.TYPE to Equal,
+          )
+        }
+      }
+    }
   }
 
   private fun Buffer.advance(by: Int) = position(position() + by)
