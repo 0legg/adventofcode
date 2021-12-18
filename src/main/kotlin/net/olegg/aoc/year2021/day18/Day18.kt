@@ -19,6 +19,20 @@ object Day18 : DayOf2021(18) {
       .magnitude
   }
 
+  override fun second(data: String): Any? {
+    val numbers = data.trim()
+      .lines()
+      .map { line ->
+        parseNumber(ArrayDeque(line.toList()))
+      }
+
+    return numbers.maxOf { a ->
+      numbers.maxOf { b ->
+        if (a === b) 0 else (a.deepcopy() + b.deepcopy()).magnitude
+      }
+    }
+  }
+
   private fun parseNumber(
     tokens: ArrayDeque<Char>,
   ): Expression {
