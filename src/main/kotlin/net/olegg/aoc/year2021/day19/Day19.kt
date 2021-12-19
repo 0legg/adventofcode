@@ -11,6 +11,18 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day19 : DayOf2021(19) {
   override fun first(data: String): Any? {
+    return findAllData(data).first.size
+  }
+
+  override fun second(data: String): Any? {
+    return findAllData(data)
+      .second
+      .toList()
+      .pairs()
+      .maxOf { (a, b) -> (a - b).manhattan() }
+  }
+
+  private fun findAllData(data: String): Pair<Set<Vector3D>, Set<Vector3D>> {
     val visibleBeacons = data.trim()
       .split("\n\n")
       .map { block ->
@@ -40,6 +52,7 @@ object Day19 : DayOf2021(19) {
 
     val oriented = mutableSetOf(0)
     val beacons = visibleBeacons[0].toMutableSet()
+    val scanners = mutableSetOf(Vector3D())
     val queue = ArrayDeque(possiblePairs[0].orEmpty())
     val orientedBeacons = visibleBeacons.toMutableList()
 
@@ -118,12 +131,13 @@ object Day19 : DayOf2021(19) {
         }
 
       beacons += rotatedPoints
+      scanners += rotation(Vector3D()) + delta
       orientedBeacons[new] = rotatedPoints
       oriented += new
       queue += possiblePairs[new].orEmpty()
     }
 
-    return beacons.size
+    return beacons to scanners
   }
   
   private val allRotations: List<Vector3D.() -> Vector3D> = listOf(
