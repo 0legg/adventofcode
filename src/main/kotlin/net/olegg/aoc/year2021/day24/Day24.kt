@@ -11,6 +11,30 @@ object Day24 : DayOf2021(24) {
   private val DIGITS = 1..9
 
   override fun first(data: String): Any? {
+    return findDiffs(data)
+      .flatMap { (first, second, diff) ->
+        val match = DIGITS.filter { it in DIGITS && it + diff in DIGITS }
+          .maxOf { it }
+        listOf(first to match, second to match + diff)
+      }
+      .sortedBy { it.first }
+      .map { it.second }
+      .joinToString("")
+  }
+
+  override fun second(data: String): Any? {
+    return findDiffs(data)
+      .flatMap { (first, second, diff) ->
+        val match = DIGITS.filter { it in DIGITS && it + diff in DIGITS }
+          .minOf { it }
+        listOf(first to match, second to match + diff)
+      }
+      .sortedBy { it.first }
+      .map { it.second }
+      .joinToString("")
+  }
+
+  private fun findDiffs(data: String): List<Triple<Int, Int, Int>> {
     val rawOps = data.trim()
       .split("inp w")
       .filter { it.isNotBlank() }
@@ -20,7 +44,7 @@ object Day24 : DayOf2021(24) {
 
     val pushOut = Op.Div(Arg.Reg(MAPPING['z']!!), Arg.Val(26))
 
-    val diffs = buildList {
+    return buildList {
       val stack = ArrayDeque<Pair<Int, Int>>()
       rawOps.forEachIndexed { index, block ->
         if (pushOut in block) {
@@ -33,16 +57,6 @@ object Day24 : DayOf2021(24) {
         }
       }
     }
-
-    return diffs
-      .flatMap { (first, second, diff) ->
-        val match = DIGITS.filter { it in DIGITS && it + diff in DIGITS }
-          .maxOf { it }
-        listOf(first to match, second to match + diff)
-      }
-      .sortedBy { it.first }
-      .map { it.second }
-      .joinToString("")
   }
 
   sealed interface Op {
