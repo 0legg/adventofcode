@@ -16,100 +16,228 @@ object Day23 : DayOf2021(23) {
     'C' to 100,
     'D' to 1000,
   )
-  
+
   override fun first(data: String): Any? {
-    val points = data.trim()
-      .lines()
+    return solve(data.trim().lines())
+  }
+
+  override fun second(data: String): Any? {
+    val base = data.trim().lines()
+    val insert = """
+      |  #D#C#B#A#
+      |  #D#B#A#C#
+    """.trimMargin().lines()
+
+    return solve(
+      base.take(3) + insert + base.drop(3)
+    )
+  }
+
+  private fun solve(data: List<String>): Int {
+    val points = data
       .flatMapIndexed { y, row ->
         row.mapIndexedNotNull { x, c ->
           if (c in 'A'..'D' || c == '.') Vector2D(x, y) to c else null
         }
       }
 
-    val amphipods = points.filter { it.second in 'A'..'D' }
-
-    val stacks = amphipods
+    val rawStacks = points.filter { it.second in 'A'..'D' }
       .groupBy { it.first.x }
       .toList()
       .zip('A'..'D') { (x, points), char ->
-        Triple(char, x, points.map { it.first }.toSet())
+        Triple(char, x, points)
       }
 
-    val entries = stacks.associate { it.first to Vector2D(it.second, 1) }
-    val targets = stacks.associate { it.first to it.third }
+    val depth = rawStacks.first().third.size
+
+    val stacks = rawStacks.map {
+      Node(
+        x = it.second,
+        char = it.first,
+      )
+    }
+
+    val startStacks = stacks.zip(rawStacks) { stack, rawStack ->
+      stack to rawStack.third.map { it.second }
+    }.toMap()
+
+    val entries = stacks.map { stack -> stack.x }
+
     val spots = points.filter { it.second == '.' }
-      .map { it.first }
-      .filterNot { it in entries.values }
+      .map { it.first.x }
+      .filterNot { it in entries }
+      .map { Node(it) }
 
-    val minX = spots.minOf { it.x }
-    val maxX = spots.maxOf { it.x }
-
-    val queue = PriorityQueue<World>(1_000_000, compareBy { it.score })
-    val seen = mutableSetOf<List<Triple<Vector2D, Char, Boolean>>>()
-    queue += World(amphipods.map { Triple(it.first, it.second, false) }, 0)
-
-    while (queue.isNotEmpty()) {
-      val (curr, score) = queue.remove()
-      if (curr in seen) {
-        continue
-      } else {
-        seen += curr
-      }
-      if (curr.all { it.first in targets[it.second].orEmpty() }) {
-        return score
-      }
-
-      val occupied = curr.map { it.first }.toSet()
-      val freeSpots = spots - occupied
-
-      val canMove = curr.filter { it.first - Vector2D(0, 1) !in occupied }
-
-      val exiting = canMove.filterNot { it.third }
-        .flatMap { amph ->
-          val toLeft = (amph.first.x - 1 downTo minX).map { Vector2D(it, 1) }.takeWhile { it !in occupied }
-          val toRight = (amph.first.x + 1..maxX).map { Vector2D(it, 1) }.takeWhile { it !in occupied }
-          (toLeft + toRight).filter { it in freeSpots }.map { amph to it }
+    val exitLinks = stacks.associateWith { stack ->
+      spots.map { spot ->
+        val range = when {
+          stack.x < spot.x -> (stack.x + 1)..(spot.x - 1)
+          stack.x > spot.x -> (spot.x + 1)..(stack.x - 1)
+          else -> IntRange.EMPTY
         }
-
-      val availableEntries = targets
-        .filter { (char, points) ->
-          curr.none { it.first in points && it.second != char } && points.any { it !in occupied }
-        }
-        .mapValues { stack ->
-          stack.value.filter { it !in occupied }.maxByOrNull { it.y }!!
-        }
-        .toList()
-
-      val entering = availableEntries.flatMap { (char, point) ->
-        val matching = canMove.filter { it.second == char }
-          .filterNot { it.first.x == point.x }
-        val fromLeft = matching.filter { it.first.x < point.x }
-          .filter {
-            (it.first.x + 1..point.x).none { x -> Vector2D(x, 1) in occupied }
-          }
-        val fromRight = matching.filter { it.first.x > point.x }
-          .filter {
-            (it.first.x - 1 downTo point.x).none { x -> Vector2D(x, 1) in occupied }
-          }
-        (fromLeft + fromRight).map { it to point }
-      }
-
-      (entering + exiting).forEach { (amph, to) ->
-        val price = ((amph.first.y - 1) + (to.y - 1) + abs(amph.first.x - to.x)) * cost[amph.second]!!
-        queue += World(
-          amphipods = curr.map {
-            if (it == amph) Triple(to, amph.second, true) else it
-          },
-          score = score + price,
+        Link(
+          to = spot,
+          blocking = spots.filter { it.x in range },
+          costX = abs(stack.x - spot.x),
         )
       }
     }
-    return -1
+
+    val enterFromSpotLinks = spots.associateWith { spot ->
+      stacks.map { stack ->
+        val range = when {
+          spot.x < stack.x -> (spot.x + 1)..(stack.x - 1)
+          spot.x > stack.x -> (stack.x + 1)..(spot.x - 1)
+          else -> IntRange.EMPTY
+        }
+        Link(
+          to = stack,
+          blocking = spots.filter { it.x in range },
+          costX = abs(spot.x - stack.x),
+        )
+      }
+    }
+
+    val enterFromStackLinks = stacks.associateWith { fromStack ->
+      stacks.filterNot { it == fromStack }
+        .map { stack ->
+          val range = when {
+            fromStack.x < stack.x -> (fromStack.x + 1)..(stack.x - 1)
+            fromStack.x > stack.x -> (stack.x + 1)..(fromStack.x - 1)
+            else -> IntRange.EMPTY
+          }
+          Link(
+            to = stack,
+            blocking = spots.filter { it.x in range },
+            costX = abs(fromStack.x - stack.x),
+          )
+        }
+    }
+
+    val startWorld = World(
+      spots = emptyMap(),
+      stacks = startStacks,
+    )
+
+    val queue = PriorityQueue<Triple<World, Int, Int>>(1_000_000, compareBy { it.second + it.third })
+    queue += Triple(startWorld, 0, Int.MAX_VALUE)
+    val seen = mutableSetOf<World>()
+
+    while (queue.isNotEmpty()) {
+      val (world, score, _) = queue.remove()
+      if (world in seen) {
+        continue
+      } else {
+        seen += world
+      }
+
+      if (world.spots.isEmpty() && world.stacks.all { (stack, chars) -> chars.all { it == stack.char } }) {
+        return score
+      }
+
+      val canFill = world.stacks
+        .filter { it.value.all { char -> char == it.key.char } }
+        .filter { it.value.size < depth }
+
+      val canExit = world.stacks
+        .filter { it.value.isNotEmpty() }
+        .filter { it.key !in canFill }
+        .filter { it.value.any { char -> char != it.key.char } }
+
+      val exiting = canExit.flatMap { (stack, stackData) ->
+        val targets = exitLinks[stack].orEmpty()
+          .filter { it.to !in world.spots }
+          .filter { it.blocking.none { blocking -> blocking in world.spots } }
+
+        val costY = (depth - stackData.size + 1)
+
+        targets.map { target ->
+          World(
+            spots = world.spots + (target.to to stackData.first()),
+            stacks = world.stacks.mapValues { (key, value) ->
+              if (key == stack) value.drop(1) else value
+            }
+          ) to score + (target.costX + costY) * cost[stackData.first()]!!
+        }
+      }
+
+      val enteringFromStacks = canExit.flatMap { (stack, stackData) ->
+        val targets = enterFromStackLinks[stack].orEmpty()
+          .filter { it.to in canFill }
+          .filter { it.to.char == stackData.first() }
+          .filter { it.blocking.none { blocking -> blocking in world.spots } }
+
+        val costFromY = (depth - stackData.size + 1)
+
+        targets.map { target ->
+          val costToY = (depth - world.stacks[target.to].orEmpty().size)
+
+          World(
+            spots = world.spots,
+            stacks = world.stacks.mapValues { (key, value) ->
+              when (key) {
+                stack -> value.drop(1)
+                target.to -> stackData.take(1) + value
+                else -> value
+              }
+            }
+          ) to score + (target.costX + costFromY + costToY) * cost[stackData.first()]!!
+        }
+      }
+
+      val enteringFromSpots = world.spots.flatMap { (spot, char) ->
+        val targets = enterFromSpotLinks[spot].orEmpty()
+          .filter { it.to in canFill }
+          .filter { it.to.char == char }
+          .filter { it.blocking.none { blocking -> blocking in world.spots } }
+
+        targets.map { target ->
+          val costToY = (depth - world.stacks[target.to].orEmpty().size)
+
+          World(
+            spots = world.spots - spot,
+            stacks = world.stacks.mapValues { (key, value) ->
+              when (key) {
+                target.to -> listOf(char) + value
+                else -> value
+              }
+            }
+          ) to score + (target.costX + costToY) * cost[char]!!
+        }
+      }
+
+      val toAdd = (exiting + enteringFromStacks + enteringFromSpots)
+        .filter { it.first !in seen }
+        .map { (world, score) ->
+          val spotCosts = world.spots.map { (node, char) ->
+            ((stacks.first { it.char == char }.x - node.x) + depth) * cost[char]!!
+          }.sum()
+          val stackCosts = world.stacks.map { (node, stack) ->
+            stack.filter { it != node.char }.sumOf { cost[it]!! } * 2 * depth
+          }.sum()
+          Triple(world, score, (spotCosts + stackCosts) / 4)
+        }
+
+      queue.addAll(toAdd)
+    }
+
+    return 0
   }
 
   data class World(
-    val amphipods: List<Triple<Vector2D, Char, Boolean>>,
-    val score: Int,
+    val spots: Map<Node, Char>,
+    val stacks: Map<Node, List<Char>>,
+  )
+
+  data class Link(
+    val to: Node,
+    val blocking: List<Node>,
+    val costX: Int,
+  )
+
+  data class Node(
+    val x: Int,
+    val char: Char = '.',
   )
 }
 
