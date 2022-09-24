@@ -13,14 +13,13 @@ object Day12 : DayOf2017(12) {
       .lines()
       .map { it.replace("[<\\->,]".toRegex(), "") }
       .map { it.parseInts() }
-      .map { it[0] to it.subList(1, it.size).toSet() }
-      .toMap()
+      .associate { it[0] to it.subList(1, it.size).toSet() }
 
     val visited = mutableSetOf(0)
     val queue = ArrayDeque(listOf(0))
     while (queue.isNotEmpty()) {
       val curr = queue.removeFirst()
-      val toVisit = (nodes[curr] ?: emptySet()) - visited
+      val toVisit = nodes[curr].orEmpty() - visited
       visited += toVisit
       queue += toVisit
     }

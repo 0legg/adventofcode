@@ -27,7 +27,7 @@ object Day24 : DayOf2020(24) {
       }
 
     val tiles = items.map { steps ->
-      steps.fold(Vector3D()) { acc, value -> acc + dirs[value]!! }
+      steps.fold(Vector3D()) { acc, value -> acc + dirs.getValue(value) }
     }
 
     return tiles.groupBy { it }.count { it.value.size % 2 == 1 }
@@ -43,7 +43,7 @@ object Day24 : DayOf2020(24) {
 
     val start = items
       .map { steps ->
-        steps.fold(Vector3D()) { acc, value -> acc + dirs[value]!! }
+        steps.fold(Vector3D()) { acc, value -> acc + dirs.getValue(value) }
       }
       .groupBy { it }
       .filterValues { it.size % 2 == 1 }

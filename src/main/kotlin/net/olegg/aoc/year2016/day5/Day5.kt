@@ -24,8 +24,8 @@ object Day5 : DayOf2016(5) {
       .filter { it.startsWith("00000") }
       .filter { it[5] in '0'..'7' }
       .map { it[5] to it[6] }
-      .filter { map[it.first] == null }
-      .map { map[it.first] = it.second; it }
+      .filter { it.first !in map }
+      .onEach { map[it.first] = it.second }
       .takeWhile { map.size < 8 }
       .toList()
       .sortedBy { it.first }

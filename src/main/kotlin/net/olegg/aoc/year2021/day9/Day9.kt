@@ -32,8 +32,7 @@ object Day9 : DayOf2021(9) {
 
     val low = points.flatMapIndexed { y, line ->
       line.mapIndexedNotNull { x, value ->
-        val point = Vector2D(x, y)
-        point.takeIf {
+        Vector2D(x, y).takeIf { point ->
           Neighbors4.map { point + it.step }.all { neighbor ->
             points[neighbor]?.let { it > value } ?: true
           }

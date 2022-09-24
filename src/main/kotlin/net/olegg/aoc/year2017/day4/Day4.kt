@@ -11,19 +11,17 @@ object Day4 : DayOf2017(4) {
     return data
       .trim()
       .lines()
-      .map { it.split(" ") }
-      .filter { it.size == it.toSet().size }
-      .count()
+      .map { line -> line.split(" ") }
+      .count { it.size == it.toSet().size }
   }
 
   override fun second(data: String): Any? {
     return data
       .trim()
       .lines()
-      .map { it.split(" ") }
-      .map { it.map { String(it.toCharArray().sortedArray()) } }
-      .filter { it.size == it.toSet().size }
-      .count()
+      .map { line -> line.split(" ") }
+      .map { words -> words.map { String(it.toCharArray().sortedArray()) } }
+      .count { it.size == it.toSet().size }
   }
 }
 

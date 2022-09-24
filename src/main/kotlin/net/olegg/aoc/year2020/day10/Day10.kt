@@ -17,7 +17,7 @@ object Day10 : DayOf2020(10) {
       .groupBy { it }
       .mapValues { it.value.size }
 
-    return diffs[1]!! * diffs[3]!!
+    return diffs.getValue(1) * diffs.getValue(3)
   }
 
   override fun second(data: String): Any? {

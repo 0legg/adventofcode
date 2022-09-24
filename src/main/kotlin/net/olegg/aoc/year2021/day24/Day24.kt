@@ -42,17 +42,17 @@ object Day24 : DayOf2021(24) {
         block.trim().lines().map { Op.parse(it) }
       }
 
-    val pushOut = Op.Div(Arg.Reg(MAPPING['z']!!), Arg.Val(26))
+    val pushOut = Op.Div(Arg.Reg(MAPPING.getValue('z')), Arg.Val(26))
 
     return buildList {
       val stack = ArrayDeque<Pair<Int, Int>>()
       rawOps.forEachIndexed { index, block ->
         if (pushOut in block) {
-          val diff = block.last { it is Op.Add && it.a == Arg.Reg(MAPPING['x']!!) } as Op.Add
+          val diff = block.last { it is Op.Add && it.a == Arg.Reg(MAPPING.getValue('x')) } as Op.Add
           val linked = stack.removeLast()
           add(Triple(linked.first, index, linked.second + (diff.b as Arg.Val).value))
         } else {
-          val diff = block.last { it is Op.Add && it.a == Arg.Reg(MAPPING['y']!!) } as Op.Add
+          val diff = block.last { it is Op.Add && it.a == Arg.Reg(MAPPING.getValue('y')) } as Op.Add
           stack.addLast(index to (diff.b as Arg.Val).value)
         }
       }
@@ -119,7 +119,7 @@ object Day24 : DayOf2021(24) {
       fun parse(raw: String): Op {
         val tokens = raw.split(" ")
         return when (tokens[0]) {
-          "inp" -> Inp(MAPPING[tokens[1].first()]!!)
+          "inp" -> Inp(MAPPING.getValue(tokens[1].first()))
           "add" -> Add(parseArg(tokens[1]), parseArg(tokens[2]))
           "mul" -> Mul(parseArg(tokens[1]), parseArg(tokens[2]))
           "div" -> Div(parseArg(tokens[1]), parseArg(tokens[2]))
@@ -132,7 +132,7 @@ object Day24 : DayOf2021(24) {
       private fun parseArg(raw: String): Arg = try {
         Arg.Val(raw.toInt())
       } catch (_: Exception) {
-        Arg.Reg(MAPPING[raw.first()]!!)
+        Arg.Reg(MAPPING.getValue(raw.first()))
       }
     }
   }

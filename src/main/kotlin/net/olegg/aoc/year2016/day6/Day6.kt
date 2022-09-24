@@ -8,13 +8,14 @@ import net.olegg.aoc.year2016.DayOf2016
  */
 object Day6 : DayOf2016(6) {
   override fun first(data: String): Any? {
-    return data.lines()
+    return data
+      .lines()
       .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
       .groupBy { it.first }
-      .mapValues { it.value.map { it.second } }
-      .mapValues { it.value.groupBy { it } }
-      .mapValues { it.value.mapValues { it.value.size } }
-      .mapValues { it.value.maxByOrNull { it.value }?.key ?: '?' }
+      .mapValues { (_, value) -> value.map { it.second } }
+      .mapValues { (_, value) -> value.groupBy { it } }
+      .mapValues { (_, value) -> value.mapValues { it.value.size } }
+      .mapValues { (_, value) -> value.maxByOrNull { it.value }?.key ?: '?' }
       .toList()
       .sortedBy { it.first }
       .map { it.second }
@@ -22,13 +23,14 @@ object Day6 : DayOf2016(6) {
   }
 
   override fun second(data: String): Any? {
-    return data.lines()
+    return data
+      .lines()
       .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
       .groupBy { it.first }
-      .mapValues { it.value.map { it.second } }
-      .mapValues { it.value.groupBy { it } }
-      .mapValues { it.value.mapValues { it.value.size } }
-      .mapValues { it.value.minByOrNull { it.value }?.key ?: '?' }
+      .mapValues { (_, value) -> value.map { it.second } }
+      .mapValues { (_, value) -> value.groupBy { it } }
+      .mapValues { (_, value) -> value.mapValues { it.value.size } }
+      .mapValues { (_, value) -> value.minByOrNull { it.value }?.key ?: '?' }
       .toList()
       .sortedBy { it.first }
       .map { it.second }

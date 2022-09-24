@@ -74,7 +74,7 @@ object Day16 : DayOf2021(16) {
         Body.Nested(
           lengthType = lengthType,
           packets = packets,
-          operation = Body.Nested.Operation.mappings[type]!!
+          operation = Body.Nested.Operation.mappings.getValue(type),
         )
       }
     }

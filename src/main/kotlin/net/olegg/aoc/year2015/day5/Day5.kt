@@ -18,8 +18,7 @@ object Day5 : DayOf2015(5) {
       .lines()
       .filter { line -> line.count { it in "aeiou" } >= 3 }
       .filterNot { BAD_2_CHARS_REGEX in it }
-      .filter { AA_REGEX in it }
-      .size
+      .count { AA_REGEX in it }
   }
 
   override fun second(data: String): Any? {
@@ -27,8 +26,7 @@ object Day5 : DayOf2015(5) {
       .trim()
       .lines()
       .filter { ABA_REGEX in it }
-      .filter { ABAB_REGEX in it }
-      .size
+      .count { ABAB_REGEX in it }
   }
 }
 

@@ -49,7 +49,7 @@ object Day17 : DayOf2019(17) {
         row.mapIndexedNotNull { x, c ->
           val pos = Vector2D(x, y)
 
-          return@mapIndexedNotNull x.takeIf {
+          return@mapIndexedNotNull x.takeIf { _ ->
             c == '#' && Neighbors4.map { pos + it.step }.all { map[it] == '#' }
           }
         }.sumOf { it * y }
