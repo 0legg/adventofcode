@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.olegg.aoc"
-version = "2021.0.0"
+version = "2022.0.0"
 
 repositories {
   mavenCentral()
