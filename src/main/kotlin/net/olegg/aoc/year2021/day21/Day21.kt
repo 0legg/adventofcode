@@ -1,8 +1,6 @@
 package net.olegg.aoc.year2021.day21
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.parseInts
-import net.olegg.aoc.utils.toPair
 import net.olegg.aoc.year2021.DayOf2021
 import java.util.PriorityQueue
 

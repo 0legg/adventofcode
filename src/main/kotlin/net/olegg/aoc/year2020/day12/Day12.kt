@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2020.day12
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.CCW
-import net.olegg.aoc.utils.CW
+import net.olegg.aoc.utils.Directions.Companion.CCW
+import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R

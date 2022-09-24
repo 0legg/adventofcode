@@ -1,10 +1,10 @@
 package net.olegg.aoc.year2017.day22
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.CCW
-import net.olegg.aoc.utils.CW
 import net.olegg.aoc.utils.Directions
-import net.olegg.aoc.utils.REV
+import net.olegg.aoc.utils.Directions.Companion.CCW
+import net.olegg.aoc.utils.Directions.Companion.CW
+import net.olegg.aoc.utils.Directions.Companion.REV
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2017.DayOf2017
 

@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2018.day22
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2018.DayOf2018

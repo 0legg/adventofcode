@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2021.day11
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors8
+import net.olegg.aoc.utils.Directions.Companion.Neighbors8
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.fit
 import net.olegg.aoc.utils.get

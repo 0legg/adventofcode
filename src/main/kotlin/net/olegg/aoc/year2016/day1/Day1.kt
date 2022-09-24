@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2016.day1
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.CCW
-import net.olegg.aoc.utils.CW
+import net.olegg.aoc.utils.Directions.Companion.CCW
+import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Directions.U
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2016.DayOf2016

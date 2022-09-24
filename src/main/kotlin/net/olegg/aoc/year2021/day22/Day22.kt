@@ -2,9 +2,7 @@ package net.olegg.aoc.year2021.day22
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Vector3D
-import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2021.DayOf2021
-import kotlin.math.absoluteValue
 
 /**
  * See [Year 2021, Day 22](https://adventofcode.com/2021/day/22)
