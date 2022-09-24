@@ -33,7 +33,7 @@ object Day4 : DayOf2019(4) {
       .filter { it.length == 6 }
       .filter { value -> value.windowed(2).any { it[0] == it[1] } }
       .filter { value -> value.windowed(2).none { it[0] > it[1] } }
-      .count { value -> value.toList().series().any { it.size == 2 } }
+      .count { value -> value.toList().series().any { it.second == 2 } }
   }
 }
 

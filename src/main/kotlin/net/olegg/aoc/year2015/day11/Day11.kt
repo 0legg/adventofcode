@@ -4,54 +4,54 @@ import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.series
 import net.olegg.aoc.year2015.DayOf2015
 import java.math.BigInteger
+import java.math.BigInteger.ONE
+import java.math.BigInteger.ZERO
 
 /**
  * See [Year 2015, Day 11](https://adventofcode.com/2015/day/11)
  */
 object Day11 : DayOf2015(11) {
-  private val MAPPINGS = ('a'..'z')
-    .mapIndexed { index, char -> char to BigInteger.valueOf(index.toLong()) }
-    .toMap()
-  private val UNMAPPINGS = ('a'..'z')
-    .mapIndexed { index, char -> BigInteger.valueOf(index.toLong()) to char }
-    .toMap()
-  private val TRIPLES = ('a'..'x').map { String(charArrayOf(it, it + 1, it + 2)) }
-  private val SHIFT = BigInteger.valueOf(26)
+  private val ALPHABET = 'a'..'z'
+  private val MAPPINGS = ALPHABET
+    .withIndex()
+    .associate { (index, char) -> char to index.toBigInteger() }
+  private val UNMAPPINGS = ALPHABET
+    .withIndex()
+    .associate { (index, char) -> index.toBigInteger() to char }
+  private val TRIPLES = ALPHABET
+    .windowed(3)
+    .map { it.joinToString(separator = "") }
+  private val SHIFT = 26.toBigInteger()
 
   private fun wrap(password: String): BigInteger {
-    return password.fold(BigInteger.ZERO) { acc, char -> acc * SHIFT + (MAPPINGS[char] ?: BigInteger.ZERO) }
+    return password.fold(ZERO) { acc, char -> acc * SHIFT + (MAPPINGS[char] ?: ZERO) }
   }
 
   private fun unwrap(wrapped: BigInteger): String {
-    val sb = StringBuilder()
-    var curr = wrapped
-    do {
-      val (next, rem) = curr.divideAndRemainder(SHIFT)
-      sb.append(UNMAPPINGS[rem] ?: "?")
-      curr = next
-    } while (curr > BigInteger.ZERO)
-    return sb.reverse().toString()
+    return buildString {
+      var curr = wrapped
+      do {
+        val (next, rem) = curr.divideAndRemainder(SHIFT)
+        append(UNMAPPINGS[rem] ?: "?")
+        curr = next
+      } while (curr > ZERO)
+      reverse()
+    }
   }
 
-  fun passwordList(password: String) = generateSequence(wrap(password)) { it + BigInteger.ONE }.map { unwrap(it) }
+  private fun passwordList(password: String) = generateSequence(wrap(password)) { it + ONE }.map { unwrap(it) }
 
-  fun password(password: String): String {
+  private fun password(password: String): String {
     return passwordList(password)
       .drop(1)
-      .filterNot { string ->
-        "iol".any { string.contains(it) }
-      }
-      .filter { string ->
-        TRIPLES.any { string.contains(it) }
-      }
+      .filterNot { string -> "iol".any { it in string } }
+      .filter { string -> TRIPLES.any { it in string } }
       .filter { string ->
         string
           .toList()
           .series()
-          .filter { it.size > 1 }
-          .flatten()
-          .joinToString(separator = "")
-          .length > 3
+          .filter { it.second > 1 }
+          .sumOf { it.second } > 3
       }
       .first()
   }
