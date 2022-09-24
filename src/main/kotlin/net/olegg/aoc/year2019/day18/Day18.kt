@@ -21,8 +21,7 @@ object Day18 : DayOf2019(18) {
       .map { it.toList() }
 
     val keys = (('a'..'z') + '@')
-      .map { it to (map.find(it) ?: throw IllegalStateException()) }
-      .toMap()
+      .associateWith { checkNotNull(map.find(it)) }
     val routes = mutableMapOf<Char, MutableMap<Char, Pair<Int, BitSet>>>()
 
     keys.entries.forEach { (key, position) ->
@@ -100,7 +99,7 @@ object Day18 : DayOf2019(18) {
       .trim()
       .lines()
       .map { it.toMutableList() }
-    val start = map.find('@') ?: throw IllegalStateException()
+    val start = checkNotNull(map.find('@'))
     (-1..1).forEach { y ->
       (-1..1).forEach { x ->
         map[start + Vector2D(x, y)] = '#'
@@ -114,8 +113,7 @@ object Day18 : DayOf2019(18) {
     val bots = "@$%&".toList()
 
     val keys = (('a'..'z') + bots)
-      .map { it to (map.find(it) ?: throw IllegalStateException()) }
-      .toMap()
+      .associateWith { checkNotNull(map.find(it)) }
     val routes = mutableMapOf<Char, MutableMap<Char, Pair<Int, BitSet>>>()
 
     keys.entries.forEach { (key, position) ->

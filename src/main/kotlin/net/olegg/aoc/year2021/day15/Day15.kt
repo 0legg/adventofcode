@@ -39,7 +39,7 @@ object Day15 : DayOf2021(15) {
       map.map { row ->
         (0..4).flatMap { dx ->
           row.map { value ->
-            mappings[value]!![dx + dy]
+            mappings.getValue(value)[dx + dy]
           }
         }
       }

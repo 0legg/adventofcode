@@ -22,8 +22,7 @@ object Day25 : DayOf2017(25) {
   override fun first(data: String): Any? {
     val sections = data.trim().split("\n\n")
 
-    val (initialState, iterations) = HEADER_PATTERN.find(sections[0])?.destructured
-      ?: throw IllegalArgumentException()
+    val (initialState, iterations) = HEADER_PATTERN.find(sections[0])?.destructured ?: error("Unable to parse")
 
     val states = sections
       .drop(1)

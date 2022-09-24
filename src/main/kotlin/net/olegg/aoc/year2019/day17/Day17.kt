@@ -49,7 +49,7 @@ object Day17 : DayOf2019(17) {
         row.mapIndexedNotNull { x, c ->
           val pos = Vector2D(x, y)
 
-          return@mapIndexedNotNull x.takeIf {
+          return@mapIndexedNotNull x.takeIf { _ ->
             c == '#' && Neighbors4.map { pos + it.step }.all { map[it] == '#' }
           }
         }.sumOf { it * y }
@@ -104,12 +104,12 @@ object Day17 : DayOf2019(17) {
         'v' -> D
         '<' -> L
         '>' -> R
-        else -> throw IllegalStateException()
+        else -> error("Expected direction")
       }
 
       val movement = generateSequence(Triple('X' to 0, start, direction)) { (_, from, dir) ->
-        val leftStep = CCW[dir] ?: throw IllegalStateException()
-        val rightStep = CW[dir] ?: throw IllegalStateException()
+        val leftStep = checkNotNull(CCW[dir])
+        val rightStep = checkNotNull(CW[dir])
         val left = from + leftStep.step
         val right = from + rightStep.step
 

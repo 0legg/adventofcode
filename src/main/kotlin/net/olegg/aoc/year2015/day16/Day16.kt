@@ -7,9 +7,9 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 16](https://adventofcode.com/2015/day/16)
  */
 object Day16 : DayOf2015(16) {
-  val PATTERN = "^Sue (\\d+): (?:([a-z]+): (\\d+)(?:, )?)*$".toRegex()
+  private val PATTERN = "^Sue (\\d+): (?:([a-z]+): (\\d+)(?:, )?)*$".toRegex()
 
-  val sues = data
+  private val sues = data
     .trim()
     .lines()
     .mapNotNull { line ->
@@ -20,13 +20,12 @@ object Day16 : DayOf2015(16) {
         val own = match.groupValues
           .drop(2)
           .windowed(2)
-          .map { it.first() to it.last().toInt() }
-          .toMap()
+          .associate { it.first() to it.last().toInt() }
         return@let index to own
       }
     }
 
-  val footprint = mapOf(
+  private val footprint = mapOf(
     "children" to 3,
     "cats" to 7,
     "samoyeds" to 2,
@@ -40,18 +39,18 @@ object Day16 : DayOf2015(16) {
   )
 
   override fun first(data: String): Any? {
-    println(sues)
-    return sues.filter { it.second.all { it.value == footprint[it.key] } }.map { it.first }.first()
+    return sues.filter { sue -> sue.second.all { it.value == footprint[it.key] } }.map { it.first }.first()
   }
 
   override fun second(data: String): Any? {
     return sues
       .first { (_, own) ->
         own.all { (key, value) ->
+          val footprintValue = footprint[key] ?: 0
           when (key) {
-            "cats", "trees" -> (value > footprint[key] ?: 0)
-            "pomeranians", "goldfish" -> (value < footprint[key] ?: 0)
-            else -> value == footprint[key]
+            "cats", "trees" -> value > footprintValue
+            "pomeranians", "goldfish" -> value < footprintValue
+            else -> value == footprintValue
           }
         }
       }

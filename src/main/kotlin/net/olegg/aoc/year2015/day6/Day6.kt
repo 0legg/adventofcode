@@ -7,10 +7,10 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 6](https://adventofcode.com/2015/day/6)
  */
 object Day6 : DayOf2015(6) {
-  val commands = data.lines()
+  private val commands = data.trim().lines()
 
-  fun toPoints(command: String): List<Int> {
-    val matcher = "[\\D]*(\\d+),(\\d+)[\\D]*(\\d+),(\\d+)[\\D]*".toPattern().matcher(command)
+  private fun toPoints(command: String): List<Int> {
+    val matcher = "\\D*(\\d+),(\\d+)\\D*(\\d+),(\\d+)\\D*".toPattern().matcher(command)
     matcher.find()
     return (1..4).map { matcher.group(it).toInt() }
   }
@@ -29,7 +29,7 @@ object Day6 : DayOf2015(6) {
         }
       }
       acc
-    }.sumOf { it.count { it } }
+    }.sumOf { row -> row.count { it } }
   }
 
   override fun second(data: String): Any? {

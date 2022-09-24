@@ -22,7 +22,7 @@ object Day23 : DayOf2018(23) {
         }
       }
 
-    val strong = bots.maxByOrNull { it: Bot -> it.r } ?: bots.first()
+    val strong = bots.maxByOrNull { it.r } ?: bots.first()
 
     return bots.count { strong.distance(it) <= strong.r }
   }

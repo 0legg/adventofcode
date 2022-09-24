@@ -55,7 +55,7 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack += Move.Return(returns[curr.dir] ?: throw IllegalStateException())
+                  stack += Move.Return(checkNotNull(returns[curr.dir]))
                   stack += Neighbors4.filter { it != returns[curr.dir] }
                     .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                     .map { Move.Forward(it, newPosition, curr.distance + 1) }
@@ -105,7 +105,7 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack += Move.Return(returns[curr.dir] ?: throw IllegalStateException())
+                  stack += Move.Return(checkNotNull(returns[curr.dir]))
                   stack += Neighbors4.filter { it != returns[curr.dir] }
                     .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                     .map { Move.Forward(it, newPosition, curr.distance + 1) }

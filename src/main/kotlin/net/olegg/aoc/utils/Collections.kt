@@ -68,8 +68,8 @@ fun <T> List<List<T>>.find(value: T): Vector2D? {
 
 operator fun <T> List<MutableList<T>>.set(v: Vector2D, value: T) {
   when {
-    v.y !in indices -> throw IndexOutOfBoundsException()
-    v.x !in this[v.y].indices -> throw IndexOutOfBoundsException()
+    v.y !in indices -> throw IndexOutOfBoundsException("index: ${v.y}.${v.x}")
+    v.x !in this[v.y].indices -> throw IndexOutOfBoundsException("index: ${v.y}.${v.x}")
     else -> this[v.y][v.x] = value
   }
 }

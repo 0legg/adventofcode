@@ -157,7 +157,7 @@ object Day23 : DayOf2021(23) {
             stacks = world.stacks.mapValues { (key, value) ->
               if (key == stack) value.drop(1) else value
             }
-          ) to score + (target.costX + costY) * cost[stackData.first()]!!
+          ) to score + (target.costX + costY) * cost.getValue(stackData.first())
         }
       }
 
@@ -181,7 +181,7 @@ object Day23 : DayOf2021(23) {
                 else -> value
               }
             }
-          ) to score + (target.costX + costFromY + costToY) * cost[stackData.first()]!!
+          ) to score + (target.costX + costFromY + costToY) * cost.getValue(stackData.first())
         }
       }
 
@@ -202,7 +202,7 @@ object Day23 : DayOf2021(23) {
                 else -> value
               }
             }
-          ) to score + (target.costX + costToY) * cost[char]!!
+          ) to score + (target.costX + costToY) * cost.getValue(char)
         }
       }
 
@@ -210,10 +210,10 @@ object Day23 : DayOf2021(23) {
         .filter { it.first !in seen }
         .map { (world, score) ->
           val spotCosts = world.spots.map { (node, char) ->
-            ((stacks.first { it.char == char }.x - node.x) + depth) * cost[char]!!
+            ((stacks.first { it.char == char }.x - node.x) + depth) * cost.getValue(char)
           }.sum()
           val stackCosts = world.stacks.map { (node, stack) ->
-            stack.filter { it != node.char }.sumOf { cost[it]!! } * 2 * depth
+            stack.filter { it != node.char }.sumOf { cost.getValue(it) } * 2 * depth
           }.sum()
           Triple(world, score, (spotCosts + stackCosts) / 4)
         }

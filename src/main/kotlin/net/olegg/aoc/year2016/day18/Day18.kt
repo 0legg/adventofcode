@@ -8,7 +8,7 @@ import net.olegg.aoc.year2016.DayOf2016
  */
 object Day18 : DayOf2016(18) {
 
-  val patterns = listOf(
+  private val patterns = listOf(
     "\\^\\^\\.".toRegex(),
     "\\.\\^\\^".toRegex(),
     "\\^\\.\\.".toRegex(),
@@ -25,7 +25,7 @@ object Day18 : DayOf2016(18) {
 
   fun solve(data: String, rows: Int): Int {
     return (1 until rows).fold(".$data." to data.count { it == '.' }) { acc, _ ->
-      val traps = patterns.flatMap { it.findAll(acc.first).map { it.range.start + 1 }.toList() }
+      val traps = patterns.flatMap { pattern -> pattern.findAll(acc.first).map { it.range.first + 1 }.toList() }
       val row = acc.first.indices.map { if (traps.contains(it)) '^' else '.' }.joinToString(separator = "")
       return@fold row to acc.second + row.count { it == '.' } - 2
     }.second

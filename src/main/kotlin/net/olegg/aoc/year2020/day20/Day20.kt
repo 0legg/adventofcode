@@ -119,7 +119,7 @@ object Day20 : DayOf2020(20) {
 
     val targetGrid = grid.flatMap { row ->
       val cells = row.map { (tileNum, profile) ->
-        matchProfile(tiles[tileNum]!!, profile)
+        matchProfile(tiles.getValue(tileNum), profile)
       }.map {
         it.drop(1).dropLast(1).map { line -> line.drop(1).dropLast(1) }
       }

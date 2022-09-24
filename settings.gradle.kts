@@ -5,7 +5,7 @@ pluginManagement {
 }
 
 plugins {
-  id("de.fayard.refreshVersions") version "0.23.0"
+  id("de.fayard.refreshVersions") version "0.50.2"
 }
 
 rootProject.name = "advent-of-code"

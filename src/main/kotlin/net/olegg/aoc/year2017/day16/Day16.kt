@@ -42,9 +42,9 @@ object Day16 : DayOf2017(16) {
     val dance = data.trimIndent().split(",")
 
     var curr = "abcdefghijklmnop" to 0
-    val seen = listOf(curr).toMap().toMutableMap()
+    val seen = mutableMapOf(curr)
 
-    repeat(1000000000) {
+    repeat(1000000000) { _ ->
       val next = dance.fold(StringBuilder(curr.first)) { acc, op ->
         when (op[0]) {
           's' -> {

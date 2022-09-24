@@ -30,7 +30,7 @@ object Day17 : DayOf2016(17) {
 
       queue.addAll(next)
 
-      val found = next.find { it.first == 4 && it.second == 4 } != null
+      val found = next.any { it.first == 4 && it.second == 4 }
     } while (!found)
 
     return queue.first { it.first == 4 && it.second == 4 }.third

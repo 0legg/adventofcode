@@ -62,7 +62,7 @@ object Day23 : DayOf2020(23) {
 
     var head = queue.first()
 
-    repeat(10_000_000) {
+    repeat(10_000_000) { _ ->
       val took = (0 until 3).scan(head) { acc, _ -> all[acc.next] }
       val excluded = took.map { it.value }
       var place = head.value - 1

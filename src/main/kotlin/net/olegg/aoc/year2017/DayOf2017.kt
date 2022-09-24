@@ -5,4 +5,4 @@ import net.olegg.aoc.someday.SomeDay
 /**
  * Base class for year 2017.
  */
-abstract class DayOf2017(day: Int) : SomeDay(2017, day)
+open class DayOf2017(day: Int) : SomeDay(2017, day)

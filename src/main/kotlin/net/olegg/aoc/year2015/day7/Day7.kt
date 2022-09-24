@@ -13,7 +13,7 @@ object Day7 : DayOf2015(7) {
   private val OR_PATTERN = "^(\\d+) OR (\\d+)$".toRegex()
   private val LSHIFT_PATTERN = "^(\\d+) LSHIFT (\\d+)$".toRegex()
   private val RSHIFT_PATTERN = "^(\\d+) RSHIFT (\\d+)$".toRegex()
-  private var VAR_PATTERN = "[a-z]".toRegex()
+  private val VAR_PATTERN = "[a-z]".toRegex()
 
   val source = data
     .trim()
@@ -66,7 +66,7 @@ object Day7 : DayOf2015(7) {
         }
       resolved.putAll(temp)
     }
-    return resolved[pin] ?: ""
+    return resolved[pin].orEmpty()
   }
 
   override fun first(data: String): Any? {

@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -8,7 +9,7 @@ plugins {
 }
 
 group = "net.olegg.aoc"
-version = "2021.0.0"
+version = "2022.0.0"
 
 repositories {
   mavenCentral()
@@ -19,20 +20,25 @@ buildConfig {
   buildConfigField("String", "COOKIE", "\"${project.findProperty("COOKIE")?.toString() ?: "Please provide cookie"}\"")
 }
 
-detekt {
-  config = files("detekt.yml")
-}
-
 tasks.withType<KotlinCompile> {
   kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "14"
     allWarningsAsErrors = true
     freeCompilerArgs += listOf(
-      "-Xopt-in=kotlin.RequiresOptIn",
-      "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-      "-Xopt-in=kotlinx.coroutines.FlowPreview",
+      "-opt-in=kotlin.RequiresOptIn",
+      "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+      "-opt-in=kotlinx.coroutines.FlowPreview",
     )
   }
+}
+
+tasks.withType<Detekt>().configureEach {
+  jvmTarget = "14"
+}
+
+detekt {
+  config = files("detekt.yml")
+  baseline = file("detekt-baseline.xml")
 }
 
 dependencies {

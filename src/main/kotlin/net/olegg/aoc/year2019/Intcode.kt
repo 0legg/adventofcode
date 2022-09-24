@@ -33,7 +33,7 @@ class Intcode(program: LongArray) {
     throw IndexOutOfBoundsException("Trying to reach position out of memory bounds")
   }
 
-  fun get(): Long {
+  private fun get(): Long {
     resizeIfNecessary(memory.position().toLong())
     return memory.get()
   }
@@ -154,6 +154,4 @@ class Intcode(program: LongArray) {
     data class Address(val index: Long) : Arg()
     data class Value(val value: Long) : Arg()
   }
-
-  private operator fun CharBuffer.set(index: Int, value: Char) = put(index, value)
 }

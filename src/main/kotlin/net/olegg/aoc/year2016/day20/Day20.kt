@@ -8,7 +8,7 @@ import java.util.TreeSet
  * See [Year 2016, Day 20](https://adventofcode.com/2016/day/20)
  */
 object Day20 : DayOf2016(20) {
-  val regex = "(\\d+)-(\\d+)".toRegex()
+  private val regex = "(\\d+)-(\\d+)".toRegex()
 
   override fun first(data: String): Any? {
     val banned = createBlacklist(data)
@@ -27,12 +27,14 @@ object Day20 : DayOf2016(20) {
 
   private fun createBlacklist(data: String): TreeSet<LongRange> {
     val banned = TreeSet<LongRange>(compareBy({ it.first }, { it.last }))
-    data.lines()
+    data
+      .trim()
+      .lines()
       .filter { it.isNotBlank() }
-      .mapNotNull { regex.find(it)?.groupValues?.let { it[1].toLong()..it[2].toLong() } }
+      .mapNotNull { line -> regex.find(line)?.groupValues?.let { it[1].toLong()..it[2].toLong() } }
       .forEach { mask ->
         val join = banned.filter { mask.overlaps(it) } + listOf(mask)
-        banned.removeAll(join)
+        banned.removeAll(join.toSet())
         val toBan = join.fold(LongRange.EMPTY) { acc, next ->
           if (acc.isEmpty()) {
             next
