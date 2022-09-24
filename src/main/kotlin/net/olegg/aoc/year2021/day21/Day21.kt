@@ -8,7 +8,7 @@ import java.util.PriorityQueue
  * See [Year 2021, Day 21](https://adventofcode.com/2021/day/21)
  */
 object Day21 : DayOf2021(21) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val start = data.trim()
       .lines()
       .map { it.split(" ").last().toInt() }
@@ -45,7 +45,7 @@ object Day21 : DayOf2021(21) {
       .let { (scores, dices) -> scores.minOf { it } * dices }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val start = data.trim()
       .lines()
       .map { it.split(" ").last().toInt() }

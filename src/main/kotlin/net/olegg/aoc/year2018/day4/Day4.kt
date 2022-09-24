@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit
  * See [Year 2018, Day 4](https://adventofcode.com/2018/day/4)
  */
 object Day4 : DayOf2018(4) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val events = data
       .trim()
       .lines()
@@ -42,7 +42,7 @@ object Day4 : DayOf2018(4) {
     }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val events = data
       .trim()
       .lines()

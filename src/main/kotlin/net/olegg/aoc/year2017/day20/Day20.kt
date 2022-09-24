@@ -9,7 +9,7 @@ import kotlin.math.abs
  * See [Year 2017, Day 20](https://adventofcode.com/2017/day/20)
  */
 object Day20 : DayOf2017(20) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val points = data.trim().lines()
       .map { line -> line.replace("[pva=<> ]".toRegex(), "") }
       .map { it.parseLongs(",") }
@@ -42,7 +42,7 @@ object Day20 : DayOf2017(20) {
       ?.first
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val points = data.trim().lines()
       .map { line -> line.replace("[pva=<> ]".toRegex(), "") }
       .map { it.parseLongs(",") }

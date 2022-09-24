@@ -10,7 +10,7 @@ import java.nio.CharBuffer
  * See [Year 2021, Day 16](https://adventofcode.com/2021/day/16)
  */
 object Day16 : DayOf2021(16) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val binary = data.trim()
       .map { it.digitToInt(16) }
       .joinToString("") { it.toString(2).padStart(4, '0') }
@@ -26,7 +26,7 @@ object Day16 : DayOf2021(16) {
     return root.sumVersions()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val binary = data.trim()
       .map { it.digitToInt(16) }
       .joinToString("") { it.toString(2).padStart(4, '0') }

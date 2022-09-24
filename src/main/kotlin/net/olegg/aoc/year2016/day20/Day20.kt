@@ -10,13 +10,13 @@ import java.util.TreeSet
 object Day20 : DayOf2016(20) {
   private val regex = "(\\d+)-(\\d+)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val banned = createBlacklist(data)
 
     return if (banned.first().first > 0) 0 else banned.first().last + 1
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val banned = createBlacklist(data)
 
     return banned.fold((-1L..-1L) to 0L) { acc, range ->

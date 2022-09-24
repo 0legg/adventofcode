@@ -9,7 +9,7 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day15 : DayOf2016(15) {
   val regex = "Disc #(\\d+) has (\\d+) positions; at time=(\\d+), it is at position (\\d+).".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val discs = data
       .trim()
       .lines()
@@ -21,7 +21,7 @@ object Day15 : DayOf2016(15) {
     return solve(discs)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val discs = data
       .trim()
       .lines()

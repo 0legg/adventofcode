@@ -7,7 +7,7 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 11](https://adventofcode.com/2018/day/11)
  */
 object Day11 : DayOf2018(11) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val serial = data.trim().toInt()
 
     val grid = (1..300).map { y ->
@@ -31,7 +31,7 @@ object Day11 : DayOf2018(11) {
       ?.let { "${it.first.first},${it.first.second}" }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val serial = data.trim().toInt()
 
     val grid = (1..300).map { y ->

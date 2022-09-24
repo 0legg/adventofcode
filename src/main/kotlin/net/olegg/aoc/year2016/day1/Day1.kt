@@ -16,7 +16,7 @@ object Day1 : DayOf2016(1) {
     'R' to CW
   )
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
       .trim()
       .split(", ")
@@ -29,7 +29,7 @@ object Day1 : DayOf2016(1) {
       .manhattan()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val visited = mutableSetOf<Vector2D>()
 
     data.trim()

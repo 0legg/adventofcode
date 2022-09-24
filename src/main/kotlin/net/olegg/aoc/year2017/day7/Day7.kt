@@ -7,7 +7,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 7](https://adventofcode.com/2017/day/7)
  */
 object Day7 : DayOf2017(7) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
       .lines()
       .map { line -> line.split(" ").map { it.replace(",", "") } }
@@ -21,7 +21,7 @@ object Day7 : DayOf2017(7) {
       .toString()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val disks = data
       .lines()
       .map { it.trim() }

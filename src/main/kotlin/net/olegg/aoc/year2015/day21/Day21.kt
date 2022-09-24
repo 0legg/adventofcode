@@ -46,7 +46,7 @@ object Day21 : DayOf2015(21) {
     .flatMap { set -> ringBuilds.map { ringBuild -> set + ringBuild } }
     .sortedBy { it.first }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return builds.first { (_, damage, armor) ->
       val my = (damage - boss[2]).coerceAtLeast(1)
       val his = (boss[1] - armor).coerceAtLeast(1)
@@ -54,7 +54,7 @@ object Day21 : DayOf2015(21) {
     }.first
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return builds.reversed().first { (_, damage, armor) ->
       val my = (damage - boss[2]).coerceAtLeast(1)
       val his = (boss[1] - armor).coerceAtLeast(1)

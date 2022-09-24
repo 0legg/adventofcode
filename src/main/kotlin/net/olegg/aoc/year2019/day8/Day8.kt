@@ -7,7 +7,7 @@ import net.olegg.aoc.year2019.DayOf2019
  * See [Year 2019, Day 8](https://adventofcode.com/2019/day/8)
  */
 object Day8 : DayOf2019(8) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val layers = data
       .trim()
       .chunked(25 * 6)
@@ -17,7 +17,7 @@ object Day8 : DayOf2019(8) {
       .let { layer -> layer.count { it == '1' } * layer.count { it == '2' } }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val layers = data
       .trim()
       .chunked(25 * 6)

@@ -9,7 +9,7 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 2](https://adventofcode.com/2021/day/2)
  */
 object Day2 : DayOf2021(2) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data.trim()
       .split("\n")
       .fold(Vector2D()) { acc, value ->
@@ -25,7 +25,7 @@ object Day2 : DayOf2021(2) {
       .let { it.x * it.y }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return data.trim()
       .split("\n")
       .fold(Vector3D()) { acc, value ->

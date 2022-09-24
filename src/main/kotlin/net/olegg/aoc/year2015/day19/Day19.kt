@@ -21,7 +21,7 @@ object Day19 : DayOf2015(19) {
       .toSet()
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return transitions
       .map { it.first.toRegex() to it.second }
       .flatMap { applyTransitions(molecule, it) }
@@ -29,7 +29,7 @@ object Day19 : DayOf2015(19) {
       .size
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val reverse = transitions.map { it.second.toRegex() to it.first }
     val molecules = mutableMapOf(molecule to 0)
     val queue = ArrayDeque(listOf(molecule))

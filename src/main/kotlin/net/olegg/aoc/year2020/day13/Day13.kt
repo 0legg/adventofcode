@@ -8,7 +8,7 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 13](https://adventofcode.com/2020/day/13)
  */
 object Day13 : DayOf2020(13) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (startLine, busLine) = data.trim().lines()
     val start = startLine.toLong()
     val buses = busLine.parseLongs(delimiters = ",")
@@ -18,7 +18,7 @@ object Day13 : DayOf2020(13) {
       ?.let { it.first * (it.second - start) }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (_, busLine) = data.trim().lines()
     val (nums, buses) = busLine.split(",")
       .mapIndexedNotNull { index, s -> s.toBigIntegerOrNull()?.let { index.toBigInteger() to it } }

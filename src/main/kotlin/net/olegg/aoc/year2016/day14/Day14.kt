@@ -10,7 +10,7 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day14 : DayOf2016(14) {
   private val MATCH_3 = "(.)(\\1)(\\1)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val trimmed = data.trim()
     val cache = mutableMapOf<Int, String>()
     val hash = { n: Int ->
@@ -22,7 +22,7 @@ object Day14 : DayOf2016(14) {
     return solve(64, hash)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val trimmed = data.trim()
     val cache = mutableMapOf<Int, String>()
     val hash = { n: Int ->

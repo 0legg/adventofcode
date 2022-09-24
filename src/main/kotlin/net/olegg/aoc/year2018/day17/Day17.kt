@@ -12,7 +12,7 @@ object Day17 : DayOf2018(17) {
   private val PATTERN = "(\\w)=(\\d+), (\\w)=(\\d+)..(\\d+)".toRegex()
   private val WATER = listOf('~', '|')
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (xs, ys, map) = fill(data)
 
     return ys.sumOf { y ->
@@ -22,7 +22,7 @@ object Day17 : DayOf2018(17) {
     }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (xs, ys, map) = fill(data)
 
     return ys.sumOf { y ->

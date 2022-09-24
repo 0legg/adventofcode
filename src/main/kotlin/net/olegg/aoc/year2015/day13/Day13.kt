@@ -18,7 +18,7 @@ object Day13 : DayOf2015(13) {
   }.toMap()
   private val names = edges.keys.flatMap { listOf(it.first, it.second) }.distinct()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return names
       .permutations()
       .map { it + it.first() }
@@ -29,7 +29,7 @@ object Day13 : DayOf2015(13) {
       .maxOrNull()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return names
       .permutations()
       .map { order ->

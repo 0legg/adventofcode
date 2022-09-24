@@ -7,7 +7,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 15](https://adventofcode.com/2017/day/15)
  */
 object Day15 : DayOf2017(15) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val generators = data.trimIndent()
       .lines()
       .map { it.split("\\s+".toRegex()).last().toLong() }
@@ -20,7 +20,7 @@ object Day15 : DayOf2017(15) {
       .count { (it.first and 65535) == (it.second and 65535) }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val generators = data.trimIndent()
       .lines()
       .map { it.split("\\s+".toRegex()).last().toLong() }

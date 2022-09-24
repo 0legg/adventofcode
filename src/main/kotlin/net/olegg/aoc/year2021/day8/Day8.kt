@@ -7,7 +7,7 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 8](https://adventofcode.com/2021/day/8)
  */
 object Day8 : DayOf2021(8) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data.trim()
       .lines()
       .map { it.split(" | ").last() }
@@ -15,7 +15,7 @@ object Day8 : DayOf2021(8) {
       .count { it.length in setOf(2, 3, 4, 7) }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val sets = mapOf(
       "abcefg" to "0",
       "cf" to "1",

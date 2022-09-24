@@ -11,7 +11,7 @@ import kotlin.math.abs
 object Day23 : DayOf2018(23) {
   private val PATTERN = "pos=<(-?\\d+),(-?\\d+),(-?\\d+)>, r=(-?\\d+)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val bots = data
       .trim()
       .lines()
@@ -27,7 +27,7 @@ object Day23 : DayOf2018(23) {
     return bots.count { strong.distance(it) <= strong.r }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val bots = data
       .trim()
       .lines()

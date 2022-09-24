@@ -7,7 +7,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 1](https://adventofcode.com/2017/day/1)
  */
 object Day1 : DayOf2017(1) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data.trim()
       .let { it + it[0] }
       .windowed(2)
@@ -16,7 +16,7 @@ object Day1 : DayOf2017(1) {
       .sum()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val source = data.trim()
     val shifted = data.substring(data.length / 2, data.length) + data.substring(0, data.length / 2)
 

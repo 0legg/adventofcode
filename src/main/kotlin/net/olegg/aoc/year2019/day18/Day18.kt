@@ -14,7 +14,7 @@ import java.util.PriorityQueue
  * See [Year 2019, Day 18](https://adventofcode.com/2019/day/18)
  */
 object Day18 : DayOf2019(18) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val map = data
       .trim()
       .lines()
@@ -94,7 +94,7 @@ object Day18 : DayOf2019(18) {
     return best
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val map = data
       .trim()
       .lines()

@@ -38,11 +38,11 @@ object Day16 : DayOf2015(16) {
     "perfumes" to 1
   )
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return sues.filter { sue -> sue.second.all { it.value == footprint[it.key] } }.map { it.first }.first()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return sues
       .first { (_, own) ->
         own.all { (key, value) ->

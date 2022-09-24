@@ -7,7 +7,7 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 5](https://adventofcode.com/2020/day/5)
  */
 object Day5 : DayOf2020(5) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
       .trim()
       .lines()
@@ -20,7 +20,7 @@ object Day5 : DayOf2020(5) {
       .maxOrNull()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val nums = data
       .trim()
       .lines()

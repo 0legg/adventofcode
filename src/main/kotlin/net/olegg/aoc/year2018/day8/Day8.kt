@@ -8,7 +8,7 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 8](https://adventofcode.com/2018/day/8)
  */
 object Day8 : DayOf2018(8) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val numbers = data
       .trim()
       .parseInts()
@@ -16,7 +16,7 @@ object Day8 : DayOf2018(8) {
     return sumMetadata(ArrayDeque(numbers))
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val numbers = data
       .trim()
       .parseInts()

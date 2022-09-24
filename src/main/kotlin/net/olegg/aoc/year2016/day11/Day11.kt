@@ -11,7 +11,7 @@ object Day11 : DayOf2016(11) {
   private val GEN_PATTERN = "(\\w+) generator".toRegex()
   private val CHIP_PATTERN = "(\\w+)-compatible microchip".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val initial = data
       .trim()
       .lines()
@@ -25,7 +25,7 @@ object Day11 : DayOf2016(11) {
     return countSteps(initial)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val initial = data
       .trim()
       .lines()

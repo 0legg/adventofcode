@@ -18,7 +18,7 @@ object Day15 : DayOf2015(15) {
       }
     }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val itemsValues = (0..3).map { value -> items.map { it[value] } }
     return splitRange(items.size, spoons)
       .map { split ->
@@ -30,7 +30,7 @@ object Day15 : DayOf2015(15) {
       .maxOrNull()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val itemsValues = (0..3).map { value -> items.map { it[value] } }
     val calories = items.map { it[4] }
     return splitRange(items.size, spoons)

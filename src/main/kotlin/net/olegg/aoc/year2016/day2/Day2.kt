@@ -27,11 +27,11 @@ object Day2 : DayOf2016(2) {
     "0000000"
   )
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return solve(data.trim().lines(), KEYPAD1, Vector2D(2, 2))
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return solve(data.trim().lines(), KEYPAD2, Vector2D(2, 4))
   }
 

@@ -10,7 +10,7 @@ object Day10 : DayOf2018(10) {
   private val PATTERN = "position=<\\s*(-?\\d+),\\s*(-?\\d+)> velocity=<\\s*(-?\\d+),\\s*(-?\\d+)>".toRegex()
   private const val HEIGHT = 16
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     var points = data
       .trim()
       .lines()
@@ -46,7 +46,7 @@ object Day10 : DayOf2018(10) {
     return builder.toString()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     var points = data
       .trim()
       .lines()

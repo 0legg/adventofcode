@@ -7,7 +7,7 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 2](https://adventofcode.com/2018/day/2)
  */
 object Day2 : DayOf2018(2) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val freqs = data
       .trim()
       .lines()
@@ -17,7 +17,7 @@ object Day2 : DayOf2018(2) {
     return freqs.count { it.containsValue(2) } * freqs.count { it.containsValue(3) }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val names = data
       .trim()
       .lines()

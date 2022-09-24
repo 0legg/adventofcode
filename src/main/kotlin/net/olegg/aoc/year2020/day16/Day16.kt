@@ -11,7 +11,7 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day16 : DayOf2020(16) {
   private val RANGE_PATTERN = ".*: (\\d+)-(\\d+) or (\\d+)-(\\d+)".toRegex()
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (ranges, yours, nearby) = data
       .trim()
       .split("\n\n")
@@ -41,7 +41,7 @@ object Day16 : DayOf2020(16) {
     return invalid.sum()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (ranges, yours, nearby) = data
       .trim()
       .split("\n\n")

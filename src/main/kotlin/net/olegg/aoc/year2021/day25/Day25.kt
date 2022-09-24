@@ -8,7 +8,7 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 25](https://adventofcode.com/2021/day/25)
  */
 object Day25 : DayOf2021(25) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val map = data.trim()
       .lines()
       .map { it.toList() }

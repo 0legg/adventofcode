@@ -11,11 +11,11 @@ import net.olegg.aoc.year2018.Ops
 object Day19 : DayOf2018(19) {
   private val OPS_PATTERN = "(\\w+) (\\d+) (\\d+) (\\d+)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return solve(data, listOf(0, 0, 0, 0, 0, 0))
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return solve(data, listOf(1, 0, 0, 0, 0, 0))
   }
 

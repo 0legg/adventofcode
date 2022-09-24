@@ -11,7 +11,7 @@ import kotlin.math.sign
  * See [Year 2019, Day 10](https://adventofcode.com/2019/day/10)
  */
 object Day10 : DayOf2019(10) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val asteroids = data
       .trim()
       .lines()
@@ -30,7 +30,7 @@ object Day10 : DayOf2019(10) {
     return visible.maxOrNull()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val asteroids = data
       .trim()
       .lines()

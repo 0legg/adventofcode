@@ -8,7 +8,7 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 10](https://adventofcode.com/2020/day/10)
  */
 object Day10 : DayOf2020(10) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val adapters = data.parseInts(delimiters = "\n").sorted()
     val jolts = listOf(0) + adapters + listOf(adapters.last() + 3)
 
@@ -20,7 +20,7 @@ object Day10 : DayOf2020(10) {
     return diffs.getValue(1) * diffs.getValue(3)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val adapters = data.parseInts(delimiters = "\n").sorted()
     val jolts = listOf(0) + adapters + listOf(adapters.last() + 3)
 

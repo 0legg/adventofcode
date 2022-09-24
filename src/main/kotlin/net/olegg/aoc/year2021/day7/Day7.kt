@@ -9,7 +9,7 @@ import kotlin.math.abs
  * See [Year 2021, Day 7](https://adventofcode.com/2021/day/7)
  */
 object Day7 : DayOf2021(7) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val positions = data.trim().parseInts(",")
 
     val min = positions.minOf { it }
@@ -20,7 +20,7 @@ object Day7 : DayOf2021(7) {
     }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val positions = data.trim().parseInts(",")
 
     val min = positions.minOf { it }

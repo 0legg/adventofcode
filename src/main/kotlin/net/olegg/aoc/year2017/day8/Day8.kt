@@ -7,7 +7,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 8](https://adventofcode.com/2017/day/8)
  */
 object Day8 : DayOf2017(8) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val registers = mutableMapOf<String, Int>()
 
     data
@@ -35,7 +35,7 @@ object Day8 : DayOf2017(8) {
     return registers.values.maxOrNull()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val registers = mutableMapOf<String, Int>()
 
     return data

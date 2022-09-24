@@ -8,7 +8,7 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 3](https://adventofcode.com/2020/day/3)
  */
 object Day3 : DayOf2020(3) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val forest = data
       .trim()
       .lines()
@@ -16,7 +16,7 @@ object Day3 : DayOf2020(3) {
     return forest.mapIndexed { row, s -> s[(row * 3) % s.length] }.count { it == '#' }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val forest = data
       .trim()
       .lines()

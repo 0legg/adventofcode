@@ -9,7 +9,7 @@ import net.olegg.aoc.year2020.DayOf2020
 object Day2 : DayOf2020(2) {
   private val PATTERN = "(\\d*)-(\\d*) (.): (.*)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val values = data
       .trim()
       .lines()
@@ -24,7 +24,7 @@ object Day2 : DayOf2020(2) {
     }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val values = data
       .trim()
       .lines()

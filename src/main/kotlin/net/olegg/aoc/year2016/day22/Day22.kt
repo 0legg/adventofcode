@@ -9,7 +9,7 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day22 : DayOf2016(22) {
   val pattern = "/dev/grid/node-x(\\d+)-y(\\d+)\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)%".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val machines = data
       .lines()
       .mapNotNull { line ->
@@ -30,7 +30,7 @@ object Day22 : DayOf2016(22) {
       .size
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val machines = data
       .lines()
       .mapNotNull { line ->

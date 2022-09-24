@@ -10,7 +10,7 @@ import net.olegg.aoc.year2021.DayOf2021
 object Day22 : DayOf2021(22) {
   private val pattern = "(on|off) x=(-?\\d+)\\.\\.(-?\\d+),y=(-?\\d+)\\.\\.(-?\\d+),z=(-?\\d+)\\.\\.(-?\\d+)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val ops = data.trim().lines()
       .mapNotNull { line ->
         val parsed = pattern.find(line)?.groupValues.orEmpty()
@@ -29,7 +29,7 @@ object Day22 : DayOf2021(22) {
     return solve(ops.filter { (_, cube) -> intersects(cube, basicCube) })
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val ops = data.trim().lines()
       .mapNotNull { line ->
         val parsed = pattern.find(line)?.groupValues.orEmpty()

@@ -13,7 +13,7 @@ import net.olegg.aoc.year2019.DayOf2019
  * See [Year 2019, Day 24](https://adventofcode.com/2019/day/24)
  */
 object Day24 : DayOf2019(24) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val start = data
       .trim()
       .lines()
@@ -45,7 +45,7 @@ object Day24 : DayOf2019(24) {
       .toBigInteger(2)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val start = data
       .trim()
       .lines()

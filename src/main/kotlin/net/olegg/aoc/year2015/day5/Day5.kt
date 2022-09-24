@@ -12,7 +12,7 @@ object Day5 : DayOf2015(5) {
   private val ABA_REGEX = "([a-z]).\\1".toRegex()
   private val ABAB_REGEX = "([a-z]{2}).*\\1".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
       .trim()
       .lines()
@@ -21,7 +21,7 @@ object Day5 : DayOf2015(5) {
       .count { AA_REGEX in it }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return data
       .trim()
       .lines()

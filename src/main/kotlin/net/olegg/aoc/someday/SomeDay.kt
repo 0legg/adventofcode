@@ -12,21 +12,21 @@ open class SomeDay(val year: Int, val day: Int) {
     localData ?: runBlocking { Fetcher.fetchInput(year, day) }
   }
 
-  open fun first(data: String): Any? = null
+  open fun first(): Any? = null
 
-  open fun second(data: String): Any? = null
+  open fun second(): Any? = null
 
   companion object {
     fun mainify(someday: SomeDay) {
       with(someday) {
         println("Year $year, day $day")
         measureTimeMillis {
-          println("First: ${first(data)?.toString() ?: "unsolved"}")
+          println("First: ${first()?.toString() ?: "unsolved"}")
         }.run {
           println("Time: ${this}ms")
         }
         measureTimeMillis {
-          println("Second: ${second(data)?.toString() ?: "unsolved"}")
+          println("Second: ${second()?.toString() ?: "unsolved"}")
         }.run {
           println("Time: ${this}ms")
         }

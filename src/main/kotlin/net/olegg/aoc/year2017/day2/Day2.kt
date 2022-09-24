@@ -8,7 +8,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 2](https://adventofcode.com/2017/day/2)
  */
 object Day2 : DayOf2017(2) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
       .trim()
       .lines()
@@ -17,7 +17,7 @@ object Day2 : DayOf2017(2) {
       .sum()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return data
       .trim()
       .lines()

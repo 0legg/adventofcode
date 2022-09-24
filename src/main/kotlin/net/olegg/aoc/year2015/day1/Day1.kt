@@ -9,11 +9,11 @@ import net.olegg.aoc.year2015.DayOf2015
 object Day1 : DayOf2015(1) {
   private val floors = data.map { 1 - 2 * (it.minus('(')) }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return floors.sum()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return floors.runningReduce { acc, value -> acc + value }.indexOfFirst { it < 0 } + 1
   }
 }

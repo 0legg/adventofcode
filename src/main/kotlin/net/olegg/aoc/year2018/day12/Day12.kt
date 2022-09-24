@@ -7,11 +7,11 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 12](https://adventofcode.com/2018/day/12)
  */
 object Day12 : DayOf2018(12) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return solve(data, 20)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return solve(data, 50_000_000_000L)
   }
 

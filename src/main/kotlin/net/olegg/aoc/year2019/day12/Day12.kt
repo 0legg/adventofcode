@@ -11,7 +11,7 @@ import kotlin.math.sign
  */
 object Day12 : DayOf2019(12) {
   private val PATTERN = "<.=(-?\\d+), .=(-?\\d+), .=(-?\\d+)>".toRegex()
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val initial = data
       .trim()
       .lines()
@@ -39,7 +39,7 @@ object Day12 : DayOf2019(12) {
     }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val initial = data
       .trim()
       .lines()

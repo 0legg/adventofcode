@@ -7,7 +7,7 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 5](https://adventofcode.com/2018/day/5)
  */
 object Day5 : DayOf2018(5) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val bad = ('a'..'z').map { a -> "$a${a.uppercase()}" } +
       ('A'..'Z').map { a -> "$a${a.lowercase()}" }
     var curr = data.trim()
@@ -19,7 +19,7 @@ object Day5 : DayOf2018(5) {
     return curr.length
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val bad = ('a'..'z').map { a -> "$a${a.uppercase()}" } +
       ('A'..'Z').map { a -> "$a${a.lowercase()}" }
 

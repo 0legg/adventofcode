@@ -10,7 +10,7 @@ import kotlin.math.abs
  * See [Year 2018, Day 25](https://adventofcode.com/2018/day/25)
  */
 object Day25 : DayOf2018(25) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val points = data.trim()
       .lines()
       .map { it.parseInts(",") }

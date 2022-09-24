@@ -7,7 +7,7 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 3](https://adventofcode.com/2018/day/3)
  */
 object Day3 : DayOf2018(3) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val requests = data
       .trim()
       .lines()
@@ -28,7 +28,7 @@ object Day3 : DayOf2018(3) {
     return field.sumOf { row -> row.count { it > 1 } }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val requests = data
       .trim()
       .lines()

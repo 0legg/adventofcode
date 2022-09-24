@@ -8,11 +8,11 @@ import java.math.BigInteger
  * See [Year 2021, Day 14](https://adventofcode.com/2021/day/14)
  */
 object Day14 : DayOf2021(14) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return solve(data, 10)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return solve(data, 40)
   }
 

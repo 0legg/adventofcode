@@ -8,7 +8,7 @@ import kotlin.math.abs
  * See [Year 2019, Day 16](https://adventofcode.com/2019/day/16)
  */
 object Day16 : DayOf2019(16) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val input = data
       .trim()
       .map { it - '0' }
@@ -26,7 +26,7 @@ object Day16 : DayOf2019(16) {
       .joinToString(separator = "")
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val input = data
       .trim()
       .map { it - '0' }

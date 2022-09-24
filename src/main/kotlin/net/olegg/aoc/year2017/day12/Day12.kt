@@ -8,7 +8,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 12](https://adventofcode.com/2017/day/12)
  */
 object Day12 : DayOf2017(12) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val nodes = data.trimIndent()
       .lines()
       .map { it.replace("[<\\->,]".toRegex(), "") }
@@ -27,7 +27,7 @@ object Day12 : DayOf2017(12) {
     return visited.size
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val nodes = data.trimIndent()
       .lines()
       .map { it.replace("[<\\->,]".toRegex(), "") }

@@ -7,7 +7,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 16](https://adventofcode.com/2017/day/16)
  */
 object Day16 : DayOf2017(16) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data.trimIndent()
       .split(",")
       .fold(StringBuilder("abcdefghijklmnop")) { acc, op ->
@@ -38,7 +38,7 @@ object Day16 : DayOf2017(16) {
       .toString()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val dance = data.trimIndent().split(",")
 
     var curr = "abcdefghijklmnop" to 0

@@ -13,7 +13,7 @@ import net.olegg.aoc.year2020.day19.Day19.Rule.RefRule
 object Day19 : DayOf2020(19) {
   private val CHAR_RULE_PATTERN = "\"(.)\"".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (rulesList, messages) = data
       .trim()
       .split("\n\n")
@@ -32,7 +32,7 @@ object Day19 : DayOf2020(19) {
     return solve(rules, messages.lines())
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (rulesList, messages) = data
       .trim()
       .split("\n\n")

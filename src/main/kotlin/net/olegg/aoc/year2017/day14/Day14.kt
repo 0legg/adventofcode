@@ -11,7 +11,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 14](https://adventofcode.com/2017/day/14)
  */
 object Day14 : DayOf2017(14) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val key = data.trimIndent()
     return (0..127)
       .map { "$key-$it" }
@@ -37,7 +37,7 @@ object Day14 : DayOf2017(14) {
       }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val key = data.trimIndent()
 
     val result = (0..127)

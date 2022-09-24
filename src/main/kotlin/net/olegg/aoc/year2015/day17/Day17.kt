@@ -8,7 +8,7 @@ import net.olegg.aoc.year2015.DayOf2015
  */
 object Day17 : DayOf2015(17) {
   private val containers = data.trim().lines().map { it.toInt() }
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return containers.fold(listOf(1) + List(150) { 0 }) { acc, container ->
       acc.mapIndexed { index, value ->
         if (index < container) value else value + acc[index - container]
@@ -16,7 +16,7 @@ object Day17 : DayOf2015(17) {
     }.last()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return (0 until 1.shl(containers.size))
       .map { value ->
         containers.mapIndexed { index, container -> value.shr(index).and(1) * container }

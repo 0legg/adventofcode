@@ -18,7 +18,7 @@ object Day24 : DayOf2020(24) {
     "se" to Vector3D(0, -1, 1),
   )
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val items = data
       .trim()
       .lines()
@@ -33,7 +33,7 @@ object Day24 : DayOf2020(24) {
     return tiles.groupBy { it }.count { it.value.size % 2 == 1 }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val items = data
       .trim()
       .lines()

@@ -9,13 +9,13 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day8 : DayOf2016(8) {
   private val PATTERN = "([^\\d]*)([\\d]+)[^\\d]*(\\d+)[^\\d]*".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
 
     return applyOperations(50, 6, data.trim().lines())
       .sumOf { row -> row.count { it } }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return applyOperations(50, 6, data.trim().lines())
       .joinToString(separator = "\n", prefix = "\n") { row ->
         row.joinToString(separator = "") { if (it) "#" else "." }

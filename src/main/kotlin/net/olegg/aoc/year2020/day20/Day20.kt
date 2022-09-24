@@ -16,7 +16,7 @@ object Day20 : DayOf2020(20) {
     | #  #  #  #  #  #   
   """.trimMargin().lines().map { it.toList() }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val tiles = data
       .trim()
       .split("\n\n")
@@ -33,7 +33,7 @@ object Day20 : DayOf2020(20) {
     return corners.map { it.first.toLong() }.reduce(Long::times)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val tiles = data
       .trim()
       .split("\n\n")

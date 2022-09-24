@@ -21,13 +21,13 @@ object Day20 : DayOf2018(20) {
     'S' to D
   )
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val route = data.trim('^', '$', ' ', '\n')
 
     return visitAll(route).values.maxOrNull()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val route = data.trim('^', '$', ' ', '\n')
 
     return visitAll(route).count { it.value >= 1000 }

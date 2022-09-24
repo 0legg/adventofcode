@@ -9,7 +9,7 @@ import kotlin.math.max
  * See [Year 2017, Day 24](https://adventofcode.com/2017/day/24)
  */
 object Day24 : DayOf2017(24) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val ports = data
       .trim()
       .lines()
@@ -53,7 +53,7 @@ object Day24 : DayOf2017(24) {
     return best
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val ports = data
       .trim()
       .lines()

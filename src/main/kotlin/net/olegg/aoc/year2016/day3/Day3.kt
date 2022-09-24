@@ -9,7 +9,7 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day3 : DayOf2016(3) {
   val DIGITS = "\\d+".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
       .lines()
       .map { line ->
@@ -19,7 +19,7 @@ object Day3 : DayOf2016(3) {
       .count { it[0] + it[1] > it[2] }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val rows = data
       .lines()
       .map { line ->

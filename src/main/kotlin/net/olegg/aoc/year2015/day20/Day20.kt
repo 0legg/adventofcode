@@ -10,7 +10,7 @@ import kotlin.math.sqrt
 object Day20 : DayOf2015(20) {
   private val max = data.trim().toInt()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return generateSequence(1) { it + 1 }.first { house ->
       (1..sqrt(house.toDouble()).toInt()).sumOf {
         if (house % it == 0) (it + house / it) * 10 else 0
@@ -18,7 +18,7 @@ object Day20 : DayOf2015(20) {
     }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return generateSequence(1) { it + 1 }.first { house ->
       (1..sqrt(house.toDouble()).toInt()).sumOf { elf ->
         if (house % elf == 0) 11 * listOf(elf, house / elf).filter { house <= it * 50 }.sum() else 0

@@ -156,7 +156,7 @@ object Day21 : DayOf2016(21) {
     }
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val ops = data
       .trim()
       .lines()
@@ -164,7 +164,7 @@ object Day21 : DayOf2016(21) {
     return scramble("abcdefgh", ops)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val ops = data
       .trim()
       .lines()

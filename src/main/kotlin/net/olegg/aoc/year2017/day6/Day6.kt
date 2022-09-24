@@ -8,7 +8,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 6](https://adventofcode.com/2017/day/6)
  */
 object Day6 : DayOf2017(6) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val blocks = data.trim().parseInts()
 
     val seen = mutableSetOf<List<Int>>()
@@ -33,7 +33,7 @@ object Day6 : DayOf2017(6) {
     return steps
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val blocks = data.trim().parseInts()
 
     val seen = mutableMapOf<List<Int>, Int>()

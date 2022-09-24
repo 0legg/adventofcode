@@ -10,7 +10,7 @@ object Day4 : DayOf2016(4) {
   private val ROOM_PATTERN = "^(.+)-(\\d+)\\[(.+)\\]$".toRegex()
   private const val A_CODE = 'a'.code
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val rooms = data
       .trim()
       .lines()
@@ -33,7 +33,7 @@ object Day4 : DayOf2016(4) {
     }.sumOf { it.second }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val rooms = data
       .trim()
       .lines()

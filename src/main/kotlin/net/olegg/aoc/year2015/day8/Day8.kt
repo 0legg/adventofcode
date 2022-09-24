@@ -8,7 +8,7 @@ import net.olegg.aoc.year2015.DayOf2015
  */
 object Day8 : DayOf2015(8) {
   private val strings = data.trim().lines()
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return strings.sumOf { it.length } -
       strings.sumOf { line ->
         line
@@ -21,7 +21,7 @@ object Day8 : DayOf2015(8) {
       }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return strings
       .sumOf { line ->
         line

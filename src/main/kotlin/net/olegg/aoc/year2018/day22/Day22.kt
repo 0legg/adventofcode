@@ -11,7 +11,7 @@ import java.util.PriorityQueue
  * See [Year 2018, Day 22](https://adventofcode.com/2018/day/22)
  */
 object Day22 : DayOf2018(22) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (depthLine, targetLine) = data.trim().lines().map { it.substringAfter(": ") }
     val depth = depthLine.toInt()
     val (tx, ty) = targetLine.parseInts(",")
@@ -25,7 +25,7 @@ object Day22 : DayOf2018(22) {
     }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (depthLine, targetLine) = data.trim().lines().map { it.substringAfter(": ") }
     val depth = depthLine.toInt()
     val (tx, ty) = targetLine.parseInts(",")

@@ -8,7 +8,7 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 21](https://adventofcode.com/2020/day/21)
  */
 object Day21 : DayOf2020(21) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val foods = data
       .trim()
       .lines()
@@ -47,7 +47,7 @@ object Day21 : DayOf2020(21) {
     return foods.flatMap { it.first }.count { it in safeItems }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val foods = data
       .trim()
       .lines()

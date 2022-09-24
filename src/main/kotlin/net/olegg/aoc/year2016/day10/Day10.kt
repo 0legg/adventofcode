@@ -10,7 +10,7 @@ object Day10 : DayOf2016(10) {
   private val VALUE_PATTERN = "value (\\d+) goes to bot (\\d+)".toRegex()
   private val GIVE_PATTERN = "bot (\\d+) gives low to (\\w+) (\\d+) and high to (\\w+) (\\d+)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val bots = mutableMapOf<Int, MutableSet<Int>>()
     val actions = mutableMapOf<Int, Pair<Int, Int>>()
     val search = setOf(17, 61)
@@ -56,7 +56,7 @@ object Day10 : DayOf2016(10) {
     return bots.filter { it.value == search }.keys.joinToString()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val bots = mutableMapOf<Int, MutableSet<Int>>()
     val actions = mutableMapOf<Int, Pair<Int, Int>>()
 

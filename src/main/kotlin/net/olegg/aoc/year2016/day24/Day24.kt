@@ -10,7 +10,7 @@ import net.olegg.aoc.year2016.DayOf2016
  * See [Year 2016, Day 24](https://adventofcode.com/2016/day/24)
  */
 object Day24 : DayOf2016(24) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val map = data.lines().map { it.toCharArray().toTypedArray() }
 
     val locations = ('0'..'7').flatMap { index ->
@@ -51,7 +51,7 @@ object Day24 : DayOf2016(24) {
       }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val map = data.lines().map { it.toCharArray().toTypedArray() }
 
     val locations = ('0'..'7').flatMap { index ->

@@ -8,7 +8,7 @@ import java.math.BigInteger
  * See [Year 2017, Day 23](https://adventofcode.com/2017/day/23)
  */
 object Day23 : DayOf2017(23) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val ops = data
       .trim()
       .lines()
@@ -34,7 +34,7 @@ object Day23 : DayOf2017(23) {
     return muls
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val ops = data
       .trim()
       .lines()

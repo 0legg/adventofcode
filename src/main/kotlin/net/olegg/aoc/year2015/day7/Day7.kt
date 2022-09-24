@@ -69,11 +69,11 @@ object Day7 : DayOf2015(7) {
     return resolved[pin].orEmpty()
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return measure(source, "a")
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return measure(source + ("b" to measure(source, "a")), "a")
   }
 }

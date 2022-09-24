@@ -11,7 +11,7 @@ import net.olegg.aoc.year2018.Ops
 object Day21 : DayOf2018(21) {
   private val OPS_PATTERN = "(\\w+) (\\d+) (\\d+) (\\d+)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val pointer = data
       .trim()
       .lines()
@@ -46,7 +46,7 @@ object Day21 : DayOf2018(21) {
     return 0
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val pointer = data
       .trim()
       .lines()

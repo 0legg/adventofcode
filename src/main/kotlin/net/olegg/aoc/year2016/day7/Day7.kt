@@ -19,13 +19,13 @@ object Day7 : DayOf2016(7) {
       .map { (outer, inner) -> outer.map { it.second } to inner.map { it.second } }
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return splitAddresses(data.lines())
       .filterNot { (_, inner) -> inner.any { token -> abba.any { it in token } } }
       .count { (outer, _) -> outer.any { token -> abba.any { it in token } } }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return splitAddresses(data.lines())
       .count { (outer, inner) ->
         ababab.any { ab ->

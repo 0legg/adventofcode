@@ -7,7 +7,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 17](https://adventofcode.com/2017/day/17)
  */
 object Day17 : DayOf2017(17) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val cycle = mutableListOf(0)
     val step = data.trimIndent().toInt()
 
@@ -20,7 +20,7 @@ object Day17 : DayOf2017(17) {
     return cycle[position % cycle.size]
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val step = data.trimIndent().toInt()
     var next = -1
 

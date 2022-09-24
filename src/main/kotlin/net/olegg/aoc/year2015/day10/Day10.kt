@@ -13,11 +13,11 @@ object Day10 : DayOf2015(10) {
     .series()
     .joinToString(separator = "") { "${it.second}${it.first}" }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return (1..40).fold(data) { acc, _ -> lookAndSay(acc) }.length
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return (1..50).fold(data) { acc, _ -> lookAndSay(acc) }.length
   }
 }

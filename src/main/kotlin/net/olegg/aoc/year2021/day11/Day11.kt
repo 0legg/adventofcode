@@ -12,7 +12,7 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 11](https://adventofcode.com/2021/day/11)
  */
 object Day11 : DayOf2021(11) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val start = data.trim()
       .lines()
       .map { line -> line.map { it.digitToInt() } }
@@ -52,7 +52,7 @@ object Day11 : DayOf2021(11) {
     return result
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val start = data.trim()
       .lines()
       .map { line -> line.map { it.digitToInt() } }

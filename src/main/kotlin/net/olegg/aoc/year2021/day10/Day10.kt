@@ -7,7 +7,7 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 10](https://adventofcode.com/2021/day/10)
  */
 object Day10 : DayOf2021(10) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data.trim().lines().sumOf { line ->
       val queue = ArrayDeque<Char>()
       line.forEach { char ->
@@ -23,7 +23,7 @@ object Day10 : DayOf2021(10) {
     }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return data.trim().lines()
       .mapNotNull { line ->
         val queue = ArrayDeque<Char>()

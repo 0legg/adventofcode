@@ -20,7 +20,7 @@ object Day14 : DayOf2015(14) {
       }
     }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return speeds
       .map { (speed, active, period) ->
         ((TIME / period) * active + (TIME % period).coerceAtMost(active)) * speed
@@ -28,7 +28,7 @@ object Day14 : DayOf2015(14) {
       .maxOrNull()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val distances = speeds
       .map { (speed, active, period) ->
         (0 until TIME).scan(0) { acc, value ->

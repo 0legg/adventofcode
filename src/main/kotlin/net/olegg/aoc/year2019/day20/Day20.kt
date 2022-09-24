@@ -9,7 +9,7 @@ import net.olegg.aoc.year2019.DayOf2019
  * See [Year 2019, Day 20](https://adventofcode.com/2019/day/20)
  */
 object Day20 : DayOf2019(20) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val map = data
       .lines()
       .filter { it.isNotEmpty() }
@@ -74,7 +74,7 @@ object Day20 : DayOf2019(20) {
     return Int.MAX_VALUE
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val map = data
       .lines()
       .filter { it.isNotEmpty() }

@@ -12,7 +12,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 22](https://adventofcode.com/2017/day/22)
  */
 object Day22 : DayOf2017(22) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val map = mutableMapOf<Vector2D, Boolean>().apply {
       val raw = data.trim().lines().map { line -> line.map { it == '#' } }
       raw.forEachIndexed { y, row ->
@@ -34,7 +34,7 @@ object Day22 : DayOf2017(22) {
     }.third
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val map = mutableMapOf<Vector2D, Int>().apply {
       val raw = data.trim().lines().map { line -> line.map { ".W#F".indexOf(it) } }
       raw.forEachIndexed { y, row ->

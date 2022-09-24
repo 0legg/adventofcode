@@ -30,7 +30,7 @@ object Day13 : DayOf2018(13) {
     R to D
   )
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val input = data
       .lines()
       .filterNot { it.isEmpty() }
@@ -93,7 +93,7 @@ object Day13 : DayOf2018(13) {
     return null
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val input = data
       .lines()
       .filterNot { it.isEmpty() }

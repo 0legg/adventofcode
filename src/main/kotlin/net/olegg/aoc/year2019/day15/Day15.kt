@@ -20,7 +20,7 @@ import net.olegg.aoc.year2019.Intcode
  * See [Year 2019, Day 15](https://adventofcode.com/2019/day/15)
  */
 object Day15 : DayOf2019(15) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val program = data
       .trim()
       .parseLongs(",")
@@ -70,7 +70,7 @@ object Day15 : DayOf2019(15) {
     return map.values.first { it.first == 2L }.second
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val program = data
       .trim()
       .parseLongs(",")

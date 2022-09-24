@@ -12,7 +12,7 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 15](https://adventofcode.com/2021/day/15)
  */
 object Day15 : DayOf2021(15) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val map = data.trim()
       .lines()
       .map { line -> 
@@ -22,7 +22,7 @@ object Day15 : DayOf2021(15) {
     return solve(map)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val map = data.trim()
       .lines()
       .map { line ->

@@ -108,11 +108,11 @@ object Day22 : DayOf2015(22) {
     return best
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return countMana(spells, listOf(bossHit))
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return countMana(spells, listOf(hardBossHit))
   }
 }

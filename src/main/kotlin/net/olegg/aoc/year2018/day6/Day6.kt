@@ -11,7 +11,7 @@ object Day6 : DayOf2018(6) {
   private val PATTERN = "(\\d+), (\\d+)".toRegex()
   private const val TOTAL = 10000
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val points = data
       .trim()
       .lines()
@@ -47,7 +47,7 @@ object Day6 : DayOf2018(6) {
       ?.value
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val points = data
       .trim()
       .lines()

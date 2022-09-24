@@ -7,7 +7,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 18](https://adventofcode.com/2017/day/18)
  */
 object Day18 : DayOf2017(18) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     var sound = 0L
     val ops = data
       .trimIndent()
@@ -35,7 +35,7 @@ object Day18 : DayOf2017(18) {
     return null
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val regs = Array(2) { mutableMapOf("p" to it.toLong()) }
     val stacks = Array(2) { ArrayDeque<Long>() }
     val position = Array(2) { 0 }

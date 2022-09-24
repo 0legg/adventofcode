@@ -12,7 +12,7 @@ import kotlin.math.abs
  * See [Year 2017, Day 19](https://adventofcode.com/2017/day/19)
  */
 object Day19 : DayOf2017(19) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val map = data
       .lines()
       .map { it.toList() }
@@ -41,7 +41,7 @@ object Day19 : DayOf2017(19) {
     return result
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val map = data
       .lines()
       .map { it.toList() }

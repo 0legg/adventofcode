@@ -18,7 +18,7 @@ import kotlin.math.sign
 object Day13 : DayOf2019(13) {
   private val SCORE = Vector2D(-1, 0)
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val program = data.trim().parseLongs(",").toLongArray()
 
     val result = runBlocking {
@@ -40,7 +40,7 @@ object Day13 : DayOf2019(13) {
     return result.count { it.value == 2 }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val program = data.trim().parseLongs(",").toLongArray()
 
     val result = runBlocking {

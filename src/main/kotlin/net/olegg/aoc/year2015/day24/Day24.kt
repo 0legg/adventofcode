@@ -8,7 +8,7 @@ import net.olegg.aoc.year2015.DayOf2015
  */
 object Day24 : DayOf2015(24) {
   val weights = data.lines().map { it.toLong() }
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val sum = weights.sum() / 3
     return subsets(sum, weights)
       .groupBy { it.size }
@@ -18,7 +18,7 @@ object Day24 : DayOf2015(24) {
       ?.minOrNull()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val sum = weights.sum() / 4
     return subsets(sum, weights)
       .groupBy { it.size }

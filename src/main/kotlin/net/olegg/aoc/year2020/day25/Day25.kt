@@ -10,7 +10,7 @@ import net.olegg.aoc.year2020.DayOf2020
 object Day25 : DayOf2020(25) {
   private const val modulo = 20201227L
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val items = data
       .trim()
       .parseLongs(delimiters = "\n")

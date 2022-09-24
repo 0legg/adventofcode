@@ -15,7 +15,7 @@ object Day6 : DayOf2015(6) {
     return (1..4).map { matcher.group(it).toInt() }
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return commands.fold(Array(1000) { Array(1000) { false } }) { acc, value ->
       val points = toPoints(value)
       (points[0]..points[2]).forEach { row ->
@@ -32,7 +32,7 @@ object Day6 : DayOf2015(6) {
     }.sumOf { row -> row.count { it } }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return commands.fold(Array(1000) { Array(1000) { 0 } }) { acc, value ->
       val points = toPoints(value)
       (points[0]..points[2]).forEach { row ->

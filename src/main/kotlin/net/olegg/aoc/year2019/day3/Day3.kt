@@ -10,7 +10,7 @@ import kotlin.math.abs
  * See [Year 2019, Day 3](https://adventofcode.com/2019/day/3)
  */
 object Day3 : DayOf2019(3) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (wire1, wire2) = data
       .trim()
       .lines()
@@ -26,7 +26,7 @@ object Day3 : DayOf2019(3) {
     return (wire1.intersect(wire2)).map { abs(it.x) + abs(it.y) }.minOrNull()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (wire1, wire2) = data
       .trim()
       .lines()

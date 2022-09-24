@@ -7,7 +7,7 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 23](https://adventofcode.com/2020/day/23)
  */
 object Day23 : DayOf2020(23) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val items = data
       .trim()
       .map { it.toString().toInt() }
@@ -42,7 +42,7 @@ object Day23 : DayOf2020(23) {
     return result.joinToString("")
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val initialItems = data
       .trim()
       .map { it.toString().toInt() }

@@ -28,7 +28,7 @@ object Day17 : DayOf2020(17) {
       }
     } - Vector4D()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val items = data
       .trim()
       .lines()
@@ -56,7 +56,7 @@ object Day17 : DayOf2020(17) {
     return finalState.size
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val items = data
       .trim()
       .lines()

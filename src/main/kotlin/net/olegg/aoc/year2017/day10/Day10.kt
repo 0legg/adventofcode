@@ -8,7 +8,7 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 10](https://adventofcode.com/2017/day/10)
  */
 object Day10 : DayOf2017(10) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
       .trim()
       .parseInts(",")
@@ -25,7 +25,7 @@ object Day10 : DayOf2017(10) {
       .let { it[0] * it[1] }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return data
       .trim()
       .map { it.code }

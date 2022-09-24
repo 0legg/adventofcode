@@ -56,11 +56,11 @@ object Day11 : DayOf2015(11) {
       .first()
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return password(data.trim())
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return password(password(data.trim()))
   }
 }

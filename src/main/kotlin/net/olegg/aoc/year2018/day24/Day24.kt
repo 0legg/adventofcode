@@ -7,7 +7,7 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 24](https://adventofcode.com/2018/day/24)
  */
 object Day24 : DayOf2018(24) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (immune, infection) = data
       .trim()
       .split("\n\n")
@@ -17,7 +17,7 @@ object Day24 : DayOf2018(24) {
     return solve(immune + infection).sumOf { it.units.toInt() }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (immune, infection) = data
       .trim()
       .split("\n\n")

@@ -11,7 +11,7 @@ import kotlin.math.sign
  * See [Year 2021, Day 5](https://adventofcode.com/2021/day/5)
  */
 object Day5 : DayOf2021(5) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val vectors = data.trim()
       .lines()
       .map { it.split(" -> ") }
@@ -37,7 +37,7 @@ object Day5 : DayOf2021(5) {
     return points.count { it.value > 1 }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val vectors = data.trim()
       .lines()
       .map { it.split(" -> ") }

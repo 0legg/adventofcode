@@ -7,7 +7,7 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 18](https://adventofcode.com/2020/day/18)
  */
 object Day18 : DayOf2020(18) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val entries = data
       .trim()
       .lines()
@@ -21,7 +21,7 @@ object Day18 : DayOf2020(18) {
     }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val entries = data
       .trim()
       .lines()

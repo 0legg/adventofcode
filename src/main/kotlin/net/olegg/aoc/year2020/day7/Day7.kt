@@ -11,7 +11,7 @@ object Day7 : DayOf2020(7) {
   private val PATTERN = "(\\d+) ([^\\d]*) bags?".toRegex()
   private const val MINE = "shiny gold"
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val rules = data
       .trim()
       .lines()
@@ -35,7 +35,7 @@ object Day7 : DayOf2020(7) {
     return visited.size - 1
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val rules = data
       .trim()
       .lines()

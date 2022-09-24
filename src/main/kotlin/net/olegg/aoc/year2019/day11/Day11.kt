@@ -15,7 +15,7 @@ import net.olegg.aoc.year2019.Intcode
  * See [Year 2019, Day 11](https://adventofcode.com/2019/day/11)
  */
 object Day11 : DayOf2019(11) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val program = data
       .trim()
       .parseLongs(",")
@@ -59,7 +59,7 @@ object Day11 : DayOf2019(11) {
     return result.size
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val program = data
       .trim()
       .parseLongs(",")

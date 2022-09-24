@@ -9,11 +9,11 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 20](https://adventofcode.com/2021/day/20)
  */
 object Day20 : DayOf2021(20) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return solve(data, 2)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return solve(data, 50)
   }
 

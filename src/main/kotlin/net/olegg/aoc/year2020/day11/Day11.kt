@@ -10,7 +10,7 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 11](https://adventofcode.com/2020/day/11)
  */
 object Day11 : DayOf2020(11) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val map = data
       .trim()
       .lines()
@@ -35,7 +35,7 @@ object Day11 : DayOf2020(11) {
       .sumOf { line -> line.count { it == '#' } }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val map = data
       .trim()
       .lines()

@@ -10,7 +10,7 @@ import kotlin.math.max
 object Day7 : DayOf2018(7) {
   private val PATTERN = "Step (\\w) must be finished before step (\\w) can begin\\.".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val edges = data
       .trim()
       .lines()
@@ -44,7 +44,7 @@ object Day7 : DayOf2018(7) {
     return answer.joinToString(separator = "")
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val edges = data
       .trim()
       .lines()

@@ -12,7 +12,7 @@ object Day4 : DayOf2020(4) {
   private val COLOR_PATTERN = "^#[0-9a-f]{6}$".toRegex()
   private val ID_PATTERN = "^[0-9]{9}$".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val passports = data
       .trim()
       .split("\n\n")
@@ -21,7 +21,7 @@ object Day4 : DayOf2020(4) {
     return passports.count { (it - "cid").size == 7 }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val passports = data
       .trim()
       .split("\n\n")

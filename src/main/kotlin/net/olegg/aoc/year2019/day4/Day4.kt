@@ -9,7 +9,7 @@ import net.olegg.aoc.year2019.DayOf2019
  * See [Year 2019, Day 4](https://adventofcode.com/2019/day/4)
  */
 object Day4 : DayOf2019(4) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (from, to) = data
       .trim()
       .parseInts("-")
@@ -22,7 +22,7 @@ object Day4 : DayOf2019(4) {
       .count { value -> value.windowed(2).none { it[0] > it[1] } }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (from, to) = data
       .trim()
       .parseInts("-")
