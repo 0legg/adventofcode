@@ -25,7 +25,7 @@ detekt {
 
 tasks.withType<KotlinCompile> {
   kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "14"
     allWarningsAsErrors = true
     freeCompilerArgs += listOf(
       "-opt-in=kotlin.RequiresOptIn",
