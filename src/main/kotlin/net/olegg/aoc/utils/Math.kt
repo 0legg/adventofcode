@@ -3,7 +3,9 @@ package net.olegg.aoc.utils
 import kotlin.math.abs
 
 fun gcd(a: Int, b: Int): Int {
-  var (ta, tb) = (minOf(abs(a), abs(b)) to maxOf(abs(a), abs(b)))
+  val aa = abs(a)
+  val ab = abs(b)
+  var (ta, tb) = if (aa < ab) (aa to ab) else (ab to aa)
   while (ta != 0) {
     val na = tb % ta
     tb = ta
@@ -13,7 +15,9 @@ fun gcd(a: Int, b: Int): Int {
 }
 
 fun gcd(a: Long, b: Long): Long {
-  var (ta, tb) = (minOf(abs(a), abs(b)) to maxOf(abs(a), abs(b)))
+  val aa = abs(a)
+  val ab = abs(b)
+  var (ta, tb) = if (aa < ab) (aa to ab) else (ab to aa)
   while (ta != 0L) {
     val na = tb % ta
     tb = ta
@@ -23,9 +27,9 @@ fun gcd(a: Long, b: Long): Long {
 }
 
 fun lcf(a: Int, b: Int): Int {
-  return a * b / gcd(a, b)
+  return a / gcd(a, b) * b
 }
 
 fun lcf(a: Long, b: Long): Long {
-  return a * b / gcd(a, b)
+  return a / gcd(a, b) * b
 }
