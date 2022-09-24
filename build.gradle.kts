@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -19,10 +20,6 @@ buildConfig {
   buildConfigField("String", "COOKIE", "\"${project.findProperty("COOKIE")?.toString() ?: "Please provide cookie"}\"")
 }
 
-detekt {
-  config = files("detekt.yml")
-}
-
 tasks.withType<KotlinCompile> {
   kotlinOptions {
     jvmTarget = "14"
@@ -33,6 +30,14 @@ tasks.withType<KotlinCompile> {
       "-opt-in=kotlinx.coroutines.FlowPreview",
     )
   }
+}
+
+tasks.withType<Detekt>().configureEach {
+  jvmTarget = "14"
+}
+
+detekt {
+  config = files("detekt.yml")
 }
 
 dependencies {

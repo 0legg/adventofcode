@@ -38,7 +38,7 @@ object Day4 : DayOf2018(4) {
         (prev.minute until curr.minute).forEach { minutes[it] += 1 }
       }
 
-      return@let best.key * (minutes.withIndex().maxByOrNull { it: IndexedValue<Int> -> it.value }?.index ?: 0)
+      return@let best.key * (minutes.withIndex().maxByOrNull { it.value }?.index ?: 0)
     }
   }
 

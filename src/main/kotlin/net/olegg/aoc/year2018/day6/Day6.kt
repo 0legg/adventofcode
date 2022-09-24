@@ -23,10 +23,10 @@ object Day6 : DayOf2018(6) {
           ?.let { it.first() to it.last() }
       }
 
-    val left = points.minByOrNull { it.first }?.first ?: Int.MIN_VALUE
-    val top = points.minByOrNull { it.second }?.second ?: Int.MIN_VALUE
-    val right = points.maxByOrNull { it: Pair<Int, Int> -> it.first }?.first ?: Int.MAX_VALUE
-    val bottom = points.maxByOrNull { it: Pair<Int, Int> -> it.second }?.second ?: Int.MAX_VALUE
+    val left = points.minOfOrNull { it.first } ?: Int.MIN_VALUE
+    val top = points.minOfOrNull { it.second } ?: Int.MIN_VALUE
+    val right = points.maxOfOrNull { it.first } ?: Int.MAX_VALUE
+    val bottom = points.maxOfOrNull { it.second } ?: Int.MAX_VALUE
 
     val area = (top..bottom)
       .flatMap { y ->
@@ -59,10 +59,10 @@ object Day6 : DayOf2018(6) {
           ?.let { it.first() to it.last() }
       }
 
-    val left = points.minByOrNull { it.first }?.first ?: Int.MIN_VALUE
-    val top = points.minByOrNull { it.second }?.second ?: Int.MIN_VALUE
-    val right = points.maxByOrNull { it: Pair<Int, Int> -> it.first }?.first ?: Int.MAX_VALUE
-    val bottom = points.maxByOrNull { it: Pair<Int, Int> -> it.second }?.second ?: Int.MAX_VALUE
+    val left = points.minOfOrNull { it.first } ?: Int.MIN_VALUE
+    val top = points.minOfOrNull { it.second } ?: Int.MIN_VALUE
+    val right = points.maxOfOrNull { it.first } ?: Int.MAX_VALUE
+    val bottom = points.maxOfOrNull { it.second } ?: Int.MAX_VALUE
 
     val padding = TOTAL / points.size + 1
 

@@ -40,7 +40,7 @@ object Day11 : DayOf2019(11) {
             direction = when (turn) {
               0L -> Vector2D(direction.y, -direction.x)
               1L -> Vector2D(-direction.y, direction.x)
-              else -> throw IllegalArgumentException()
+              else -> error("Turn is not 0 or 1: $turn")
             }
             position = position + direction
           }
@@ -82,7 +82,7 @@ object Day11 : DayOf2019(11) {
             direction = when (turn) {
               0L -> Vector2D(direction.y, -direction.x)
               1L -> Vector2D(-direction.y, direction.x)
-              else -> throw IllegalArgumentException()
+              else -> error("Turn is not 0 or 1: $turn")
             }
             position = position + direction
           }
@@ -102,10 +102,10 @@ object Day11 : DayOf2019(11) {
 
       return@runBlocking (miny..maxy).joinToString("\n", prefix = "\n") { y ->
         (minx..maxx).joinToString("") { x ->
-          when (map.getOrDefault(Vector2D(x, y), 0)) {
+          when (val cell = map.getOrDefault(Vector2D(x, y), 0)) {
             0L -> "  "
             1L -> "██"
-            else -> throw IllegalArgumentException()
+            else -> error("Unexpected value $cell")
           }
         }
       }
