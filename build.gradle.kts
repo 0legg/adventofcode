@@ -38,6 +38,7 @@ tasks.withType<Detekt>().configureEach {
 
 detekt {
   config = files("detekt.yml")
+  baseline = file("detekt-baseline.xml")
 }
 
 dependencies {
