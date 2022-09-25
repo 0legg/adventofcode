@@ -20,8 +20,8 @@ object Day4 : DayOf2016(4) {
 
     return rooms.filter { room ->
       room.third == room.first
-        .groupBy { it }
-        .mapValues { it.value.size }
+        .groupingBy { it }
+        .eachCount()
         .toList()
         .sortedWith(compareBy({ -it.second }, { it.first }))
         .take(5)
@@ -40,7 +40,7 @@ object Day4 : DayOf2016(4) {
       }
 
     val decrypted = rooms.associate { (name, id) ->
-      name.asSequence()
+      name
         .map { char -> if (char == '-') ' ' else ((char.code - A_CODE + id) % 26 + A_CODE).toChar() }
         .joinToString(separator = "") to id
     }

@@ -36,8 +36,8 @@ object Day6 : DayOf2018(6) {
       }
 
     return area
-      .groupBy { it }
-      .mapValues { it.value.size }
+      .groupingBy { it }
+      .eachCount()
       .filterKeys { key ->
         points[key].first !in listOf(left, right) && points[key].second !in listOf(top, bottom)
       }

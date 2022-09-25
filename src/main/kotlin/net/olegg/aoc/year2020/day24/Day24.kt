@@ -46,9 +46,10 @@ object Day24 : DayOf2020(24) {
       .keys
 
     val result = (0 until 100).fold(start) { prev, _ ->
-      val neighbors = prev.flatMap { cell -> dirs.values.map { it + cell } }
-        .groupBy { it }
-        .mapValues { it.value.size }
+      val neighbors = prev
+        .flatMap { cell -> dirs.values.map { it + cell } }
+        .groupingBy { it }
+        .eachCount()
 
       return@fold (prev.filter { neighbors[it] in 1..2 } + (neighbors.filterValues { it == 2 }.keys - prev)).toSet()
     }

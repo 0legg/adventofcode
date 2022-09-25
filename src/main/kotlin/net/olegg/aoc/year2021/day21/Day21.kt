@@ -54,8 +54,9 @@ object Day21 : DayOf2021(21) {
         }
       }
     }
-      .groupBy { it }
-      .mapValues { it.value.size.toLong() }
+      .groupingBy { it }
+      .eachCount()
+      .mapValues { it.value.toLong() }
 
     val startUniverse = Universe(
       listOf(

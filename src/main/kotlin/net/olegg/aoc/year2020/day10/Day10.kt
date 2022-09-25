@@ -14,8 +14,8 @@ object Day10 : DayOf2020(10) {
 
     val diffs = jolts.windowed(2)
       .map { it.last() - it.first() }
-      .groupBy { it }
-      .mapValues { it.value.size }
+      .groupingBy { it }
+      .eachCount()
 
     return diffs.getValue(1) * diffs.getValue(3)
   }

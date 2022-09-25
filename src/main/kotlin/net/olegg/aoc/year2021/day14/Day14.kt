@@ -25,8 +25,9 @@ object Day14 : DayOf2021(14) {
       .associate { it.first to setOf("${it.first.first()}${it.second}", "${it.second}${it.first.last()}") }
 
     val start = rawStart.windowed(2)
-      .groupBy { it }
-      .mapValues { it.value.size.toBigInteger() }
+      .groupingBy { it }
+      .eachCount()
+      .mapValues { it.value.toBigInteger() }
 
     val end = (1..steps).fold(start) { acc, _ ->
       val next = mutableMapOf<String, BigInteger>()

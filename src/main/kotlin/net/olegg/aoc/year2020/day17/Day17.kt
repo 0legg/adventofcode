@@ -41,8 +41,8 @@ object Day17 : DayOf2020(17) {
 
     val finalState = (0 until 6).fold(initialState) { state, _ ->
       val neighborCount = state.flatMap { it.neighbors3D() }
-        .groupBy { it }
-        .mapValues { it.value.size }
+        .groupingBy { it }
+        .eachCount()
 
       val alive = state.filter { neighborCount[it] in 2..3 }
       val born = neighborCount.filter { it.key !in state && it.value == 3 }.map { it.key }
@@ -66,8 +66,8 @@ object Day17 : DayOf2020(17) {
 
     val finalState = (0 until 6).fold(initialState) { state, _ ->
       val neighborCount = state.flatMap { it.neighbors4D() }
-        .groupBy { it }
-        .mapValues { it.value.size }
+        .groupingBy { it }
+        .eachCount()
 
       val alive = state.filter { neighborCount[it] in 2..3 }
       val born = neighborCount.filter { it.key !in state && it.value == 3 }.map { it.key }

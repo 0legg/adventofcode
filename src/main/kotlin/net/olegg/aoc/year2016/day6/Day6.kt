@@ -9,12 +9,13 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day6 : DayOf2016(6) {
   override fun first(): Any? {
     return lines
-      .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
-      .groupBy { it.first }
-      .mapValues { (_, value) -> value.map { it.second } }
-      .mapValues { (_, value) -> value.groupBy { it } }
-      .mapValues { (_, value) -> value.mapValues { it.value.size } }
-      .mapValues { (_, value) -> value.maxByOrNull { it.value }?.key ?: '?' }
+      .flatMap { it.withIndex() }
+      .groupBy(
+        keySelector =  { it.index },
+        valueTransform = { it.value },
+      )
+      .mapValues { (_, value) -> value.groupingBy { it }.eachCount() }
+      .mapValues { (_, value) -> value.maxBy { it.value }.key }
       .toList()
       .sortedBy { it.first }
       .map { it.second }
@@ -23,12 +24,13 @@ object Day6 : DayOf2016(6) {
 
   override fun second(): Any? {
     return lines
-      .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
-      .groupBy { it.first }
-      .mapValues { (_, value) -> value.map { it.second } }
-      .mapValues { (_, value) -> value.groupBy { it } }
-      .mapValues { (_, value) -> value.mapValues { it.value.size } }
-      .mapValues { (_, value) -> value.minByOrNull { it.value }?.key ?: '?' }
+      .flatMap { it.withIndex() }
+      .groupBy(
+        keySelector =  { it.index },
+        valueTransform = { it.value },
+      )
+      .mapValues { (_, value) -> value.groupingBy { it }.eachCount() }
+      .mapValues { (_, value) -> value.minBy { it.value }.key }
       .toList()
       .sortedBy { it.first }
       .map { it.second }

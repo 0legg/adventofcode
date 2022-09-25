@@ -23,9 +23,10 @@ object Day20 : DayOf2020(20) {
       .map { (NUMBER.find(it.first())?.value?.toIntOrNull() ?: 0) to it.drop(1).map { l -> l.toList() } }
       .map { it.first to profiles(it.second) }
 
-    val profileCounts = tiles.flatMap { it.second }
-      .groupBy { it }
-      .mapValues { it.value.size }
+    val profileCounts = tiles
+      .flatMap { it.second }
+      .groupingBy { it }
+      .eachCount()
 
     val corners = tiles.filter { it.second.count { prof -> profileCounts[prof] == 1 } == 4 }
 
@@ -40,10 +41,11 @@ object Day20 : DayOf2020(20) {
 
     val profiles = tiles.mapValues { profiles(it.value) }
 
-    val profileCounts = profiles.values
+    val profileCounts = profiles
+      .values
       .flatten()
-      .groupBy { it }
-      .mapValues { it.value.size }
+      .groupingBy { it }
+      .eachCount()
 
     val topLeftTile = profiles.entries.first { tile ->
       tile.value.count { prof -> profileCounts[prof] == 1 } == 4

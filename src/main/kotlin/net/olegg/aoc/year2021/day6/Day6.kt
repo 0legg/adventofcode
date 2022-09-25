@@ -19,8 +19,10 @@ object Day6 : DayOf2021(6) {
   private fun solve(days: Int): Long {
     val input = data.parseLongs(",")
 
-    val start = input.groupBy { it }
-      .mapValues { it.value.size.toLong() }
+    val start = input
+      .groupingBy { it }
+      .eachCount()
+      .mapValues { it.value.toLong() }
     val end = (1..days).fold(start) { acc, _ ->
       val new = acc.mapKeys { it.key - 1 }.toMutableMap()
       new[8] = new.getOrDefault(-1, 0L)
