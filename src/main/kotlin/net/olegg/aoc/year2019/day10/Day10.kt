@@ -24,7 +24,7 @@ object Day10 : DayOf2019(10) {
         .count()
     }
 
-    return visible.maxOrNull()
+    return visible.max()
   }
 
   override fun second(): Any? {
@@ -33,12 +33,12 @@ object Day10 : DayOf2019(10) {
         line.mapIndexedNotNull { x, c -> if (c == '#') Vector2D(x, y) else null }
       }
 
-    val base = asteroids.maxByOrNull { curr: Vector2D ->
+    val base = asteroids.maxBy { curr: Vector2D ->
       asteroids.filter { it != curr }
         .map { curr.direction(it) }
         .distinct()
         .count()
-    } ?: Vector2D(0, 0)
+    }
 
     val lines = (asteroids - base)
       .groupBy { other -> base.direction(other) }
@@ -50,7 +50,7 @@ object Day10 : DayOf2019(10) {
     val linesFromTop = (lines.dropWhile { it.first > atan2(1.0, 0.0) } + lines.takeWhile { it.first > atan2(1.0, 0.0) })
       .map { it.second }
 
-    val maxLength = linesFromTop.maxOfOrNull { it.size } ?: 0
+    val maxLength = linesFromTop.maxOf { it.size }
 
     val ordered = (0 until maxLength).flatMap { pos ->
       linesFromTop.mapNotNull { line -> line.getOrNull(pos) }

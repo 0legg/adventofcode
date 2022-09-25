@@ -25,20 +25,20 @@ object Day9 : DayOf2015(9) {
 
   override fun first(): Any? {
     return cities.permutations()
-      .map { city ->
+      .minOf { city ->
         city
           .zipWithNext()
           .sumOf { edges[it] ?: 0 }
-      }.minByOrNull { it }
+      }
   }
 
   override fun second(): Any? {
     return cities.permutations()
-      .map { city ->
+      .maxOf { city ->
         city
           .zipWithNext()
           .sumOf { edges[it] ?: 0 }
-      }.maxByOrNull { it }
+      }
   }
 }
 

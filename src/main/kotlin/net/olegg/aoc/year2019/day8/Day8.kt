@@ -10,8 +10,8 @@ object Day8 : DayOf2019(8) {
   override fun first(): Any? {
     val layers = data.chunked(25 * 6)
 
-    return layers.minByOrNull { layer -> layer.count { it == '0' } }
-      .orEmpty()
+    return layers
+      .minBy { layer -> layer.count { it == '0' } }
       .let { layer -> layer.count { it == '1' } * layer.count { it == '2' } }
   }
 

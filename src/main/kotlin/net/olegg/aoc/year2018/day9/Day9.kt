@@ -14,14 +14,14 @@ object Day9 : DayOf2018(9) {
     val (players, points) = PATTERN.matchEntire(data)?.destructured?.toList()?.map { it.toInt() }
       ?: error("Unable to parse input")
 
-    return play(players, points).maxOrNull()
+    return play(players, points).max()
   }
 
   override fun second(): Any? {
     val (players, points) = PATTERN.matchEntire(data)?.destructured?.toList()?.map { it.toInt() }
       ?: error("Unable to parse input")
 
-    return play(players, points * 100).maxOrNull()
+    return play(players, points * 100).max()
   }
 
   private fun play(players: Int, points: Int): List<Long> {

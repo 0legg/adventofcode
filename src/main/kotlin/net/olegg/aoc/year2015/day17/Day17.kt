@@ -24,9 +24,9 @@ object Day17 : DayOf2015(17) {
       }
       .filter { it.sum() == 150 }
       .groupBy { it.count { size -> size != 0 } }
-      .minByOrNull { it.key }
-      ?.value
-      ?.size
+      .minBy { it.key }
+      .value
+      .size
   }
 }
 

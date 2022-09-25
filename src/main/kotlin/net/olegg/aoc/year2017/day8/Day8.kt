@@ -30,7 +30,7 @@ object Day8 : DayOf2017(8) {
         registers[list[0]] = if (apply) oldValue + shift else oldValue
       }
 
-    return registers.values.maxOrNull()
+    return registers.values.max()
   }
 
   override fun second(): Any? {
@@ -38,7 +38,7 @@ object Day8 : DayOf2017(8) {
 
     return lines
       .map { it.split(" ") }
-      .maxOfOrNull { list ->
+      .maxOf { list ->
         val oldValue = registers[list[0]] ?: 0
         val shift = list[2].toInt() * (if (list[1] == "dec") -1 else 1)
 
@@ -56,7 +56,7 @@ object Day8 : DayOf2017(8) {
         val newValue = if (apply) oldValue + shift else oldValue
 
         registers[list[0]] = newValue
-        return@maxOfOrNull newValue
+        return@maxOf newValue
       }
   }
 }

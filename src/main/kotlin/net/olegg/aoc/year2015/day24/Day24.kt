@@ -14,18 +14,18 @@ object Day24 : DayOf2015(24) {
     val sum = weights.sum() / 3
     return subsets(sum, weights)
       .groupBy { it.size }
-      .minByOrNull { it.key }
-      ?.value
-      ?.minOfOrNull { it.fold(1L, Long::times) }
+      .minBy { it.key }
+      .value
+      .minOf { it.fold(1L, Long::times) }
   }
 
   override fun second(): Any? {
     val sum = weights.sum() / 4
     return subsets(sum, weights)
       .groupBy { it.size }
-      .minByOrNull { it.key }
-      ?.value
-      ?.minOfOrNull { it.fold(1L, Long::times) }
+      .minBy { it.key }
+      .value
+      .minOf { it.fold(1L, Long::times) }
   }
 }
 

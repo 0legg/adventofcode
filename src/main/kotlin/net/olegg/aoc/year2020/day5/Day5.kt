@@ -10,21 +10,20 @@ object Day5 : DayOf2020(5) {
   override fun first(): Any? {
     return lines
       .asSequence()
-      .map { it.replace("F", "0") }
-      .map { it.replace("B", "1") }
-      .map { it.replace("L", "0") }
-      .map { it.replace("R", "1") }
-      .map { it.toInt(2) }
-      .maxOrNull()
+      .map { it.replace('F', '0') }
+      .map { it.replace('B', '1') }
+      .map { it.replace('L', '0') }
+      .map { it.replace('R', '1') }
+      .maxOf { it.toInt(2) }
   }
 
   override fun second(): Any? {
     val nums = lines
       .asSequence()
-      .map { it.replace("F", "0") }
-      .map { it.replace("B", "1") }
-      .map { it.replace("L", "0") }
-      .map { it.replace("R", "1") }
+      .map { it.replace('F', '0') }
+      .map { it.replace('B', '1') }
+      .map { it.replace('L', '0') }
+      .map { it.replace('R', '1') }
       .map { it.toInt(2) }
       .toSet()
 

@@ -9,8 +9,8 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day3 : DayOf2018(3) {
   override fun first(): Any? {
     val requests = lines.mapNotNull { Request.fromString(it) }
-    val width = requests.maxOfOrNull { it.left + it.width } ?: 0
-    val height = requests.maxOfOrNull { it.top + it.height } ?: 0
+    val width = requests.maxOf { it.left + it.width }
+    val height = requests.maxOf { it.top + it.height }
 
     val field = Array(height) { Array(width) { 0 } }
 
@@ -51,7 +51,7 @@ object Day3 : DayOf2018(3) {
             left = tokens[1],
             top = tokens[2],
             width = tokens[3],
-            height = tokens[4]
+            height = tokens[4],
           )
         }
       }

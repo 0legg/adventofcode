@@ -13,7 +13,7 @@ object Day24 : DayOf2017(24) {
     val ports = lines
       .map { line -> line.split("/").mapNotNull { it.toIntOrNull() } }
       .mapIndexed { index, value ->
-        Triple(value.minOrNull() ?: 0, value.maxOrNull() ?: 0, index)
+        Triple(value.min(), value.max(), index)
       }
 
     var best = 0
@@ -55,7 +55,7 @@ object Day24 : DayOf2017(24) {
     val ports = lines
       .map { line -> line.split("/").mapNotNull { it.toIntOrNull() } }
       .mapIndexed { index, value ->
-        Triple(value.minOrNull() ?: 0, value.maxOrNull() ?: 0, index)
+        Triple(value.min(), value.max(), index)
       }
 
     val start = ports

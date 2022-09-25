@@ -26,18 +26,16 @@ object Day4 : DayOf2018(4) {
       .filterNotNull()
       .groupBy { it.first }
 
-    val sleeper = sleeps.maxByOrNull { entry ->
+    val sleeper = sleeps.maxBy { entry ->
       entry.value.sumOf { it.second.until(it.third, ChronoUnit.MINUTES).toInt() }
     }
 
-    return sleeper?.let { best ->
-      val minutes = IntArray(60)
-      best.value.forEach { (_, prev, curr) ->
-        (prev.minute until curr.minute).forEach { minutes[it] += 1 }
-      }
-
-      return@let best.key * (minutes.withIndex().maxByOrNull { it.value }?.index ?: 0)
+    val minutes = IntArray(60)
+    sleeper.value.forEach { (_, prev, curr) ->
+      (prev.minute until curr.minute).forEach { minutes[it] += 1 }
     }
+
+    return sleeper.key * (minutes.withIndex().maxBy { it.value }.index)
   }
 
   override fun second(): Any? {
@@ -65,9 +63,9 @@ object Day4 : DayOf2018(4) {
     }
 
     return freqs
-      .maxByOrNull { it.value.maxOrNull() ?: 0 }
-      ?.let { sleeper ->
-        sleeper.key * (sleeper.value.withIndex().maxByOrNull { it.value }?.index ?: 0)
+      .maxBy { it.value.max() }
+      .let { sleeper ->
+        sleeper.key * (sleeper.value.withIndex().maxBy { it.value }.index)
       }
   }
 

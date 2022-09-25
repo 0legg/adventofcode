@@ -35,7 +35,7 @@ object Day5 : DayOf2018(5) {
         } while (prev != curr)
         return@map curr.length
       }
-      .minOrNull()
+      .min()
   }
 }
 

@@ -101,11 +101,8 @@ object Day15 : DayOf2018(15) {
             }
           }
 
-          val move = moves.minWithOrNull(compareBy({ it.y }, { it.x }))
-
-          move?.let {
-            character.pos = move
-          }
+          val move = moves.minWith(compareBy({ it.y }, { it.x }))
+          character.pos = move
         }
 
         val canHit = Neighbors4.map { character.pos + it.step }
@@ -132,7 +129,7 @@ object Day15 : DayOf2018(15) {
 
     return (3..200).first { elvenHit ->
       var characters = map
-        .mapIndexed { y, row ->
+        .flatMapIndexedTo(mutableListOf()) { y, row ->
           row.mapIndexedNotNull { x, c ->
             when (c) {
               'E' -> Character(Vector2D(x, y), c, elvenHit, 200)
@@ -141,8 +138,6 @@ object Day15 : DayOf2018(15) {
             }
           }
         }
-        .flatten()
-        .toMutableList()
 
       val elves = characters.count { it.type == 'E' }
 
@@ -230,11 +225,8 @@ object Day15 : DayOf2018(15) {
               }
             }
 
-            val move = moves.minWithOrNull(compareBy({ it.y }, { it.x }))
-
-            move?.let {
-              character.pos = it
-            }
+            val move = moves.minWith(compareBy({ it.y }, { it.x }))
+            character.pos = move
           }
 
           val canHit = Neighbors4.map { character.pos + it.step }

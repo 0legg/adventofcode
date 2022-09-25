@@ -14,8 +14,8 @@ object Day13 : DayOf2020(13) {
     val buses = busLine.parseLongs(delimiters = ",")
 
     return buses.map { it to ((start - 1) / it + 1) * it }
-      .minByOrNull { it.second }
-      ?.let { it.first * (it.second - start) }
+      .minBy { it.second }
+      .let { it.first * (it.second - start) }
   }
 
   override fun second(): Any? {

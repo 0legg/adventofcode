@@ -27,7 +27,7 @@ object Day15 : DayOf2015(15) {
           item.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0)
         }
       }
-      .maxOfOrNull { it.reduce { acc, value -> acc * value } }
+      .maxOf { it.reduce { acc, value -> acc * value } }
   }
 
   override fun second(): Any? {
@@ -40,7 +40,7 @@ object Day15 : DayOf2015(15) {
           item.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0)
         }
       }
-      .maxOfOrNull { it.reduce { acc, value -> acc * value } }
+      .maxOf { it.reduce { acc, value -> acc * value } }
   }
 }
 

@@ -14,10 +14,10 @@ object Day10 : DayOf2021(10) {
         line.forEach { char ->
           when (char) {
             in "(<[{" -> queue.addLast(char)
-              ')' -> if (queue.lastOrNull() == '(') queue.removeLast() else return@sumOf 3L
-              ']' -> if (queue.lastOrNull() == '[') queue.removeLast() else return@sumOf 57L
-              '}' -> if (queue.lastOrNull() == '{') queue.removeLast() else return@sumOf 1197L
-              '>' -> if (queue.lastOrNull() == '<') queue.removeLast() else return@sumOf 25137L
+            ')' -> if (queue.lastOrNull() == '(') queue.removeLast() else return@sumOf 3L
+            ']' -> if (queue.lastOrNull() == '[') queue.removeLast() else return@sumOf 57L
+            '}' -> if (queue.lastOrNull() == '{') queue.removeLast() else return@sumOf 1197L
+            '>' -> if (queue.lastOrNull() == '<') queue.removeLast() else return@sumOf 25137L
           }
         }
         return@sumOf 0L

@@ -12,7 +12,7 @@ import kotlin.math.abs
 object Day3 : DayOf2019(3) {
   override fun first(): Any? {
     val (wire1, wire2) = lines
-      .map { line -> line.split(",").map { Directions.valueOf(it.substring(0, 1)) to it.substring(1).toInt() } }
+      .map { line -> line.split(",").map { Directions.valueOf(it.take(1)) to it.drop(1).toInt() } }
       .map { wire ->
         wire.fold(listOf(Vector2D())) { acc, (dir, length) ->
           val start = acc.last()
@@ -21,12 +21,12 @@ object Day3 : DayOf2019(3) {
       }
       .map { it.toSet() - Vector2D() }
 
-    return (wire1.intersect(wire2)).minOfOrNull { abs(it.x) + abs(it.y) }
+    return (wire1.intersect(wire2)).minOf { it.manhattan() }
   }
 
   override fun second(): Any? {
     val (wire1, wire2) = lines
-      .map { line -> line.split(",").map { Directions.valueOf(it.substring(0, 1)) to it.substring(1).toInt() } }
+      .map { line -> line.split(",").map { Directions.valueOf(it.take(1)) to it.drop(1).toInt() } }
       .map { wire ->
         wire.fold(listOf(Vector2D() to 0)) { acc, (dir, length) ->
           val start = acc.last()
@@ -37,11 +37,12 @@ object Day3 : DayOf2019(3) {
       .map { wire ->
         wire
           .groupBy(keySelector = { it.first }, valueTransform = { it.second })
-          .mapValues { (_, points) -> points.minOrNull() ?: 1_000_000 }
+          .mapValues { (_, points) -> points.min() }
       }
 
-    return wire1.mapValues { (point, distance) -> distance + (wire2[point] ?: 1_000_000) }
-      .minOfOrNull { it.value }
+    return wire1
+      .mapValues { (point, distance) -> distance + (wire2[point] ?: 1_000_000) }
+      .minOf { it.value }
   }
 }
 

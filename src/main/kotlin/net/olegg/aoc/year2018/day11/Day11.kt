@@ -27,8 +27,8 @@ object Day11 : DayOf2018(11) {
         (x to y) to sum
       }
     }
-      .maxByOrNull { it.second }
-      ?.let { "${it.first.first},${it.first.second}" }
+      .maxBy { it.second }
+      .let { "${it.first.first},${it.first.second}" }
   }
 
   override fun second(): Any? {
@@ -57,8 +57,8 @@ object Day11 : DayOf2018(11) {
         }
       }
     }
-      .maxByOrNull { it.second }
-      ?.let { "${it.first.first},${it.first.second},${it.first.third}" }
+      .maxBy { it.second }
+      .let { "${it.first.first},${it.first.second},${it.first.third}" }
   }
 }
 

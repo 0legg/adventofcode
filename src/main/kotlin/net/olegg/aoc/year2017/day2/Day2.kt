@@ -11,7 +11,7 @@ object Day2 : DayOf2017(2) {
   override fun first(): Any? {
     return lines
       .map { it.parseInts() }
-      .sumOf { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
+      .sumOf { it.max() - it.min() }
   }
 
   override fun second(): Any? {

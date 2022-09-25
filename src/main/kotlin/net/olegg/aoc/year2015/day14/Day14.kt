@@ -18,7 +18,7 @@ object Day14 : DayOf2015(14) {
     }
 
   override fun first(): Any? {
-    return speeds.maxOfOrNull { (speed, active, period) ->
+    return speeds.maxOf { (speed, active, period) ->
       ((TIME / period) * active + (TIME % period).coerceAtMost(active)) * speed
     }
   }
@@ -35,11 +35,12 @@ object Day14 : DayOf2015(14) {
         distances.map { it[second] }
       }
       .map { list ->
-        list.map { if (it == list.maxOrNull()) 1 else 0 }
+        val max = list.max()
+        list.map { if (it == max) 1 else 0 }
       }
     return speeds
       .indices
-      .maxOfOrNull { speed ->
+      .maxOf { speed ->
         timestamps.sumOf { it[speed] }
       }
   }
