@@ -8,7 +8,7 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day16 : DayOf2017(16) {
   override fun first(): Any? {
-    return data.trimIndent()
+    return data
       .split(",")
       .fold(StringBuilder("abcdefghijklmnop")) { acc, op ->
         when (op[0]) {
@@ -39,7 +39,7 @@ object Day16 : DayOf2017(16) {
   }
 
   override fun second(): Any? {
-    val dance = data.trimIndent().split(",")
+    val dance = data.split(",")
 
     var curr = "abcdefghijklmnop" to 0
     val seen = mutableMapOf(curr)

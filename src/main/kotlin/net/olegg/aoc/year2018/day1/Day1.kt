@@ -8,18 +8,13 @@ import net.olegg.aoc.year2018.DayOf2018
  */
 object Day1 : DayOf2018(1) {
   override fun first(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .map { it.removePrefix("+") }
-      .map { it.toLong() }
-      .sum()
+      .sumOf { it.toLong() }
   }
 
   override fun second(): Any? {
-    val shifts = data
-      .trim()
-      .lines()
+    val shifts = lines
       .map { it.removePrefix("+") }
       .map { it.toLong() }
 

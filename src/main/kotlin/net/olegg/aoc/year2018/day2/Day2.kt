@@ -8,9 +8,7 @@ import net.olegg.aoc.year2018.DayOf2018
  */
 object Day2 : DayOf2018(2) {
   override fun first(): Any? {
-    val freqs = data
-      .trim()
-      .lines()
+    val freqs = lines
       .map { char -> char.groupBy { it } }
       .map { entry -> entry.mapValues { it.value.size } }
 
@@ -18,12 +16,8 @@ object Day2 : DayOf2018(2) {
   }
 
   override fun second(): Any? {
-    val names = data
-      .trim()
-      .lines()
-
-    names.forEach { first ->
-      names.forEach { second ->
+    lines.forEach { first ->
+      lines.forEach { second ->
         val diff = first.filterIndexed { pos, char -> second[pos] == char }
         if (diff.length == first.length - 1) {
           return diff

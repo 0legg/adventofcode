@@ -9,7 +9,6 @@ import net.olegg.aoc.year2018.DayOf2018
 object Day24 : DayOf2018(24) {
   override fun first(): Any? {
     val (immune, infection) = data
-      .trim()
       .split("\n\n")
       .map { it.lines().drop(1) }
       .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
@@ -19,7 +18,6 @@ object Day24 : DayOf2018(24) {
 
   override fun second(): Any? {
     val (immune, infection) = data
-      .trim()
       .split("\n\n")
       .map { it.lines().drop(1) }
       .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }

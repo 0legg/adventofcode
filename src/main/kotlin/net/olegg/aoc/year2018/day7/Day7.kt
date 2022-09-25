@@ -11,9 +11,7 @@ object Day7 : DayOf2018(7) {
   private val PATTERN = "Step (\\w) must be finished before step (\\w) can begin\\.".toRegex()
 
   override fun first(): Any? {
-    val edges = data
-      .trim()
-      .lines()
+    val edges = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)?.let { match ->
           val (a, b) = match.destructured
@@ -34,8 +32,7 @@ object Day7 : DayOf2018(7) {
         .filter { v ->
           neighbors.none { v in it.value }
         }
-        .sorted()
-        .first()
+        .minOf { it }
       answer += next
       vertices.remove(next)
       neighbors.remove(next)
@@ -45,9 +42,7 @@ object Day7 : DayOf2018(7) {
   }
 
   override fun second(): Any? {
-    val edges = data
-      .trim()
-      .lines()
+    val edges = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)?.let { match ->
           val (a, b) = match.destructured
@@ -62,10 +57,7 @@ object Day7 : DayOf2018(7) {
       .mapValues { neighbors -> neighbors.value.map { it.second }.toSet() }
       .toMutableMap()
 
-    val start = vertices
-      .map { it to 0 }
-      .toMap()
-      .toMutableMap()
+    val start = vertices.associateWithTo(mutableMapOf()) { 0 }
 
     val workers = IntArray(5) { 0 }
     while (vertices.isNotEmpty()) {
@@ -75,8 +67,7 @@ object Day7 : DayOf2018(7) {
         }
       val soonest = start
         .filter { it.key in available }
-        .map { it.value }
-        .minOrNull() ?: 0
+        .minOfOrNull { it.value } ?: 0
 
       val next = available
         .sorted()

@@ -7,16 +7,15 @@ import net.olegg.aoc.year2016.DayOf2016
  * See [Year 2016, Day 8](https://adventofcode.com/2016/day/8)
  */
 object Day8 : DayOf2016(8) {
-  private val PATTERN = "([^\\d]*)([\\d]+)[^\\d]*(\\d+)[^\\d]*".toRegex()
+  private val PATTERN = "(\\D*)(\\d+)\\D*(\\d+)\\D*".toRegex()
 
   override fun first(): Any? {
-
-    return applyOperations(50, 6, data.trim().lines())
+    return applyOperations(50, 6, lines)
       .sumOf { row -> row.count { it } }
   }
 
   override fun second(): Any? {
-    return applyOperations(50, 6, data.trim().lines())
+    return applyOperations(50, 6, lines)
       .joinToString(separator = "\n", prefix = "\n") { row ->
         row.joinToString(separator = "") { if (it) "#" else "." }
       }
@@ -45,14 +44,6 @@ object Day8 : DayOf2016(8) {
       }
 
     return screen
-  }
-
-  class Screen(width: Int, height: Int) {
-    val data = Array(height) { BooleanArray(width) }
-
-    fun fill(width: Int, height: Int) {
-      (0 until height).forEach { y -> data[y].fill(true, 0, width) }
-    }
   }
 }
 

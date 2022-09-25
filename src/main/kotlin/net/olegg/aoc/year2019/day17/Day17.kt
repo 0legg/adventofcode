@@ -14,6 +14,7 @@ import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
 import net.olegg.aoc.utils.Directions.U
 import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2019.DayOf2019
 import net.olegg.aoc.year2019.Intcode
@@ -24,7 +25,6 @@ import net.olegg.aoc.year2019.Intcode
 object Day17 : DayOf2019(17) {
   override fun first(): Any? {
     val program = data
-      .trim()
       .parseLongs(",")
       .toLongArray()
 
@@ -59,7 +59,6 @@ object Day17 : DayOf2019(17) {
 
   override fun second(): Any? {
     val program = data
-      .trim()
       .parseLongs(",")
       .toLongArray()
 
@@ -117,18 +116,14 @@ object Day17 : DayOf2019(17) {
           map[left] == '#' -> {
             val length = generateSequence(1) { it + 1 }
               .map { from + leftStep.step * it }
-              .takeWhile { map[it] == '#' }
-              .toList()
-              .size
+              .indexOfFirst { map[it] != '#' }
 
             Triple('L' to length, from + leftStep.step * length, leftStep)
           }
           map[right] == '#' -> {
             val length = generateSequence(1) { it + 1 }
               .map { from + rightStep.step * it }
-              .takeWhile { map[it] == '#' }
-              .toList()
-              .size
+              .indexOfFirst { map[it] != '#' }
 
             Triple('R' to length, from + rightStep.step * length, rightStep)
           }
@@ -207,12 +202,6 @@ object Day17 : DayOf2019(17) {
 
       return@runBlocking output.toList().last()
     }
-  }
-
-  private operator fun <T> List<List<T>>.get(v: Vector2D): T? = when {
-    v.y !in indices -> null
-    v.x !in this[v.y].indices -> null
-    else -> this[v.y][v.x]
   }
 
   private fun <T> List<T>.matches(from: Int, other: List<T>): Boolean {

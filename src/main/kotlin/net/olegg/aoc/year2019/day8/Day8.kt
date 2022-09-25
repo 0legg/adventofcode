@@ -8,9 +8,7 @@ import net.olegg.aoc.year2019.DayOf2019
  */
 object Day8 : DayOf2019(8) {
   override fun first(): Any? {
-    val layers = data
-      .trim()
-      .chunked(25 * 6)
+    val layers = data.chunked(25 * 6)
 
     return layers.minByOrNull { layer -> layer.count { it == '0' } }
       .orEmpty()
@@ -19,7 +17,6 @@ object Day8 : DayOf2019(8) {
 
   override fun second(): Any? {
     val layers = data
-      .trim()
       .chunked(25 * 6)
       .map { it.toList() }
 

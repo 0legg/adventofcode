@@ -11,10 +11,7 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day11 : DayOf2020(11) {
   override fun first(): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+    val map = matrix
 
     val steps = generateSequence(map) { curr ->
       curr.mapIndexed { y, row ->
@@ -36,10 +33,7 @@ object Day11 : DayOf2020(11) {
   }
 
   override fun second(): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+    val map = matrix
 
     val steps = generateSequence(map) { curr ->
       curr.mapIndexed { y, row ->

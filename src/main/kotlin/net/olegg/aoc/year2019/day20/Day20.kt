@@ -10,10 +10,7 @@ import net.olegg.aoc.year2019.DayOf2019
  */
 object Day20 : DayOf2019(20) {
   override fun first(): Any? {
-    val map = data
-      .lines()
-      .filter { it.isNotEmpty() }
-      .map { it.toList() }
+    val map = matrix
 
     val portals = mutableMapOf<String, MutableList<Vector2D>>()
 
@@ -75,10 +72,7 @@ object Day20 : DayOf2019(20) {
   }
 
   override fun second(): Any? {
-    val map = data
-      .lines()
-      .filter { it.isNotEmpty() }
-      .map { it.toList() }
+    val map = matrix
 
     val portals = mutableMapOf<String, MutableList<Pair<Vector2D, Int>>>()
 

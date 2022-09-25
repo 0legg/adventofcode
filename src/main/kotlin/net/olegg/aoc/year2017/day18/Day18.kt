@@ -9,10 +9,7 @@ import net.olegg.aoc.year2017.DayOf2017
 object Day18 : DayOf2017(18) {
   override fun first(): Any? {
     var sound = 0L
-    val ops = data
-      .trimIndent()
-      .lines()
-      .map { it.split(" ") }
+    val ops = lines.map { it.split(" ") }
 
     var position = 0
     val regs = mutableMapOf<String, Long>()
@@ -43,9 +40,7 @@ object Day18 : DayOf2017(18) {
     val send = Array(2) { 0L }
     val locked = Array(2) { false }
     val stopped = Array(2) { false }
-    val ops = data.trimIndent()
-      .lines()
-      .map { it.split(" ") }
+    val ops = lines.map { it.split(" ") }
 
     while (!locked[active] && !stopped[active]) {
       if (position[active] !in ops.indices) {

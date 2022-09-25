@@ -15,10 +15,7 @@ import java.util.PriorityQueue
  */
 object Day18 : DayOf2019(18) {
   override fun first(): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+    val map = matrix
 
     val keys = (('a'..'z') + '@')
       .associateWith { checkNotNull(map.find(it)) }
@@ -95,10 +92,7 @@ object Day18 : DayOf2019(18) {
   }
 
   override fun second(): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toMutableList() }
+    val map = matrix.map { it.toMutableList() }
     val start = checkNotNull(map.find('@'))
     (-1..1).forEach { y ->
       (-1..1).forEach { x ->

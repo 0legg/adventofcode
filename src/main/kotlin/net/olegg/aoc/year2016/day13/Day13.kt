@@ -10,7 +10,7 @@ import net.olegg.aoc.year2016.DayOf2016
  */
 object Day13 : DayOf2016(13) {
   override fun first(): Any? {
-    val fav = data.trim().toInt()
+    val fav = data.toInt()
 
     val target = Vector2D(31, 39)
     val start = Vector2D(1, 1) to 0
@@ -37,7 +37,7 @@ object Day13 : DayOf2016(13) {
   }
 
   override fun second(): Any? {
-    val fav = data.trim().toInt()
+    val fav = data.toInt()
 
     val start = Vector2D(1, 1) to 0
 

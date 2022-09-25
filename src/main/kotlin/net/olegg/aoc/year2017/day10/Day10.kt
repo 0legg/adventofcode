@@ -10,7 +10,6 @@ import net.olegg.aoc.year2017.DayOf2017
 object Day10 : DayOf2017(10) {
   override fun first(): Any? {
     return data
-      .trim()
       .parseInts(",")
       .foldIndexed(List(256) { it } to 0) { index, acc, value ->
         val prev = acc.first + acc.first
@@ -27,7 +26,6 @@ object Day10 : DayOf2017(10) {
 
   override fun second(): Any? {
     return data
-      .trim()
       .map { it.code }
       .let { it + listOf(17, 31, 73, 47, 23) }
       .let { list -> (0 until 64).fold(emptyList<Int>()) { acc, _ -> acc + list } }

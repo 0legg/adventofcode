@@ -14,7 +14,6 @@ object Day4 : DayOf2020(4) {
 
   override fun first(): Any? {
     val passports = data
-      .trim()
       .split("\n\n")
       .map { it.replace("\n", " ") }
       .map { line -> line.split(" ").associate { it.split(":").toPair() } }
@@ -23,7 +22,6 @@ object Day4 : DayOf2020(4) {
 
   override fun second(): Any? {
     val passports = data
-      .trim()
       .split("\n\n")
       .map { it.replace("\n", " ") }
       .map { line -> line.split(" ").associate { it.split(":").toPair() } }

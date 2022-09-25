@@ -12,18 +12,14 @@ import net.olegg.aoc.year2018.DayOf2018
  */
 object Day15 : DayOf2018(15) {
   override fun first(): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+    val map = matrix
 
     var characters = map
-      .flatMapIndexed { y, row ->
+      .flatMapIndexedTo(mutableListOf()) { y, row ->
         row.mapIndexedNotNull { x, c ->
           if (c in listOf('E', 'G')) Character(Vector2D(x, y), c, 3, 200) else null
         }
       }
-      .toMutableList()
 
     val walls = map
       .map { row ->
@@ -87,8 +83,7 @@ object Day15 : DayOf2018(15) {
         if (minDistance > 0) {
           val nearest = adjacent
             .filter { currMap[it] == minDistance }
-            .sortedWith(compareBy({ it.y }, { it.x }))
-            .first()
+            .minWith(compareBy({ it.y }, { it.x }))
 
           val moves = mutableListOf<Vector2D>()
 
@@ -128,10 +123,7 @@ object Day15 : DayOf2018(15) {
   }
 
   override fun second(): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+    val map = matrix
 
     val walls = map
       .map { row ->
@@ -220,8 +212,7 @@ object Day15 : DayOf2018(15) {
           if (minDistance > 0) {
             val nearest = adjacent
               .filter { currMap[it] == minDistance }
-              .sortedWith(compareBy({ it.y }, { it.x }))
-              .first()
+              .minWith(compareBy({ it.y }, { it.x }))
 
             val moves = mutableListOf<Vector2D>()
 

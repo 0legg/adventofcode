@@ -8,9 +8,7 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day5 : DayOf2020(5) {
   override fun first(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .asSequence()
       .map { it.replace("F", "0") }
       .map { it.replace("B", "1") }
@@ -21,9 +19,7 @@ object Day5 : DayOf2020(5) {
   }
 
   override fun second(): Any? {
-    val nums = data
-      .trim()
-      .lines()
+    val nums = lines
       .asSequence()
       .map { it.replace("F", "0") }
       .map { it.replace("B", "1") }
@@ -32,8 +28,8 @@ object Day5 : DayOf2020(5) {
       .map { it.toInt(2) }
       .toSet()
 
-    val from = nums.minOrNull()!!
-    val to = nums.maxOrNull()!!
+    val from = nums.min()
+    val to = nums.max()
 
     return (from..to).first { it !in nums }
   }

@@ -10,7 +10,7 @@ object Day5 : DayOf2018(5) {
   override fun first(): Any? {
     val bad = ('a'..'z').map { a -> "$a${a.uppercase()}" } +
       ('A'..'Z').map { a -> "$a${a.lowercase()}" }
-    var curr = data.trim()
+    var curr = data
     do {
       val prev = curr
       curr = bad.fold(curr) { acc, token -> acc.replace(token, "") }
@@ -23,8 +23,8 @@ object Day5 : DayOf2018(5) {
     val bad = ('a'..'z').map { a -> "$a${a.uppercase()}" } +
       ('A'..'Z').map { a -> "$a${a.lowercase()}" }
 
-    val source = data.trim()
-    val filtered = ('a'..'z').map { a -> source.replace("$a", "").replace("${a.uppercase()}", "") }
+    val source = data
+    val filtered = ('a'..'z').map { a -> source.replace("$a", "").replace(a.uppercase(), "") }
 
     return filtered
       .map { polymer ->

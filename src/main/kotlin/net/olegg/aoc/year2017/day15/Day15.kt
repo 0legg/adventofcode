@@ -8,9 +8,8 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day15 : DayOf2017(15) {
   override fun first(): Any? {
-    val generators = data.trimIndent()
-      .lines()
-      .map { it.split("\\s+".toRegex()).last().toLong() }
+    val generators = lines
+      .map { it.substringAfterLast(" ").toLong() }
 
     val genA = generateSequence(generators[0]) { (it * 16807L) % Int.MAX_VALUE.toLong() }
     val genB = generateSequence(generators[1]) { (it * 48271L) % Int.MAX_VALUE.toLong() }
@@ -21,9 +20,8 @@ object Day15 : DayOf2017(15) {
   }
 
   override fun second(): Any? {
-    val generators = data.trimIndent()
-      .lines()
-      .map { it.split("\\s+".toRegex()).last().toLong() }
+    val generators = lines
+      .map { it.substringAfterLast(" ").toLong() }
 
     val genA = generateSequence(generators[0]) { (it * 16807L) % Int.MAX_VALUE.toLong() }
       .filter { it % 4 == 0L }

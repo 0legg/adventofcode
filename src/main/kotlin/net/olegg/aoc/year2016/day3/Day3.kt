@@ -7,11 +7,10 @@ import net.olegg.aoc.year2016.DayOf2016
  * See [Year 2016, Day 3](https://adventofcode.com/2016/day/3)
  */
 object Day3 : DayOf2016(3) {
-  val DIGITS = "\\d+".toRegex()
+  private val DIGITS = "\\d+".toRegex()
 
   override fun first(): Any? {
-    return data
-      .lines()
+    return lines
       .map { line ->
         DIGITS.findAll(line).map { it.value.toInt() }.toList().sorted()
       }
@@ -20,8 +19,7 @@ object Day3 : DayOf2016(3) {
   }
 
   override fun second(): Any? {
-    val rows = data
-      .lines()
+    val rows = lines
       .map { line ->
         DIGITS.findAll(line).map { it.value.toInt() }.toList()
       }

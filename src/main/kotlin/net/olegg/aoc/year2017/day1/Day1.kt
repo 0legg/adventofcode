@@ -8,7 +8,7 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day1 : DayOf2017(1) {
   override fun first(): Any? {
-    return data.trim()
+    return data
       .let { it + it[0] }
       .windowed(2)
       .filter { it[0] == it[1] }
@@ -17,13 +17,11 @@ object Day1 : DayOf2017(1) {
   }
 
   override fun second(): Any? {
-    val source = data.trim()
     val shifted = data.substring(data.length / 2, data.length) + data.substring(0, data.length / 2)
 
-    return source.zip(shifted)
+    return data.zip(shifted)
       .filter { it.first == it.second }
-      .map { Character.digit(it.first, 10) }
-      .sum()
+      .sumOf { Character.digit(it.first, 10) }
   }
 }
 

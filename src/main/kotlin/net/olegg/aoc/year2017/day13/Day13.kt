@@ -9,25 +9,20 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day13 : DayOf2017(13) {
   override fun first(): Any? {
-    return data.trimIndent()
-      .lines()
+    return lines
       .map { it.parseInts(": ") }
       .filter { it.first() % ((it.last() - 1) * 2) == 0 }
-      .map { it.first() * it.last() }
-      .sum()
-      .toString()
+      .sumOf { it.first() * it.last() }
   }
 
   override fun second(): Any? {
-    val filters = data.trimIndent()
-      .lines()
+    val filters = lines
       .map { it.parseInts(": ") }
 
     return generateSequence(0) { it + 1 }
       .first { delay ->
         filters.none { (it.first() + delay) % ((it.last() - 1) * 2) == 0 }
       }
-      .toString()
   }
 }
 

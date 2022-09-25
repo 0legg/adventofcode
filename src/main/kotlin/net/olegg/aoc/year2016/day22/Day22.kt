@@ -10,8 +10,7 @@ object Day22 : DayOf2016(22) {
   val pattern = "/dev/grid/node-x(\\d+)-y(\\d+)\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)%".toRegex()
 
   override fun first(): Any? {
-    val machines = data
-      .lines()
+    val machines = lines
       .mapNotNull { line ->
         pattern.matchEntire(line)
           ?.groupValues
@@ -31,8 +30,7 @@ object Day22 : DayOf2016(22) {
   }
 
   override fun second(): Any? {
-    val machines = data
-      .lines()
+    val machines = lines
       .mapNotNull { line ->
         pattern.matchEntire(line)
           ?.groupValues

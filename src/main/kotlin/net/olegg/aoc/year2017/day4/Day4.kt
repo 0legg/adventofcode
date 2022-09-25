@@ -8,17 +8,13 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day4 : DayOf2017(4) {
   override fun first(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .map { line -> line.split(" ") }
       .count { it.size == it.toSet().size }
   }
 
   override fun second(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .map { line -> line.split(" ") }
       .map { words -> words.map { String(it.toCharArray().sortedArray()) } }
       .count { it.size == it.toSet().size }

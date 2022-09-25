@@ -8,21 +8,18 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day21 : DayOf2017(21) {
   override fun first(): Any? {
-    return countOn(data, 5)
+    return countOn(5)
   }
 
   override fun second(): Any? {
-    return countOn(data, 18)
+    return countOn(18)
   }
 
-  private fun countOn(data: String, iterations: Int): Int {
-    val ops = data
-      .trim()
-      .lines()
+  private fun countOn(iterations: Int): Int {
+    val ops = lines
       .map { it.split(" => ") }
       .map { part -> part.map { row -> row.split("/").map { it.toList() }.toList() } }
-      .map { lex(it.first()) to it.last() }
-      .toMap()
+      .associate { lex(it.first()) to it.last() }
 
     val sizes = ops.keys.map { it.size }.distinct().sorted()
 

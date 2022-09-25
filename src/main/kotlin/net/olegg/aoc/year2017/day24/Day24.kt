@@ -10,9 +10,7 @@ import kotlin.math.max
  */
 object Day24 : DayOf2017(24) {
   override fun first(): Any? {
-    val ports = data
-      .trim()
-      .lines()
+    val ports = lines
       .map { line -> line.split("/").mapNotNull { it.toIntOrNull() } }
       .mapIndexed { index, value ->
         Triple(value.minOrNull() ?: 0, value.maxOrNull() ?: 0, index)
@@ -54,9 +52,7 @@ object Day24 : DayOf2017(24) {
   }
 
   override fun second(): Any? {
-    val ports = data
-      .trim()
-      .lines()
+    val ports = lines
       .map { line -> line.split("/").mapNotNull { it.toIntOrNull() } }
       .mapIndexed { index, value ->
         Triple(value.minOrNull() ?: 0, value.maxOrNull() ?: 0, index)

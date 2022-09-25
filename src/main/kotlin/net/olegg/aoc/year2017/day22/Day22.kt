@@ -14,7 +14,7 @@ import net.olegg.aoc.year2017.DayOf2017
 object Day22 : DayOf2017(22) {
   override fun first(): Any? {
     val map = mutableMapOf<Vector2D, Boolean>().apply {
-      val raw = data.trim().lines().map { line -> line.map { it == '#' } }
+      val raw = lines.map { line -> line.map { it == '#' } }
       raw.forEachIndexed { y, row ->
         row.forEachIndexed { x, value ->
           put(Vector2D(x - raw.size / 2, y - raw.size / 2), value)
@@ -36,7 +36,7 @@ object Day22 : DayOf2017(22) {
 
   override fun second(): Any? {
     val map = mutableMapOf<Vector2D, Int>().apply {
-      val raw = data.trim().lines().map { line -> line.map { ".W#F".indexOf(it) } }
+      val raw = lines.map { line -> line.map { ".W#F".indexOf(it) } }
       raw.forEachIndexed { y, row ->
         row.forEachIndexed { x, value ->
           put(Vector2D(x - raw.size / 2, y - raw.size / 2), value)

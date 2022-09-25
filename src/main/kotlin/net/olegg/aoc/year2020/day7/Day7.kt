@@ -8,13 +8,11 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 7](https://adventofcode.com/2020/day/7)
  */
 object Day7 : DayOf2020(7) {
-  private val PATTERN = "(\\d+) ([^\\d]*) bags?".toRegex()
+  private val PATTERN = "(\\d+) (\\D*) bags?".toRegex()
   private const val MINE = "shiny gold"
 
   override fun first(): Any? {
-    val rules = data
-      .trim()
-      .lines()
+    val rules = lines
       .map { it.split(" bags contain ").toPair() }
       .map { (outer, inner) -> outer to PATTERN.findAll(inner).map { it.groupValues[2] }.toList() }
 
@@ -36,14 +34,11 @@ object Day7 : DayOf2020(7) {
   }
 
   override fun second(): Any? {
-    val rules = data
-      .trim()
-      .lines()
+    val rules = lines
       .map { it.split(" bags contain ").toPair() }
-      .map { (outer, inner) ->
+      .associate { (outer, inner) ->
         outer to PATTERN.findAll(inner).map { it.groupValues[1].toInt() to it.groupValues[2] }.toList()
       }
-      .toMap()
 
     return count(rules, MINE) - 1
   }

@@ -9,8 +9,7 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day4 : DayOf2021(4) {
   override fun first(): Any? {
-    val values = data
-      .lines()
+    val values = lines
       .first()
       .parseInts(",")
     val boards = data
@@ -44,8 +43,7 @@ object Day4 : DayOf2021(4) {
   }
 
   override fun second(): Any? {
-    val values = data
-      .lines()
+    val values = lines
       .first()
       .parseInts(",")
     val boards = data

@@ -157,28 +157,22 @@ object Day21 : DayOf2016(21) {
   }
 
   override fun first(): Any? {
-    val ops = data
-      .trim()
-      .lines()
-      .mapNotNull { Op.fromString(it) }
+    val ops = lines.mapNotNull { Op.fromString(it) }
     return scramble("abcdefgh", ops)
   }
 
   override fun second(): Any? {
-    val ops = data
-      .trim()
-      .lines()
-      .mapNotNull { Op.fromString(it) }
+    val ops = lines.mapNotNull { Op.fromString(it) }
     return unscramble("fbgdceah", ops)
   }
 
-  fun scramble(password: String, operations: List<Op>): String {
+  private fun scramble(password: String, operations: List<Op>): String {
     val acc = StringBuilder(password)
     operations.forEach { it.apply(acc) }
     return acc.toString()
   }
 
-  fun unscramble(password: String, operations: List<Op>): String {
+  private fun unscramble(password: String, operations: List<Op>): String {
     val acc = StringBuilder(password)
     operations.reversed().forEach { it.unapply(acc) }
     return acc.toString()

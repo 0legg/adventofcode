@@ -9,7 +9,7 @@ import kotlin.math.abs
  */
 object Day3 : DayOf2017(3) {
   override fun first(): Any? {
-    val position = data.trim().toInt()
+    val position = data.toInt()
 
     val square = (1..Int.MAX_VALUE step 2).first { it * it >= position }
     val relative = position - (square - 2) * (square - 2)
@@ -20,7 +20,7 @@ object Day3 : DayOf2017(3) {
 
   override fun second(): Any? {
     val visited = mutableMapOf((0 to 0) to 1)
-    val input = data.trim().toInt()
+    val input = data.toInt()
 
     var current = (0 to 0) to 1
     var square = 0

@@ -31,10 +31,7 @@ object Day13 : DayOf2018(13) {
   )
 
   override fun first(): Any? {
-    val input = data
-      .lines()
-      .filterNot { it.isEmpty() }
-      .map { it.toList() }
+    val input = matrix
 
     val tracks = input
       .map { line ->
@@ -94,10 +91,7 @@ object Day13 : DayOf2018(13) {
   }
 
   override fun second(): Any? {
-    val input = data
-      .lines()
-      .filterNot { it.isEmpty() }
-      .map { it.toList() }
+    val input = matrix
 
     val tracks = input
       .map { line ->

@@ -9,18 +9,16 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day6 : DayOf2021(6) {
   override fun first(): Any? {
-    val fish = data.trim().parseLongs(",")
-
-    return solve(fish, 80)
+    return solve(80)
   }
 
   override fun second(): Any? {
-    val fish = data.trim().parseLongs(",")
-
-    return solve(fish, 256)
+    return solve(256)
   }
 
-  private fun solve(input: List<Long>, days: Int): Long {
+  private fun solve(days: Int): Long {
+    val input = data.parseLongs(",")
+
     val start = input.groupBy { it }
       .mapValues { it.value.size.toLong() }
     val end = (1..days).fold(start) { acc, _ ->

@@ -10,9 +10,7 @@ object Day14 : DayOf2019(14) {
   private const val ORE = 1000000000000L
 
   override fun first(): Any? {
-    val forms = data
-      .trim()
-      .lines()
+    val forms = lines
       .map { line ->
         val raw = line.replace(" => ", ", ")
           .split(", ")
@@ -53,9 +51,7 @@ object Day14 : DayOf2019(14) {
   }
 
   override fun second(): Any? {
-    val forms = data
-      .trim()
-      .lines()
+    val forms = lines
       .map { line ->
         val raw = line.replace(" => ", ", ")
           .split(", ")

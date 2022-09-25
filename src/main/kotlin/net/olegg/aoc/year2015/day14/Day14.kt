@@ -10,22 +10,17 @@ object Day14 : DayOf2015(14) {
   private const val TIME = 2503
   private val LINE_PATTERN = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b.*\\b(\\d+)\\b.*".toRegex()
 
-  private val speeds = data
-    .trim()
-    .lines()
-    .mapNotNull { line ->
-      LINE_PATTERN.matchEntire(line)?.let { match ->
-        val (speed, time, rest) = match.destructured
-        return@let Triple(speed.toInt(), time.toInt(), time.toInt() + rest.toInt())
-      }
+  private val speeds = lines
+    .map { line ->
+      val match = checkNotNull(LINE_PATTERN.matchEntire(line))
+      val (speed, time, rest) = match.destructured
+      return@map Triple(speed.toInt(), time.toInt(), time.toInt() + rest.toInt())
     }
 
   override fun first(): Any? {
-    return speeds
-      .map { (speed, active, period) ->
-        ((TIME / period) * active + (TIME % period).coerceAtMost(active)) * speed
-      }
-      .maxOrNull()
+    return speeds.maxOfOrNull { (speed, active, period) ->
+      ((TIME / period) * active + (TIME % period).coerceAtMost(active)) * speed
+    }
   }
 
   override fun second(): Any? {
@@ -44,11 +39,9 @@ object Day14 : DayOf2015(14) {
       }
     return speeds
       .indices
-      .map { speed ->
-        timestamps.map { it[speed] }
+      .maxOfOrNull { speed ->
+        timestamps.sumOf { it[speed] }
       }
-      .map { it.sum() }
-      .maxOrNull()
   }
 }
 

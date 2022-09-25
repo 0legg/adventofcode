@@ -9,9 +9,7 @@ import kotlin.math.abs
  */
 object Day16 : DayOf2019(16) {
   override fun first(): Any? {
-    val input = data
-      .trim()
-      .map { it - '0' }
+    val input = data.map { it - '0' }
 
     return (0 until 100)
       .fold(input) { list, _ ->
@@ -27,9 +25,7 @@ object Day16 : DayOf2019(16) {
   }
 
   override fun second(): Any? {
-    val input = data
-      .trim()
-      .map { it - '0' }
+    val input = data.map { it - '0' }
 
     val position = data.substring(0, 7).toInt()
 

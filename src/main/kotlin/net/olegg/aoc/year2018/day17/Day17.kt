@@ -13,7 +13,7 @@ object Day17 : DayOf2018(17) {
   private val WATER = listOf('~', '|')
 
   override fun first(): Any? {
-    val (xs, ys, map) = fill(data)
+    val (xs, ys, map) = fill()
 
     return ys.sumOf { y ->
       xs.count { x ->
@@ -23,7 +23,7 @@ object Day17 : DayOf2018(17) {
   }
 
   override fun second(): Any? {
-    val (xs, ys, map) = fill(data)
+    val (xs, ys, map) = fill()
 
     return ys.sumOf { y ->
       xs.count { x ->
@@ -32,11 +32,9 @@ object Day17 : DayOf2018(17) {
     }
   }
 
-  private fun fill(data: String): Triple<IntRange, IntRange, List<MutableList<Char>>> {
+  private fun fill(): Triple<IntRange, IntRange, List<MutableList<Char>>> {
     val start = 500 to 0
-    val clay = data
-      .trim()
-      .lines()
+    val clay = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)?.let { match ->
           val (direction, valueRaw, _, rangeFromRaw, rangeToRaw) = match.destructured
@@ -75,8 +73,8 @@ object Day17 : DayOf2018(17) {
     return Triple(
       IntRange(0, bbox.first.last - bbox.first.first),
       IntRange(
-        (clay.map { it.second.first }.minOrNull() ?: bbox.second.first) - bbox.second.first,
-        (clay.map { it.second.last }.maxOrNull() ?: bbox.second.last) - bbox.second.first
+        (clay.minOfOrNull { it.second.first } ?: bbox.second.first) - bbox.second.first,
+        (clay.maxOfOrNull { it.second.last } ?: bbox.second.last) - bbox.second.first
       ),
       map
     )

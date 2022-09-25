@@ -15,7 +15,7 @@ object Day10 : DayOf2016(10) {
     val actions = mutableMapOf<Int, Pair<Int, Int>>()
     val search = setOf(17, 61)
 
-    val (values, gives) = data.lines().partition { VALUE_PATTERN.matches(it) }
+    val (values, gives) = lines.partition { VALUE_PATTERN.matches(it) }
 
     values.forEach { command ->
       VALUE_PATTERN.matchEntire(command)?.let { match ->
@@ -60,7 +60,7 @@ object Day10 : DayOf2016(10) {
     val bots = mutableMapOf<Int, MutableSet<Int>>()
     val actions = mutableMapOf<Int, Pair<Int, Int>>()
 
-    val (values, gives) = data.lines().partition { VALUE_PATTERN.matches(it) }
+    val (values, gives) = lines.partition { VALUE_PATTERN.matches(it) }
 
     values.forEach { command ->
       VALUE_PATTERN.matchEntire(command)?.let { match ->

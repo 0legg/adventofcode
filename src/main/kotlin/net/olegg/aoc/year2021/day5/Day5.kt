@@ -12,8 +12,7 @@ import kotlin.math.sign
  */
 object Day5 : DayOf2021(5) {
   override fun first(): Any? {
-    val vectors = data.trim()
-      .lines()
+    val vectors = lines
       .map { it.split(" -> ") }
       .map { line ->
         line.first().parseInts(",").let { Vector2D(it.first(), it.last()) } to
@@ -38,8 +37,7 @@ object Day5 : DayOf2021(5) {
   }
 
   override fun second(): Any? {
-    val vectors = data.trim()
-      .lines()
+    val vectors = lines
       .map { it.split(" -> ") }
       .map { line ->
         line.first().parseInts(",").let { Vector2D(it.first(), it.last()) } to

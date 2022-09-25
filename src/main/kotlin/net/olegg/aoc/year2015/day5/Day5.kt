@@ -13,18 +13,14 @@ object Day5 : DayOf2015(5) {
   private val ABAB_REGEX = "([a-z]{2}).*\\1".toRegex()
 
   override fun first(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .filter { line -> line.count { it in "aeiou" } >= 3 }
       .filterNot { BAD_2_CHARS_REGEX in it }
       .count { AA_REGEX in it }
   }
 
   override fun second(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .filter { ABA_REGEX in it }
       .count { ABAB_REGEX in it }
   }

@@ -10,10 +10,10 @@ import kotlin.math.abs
  */
 object Day7 : DayOf2021(7) {
   override fun first(): Any? {
-    val positions = data.trim().parseInts(",")
+    val positions = data.parseInts(",")
 
-    val min = positions.minOf { it }
-    val max = positions.maxOf { it }
+    val min = positions.min()
+    val max = positions.max()
 
     return (min..max).minOf { pos ->
       positions.sumOf { abs(it - pos) }
@@ -21,7 +21,7 @@ object Day7 : DayOf2021(7) {
   }
 
   override fun second(): Any? {
-    val positions = data.trim().parseInts(",")
+    val positions = data.parseInts(",")
 
     val min = positions.minOf { it }
     val max = positions.maxOf { it }

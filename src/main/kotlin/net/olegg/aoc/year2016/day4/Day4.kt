@@ -7,18 +7,15 @@ import net.olegg.aoc.year2016.DayOf2016
  * See [Year 2016, Day 4](https://adventofcode.com/2016/day/4)
  */
 object Day4 : DayOf2016(4) {
-  private val ROOM_PATTERN = "^(.+)-(\\d+)\\[(.+)\\]$".toRegex()
+  private val ROOM_PATTERN = "^(.+)-(\\d+)\\[(.+)]$".toRegex()
   private const val A_CODE = 'a'.code
 
   override fun first(): Any? {
-    val rooms = data
-      .trim()
-      .lines()
-      .mapNotNull { line ->
-        ROOM_PATTERN.matchEntire(line)?.let { match ->
-          val (name, id, checksum) = match.destructured
-          Triple(name.replace("-", ""), id.toInt(), checksum)
-        }
+    val rooms = lines
+      .map { line ->
+        val match = checkNotNull(ROOM_PATTERN.matchEntire(line))
+        val (name, id, checksum) = match.destructured
+        Triple(name.replace("-", ""), id.toInt(), checksum)
       }
 
     return rooms.filter { room ->
@@ -34,9 +31,7 @@ object Day4 : DayOf2016(4) {
   }
 
   override fun second(): Any? {
-    val rooms = data
-      .trim()
-      .lines()
+    val rooms = lines
       .mapNotNull { line ->
         ROOM_PATTERN.matchEntire(line)?.let { match ->
           val (name, id, _) = match.destructured

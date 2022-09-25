@@ -15,10 +15,16 @@ object Day16 : DayOf2016(16) {
     return checksum(data, 35651584)
   }
 
-  fun checksum(initial: String, length: Int): String {
+  private fun checksum(initial: String, length: Int): String {
     val curve =
       generateSequence(initial) { prev ->
-        prev + "0" + prev.reversed().replace('0', '2').replace('1', '0').replace('2', '1')
+        buildString(prev.length * 2 + 1) {
+          append(prev)
+          append('0')
+          prev.reversed().forEach {
+            if (it == '1') append('0') else append('1')
+          }
+        }
       }
         .dropWhile { it.length <= length }
         .first()
@@ -27,8 +33,7 @@ object Day16 : DayOf2016(16) {
     return generateSequence(curve) { prev ->
       prev.asSequence()
         .chunked(2)
-        .joinTo(StringBuilder(), separator = "") { if (it[0] == it[1]) "1" else "0" }
-        .toString()
+        .joinToString(separator = "") { if (it[0] == it[1]) "1" else "0" }
     }
       .first { it.length % 2 == 1 }
   }

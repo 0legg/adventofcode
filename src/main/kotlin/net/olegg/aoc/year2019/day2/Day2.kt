@@ -17,7 +17,6 @@ import net.olegg.aoc.year2019.Intcode
 object Day2 : DayOf2019(2) {
   override fun first(): Any? {
     val program = data
-      .trim()
       .parseLongs(",")
       .toLongArray()
 
@@ -35,7 +34,6 @@ object Day2 : DayOf2019(2) {
 
   override fun second(): Any? {
     val program = data
-      .trim()
       .parseLongs(",")
       .toLongArray()
 

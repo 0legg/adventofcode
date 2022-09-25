@@ -15,23 +15,19 @@ object Day7 : DayOf2015(7) {
   private val RSHIFT_PATTERN = "^(\\d+) RSHIFT (\\d+)$".toRegex()
   private val VAR_PATTERN = "[a-z]".toRegex()
 
-  val source = data
-    .trim()
-    .lines()
-    .mapNotNull { line ->
-      COMMAND_PATTERN.matchEntire(line)?.let { match ->
-        val (command, wire) = match.destructured
-        return@let wire to command
-      }
+  private val source = lines
+    .associate { line ->
+      val match = checkNotNull(COMMAND_PATTERN.matchEntire(line))
+      val (command, wire) = match.destructured
+      return@associate wire to command
     }
-    .toMap()
 
-  fun measure(board: Map<String, String>, pin: String): String {
+  private fun measure(board: Map<String, String>, pin: String): String {
     var state = board
     val resolved = linkedMapOf<String, String>()
     while (!resolved.contains(pin)) {
       val temp = state
-        .filterValues { !it.contains(VAR_PATTERN) }
+        .filterValues { VAR_PATTERN !in it }
         .mapValues { (_, value) ->
           NOT_PATTERN.matchEntire(value)?.let { match ->
             val (first) = match.destructured

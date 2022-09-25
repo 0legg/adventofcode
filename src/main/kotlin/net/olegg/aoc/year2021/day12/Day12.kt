@@ -8,8 +8,7 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day12 : DayOf2021(12) {
   override fun first(): Any? {
-    val edges = data.trim()
-      .lines()
+    val edges = lines
       .map { it.split("-") }
       .flatMap { listOf(it.first() to it.last(), it.last() to it.first()) }
       .groupBy(
@@ -42,8 +41,7 @@ object Day12 : DayOf2021(12) {
   }
 
   override fun second(): Any? {
-    val edges = data.trim()
-      .lines()
+    val edges = lines
       .map { it.split("-") }
       .flatMap { listOf(it.first() to it.last(), it.last() to it.first()) }
       .groupBy(

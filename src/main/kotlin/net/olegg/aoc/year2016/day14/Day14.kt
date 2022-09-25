@@ -11,11 +11,10 @@ object Day14 : DayOf2016(14) {
   private val MATCH_3 = "(.)(\\1)(\\1)".toRegex()
 
   override fun first(): Any? {
-    val trimmed = data.trim()
     val cache = mutableMapOf<Int, String>()
     val hash = { n: Int ->
       cache.getOrPut(n) {
-        "$trimmed$n".md5()
+        "$data$n".md5()
       }
     }
 
@@ -23,11 +22,10 @@ object Day14 : DayOf2016(14) {
   }
 
   override fun second(): Any? {
-    val trimmed = data.trim()
     val cache = mutableMapOf<Int, String>()
     val hash = { n: Int ->
       cache.getOrPut(n) {
-        (0..2016).fold("$trimmed$n") { acc, _ ->
+        (0..2016).fold("$data$n") { acc, _ ->
           acc.md5()
         }
       }

@@ -8,14 +8,12 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day23 : DayOf2020(23) {
   override fun first(): Any? {
-    val items = data
-      .trim()
-      .map { it.toString().toInt() }
+    val items = data.map { it.digitToInt() }
 
     val queue = ArrayDeque(items)
 
-    val min = items.minOf { it }
-    val max = items.maxOf { it }
+    val min = items.min()
+    val max = items.max()
 
     repeat(100) {
       val head = queue.removeFirst()
@@ -43,14 +41,12 @@ object Day23 : DayOf2020(23) {
   }
 
   override fun second(): Any? {
-    val initialItems = data
-      .trim()
-      .map { it.toString().toInt() }
+    val initialItems = data.map { it.digitToInt() }
 
-    val items = initialItems + ((initialItems.maxOf { it } + 1)..1_000_000).toList()
+    val items = initialItems + ((initialItems.max() + 1)..1_000_000).toList()
 
-    val min = items.minOf { it }
-    val max = items.maxOf { it }
+    val min = items.min()
+    val max = items.max()
 
     val all = List(1_000_000 + 1) { Item(it) }
 

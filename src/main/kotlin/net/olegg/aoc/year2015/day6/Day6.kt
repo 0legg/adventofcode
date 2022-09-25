@@ -7,8 +7,6 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 6](https://adventofcode.com/2015/day/6)
  */
 object Day6 : DayOf2015(6) {
-  private val commands = data.trim().lines()
-
   private fun toPoints(command: String): List<Int> {
     val matcher = "\\D*(\\d+),(\\d+)\\D*(\\d+),(\\d+)\\D*".toPattern().matcher(command)
     matcher.find()
@@ -16,7 +14,7 @@ object Day6 : DayOf2015(6) {
   }
 
   override fun first(): Any? {
-    return commands.fold(Array(1000) { Array(1000) { false } }) { acc, value ->
+    return lines.fold(Array(1000) { Array(1000) { false } }) { acc, value ->
       val points = toPoints(value)
       (points[0]..points[2]).forEach { row ->
         (points[1]..points[3]).forEach { column ->
@@ -33,7 +31,7 @@ object Day6 : DayOf2015(6) {
   }
 
   override fun second(): Any? {
-    return commands.fold(Array(1000) { Array(1000) { 0 } }) { acc, value ->
+    return lines.fold(Array(1000) { Array(1000) { 0 } }) { acc, value ->
       val points = toPoints(value)
       (points[0]..points[2]).forEach { row ->
         (points[1]..points[3]).forEach { column ->

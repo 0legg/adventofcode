@@ -9,9 +9,7 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day8 : DayOf2020(8) {
   override fun first(): Any? {
-    val program = data
-      .trim()
-      .lines()
+    val program = lines
       .map { it.split(" ").toPair() }
       .map { it.first to it.second.toInt() }
 
@@ -35,9 +33,7 @@ object Day8 : DayOf2020(8) {
   }
 
   override fun second(): Any? {
-    val program = data
-      .trim()
-      .lines()
+    val program = lines
       .map { it.split(" ").toPair() }
       .map { it.first to it.second.toInt() }
 

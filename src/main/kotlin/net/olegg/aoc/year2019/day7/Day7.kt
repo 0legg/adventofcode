@@ -18,14 +18,13 @@ import net.olegg.aoc.year2019.Intcode
 object Day7 : DayOf2019(7) {
   override fun first(): Any? {
     val program = data
-      .trim()
       .parseLongs(",")
       .toLongArray()
 
     val basePhases = List(5) { it.toLong() }
 
     return basePhases.permutations()
-      .map { phases ->
+      .maxOf { phases ->
         val inputs = phases.map { phase ->
           Channel<Long>(UNLIMITED).also { ch ->
             runBlocking {
@@ -34,7 +33,7 @@ object Day7 : DayOf2019(7) {
           }
         } + Channel(UNLIMITED)
 
-        return@map runBlocking {
+        return@maxOf runBlocking {
           inputs.zipWithNext()
             .forEach { (input, output) ->
               launch {
@@ -47,19 +46,17 @@ object Day7 : DayOf2019(7) {
           return@runBlocking inputs.last().receive()
         }
       }
-      .maxOrNull()
   }
 
   override fun second(): Any? {
     val program = data
-      .trim()
       .parseLongs(",")
       .toLongArray()
 
     val basePhases = List(5) { it + 5L }
 
     return basePhases.permutations()
-      .map { phases ->
+      .maxOf { phases ->
         val inputs = phases.map { phase ->
           Channel<Long>(capacity = UNLIMITED).apply {
             trySend(phase)
@@ -68,7 +65,7 @@ object Day7 : DayOf2019(7) {
 
         val outputs = inputs.drop(1) + inputs.first()
 
-        return@map runBlocking {
+        return@maxOf runBlocking {
           coroutineScope {
             inputs.zip(outputs)
               .forEach { (input, output) ->
@@ -88,7 +85,6 @@ object Day7 : DayOf2019(7) {
           return@runBlocking inputs.first().toList().last()
         }
       }
-      .maxOrNull()
   }
 }
 

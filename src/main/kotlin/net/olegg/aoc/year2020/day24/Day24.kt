@@ -19,9 +19,7 @@ object Day24 : DayOf2020(24) {
   )
 
   override fun first(): Any? {
-    val items = data
-      .trim()
-      .lines()
+    val items = lines
       .map { line ->
         pattern.findAll(line).map { it.groupValues[1] }.toList()
       }
@@ -34,9 +32,7 @@ object Day24 : DayOf2020(24) {
   }
 
   override fun second(): Any? {
-    val items = data
-      .trim()
-      .lines()
+    val items = lines
       .map { line ->
         pattern.findAll(line).map { it.groupValues[1] }.toList()
       }

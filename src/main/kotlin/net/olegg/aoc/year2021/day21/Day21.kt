@@ -9,9 +9,7 @@ import java.util.PriorityQueue
  */
 object Day21 : DayOf2021(21) {
   override fun first(): Any? {
-    val start = data.trim()
-      .lines()
-      .map { it.split(" ").last().toInt() }
+    val start = lines.map { it.split(" ").last().toInt() }
 
     val dice = generateSequence(1) { if (it == 100) 1 else it + 1 }
     val counter = generateSequence(0) { it + 3 }
@@ -24,7 +22,8 @@ object Day21 : DayOf2021(21) {
       move = 0,
     )
 
-    return dice.chunked(3)
+    return dice
+      .chunked(3)
       .map { it.sum() }
       .scan(startUniverse) { universe, increase ->
         Universe(
@@ -46,9 +45,7 @@ object Day21 : DayOf2021(21) {
   }
 
   override fun second(): Any? {
-    val start = data.trim()
-      .lines()
-      .map { it.split(" ").last().toInt() }
+    val start = lines.map { it.split(" ").last().toInt() }
 
     val increases = (1..3).flatMap { a ->
       (1..3).flatMap { b ->

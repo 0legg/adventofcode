@@ -1,21 +1,22 @@
 package net.olegg.aoc.year2015.day24
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2015.DayOf2015
 
 /**
  * See [Year 2015, Day 24](https://adventofcode.com/2015/day/24)
  */
 object Day24 : DayOf2015(24) {
-  val weights = data.lines().map { it.toLong() }
+  private val weights = data.parseLongs(delimiters = "\n")
+
   override fun first(): Any? {
     val sum = weights.sum() / 3
     return subsets(sum, weights)
       .groupBy { it.size }
       .minByOrNull { it.key }
       ?.value
-      ?.map { it.fold(1L, Long::times) }
-      ?.minOrNull()
+      ?.minOfOrNull { it.fold(1L, Long::times) }
   }
 
   override fun second(): Any? {
@@ -24,8 +25,7 @@ object Day24 : DayOf2015(24) {
       .groupBy { it.size }
       .minByOrNull { it.key }
       ?.value
-      ?.map { it.fold(1L, Long::times) }
-      ?.minOrNull()
+      ?.minOfOrNull { it.fold(1L, Long::times) }
   }
 }
 

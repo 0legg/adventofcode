@@ -9,11 +9,11 @@ import net.olegg.aoc.year2015.DayOf2015
  */
 object Day4 : DayOf2015(4) {
   override fun first(): Any? {
-    return generateSequence(1) { it + 1 }.first { "${data.trim()}$it".md5().startsWith("00000") }
+    return generateSequence(1) { it + 1 }.first { "$data$it".md5().startsWith("00000") }
   }
 
   override fun second(): Any? {
-    return generateSequence(1) { it + 1 }.first { "${data.trim()}$it".md5().startsWith("000000") }
+    return generateSequence(1) { it + 1 }.first { "$data$it".md5().startsWith("000000") }
   }
 }
 

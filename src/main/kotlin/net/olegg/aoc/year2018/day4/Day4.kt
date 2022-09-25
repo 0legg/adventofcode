@@ -11,9 +11,7 @@ import java.time.temporal.ChronoUnit
  */
 object Day4 : DayOf2018(4) {
   override fun first(): Any? {
-    val events = data
-      .trim()
-      .lines()
+    val events = lines
       .mapNotNull { Event.fromString(it) }
       .sortedBy { it.time }
       .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->
@@ -43,9 +41,7 @@ object Day4 : DayOf2018(4) {
   }
 
   override fun second(): Any? {
-    val events = data
-      .trim()
-      .lines()
+    val events = lines
       .mapNotNull { Event.fromString(it) }
       .sortedBy { it.time }
       .scan(Event(-1, LocalDateTime.MIN, Event.Type.AWAKE)) { prev, event ->

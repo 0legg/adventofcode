@@ -9,18 +9,13 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day2 : DayOf2017(2) {
   override fun first(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .map { it.parseInts() }
-      .map { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
-      .sum()
+      .sumOf { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
   }
 
   override fun second(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .map { it.parseInts() }
       .map { list ->
         list.flatMap { first ->
@@ -30,8 +25,7 @@ object Day2 : DayOf2017(2) {
         }
       }
       .map { it.first() }
-      .map { it.first / it.second }
-      .sum()
+      .sumOf { it.first / it.second }
   }
 }
 

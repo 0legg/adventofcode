@@ -11,9 +11,7 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day9 : DayOf2021(9) {
   override fun first(): Any? {
-    val points = data.trim()
-      .lines()
-      .map { line -> line.toList().map { it.digitToInt() } }
+    val points = lines.map { line -> line.toList().map { it.digitToInt() } }
 
     return points.mapIndexed { y, line ->
       line.filterIndexed { x, value ->
@@ -26,9 +24,7 @@ object Day9 : DayOf2021(9) {
   }
 
   override fun second(): Any? {
-    val points = data.trim()
-      .lines()
-      .map { line -> line.toList().map { it.digitToInt() } }
+    val points = lines.map { line -> line.toList().map { it.digitToInt() } }
 
     val low = points.flatMapIndexed { y, line ->
       line.mapIndexedNotNull { x, value ->

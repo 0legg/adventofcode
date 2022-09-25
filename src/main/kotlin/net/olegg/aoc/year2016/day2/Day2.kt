@@ -28,11 +28,11 @@ object Day2 : DayOf2016(2) {
   )
 
   override fun first(): Any? {
-    return solve(data.trim().lines(), KEYPAD1, Vector2D(2, 2))
+    return solve(lines, KEYPAD1, Vector2D(2, 2))
   }
 
   override fun second(): Any? {
-    return solve(data.trim().lines(), KEYPAD2, Vector2D(2, 4))
+    return solve(lines, KEYPAD2, Vector2D(2, 4))
   }
 
   private fun solve(commands: List<String>, keypad: List<String>, start: Vector2D): String {

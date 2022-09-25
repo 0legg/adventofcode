@@ -12,9 +12,7 @@ object Day6 : DayOf2018(6) {
   private const val TOTAL = 10000
 
   override fun first(): Any? {
-    val points = data
-      .trim()
-      .lines()
+    val points = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)
           ?.destructured
@@ -48,9 +46,7 @@ object Day6 : DayOf2018(6) {
   }
 
   override fun second(): Any? {
-    val points = data
-      .trim()
-      .lines()
+    val points = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)
           ?.destructured

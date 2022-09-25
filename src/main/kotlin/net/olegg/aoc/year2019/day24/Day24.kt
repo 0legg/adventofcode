@@ -7,6 +7,7 @@ import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
 import net.olegg.aoc.utils.Directions.U
 import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2019.DayOf2019
 
 /**
@@ -14,10 +15,7 @@ import net.olegg.aoc.year2019.DayOf2019
  */
 object Day24 : DayOf2019(24) {
   override fun first(): Any? {
-    val start = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+    val start = matrix
 
     val visited = mutableSetOf<String>()
     var curr = start
@@ -46,10 +44,7 @@ object Day24 : DayOf2019(24) {
   }
 
   override fun second(): Any? {
-    val start = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+    val start = matrix
 
     val size = start.size
     val center = Vector2D(size / 2, size / 2)
@@ -102,12 +97,6 @@ object Day24 : DayOf2019(24) {
   }
 
   private fun List<List<Char>>.footprint() = joinToString("") { it.joinToString("") }
-
-  private operator fun <T> List<List<T>>.get(v: Vector2D): T? = when {
-    v.y !in indices -> null
-    v.x !in this[v.y].indices -> null
-    else -> this[v.y][v.x]
-  }
 }
 
 fun main() = SomeDay.mainify(Day24)

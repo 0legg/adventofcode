@@ -11,7 +11,7 @@ import java.nio.CharBuffer
  */
 object Day16 : DayOf2021(16) {
   override fun first(): Any? {
-    val binary = data.trim()
+    val binary = data
       .map { it.digitToInt(16) }
       .joinToString("") { it.toString(2).padStart(4, '0') }
 
@@ -27,7 +27,7 @@ object Day16 : DayOf2021(16) {
   }
 
   override fun second(): Any? {
-    val binary = data.trim()
+    val binary = data
       .map { it.digitToInt(16) }
       .joinToString("") { it.toString(2).padStart(4, '0') }
 

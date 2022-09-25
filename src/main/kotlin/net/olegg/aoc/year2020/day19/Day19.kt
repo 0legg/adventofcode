@@ -14,28 +14,23 @@ object Day19 : DayOf2020(19) {
   private val CHAR_RULE_PATTERN = "\"(.)\"".toRegex()
 
   override fun first(): Any? {
-    val (rulesList, messages) = data
-      .trim()
-      .split("\n\n")
+    val (rulesList, messages) = data.split("\n\n")
 
     val rules = rulesList
       .lines()
       .map { it.split(": ").toPair() }
-      .map { (num, rule) ->
+      .associate { (num, rule) ->
         num.toInt() to when {
           CHAR_RULE_PATTERN.matches(rule) -> CharRule(rule.trim('\"').first())
           else -> RefRule(rule.split('|').map { it.parseInts(" ") })
         }
       }
-      .toMap()
 
     return solve(rules, messages.lines())
   }
 
   override fun second(): Any? {
-    val (rulesList, messages) = data
-      .trim()
-      .split("\n\n")
+    val (rulesList, messages) = data.split("\n\n")
 
     val rules = rulesList
       .lines()
@@ -47,13 +42,12 @@ object Day19 : DayOf2020(19) {
           else -> rule
         }
       }
-      .map { (num, rule) ->
+      .associate { (num, rule) ->
         num.toInt() to when {
           CHAR_RULE_PATTERN.matches(rule) -> CharRule(rule.trim('\"').first())
           else -> RefRule(rule.split('|').map { it.parseInts(" ") })
         }
       }
-      .toMap()
 
     return solve(rules, messages.lines())
   }

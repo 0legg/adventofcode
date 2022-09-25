@@ -11,24 +11,15 @@ import net.olegg.aoc.year2018.DayOf2018
  */
 object Day18 : DayOf2018(18) {
   override fun first(): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
-
-    return solve(map, 10)
+    return solve(10)
   }
 
   override fun second(): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
-
-    return solve(map, 1000000000)
+    return solve(1000000000)
   }
 
-  private fun solve(map: List<List<Char>>, minutes: Int): Int {
+  private fun solve(minutes: Int): Int {
+    val map = matrix
     val cache = mutableMapOf(map.joinToString(separator = "") { it.joinToString(separator = "") } to 0)
     val after = (1..minutes).fold(map) { acc, round ->
       val curr = acc.mapIndexed { y, row ->

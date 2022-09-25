@@ -13,9 +13,7 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day11 : DayOf2021(11) {
   override fun first(): Any? {
-    val start = data.trim()
-      .lines()
-      .map { line -> line.map { it.digitToInt() } }
+    val start = lines.map { line -> line.map { it.digitToInt() } }
 
     val (_, result) = (0 until 100).fold(start to 0) { (field, flash), _ ->
       val new = field.map { line ->
@@ -53,9 +51,7 @@ object Day11 : DayOf2021(11) {
   }
 
   override fun second(): Any? {
-    val start = data.trim()
-      .lines()
-      .map { line -> line.map { it.digitToInt() } }
+    val start = lines.map { line -> line.map { it.digitToInt() } }
 
     val allSize = start.flatten().size
 

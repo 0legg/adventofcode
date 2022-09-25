@@ -18,7 +18,6 @@ object Day20 : DayOf2020(20) {
 
   override fun first(): Any? {
     val tiles = data
-      .trim()
       .split("\n\n")
       .map { it.lines() }
       .map { (NUMBER.find(it.first())?.value?.toIntOrNull() ?: 0) to it.drop(1).map { l -> l.toList() } }
@@ -35,11 +34,9 @@ object Day20 : DayOf2020(20) {
 
   override fun second(): Any? {
     val tiles = data
-      .trim()
       .split("\n\n")
       .map { it.lines() }
-      .map { (NUMBER.find(it.first())?.value?.toIntOrNull() ?: 0) to it.drop(1).map { l -> l.toList() } }
-      .toMap()
+      .associate { (NUMBER.find(it.first())?.value?.toIntOrNull() ?: 0) to it.drop(1).map { l -> l.toList() } }
 
     val profiles = tiles.mapValues { profiles(it.value) }
 

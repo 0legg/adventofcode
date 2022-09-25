@@ -11,9 +11,7 @@ object Day22 : DayOf2019(22) {
   override fun first(): Any? {
     val deckSize = BigInteger.valueOf(10007L)
 
-    val input = data
-      .trim()
-      .lines()
+    val input = lines
       .map {
         val split = it.split(" ")
         when (split[1]) {
@@ -31,9 +29,7 @@ object Day22 : DayOf2019(22) {
   override fun second(): Any? {
     val deckSize = BigInteger.valueOf(119315717514047L)
 
-    val input = data
-      .trim()
-      .lines()
+    val input = lines
       .map {
         val split = it.split(" ")
         when (split[1]) {

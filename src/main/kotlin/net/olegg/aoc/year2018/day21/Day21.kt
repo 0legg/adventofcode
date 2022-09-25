@@ -12,14 +12,10 @@ object Day21 : DayOf2018(21) {
   private val OPS_PATTERN = "(\\w+) (\\d+) (\\d+) (\\d+)".toRegex()
 
   override fun first(): Any? {
-    val pointer = data
-      .trim()
-      .lines()
+    val pointer = lines
       .first()
       .let { it.split(" ")[1].toIntOrNull() ?: 0 }
-    val program = data
-      .trim()
-      .lines()
+    val program = lines
       .drop(1)
       .mapNotNull { line ->
         OPS_PATTERN.matchEntire(line)?.let { match ->
@@ -47,14 +43,10 @@ object Day21 : DayOf2018(21) {
   }
 
   override fun second(): Any? {
-    val pointer = data
-      .trim()
-      .lines()
+    val pointer = lines
       .first()
       .let { it.split(" ")[1].toIntOrNull() ?: 0 }
-    val program = data
-      .trim()
-      .lines()
+    val program = lines
       .drop(1)
       .mapNotNull { line ->
         OPS_PATTERN.matchEntire(line)?.let { match ->

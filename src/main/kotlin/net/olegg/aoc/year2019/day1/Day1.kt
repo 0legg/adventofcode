@@ -8,26 +8,20 @@ import net.olegg.aoc.year2019.DayOf2019
  */
 object Day1 : DayOf2019(1) {
   override fun first(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .map { it.toInt() }
-      .map { (it / 3) - 2 }
-      .sum()
+      .sumOf { (it / 3) - 2 }
   }
 
   override fun second(): Any? {
-    return data
-      .trim()
-      .lines()
+    return lines
       .map { it.toInt() }
-      .map { mass ->
+      .sumOf { mass ->
         generateSequence(mass) { (it / 3) - 2 }
           .drop(1)
           .takeWhile { it > 0 }
           .sum()
       }
-      .sum()
   }
 }
 

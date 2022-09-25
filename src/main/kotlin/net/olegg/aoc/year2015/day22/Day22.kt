@@ -14,9 +14,7 @@ object Day22 : DayOf2015(22) {
   private const val ARMOR = 0
 
   private val me = Triple(HP, ARMOR, MANA)
-  private val boss = data
-    .trim()
-    .lines()
+  private val boss = lines
     .map { it.substringAfterLast(": ").toInt() }
     .let { it[0] to it[1] }
 

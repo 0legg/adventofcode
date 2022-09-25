@@ -9,17 +9,15 @@ import net.olegg.aoc.year2016.DayOf2016
  */
 object Day12 : DayOf2016(12) {
   override fun first(): Any? {
-    val program = data.lines().filter { it.isNotBlank() }
     val registers = IntArray(4)
 
-    return AsmBunny.eval(program, registers).first().toString()
+    return AsmBunny.eval(lines, registers).first().toString()
   }
 
   override fun second(): Any? {
-    val program = data.lines().filter { it.isNotBlank() }
     val registers = IntArray(4).apply { this[2] = 1 }
 
-    return AsmBunny.eval(program, registers).first().toString()
+    return AsmBunny.eval(lines, registers).first().toString()
   }
 }
 

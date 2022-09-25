@@ -11,13 +11,13 @@ object Day20 : DayOf2016(20) {
   private val regex = "(\\d+)-(\\d+)".toRegex()
 
   override fun first(): Any? {
-    val banned = createBlacklist(data)
+    val banned = createBlacklist()
 
     return if (banned.first().first > 0) 0 else banned.first().last + 1
   }
 
   override fun second(): Any? {
-    val banned = createBlacklist(data)
+    val banned = createBlacklist()
 
     return banned.fold((-1L..-1L) to 0L) { acc, range ->
       range to acc.second + (range.first - acc.first.last - 1)
@@ -25,12 +25,9 @@ object Day20 : DayOf2016(20) {
       ((1L shl 32) - banned.last().last - 1)
   }
 
-  private fun createBlacklist(data: String): TreeSet<LongRange> {
+  private fun createBlacklist(): TreeSet<LongRange> {
     val banned = TreeSet<LongRange>(compareBy({ it.first }, { it.last }))
-    data
-      .trim()
-      .lines()
-      .filter { it.isNotBlank() }
+    lines
       .mapNotNull { line -> regex.find(line)?.groupValues?.let { it[1].toLong()..it[2].toLong() } }
       .forEach { mask ->
         val join = banned.filter { mask.overlaps(it) } + listOf(mask)

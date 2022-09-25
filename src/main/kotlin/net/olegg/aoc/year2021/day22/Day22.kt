@@ -11,7 +11,7 @@ object Day22 : DayOf2021(22) {
   private val pattern = "(on|off) x=(-?\\d+)\\.\\.(-?\\d+),y=(-?\\d+)\\.\\.(-?\\d+),z=(-?\\d+)\\.\\.(-?\\d+)".toRegex()
 
   override fun first(): Any? {
-    val ops = data.trim().lines()
+    val ops = lines
       .mapNotNull { line ->
         val parsed = pattern.find(line)?.groupValues.orEmpty()
         if (parsed.size == 8) {
@@ -30,7 +30,7 @@ object Day22 : DayOf2021(22) {
   }
 
   override fun second(): Any? {
-    val ops = data.trim().lines()
+    val ops = lines
       .mapNotNull { line ->
         val parsed = pattern.find(line)?.groupValues.orEmpty()
         if (parsed.size == 8) {

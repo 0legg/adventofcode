@@ -29,10 +29,7 @@ object Day17 : DayOf2020(17) {
     } - Vector4D()
 
   override fun first(): Any? {
-    val items = data
-      .trim()
-      .lines()
-      .map { line -> line.map { it == '#' } }
+    val items = lines.map { line -> line.map { it == '#' } }
 
     val initialState = items
       .flatMapIndexed { y, row ->
@@ -57,10 +54,7 @@ object Day17 : DayOf2020(17) {
   }
 
   override fun second(): Any? {
-    val items = data
-      .trim()
-      .lines()
-      .map { line -> line.map { it == '#' } }
+    val items = lines.map { line -> line.map { it == '#' } }
 
     val initialState = items
       .flatMapIndexed { y, row ->

@@ -10,9 +10,7 @@ import net.olegg.aoc.year2019.DayOf2019
  */
 object Day4 : DayOf2019(4) {
   override fun first(): Any? {
-    val (from, to) = data
-      .trim()
-      .parseInts("-")
+    val (from, to) = data.parseInts("-")
 
     return (from..to)
       .asSequence()
@@ -23,9 +21,7 @@ object Day4 : DayOf2019(4) {
   }
 
   override fun second(): Any? {
-    val (from, to) = data
-      .trim()
-      .parseInts("-")
+    val (from, to) = data.parseInts("-")
 
     return (from..to)
       .asSequence()

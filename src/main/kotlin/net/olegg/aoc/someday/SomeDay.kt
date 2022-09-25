@@ -9,8 +9,10 @@ import kotlin.system.measureTimeMillis
 open class SomeDay(val year: Int, val day: Int) {
   open val localData: String? = null
   val data: String by lazy {
-    localData ?: runBlocking { Fetcher.fetchInput(year, day) }
+    localData ?: runBlocking { Fetcher.fetchInput(year, day).dropLastWhile { it == '\n' } }
   }
+  val lines: List<String> by lazy { data.lines() }
+  val matrix: List<List<Char>> by lazy { lines.map { it.toList() } }
 
   open fun first(): Any? = null
 

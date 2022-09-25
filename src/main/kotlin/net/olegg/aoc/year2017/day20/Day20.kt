@@ -10,7 +10,7 @@ import kotlin.math.abs
  */
 object Day20 : DayOf2017(20) {
   override fun first(): Any? {
-    val points = data.trim().lines()
+    val points = lines
       .map { line -> line.replace("[pva=<> ]".toRegex(), "") }
       .map { it.parseLongs(",") }
       .map { nums ->
@@ -43,7 +43,7 @@ object Day20 : DayOf2017(20) {
   }
 
   override fun second(): Any? {
-    val points = data.trim().lines()
+    val points = lines
       .map { line -> line.replace("[pva=<> ]".toRegex(), "") }
       .map { it.parseLongs(",") }
       .mapIndexed { index, nums ->

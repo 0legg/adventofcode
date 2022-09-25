@@ -11,14 +11,14 @@ object Day9 : DayOf2018(9) {
   private val PATTERN = "(\\d++) players; last marble is worth (\\d++) points".toRegex()
 
   override fun first(): Any? {
-    val (players, points) = PATTERN.matchEntire(data.trim())?.destructured?.toList()?.map { it.toInt() }
+    val (players, points) = PATTERN.matchEntire(data)?.destructured?.toList()?.map { it.toInt() }
       ?: error("Unable to parse input")
 
     return play(players, points).maxOrNull()
   }
 
   override fun second(): Any? {
-    val (players, points) = PATTERN.matchEntire(data.trim())?.destructured?.toList()?.map { it.toInt() }
+    val (players, points) = PATTERN.matchEntire(data)?.destructured?.toList()?.map { it.toInt() }
       ?: error("Unable to parse input")
 
     return play(players, points * 100).maxOrNull()

@@ -9,21 +9,20 @@ import java.math.BigInteger
  */
 object Day14 : DayOf2021(14) {
   override fun first(): Any? {
-    return solve(data, 10)
+    return solve(10)
   }
 
   override fun second(): Any? {
-    return solve(data, 40)
+    return solve(40)
   }
 
-  private fun solve(data: String, steps: Int): BigInteger {
-    val (rawStart, rawPatterns) = data.trim().split("\n\n")
+  private fun solve(steps: Int): BigInteger {
+    val (rawStart, rawPatterns) = data.split("\n\n")
 
     val patterns = rawPatterns.lines()
       .map { it.split(" -> ") }
       .map { it.first() to it.last() }
-      .map { it.first to setOf("${it.first.first()}${it.second}", "${it.second}${it.first.last()}") }
-      .toMap()
+      .associate { it.first to setOf("${it.first.first()}${it.second}", "${it.second}${it.first.last()}") }
 
     val start = rawStart.windowed(2)
       .groupBy { it }

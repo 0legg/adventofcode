@@ -9,7 +9,6 @@ import net.olegg.aoc.year2020.DayOf2020
 object Day6 : DayOf2020(6) {
   override fun first(): Any? {
     return data
-      .trim()
       .split("\n\n")
       .map { it.replace("\n", "") }
       .map { it.toSet() }
@@ -18,7 +17,6 @@ object Day6 : DayOf2020(6) {
 
   override fun second(): Any? {
     return data
-      .trim()
       .split("\n\n")
       .map { it.split("\n") }
       .map { lines -> lines.map { it.toSet() }.reduce { a, b -> a.intersect(b) } }

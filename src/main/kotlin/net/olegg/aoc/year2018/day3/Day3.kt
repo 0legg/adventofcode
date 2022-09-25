@@ -8,12 +8,9 @@ import net.olegg.aoc.year2018.DayOf2018
  */
 object Day3 : DayOf2018(3) {
   override fun first(): Any? {
-    val requests = data
-      .trim()
-      .lines()
-      .mapNotNull { Request.fromString(it) }
-    val width = requests.map { it.left + it.width }.maxOrNull() ?: 0
-    val height = requests.map { it.top + it.height }.maxOrNull() ?: 0
+    val requests = lines.mapNotNull { Request.fromString(it) }
+    val width = requests.maxOfOrNull { it.left + it.width } ?: 0
+    val height = requests.maxOfOrNull { it.top + it.height } ?: 0
 
     val field = Array(height) { Array(width) { 0 } }
 
@@ -29,10 +26,7 @@ object Day3 : DayOf2018(3) {
   }
 
   override fun second(): Any? {
-    val requests = data
-      .trim()
-      .lines()
-      .mapNotNull { Request.fromString(it) }
+    val requests = lines.mapNotNull { Request.fromString(it) }
 
     return requests
       .first { request -> requests.all { it.notIntersects(request) } }

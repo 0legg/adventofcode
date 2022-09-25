@@ -12,9 +12,7 @@ object Day23 : DayOf2018(23) {
   private val PATTERN = "pos=<(-?\\d+),(-?\\d+),(-?\\d+)>, r=(-?\\d+)".toRegex()
 
   override fun first(): Any? {
-    val bots = data
-      .trim()
-      .lines()
+    val bots = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)?.let { match ->
           val (x, y, z, r) = match.groupValues.drop(1).map { it.toLong() }
@@ -28,9 +26,7 @@ object Day23 : DayOf2018(23) {
   }
 
   override fun second(): Any? {
-    val bots = data
-      .trim()
-      .lines()
+    val bots = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)?.let { match ->
           val (x, y, z, r) = match.groupValues.drop(1).map { it.toLong() }

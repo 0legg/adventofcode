@@ -9,7 +9,7 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day13 : DayOf2020(13) {
   override fun first(): Any? {
-    val (startLine, busLine) = data.trim().lines()
+    val (startLine, busLine) = lines
     val start = startLine.toLong()
     val buses = busLine.parseLongs(delimiters = ",")
 
@@ -19,7 +19,7 @@ object Day13 : DayOf2020(13) {
   }
 
   override fun second(): Any? {
-    val (_, busLine) = data.trim().lines()
+    val (_, busLine) = lines
     val (nums, buses) = busLine.split(",")
       .mapIndexedNotNull { index, s -> s.toBigIntegerOrNull()?.let { index.toBigInteger() to it } }
       .unzip()

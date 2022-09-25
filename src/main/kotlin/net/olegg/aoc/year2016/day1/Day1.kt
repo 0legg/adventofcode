@@ -18,7 +18,6 @@ object Day1 : DayOf2016(1) {
 
   override fun first(): Any? {
     return data
-      .trim()
       .split(", ")
       .map { it[0] to it.substring(1).toInt() }
       .fold(Pair(Vector2D(), U)) { (pos, dir), command ->
@@ -32,7 +31,7 @@ object Day1 : DayOf2016(1) {
   override fun second(): Any? {
     val visited = mutableSetOf<Vector2D>()
 
-    data.trim()
+    data
       .split(", ")
       .map { it[0] to it.substring(1).toInt() }
       .fold(Pair(Vector2D(), U)) { (pos, dir), command ->

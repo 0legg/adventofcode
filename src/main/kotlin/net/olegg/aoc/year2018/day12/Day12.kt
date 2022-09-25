@@ -8,16 +8,16 @@ import net.olegg.aoc.year2018.DayOf2018
  */
 object Day12 : DayOf2018(12) {
   override fun first(): Any? {
-    return solve(data, 20)
+    return solve(20)
   }
 
   override fun second(): Any? {
-    return solve(data, 50_000_000_000L)
+    return solve(50_000_000_000L)
   }
 
-  private fun solve(data: String, gens: Long): Long {
-    val initialStateRaw = data
-      .lines()[0]
+  private fun solve(gens: Long): Long {
+    val initialStateRaw = lines
+      .first()
       .substringAfter(": ")
 
     val initialShift = initialStateRaw.indexOf('#').toLong()
@@ -27,14 +27,11 @@ object Day12 : DayOf2018(12) {
 
     val states = mutableMapOf(initialState)
 
-    val rules = data
-      .trim()
-      .lines()
+    val rules = lines
       .drop(2)
-      .map { line ->
+      .associate { line ->
         line.split(" => ".toRegex()).let { it.first() to it.last() }
       }
-      .toMap()
 
     val finalState = (1..gens).fold(initialState) { state, gen ->
       val tempState = padding + state.first + padding
@@ -52,8 +49,7 @@ object Day12 : DayOf2018(12) {
         val tail = (gens - gen) % cycle
         val finalValue = states.entries
           .find { it.value.first == oldGen + tail }
-          ?.toPair()
-          ?: "" to (0L to 0L)
+          ?.toPair() ?: ("" to (0L to 0L))
 
         val final = finalValue.first to (gens to aggregateShift + finalValue.second.second - oldShift)
         return final

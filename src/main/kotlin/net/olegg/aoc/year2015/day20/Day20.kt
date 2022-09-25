@@ -8,7 +8,7 @@ import kotlin.math.sqrt
  * See [Year 2015, Day 20](https://adventofcode.com/2015/day/20)
  */
 object Day20 : DayOf2015(20) {
-  private val max = data.trim().toInt()
+  private val max = data.toInt()
 
   override fun first(): Any? {
     return generateSequence(1) { it + 1 }.first { house ->

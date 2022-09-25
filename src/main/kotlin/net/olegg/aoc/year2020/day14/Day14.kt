@@ -12,7 +12,7 @@ object Day14 : DayOf2020(14) {
     val memory = mutableMapOf<Long, Long>()
     var mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
-    data.trim().lines().forEach { line ->
+    lines.forEach { line ->
       when {
         line.startsWith("mask") -> {
           mask = line.split(" = ").last()
@@ -36,7 +36,7 @@ object Day14 : DayOf2020(14) {
     val memory = mutableMapOf<Long, Long>()
     var mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
-    data.trim().lines().forEach { line ->
+    lines.forEach { line ->
       when {
         line.startsWith("mask") -> {
           mask = line.split(" = ").last()

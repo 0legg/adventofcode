@@ -20,7 +20,7 @@ object Day25 : DayOf2017(25) {
     ).toRegex()
 
   override fun first(): Any? {
-    val sections = data.trim().split("\n\n")
+    val sections = data.split("\n\n")
 
     val (initialState, iterations) = HEADER_PATTERN.find(sections[0])?.destructured ?: error("Unable to parse")
 

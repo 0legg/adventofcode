@@ -12,9 +12,7 @@ object Day11 : DayOf2016(11) {
   private val CHIP_PATTERN = "(\\w+)-compatible microchip".toRegex()
 
   override fun first(): Any? {
-    val initial = data
-      .trim()
-      .lines()
+    val initial = lines
       .map { floor ->
         Pair(
           GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
@@ -26,9 +24,7 @@ object Day11 : DayOf2016(11) {
   }
 
   override fun second(): Any? {
-    val initial = data
-      .trim()
-      .lines()
+    val initial = lines
       .map { floor ->
         Pair(
           GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),

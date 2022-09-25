@@ -57,11 +57,11 @@ object Day11 : DayOf2015(11) {
   }
 
   override fun first(): Any? {
-    return password(data.trim())
+    return password(data)
   }
 
   override fun second(): Any? {
-    return password(password(data.trim()))
+    return password(password(data))
   }
 }
 

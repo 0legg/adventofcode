@@ -9,10 +9,7 @@ import java.math.BigInteger
  */
 object Day23 : DayOf2017(23) {
   override fun first(): Any? {
-    val ops = data
-      .trim()
-      .lines()
-      .map { it.split(" ") }
+    val ops = lines.map { it.split(" ") }
 
     var position = 0
     val regs = mutableMapOf<String, BigInteger>()
@@ -35,10 +32,7 @@ object Day23 : DayOf2017(23) {
   }
 
   override fun second(): Any? {
-    val ops = data
-      .trim()
-      .lines()
-      .map { it.split(" ") }
+    val ops = lines.map { it.split(" ") }
 
     var position = 0
     val regs = mutableMapOf("a" to BigInteger.ONE)

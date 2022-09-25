@@ -10,7 +10,7 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day13 : DayOf2021(13) {
   override fun first(): Any? {
-    val (rawDots, rawFolds) = data.trim().split("\n\n")
+    val (rawDots, rawFolds) = data.split("\n\n")
     val points = rawDots.lines()
       .map { it.parseInts(",") }
       .map { Vector2D(it.first(), it.last()) }
@@ -32,7 +32,7 @@ object Day13 : DayOf2021(13) {
   }
 
   override fun second(): Any? {
-    val (rawDots, rawFolds) = data.trim().split("\n\n")
+    val (rawDots, rawFolds) = data.split("\n\n")
     val points = rawDots.lines()
       .map { it.parseInts(",") }
       .map { Vector2D(it.first(), it.last()) }

@@ -8,7 +8,7 @@ import net.olegg.aoc.year2018.DayOf2018
  */
 object Day14 : DayOf2018(14) {
   override fun first(): Any? {
-    val rounds = data.trim().toInt()
+    val rounds = data.toInt()
 
     val recipes = mutableListOf(3, 7)
 
@@ -26,7 +26,7 @@ object Day14 : DayOf2018(14) {
   }
 
   override fun second(): Any? {
-    val tail = data.trim()
+    val tail = data
 
     val recipes = mutableListOf(3, 7)
     val builder = StringBuilder("37")

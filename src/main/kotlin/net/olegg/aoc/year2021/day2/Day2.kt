@@ -10,8 +10,7 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day2 : DayOf2021(2) {
   override fun first(): Any? {
-    return data.trim()
-      .split("\n")
+    return lines
       .fold(Vector2D()) { acc, value ->
         val (dir, amountStr) = value.split(" ")
         val amount = amountStr.toInt()
@@ -26,8 +25,7 @@ object Day2 : DayOf2021(2) {
   }
 
   override fun second(): Any? {
-    return data.trim()
-      .split("\n")
+    return lines
       .fold(Vector3D()) { acc, value ->
         val (dir, amountStr) = value.split(" ")
         val amount = amountStr.toInt()

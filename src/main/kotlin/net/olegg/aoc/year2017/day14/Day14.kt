@@ -12,9 +12,8 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day14 : DayOf2017(14) {
   override fun first(): Any? {
-    val key = data.trimIndent()
     return (0..127)
-      .map { "$key-$it" }
+      .map { "$data-$it" }
       .sumOf { line ->
         line
           .map { it.code }
@@ -38,10 +37,8 @@ object Day14 : DayOf2017(14) {
   }
 
   override fun second(): Any? {
-    val key = data.trimIndent()
-
     val result = (0..127)
-      .map { "$key-$it" }
+      .map { "$data-$it" }
       .map { line ->
         line
           .map { it.code }

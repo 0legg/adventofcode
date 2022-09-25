@@ -11,9 +11,7 @@ import kotlin.math.abs
  */
 object Day3 : DayOf2019(3) {
   override fun first(): Any? {
-    val (wire1, wire2) = data
-      .trim()
-      .lines()
+    val (wire1, wire2) = lines
       .map { line -> line.split(",").map { Directions.valueOf(it.substring(0, 1)) to it.substring(1).toInt() } }
       .map { wire ->
         wire.fold(listOf(Vector2D())) { acc, (dir, length) ->
@@ -23,13 +21,11 @@ object Day3 : DayOf2019(3) {
       }
       .map { it.toSet() - Vector2D() }
 
-    return (wire1.intersect(wire2)).map { abs(it.x) + abs(it.y) }.minOrNull()
+    return (wire1.intersect(wire2)).minOfOrNull { abs(it.x) + abs(it.y) }
   }
 
   override fun second(): Any? {
-    val (wire1, wire2) = data
-      .trim()
-      .lines()
+    val (wire1, wire2) = lines
       .map { line -> line.split(",").map { Directions.valueOf(it.substring(0, 1)) to it.substring(1).toInt() } }
       .map { wire ->
         wire.fold(listOf(Vector2D() to 0)) { acc, (dir, length) ->
@@ -45,8 +41,7 @@ object Day3 : DayOf2019(3) {
       }
 
     return wire1.mapValues { (point, distance) -> distance + (wire2[point] ?: 1_000_000) }
-      .minByOrNull { it.value }
-      ?.value
+      .minOfOrNull { it.value }
   }
 }
 

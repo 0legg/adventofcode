@@ -8,8 +8,7 @@ import net.olegg.aoc.year2016.DayOf2016
  */
 object Day6 : DayOf2016(6) {
   override fun first(): Any? {
-    return data
-      .lines()
+    return lines
       .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
       .groupBy { it.first }
       .mapValues { (_, value) -> value.map { it.second } }
@@ -23,8 +22,7 @@ object Day6 : DayOf2016(6) {
   }
 
   override fun second(): Any? {
-    return data
-      .lines()
+    return lines
       .flatMap { it.toCharArray().mapIndexed { i, c -> i to c } }
       .groupBy { it.first }
       .mapValues { (_, value) -> value.map { it.second } }

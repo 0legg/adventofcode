@@ -9,7 +9,7 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day6 : DayOf2017(6) {
   override fun first(): Any? {
-    val blocks = data.trim().parseInts()
+    val blocks = data.parseInts()
 
     val seen = mutableSetOf<List<Int>>()
     var curr = blocks
@@ -34,13 +34,13 @@ object Day6 : DayOf2017(6) {
   }
 
   override fun second(): Any? {
-    val blocks = data.trim().parseInts()
+    val blocks = data.parseInts()
 
     val seen = mutableMapOf<List<Int>, Int>()
     var curr = blocks
     var steps = 0
     while (curr !in seen) {
-      seen.put(curr, steps)
+      seen[curr] = steps
       steps += 1
       val max = curr.maxOrNull() ?: 0
       val position = curr.indexOfFirst { it == max }

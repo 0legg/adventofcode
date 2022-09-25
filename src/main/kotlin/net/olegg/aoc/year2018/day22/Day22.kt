@@ -12,7 +12,7 @@ import java.util.PriorityQueue
  */
 object Day22 : DayOf2018(22) {
   override fun first(): Any? {
-    val (depthLine, targetLine) = data.trim().lines().map { it.substringAfter(": ") }
+    val (depthLine, targetLine) = lines.map { it.substringAfter(": ") }
     val depth = depthLine.toInt()
     val (tx, ty) = targetLine.parseInts(",")
     val t = Vector2D(tx, ty)
@@ -26,7 +26,7 @@ object Day22 : DayOf2018(22) {
   }
 
   override fun second(): Any? {
-    val (depthLine, targetLine) = data.trim().lines().map { it.substringAfter(": ") }
+    val (depthLine, targetLine) = lines.map { it.substringAfter(": ") }
     val depth = depthLine.toInt()
     val (tx, ty) = targetLine.parseInts(",")
     val t = Vector2D(tx, ty)

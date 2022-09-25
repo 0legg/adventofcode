@@ -8,8 +8,7 @@ import net.olegg.aoc.year2015.DayOf2015
  */
 object Day18 : DayOf2015(18) {
   private const val size = 100
-  private val field = data
-    .lines()
+  private val field = lines
     .mapIndexed { row, string ->
       string.mapIndexedNotNull { column, char -> if (char == '#') Pair(row, column) else null }
     }

@@ -13,21 +13,17 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day15 : DayOf2021(15) {
   override fun first(): Any? {
-    val map = data.trim()
-      .lines()
-      .map { line -> 
-        line.map { it.digitToInt() }
-      }
+    val map = lines.map { line ->
+      line.map { it.digitToInt() }
+    }
 
     return solve(map)
   }
 
   override fun second(): Any? {
-    val map = data.trim()
-      .lines()
-      .map { line ->
-        line.map { it.digitToInt() }
-      }
+    val map = lines.map { line ->
+      line.map { it.digitToInt() }
+    }
 
     val mappings = (1..9).associateWith { start ->
       (1..9).scan(start) { acc, _ ->

@@ -8,7 +8,7 @@ import net.olegg.aoc.year2015.DayOf2015
  */
 object Day21 : DayOf2015(21) {
   private const val hp = 100
-  private val boss = data.trim().lines().map { it.substringAfterLast(": ").toInt() }
+  private val boss = lines.map { it.substringAfterLast(": ").toInt() }
   private val weapons = listOf(
     Triple(8, 4, 0),
     Triple(10, 5, 0),

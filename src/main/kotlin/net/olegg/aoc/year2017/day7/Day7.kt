@@ -8,8 +8,7 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day7 : DayOf2017(7) {
   override fun first(): Any? {
-    return data
-      .lines()
+    return lines
       .map { line -> line.split(" ").map { it.replace(",", "") } }
       .fold(emptySet<String>() to emptySet<String>()) { acc, list ->
         val used = if (list.size > 3) acc.second + list.subList(3, list.size) else acc.second
@@ -18,14 +17,10 @@ object Day7 : DayOf2017(7) {
       }
       .first
       .first()
-      .toString()
   }
 
   override fun second(): Any? {
-    val disks = data
-      .lines()
-      .map { it.trim() }
-      .filter { it.isNotBlank() }
+    val disks = lines
       .map { it.replace("[()\\->,]".toRegex(), "").split("\\s+".toRegex()) }
       .associate { it[0] to (it[1].toInt() to it.subList(2, it.size)) }
 
@@ -62,7 +57,7 @@ object Day7 : DayOf2017(7) {
     val inter = curr.second
       .fold(emptyMap<String, Int>()) { acc, value -> acc + getWeights(map, value) }
       .let { children ->
-        children + mapOf(root to curr.first + curr.second.map { children[it] ?: 0 }.sum())
+        children + mapOf(root to curr.first + curr.second.sumOf { children[it] ?: 0 })
       }
     return inter
   }

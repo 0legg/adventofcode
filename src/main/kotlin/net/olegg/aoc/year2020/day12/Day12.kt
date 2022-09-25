@@ -15,10 +15,7 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day12 : DayOf2020(12) {
   override fun first(): Any? {
-    val route = data
-      .trim()
-      .lines()
-      .map { it.first() to it.drop(1).toInt() }
+    val route = lines.map { it.first() to it.drop(1).toInt() }
 
     val target = route.fold(Vector2D() to R) { acc, (op, size) ->
       when (op) {
@@ -37,10 +34,7 @@ object Day12 : DayOf2020(12) {
   }
 
   override fun second(): Any? {
-    val route = data
-      .trim()
-      .lines()
-      .map { it.first() to it.drop(1).toInt() }
+    val route = lines.map { it.first() to it.drop(1).toInt() }
 
     val target = route.fold(Vector2D() to Vector2D(10, -1)) { acc, (op, size) ->
       when (op) {

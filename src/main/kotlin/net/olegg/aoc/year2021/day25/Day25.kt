@@ -9,9 +9,7 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day25 : DayOf2021(25) {
   override fun first(): Any? {
-    val map = data.trim()
-      .lines()
-      .map { it.toList() }
+    val map = matrix
 
     val height = map.size
     val width = map.first().size

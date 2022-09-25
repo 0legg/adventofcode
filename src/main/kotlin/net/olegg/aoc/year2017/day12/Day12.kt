@@ -9,8 +9,7 @@ import net.olegg.aoc.year2017.DayOf2017
  */
 object Day12 : DayOf2017(12) {
   override fun first(): Any? {
-    val nodes = data.trimIndent()
-      .lines()
+    val nodes = lines
       .map { it.replace("[<\\->,]".toRegex(), "") }
       .map { it.parseInts() }
       .associate { it[0] to it.subList(1, it.size).toSet() }
@@ -28,13 +27,10 @@ object Day12 : DayOf2017(12) {
   }
 
   override fun second(): Any? {
-    val nodes = data.trimIndent()
-      .lines()
+    val nodes = lines
       .map { it.replace("[<\\->,]".toRegex(), "") }
       .map { it.parseInts() }
-      .map { it[0] to it.subList(1, it.size).toSet() }
-      .toMap()
-      .toMutableMap()
+      .associateTo(mutableMapOf()) { it[0] to it.subList(1, it.size).toSet() }
 
     var components = 0
     while (nodes.isNotEmpty()) {

@@ -10,14 +10,14 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day20 : DayOf2021(20) {
   override fun first(): Any? {
-    return solve(data, 2)
+    return solve(2)
   }
 
   override fun second(): Any? {
-    return solve(data, 50)
+    return solve(50)
   }
 
-  private fun solve(data: String, steps: Int): Int {
+  private fun solve(steps: Int): Int {
     val (rawAlgo, rawSource) = data.trim().split("\n\n")
     val algo = rawAlgo.toList()
     val source = rawSource.trim()

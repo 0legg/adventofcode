@@ -12,9 +12,7 @@ import kotlin.math.sign
 object Day12 : DayOf2019(12) {
   private val PATTERN = "<.=(-?\\d+), .=(-?\\d+), .=(-?\\d+)>".toRegex()
   override fun first(): Any? {
-    val initial = data
-      .trim()
-      .lines()
+    val initial = lines
       .mapNotNull { line ->
         PATTERN.find(line)?.let { match ->
           val (x, y, z) = match.destructured.toList().map { it.toInt() }
@@ -40,9 +38,7 @@ object Day12 : DayOf2019(12) {
   }
 
   override fun second(): Any? {
-    val initial = data
-      .trim()
-      .lines()
+    val initial = lines
       .mapNotNull { line ->
         PATTERN.find(line)?.let { match ->
           val (x, y, z) = match.destructured.toList().map { it.toInt() }

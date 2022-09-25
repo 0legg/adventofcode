@@ -13,9 +13,7 @@ import kotlin.math.abs
  */
 object Day19 : DayOf2017(19) {
   override fun first(): Any? {
-    val map = data
-      .lines()
-      .map { it.toList() }
+    val map = matrix
 
     var pos = Vector2D(map[0].indexOfFirst { it == '|' }, 0)
     var dir = Vector2D(0, 1)
@@ -42,9 +40,7 @@ object Day19 : DayOf2017(19) {
   }
 
   override fun second(): Any? {
-    val map = data
-      .lines()
-      .map { it.toList() }
+    val map = matrix
 
     var pos = Vector2D(map[0].indexOfFirst { it == '|' }, 0)
     var dir = Vector2D(0, 1)

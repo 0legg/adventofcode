@@ -10,7 +10,6 @@ import net.olegg.aoc.year2020.DayOf2020
 object Day22 : DayOf2020(22) {
   override fun first(): Any? {
     val (p1, p2) = data
-      .trim()
       .split("\n\n")
       .map { it.lines().drop(1) }
       .map { ArrayDeque(it.map { card -> card.toInt() }) }
@@ -36,7 +35,6 @@ object Day22 : DayOf2020(22) {
 
   override fun second(): Any? {
     val (p1, p2) = data
-      .trim()
       .split("\n\n")
       .map { it.lines().drop(1) }
       .map { ArrayDeque(it.map { card -> card.toInt() }) }

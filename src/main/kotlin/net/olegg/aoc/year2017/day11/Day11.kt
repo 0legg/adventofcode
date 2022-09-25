@@ -9,7 +9,7 @@ import kotlin.math.abs
  */
 object Day11 : DayOf2017(11) {
   override fun first(): Any? {
-    return data.trimIndent()
+    return data
       .split(",")
       .fold(0 to 0) { acc, value ->
         when (value) {
@@ -28,7 +28,7 @@ object Day11 : DayOf2017(11) {
   }
 
   override fun second(): Any? {
-    return data.trimIndent()
+    return data
       .split(",")
       .fold(Triple(0, 0, 0)) { acc, value ->
         val next = when (value) {

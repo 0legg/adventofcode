@@ -11,9 +11,7 @@ object Day10 : DayOf2018(10) {
   private const val HEIGHT = 16
 
   override fun first(): Any? {
-    var points = data
-      .trim()
-      .lines()
+    var points = lines
       .mapNotNull { line ->
         PATTERN.find(line)?.let { match ->
           val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
@@ -30,26 +28,23 @@ object Day10 : DayOf2018(10) {
 
     val coords = points.map { it.first }
 
-    val xmin = coords.map { it.first }.minOrNull() ?: 0
-    val xmax = coords.map { it.first }.maxOrNull() ?: 0
-    val ymin = coords.map { it.second }.minOrNull() ?: 0
-    val ymax = coords.map { it.second }.maxOrNull() ?: 0
+    val xmin = coords.minOfOrNull { it.first } ?: 0
+    val xmax = coords.maxOfOrNull { it.first } ?: 0
+    val ymin = coords.minOfOrNull { it.second } ?: 0
+    val ymax = coords.maxOfOrNull { it.second } ?: 0
 
-    val builder = StringBuilder("\n")
-    (ymin..ymax).forEach { y ->
-      (xmin..xmax).forEach { x ->
-        builder.append(if (x to y in coords) "#" else ".")
+    return buildString {
+      (ymin..ymax).forEach { y ->
+        (xmin..xmax).forEach { x ->
+          append(if (x to y in coords) "#" else ".")
+        }
+        append("\n")
       }
-      builder.append("\n")
     }
-
-    return builder.toString()
   }
 
   override fun second(): Any? {
-    var points = data
-      .trim()
-      .lines()
+    var points = lines
       .mapNotNull { line ->
         PATTERN.find(line)?.let { match ->
           val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }

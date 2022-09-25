@@ -8,8 +8,7 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day8 : DayOf2021(8) {
   override fun first(): Any? {
-    return data.trim()
-      .lines()
+    return lines
       .map { it.split(" | ").last() }
       .flatMap { it.split(" ") }
       .count { it.length in setOf(2, 3, 4, 7) }
@@ -29,8 +28,7 @@ object Day8 : DayOf2021(8) {
       "abcdfg" to "9",
     ).mapKeys { it.key.toSet() }
 
-    return data.trim()
-      .lines()
+    return lines
       .sumOf { line ->
         val (sourceLine, fourLine) = line.split(" | ")
 

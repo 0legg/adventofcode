@@ -10,8 +10,7 @@ import net.olegg.aoc.year2021.day18.Day18.Expression.Tuple
  */
 object Day18 : DayOf2021(18) {
   override fun first(): Any? {
-    return data.trim()
-      .lines()
+    return lines
       .map { line ->
         parseNumber(ArrayDeque(line.toList()))
       }
@@ -20,11 +19,9 @@ object Day18 : DayOf2021(18) {
   }
 
   override fun second(): Any? {
-    val numbers = data.trim()
-      .lines()
-      .map { line ->
-        parseNumber(ArrayDeque(line.toList()))
-      }
+    val numbers = lines.map { line ->
+      parseNumber(ArrayDeque(line.toList()))
+    }
 
     return numbers.maxOf { a ->
       numbers.maxOf { b ->

@@ -7,13 +7,10 @@ import net.olegg.aoc.year2016.DayOf2016
  * See [Year 2016, Day 15](https://adventofcode.com/2016/day/15)
  */
 object Day15 : DayOf2016(15) {
-  val regex = "Disc #(\\d+) has (\\d+) positions; at time=(\\d+), it is at position (\\d+).".toRegex()
+  private val regex = "Disc #(\\d+) has (\\d+) positions; at time=(\\d+), it is at position (\\d+).".toRegex()
 
   override fun first(): Any? {
-    val discs = data
-      .trim()
-      .lines()
-      .filter { it.isNotBlank() }
+    val discs = lines
       .mapNotNull { line ->
         regex.find(line)?.groupValues?.let { Triple(it[1].toInt(), it[2].toInt(), it[4].toInt()) }
       }
@@ -22,10 +19,7 @@ object Day15 : DayOf2016(15) {
   }
 
   override fun second(): Any? {
-    val discs = data
-      .trim()
-      .lines()
-      .filter { it.isNotBlank() }
+    val discs = lines
       .mapNotNull { line ->
         regex.find(line)?.groupValues?.let { Triple(it[1].toInt(), it[2].toInt(), it[4].toInt()) }
       }

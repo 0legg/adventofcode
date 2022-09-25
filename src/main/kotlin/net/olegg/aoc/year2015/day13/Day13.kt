@@ -10,12 +10,11 @@ import net.olegg.aoc.year2015.DayOf2015
 object Day13 : DayOf2015(13) {
   private val pattern = "^\\b(\\w+)\\b.*\\b(gain|lose) \\b(\\d+)\\b.*\\b(\\w+)\\b\\.$".toRegex()
 
-  private val edges = data.trim().lines().mapNotNull { line ->
-    pattern.matchEntire(line)?.let { match ->
-      val (name, type, amount, otherName) = match.destructured
-      Pair(name, otherName) to amount.toInt() * (if (type == "gain") 1 else -1)
-    }
-  }.toMap()
+  private val edges = lines.associate { line ->
+    val match = checkNotNull(pattern.matchEntire(line))
+    val (name, type, amount, otherName) = match.destructured
+    Pair(name, otherName) to amount.toInt() * (if (type == "gain") 1 else -1)
+  }
   private val names = edges.keys.flatMap { listOf(it.first, it.second) }.distinct()
 
   override fun first(): Any? {

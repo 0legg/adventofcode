@@ -7,20 +7,18 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 16](https://adventofcode.com/2015/day/16)
  */
 object Day16 : DayOf2015(16) {
-  private val PATTERN = "^Sue (\\d+): (?:([a-z]+): (\\d+)(?:, )?)*$".toRegex()
+  private val PATTERN = "^Sue (\\d+): (.*)$".toRegex()
+  private val ANIMAL = "([a-z]+): (\\d+)".toRegex()
 
-  private val sues = data
-    .trim()
-    .lines()
+  private val sues = lines
     .mapNotNull { line ->
       PATTERN.matchEntire(line)?.let { match ->
-        println(match.groupValues.joinToString(separator = "\n"))
-        println()
         val index = match.groupValues[1].toInt()
-        val own = match.groupValues
-          .drop(2)
-          .windowed(2)
-          .associate { it.first() to it.last().toInt() }
+        val animals = match.groupValues[2]
+        val own = ANIMAL.findAll(animals).associate {
+          val (animal, count) = it.destructured
+          animal to count.toInt()
+        }
         return@let index to own
       }
     }

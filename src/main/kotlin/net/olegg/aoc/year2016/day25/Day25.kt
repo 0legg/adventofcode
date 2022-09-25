@@ -9,12 +9,10 @@ import net.olegg.aoc.year2016.DayOf2016
  */
 object Day25 : DayOf2016(25) {
   override fun first(): Any? {
-    val program = data.trim().lines()
-
     return generateSequence(0) { it + 1 }
       .map { value ->
         val registers = IntArray(4).also { it[0] = value }
-        return@map value to AsmBunny.eval(program, registers)
+        return@map value to AsmBunny.eval(lines, registers)
       }
       .first { (_, signal) ->
         signal

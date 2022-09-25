@@ -8,25 +8,23 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day3 : DayOf2021(3) {
   override fun first(): Any? {
-    val values = data.trim().lines()
-    val length = values.first().length
-    val counts = values
+    val length = lines.first().length
+    val counts = lines
       .map { line -> line.map { ch -> ch.digitToInt() } }
       .fold(List(length) { 0 }) { acc, value ->
         acc.zip(value) { a, b -> a + b }
       }
 
-    val gamma = counts.joinToString(separator = "") { if (it * 2 >= values.size) "1" else "0" }.toInt(2)
-    val epsilon = counts.joinToString(separator = "") { if (it * 2 >= values.size) "0" else "1" }.toInt(2)
+    val gamma = counts.joinToString(separator = "") { if (it * 2 >= lines.size) "1" else "0" }.toInt(2)
+    val epsilon = counts.joinToString(separator = "") { if (it * 2 >= lines.size) "0" else "1" }.toInt(2)
     return gamma * epsilon
   }
 
   override fun second(): Any? {
-    val values = data.trim().lines()
-    val length = values.first().length
+    val length = lines.first().length
 
     val oxygen = (0 until length)
-      .fold(values) { acc, position ->
+      .fold(lines) { acc, position ->
         if (acc.size == 1) return@fold acc
         val sum = acc.sumOf { it[position].digitToInt() }
         val char = if (sum * 2 >= acc.size) '1' else '0'
@@ -36,7 +34,7 @@ object Day3 : DayOf2021(3) {
       .toInt(2)
 
     val co2 = (0 until length)
-      .fold(values) { acc, position ->
+      .fold(lines) { acc, position ->
         if (acc.size == 1) return@fold acc
         val sum = acc.sumOf { it[position].digitToInt() }
         val char = if (sum * 2 < acc.size) '1' else '0'

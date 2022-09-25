@@ -12,22 +12,18 @@ object Day19 : DayOf2018(19) {
   private val OPS_PATTERN = "(\\w+) (\\d+) (\\d+) (\\d+)".toRegex()
 
   override fun first(): Any? {
-    return solve(data, listOf(0, 0, 0, 0, 0, 0))
+    return solve(listOf(0, 0, 0, 0, 0, 0))
   }
 
   override fun second(): Any? {
-    return solve(data, listOf(1, 0, 0, 0, 0, 0))
+    return solve(listOf(1, 0, 0, 0, 0, 0))
   }
 
-  private fun solve(data: String, registers: List<Long>): Long {
-    val pointer = data
-      .trim()
-      .lines()
+  private fun solve(registers: List<Long>): Long {
+    val pointer = lines
       .first()
       .let { it.split(" ")[1].toIntOrNull() ?: 0 }
-    val program = data
-      .trim()
-      .lines()
+    val program = lines
       .drop(1)
       .mapNotNull { line ->
         OPS_PATTERN.matchEntire(line)?.let { match ->
