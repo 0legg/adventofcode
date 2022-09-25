@@ -3,6 +3,7 @@ package net.olegg.aoc.year2019.day20
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2019.DayOf2019
 
 /**
@@ -145,12 +146,6 @@ object Day20 : DayOf2019(20) {
     }
 
     return Int.MAX_VALUE
-  }
-
-  private operator fun <T> List<List<T>>.get(v: Vector2D): T? = when {
-    v.y !in indices -> null
-    v.x !in this[v.y].indices -> null
-    else -> this[v.y][v.x]
   }
 }
 

@@ -1,6 +1,13 @@
 package net.olegg.aoc.year2017.day3
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Directions
+import net.olegg.aoc.utils.Directions.Companion.Neighbors8
+import net.olegg.aoc.utils.Directions.D
+import net.olegg.aoc.utils.Directions.L
+import net.olegg.aoc.utils.Directions.R
+import net.olegg.aoc.utils.Directions.U
+import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2017.DayOf2017
 import kotlin.math.abs
 
@@ -19,38 +26,27 @@ object Day3 : DayOf2017(3) {
   }
 
   override fun second(): Any? {
-    val visited = mutableMapOf((0 to 0) to 1)
     val input = data.toInt()
 
-    var current = (0 to 0) to 1
+    var current = Vector2D(0, 0) to 1
+    val visited = mutableMapOf(current)
     var square = 0
     while (current.second < input) {
-      val position = when {
-        current.first.second == -square -> {
-          current.first.first + 1 to current.first.second
-        }
-        current.first.first == square && current.first.second < square -> {
-          current.first.first to current.first.second + 1
-        }
-        current.first.second == square && current.first.first > -square -> {
-          current.first.first - 1 to current.first.second
-        }
-        current.first.first == -square && current.first.second > -square -> {
-          current.first.first to current.first.second - 1
-        }
-        else -> {
-          current.first.first + 1 to current.first.second
-        }
-      }
+      val (pos, _) = current
+      val nextPos = pos + when {
+        pos.y == square -> R
+        pos.x == square && pos.y > -square -> U
+        pos.y == -square && pos.x > -square -> L
+        pos.x == -square && pos.y < square -> D
+        else -> R
+      }.step
 
-      if (abs(position.first) > square || abs(position.second) > square) {
+      if (abs(nextPos.x) > square || abs(nextPos.y) > square) {
         square += 1
       }
 
-      val value = (-1..1).flatMap { x -> (-1..1).map { y -> x to y } }
-        .mapNotNull { visited[position.first + it.first to position.second + it.second] }
-        .sum()
-      current = position to value
+      val value = Neighbors8.sumOf { visited[nextPos + it.step] ?: 0 }
+      current = nextPos to value
       visited += current
     }
 

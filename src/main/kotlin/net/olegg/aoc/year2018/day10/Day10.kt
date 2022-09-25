@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2018.day10
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2018.DayOf2018
 
 /**
@@ -11,59 +12,57 @@ object Day10 : DayOf2018(10) {
   private const val HEIGHT = 16
 
   override fun first(): Any? {
-    var points = lines
+    val points = lines
       .mapNotNull { line ->
         PATTERN.find(line)?.let { match ->
           val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
-          return@let (x to y) to (vx to vy)
+          return@let Vector2D(x, y) to Vector2D(vx, vy)
         }
       }
 
-    do {
-      points = points.map { it.copy(first = it.first + it.second) }
-      val height = points
-        .map { it.first.second }
-        .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
-    } while (height > HEIGHT)
+    val final = generateSequence(points) { curr ->
+      curr.map { it.copy(first = it.first + it.second) }
+    }
+      .first { curr ->
+        curr.map { it.first.y }.let { it.max() - it.min() } <= HEIGHT
+      }
 
-    val coords = points.map { it.first }
+    val coords = final.map { it.first }
 
-    val xmin = coords.minOfOrNull { it.first } ?: 0
-    val xmax = coords.maxOfOrNull { it.first } ?: 0
-    val ymin = coords.minOfOrNull { it.second } ?: 0
-    val ymax = coords.maxOfOrNull { it.second } ?: 0
+    val xmin = coords.minOf { it.x }
+    val xmax = coords.maxOf { it.x }
+    val ymin = coords.minOf { it.y }
+    val ymax = coords.maxOf { it.y }
 
     return buildString {
+      append('\n')
       (ymin..ymax).forEach { y ->
         (xmin..xmax).forEach { x ->
-          append(if (x to y in coords) "#" else ".")
+          append(if (Vector2D(x, y) in coords) "██" else "..")
         }
-        append("\n")
+        append('\n')
       }
     }
   }
 
   override fun second(): Any? {
-    var points = lines
+    val points = lines
       .mapNotNull { line ->
         PATTERN.find(line)?.let { match ->
           val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
-          return@let (x to y) to (vx to vy)
+          return@let Vector2D(x, y) to Vector2D(vx, vy)
         }
       }
-    var seconds = 0
-    do {
-      seconds++
-      points = points.map { it.copy(first = it.first + it.second) }
-      val height = points
-        .map { it.first.second }
-        .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
-    } while (height > HEIGHT)
 
-    return seconds
+    val final = generateSequence(points) { curr ->
+      curr.map { it.copy(first = it.first + it.second) }
+    }
+      .indexOfFirst { curr ->
+        curr.map { it.first.y }.let { it.max() - it.min() } <= HEIGHT
+      }
+
+    return final
   }
 }
-
-operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>) = first + other.first to second + other.second
 
 fun main() = SomeDay.mainify(Day10)

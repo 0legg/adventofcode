@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2017.day11
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2017.DayOf2017
 import kotlin.math.abs
 
@@ -11,41 +12,41 @@ object Day11 : DayOf2017(11) {
   override fun first(): Any? {
     return data
       .split(",")
-      .fold(0 to 0) { acc, value ->
-        when (value) {
-          "nw" -> acc.first - 1 to acc.second
-          "n" -> acc.first to acc.second + 1
-          "ne" -> acc.first + 1 to acc.second + 1
-          "sw" -> acc.first - 1 to acc.second - 1
-          "s" -> acc.first to acc.second - 1
-          "se" -> acc.first + 1 to acc.second
-          else -> acc
+      .fold(Vector2D()) { acc, value ->
+        acc + when (value) {
+          "nw" -> Vector2D(-1, 0)
+          "n" -> Vector2D(0, 1)
+          "ne" -> Vector2D(1, 1)
+          "sw" -> Vector2D(-1, -1)
+          "s" -> Vector2D(0, -1)
+          "se" -> Vector2D(1, 0)
+          else -> Vector2D()
         }
       }
       .let {
-        listOf(abs(it.first), abs(it.second), abs(it.first - it.second)).maxOrNull()
+        maxOf(abs(it.x), abs(it.y), abs(it.x - it.y))
       }
   }
 
   override fun second(): Any? {
     return data
       .split(",")
-      .fold(Triple(0, 0, 0)) { acc, value ->
-        val next = when (value) {
-          "nw" -> acc.first - 1 to acc.second
-          "n" -> acc.first to acc.second + 1
-          "ne" -> acc.first + 1 to acc.second + 1
-          "sw" -> acc.first - 1 to acc.second - 1
-          "s" -> acc.first to acc.second - 1
-          "se" -> acc.first + 1 to acc.second
-          else -> acc.first to acc.second
+      .fold(Vector2D() to 0) { (pos, speed), value ->
+        val next = pos + when (value) {
+          "nw" -> Vector2D(-1, 0)
+          "n" -> Vector2D(0, 1)
+          "ne" -> Vector2D(1, 1)
+          "sw" -> Vector2D(-1, -1)
+          "s" -> Vector2D(0, -1)
+          "se" -> Vector2D(1, 0)
+          else -> Vector2D()
         }
 
-        val dist = listOf(acc.third, abs(next.first), abs(next.second), abs(next.first - next.second)).maxOrNull()
+        val dist = maxOf(speed, abs(next.x), abs(next.y), abs(next.x - next.y))
 
-        return@fold Triple(next.first, next.second, dist ?: 0)
+        return@fold next to dist
       }
-      .third
+      .second
   }
 }
 
