@@ -16,37 +16,36 @@ object Day20 : DayOf2020(20) {
     | #  #  #  #  #  #   
   """.trimMargin().lines().map { it.toList() }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val tiles = data
-      .trim()
       .split("\n\n")
       .map { it.lines() }
       .map { (NUMBER.find(it.first())?.value?.toIntOrNull() ?: 0) to it.drop(1).map { l -> l.toList() } }
       .map { it.first to profiles(it.second) }
 
-    val profileCounts = tiles.flatMap { it.second }
-      .groupBy { it }
-      .mapValues { it.value.size }
+    val profileCounts = tiles
+      .flatMap { it.second }
+      .groupingBy { it }
+      .eachCount()
 
     val corners = tiles.filter { it.second.count { prof -> profileCounts[prof] == 1 } == 4 }
 
     return corners.map { it.first.toLong() }.reduce(Long::times)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val tiles = data
-      .trim()
       .split("\n\n")
       .map { it.lines() }
-      .map { (NUMBER.find(it.first())?.value?.toIntOrNull() ?: 0) to it.drop(1).map { l -> l.toList() } }
-      .toMap()
+      .associate { (NUMBER.find(it.first())?.value?.toIntOrNull() ?: 0) to it.drop(1).map { l -> l.toList() } }
 
     val profiles = tiles.mapValues { profiles(it.value) }
 
-    val profileCounts = profiles.values
+    val profileCounts = profiles
+      .values
       .flatten()
-      .groupBy { it }
-      .mapValues { it.value.size }
+      .groupingBy { it }
+      .eachCount()
 
     val topLeftTile = profiles.entries.first { tile ->
       tile.value.count { prof -> profileCounts[prof] == 1 } == 4

@@ -11,7 +11,7 @@ import kotlin.math.sign
 object Day17 : DayOf2021(17) {
   private val REGEX = "target area: x=(-?\\d+)\\.\\.(-?\\d+), y=(-?\\d+)\\.\\.(-?\\d+)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (fromX, toX, fromY, toY) = REGEX.find(data)?.groupValues.orEmpty().drop(1).map { it.toInt() }
 
     var best = fromY
@@ -37,7 +37,7 @@ object Day17 : DayOf2021(17) {
     return best
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (fromX, toX, fromY, toY) = REGEX.find(data)?.groupValues.orEmpty().drop(1).map { it.toInt() }
 
     return (0..toX).sumOf { x ->

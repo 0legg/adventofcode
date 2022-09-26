@@ -9,7 +9,7 @@ import net.olegg.aoc.year2015.DayOf2015
 object Day25 : DayOf2015(25) {
   private val PATTERN = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return PATTERN
       .find(data)
       ?.let { match ->

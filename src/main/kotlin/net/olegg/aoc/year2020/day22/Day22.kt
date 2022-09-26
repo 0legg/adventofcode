@@ -8,9 +8,8 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 22](https://adventofcode.com/2020/day/22)
  */
 object Day22 : DayOf2020(22) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val (p1, p2) = data
-      .trim()
       .split("\n\n")
       .map { it.lines().drop(1) }
       .map { ArrayDeque(it.map { card -> card.toInt() }) }
@@ -34,9 +33,8 @@ object Day22 : DayOf2020(22) {
     return result.mapIndexed { index, value -> (result.size - index) * value }.sum()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (p1, p2) = data
-      .trim()
       .split("\n\n")
       .map { it.lines().drop(1) }
       .map { ArrayDeque(it.map { card -> card.toInt() }) }

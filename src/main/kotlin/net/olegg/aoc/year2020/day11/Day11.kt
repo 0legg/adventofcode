@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2020.day11
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors8
+import net.olegg.aoc.utils.Directions.Companion.Neighbors8
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2020.DayOf2020
@@ -10,11 +10,8 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 11](https://adventofcode.com/2020/day/11)
  */
 object Day11 : DayOf2020(11) {
-  override fun first(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+  override fun first(): Any? {
+    val map = matrix
 
     val steps = generateSequence(map) { curr ->
       curr.mapIndexed { y, row ->
@@ -27,19 +24,16 @@ object Day11 : DayOf2020(11) {
           }
         }
       }
-    }.windowed(2)
+    }.zipWithNext()
 
     return steps
-      .first { it.first() == it.last() }
-      .first()
+      .first { it.first == it.second }
+      .first
       .sumOf { line -> line.count { it == '#' } }
   }
 
-  override fun second(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+  override fun second(): Any? {
+    val map = matrix
 
     val steps = generateSequence(map) { curr ->
       curr.mapIndexed { y, row ->
@@ -61,11 +55,11 @@ object Day11 : DayOf2020(11) {
           }
         }
       }
-    }.windowed(2)
+    }.zipWithNext()
 
     return steps
-      .first { it.first() == it.last() }
-      .first()
+      .first { it.first == it.second }
+      .first
       .sumOf { line -> line.count { it == '#' } }
   }
 }

@@ -18,8 +18,10 @@ import kotlin.math.sign
 object Day13 : DayOf2019(13) {
   private val SCORE = Vector2D(-1, 0)
 
-  override fun first(data: String): Any? {
-    val program = data.trim().parseLongs(",").toLongArray()
+  override fun first(): Any? {
+    val program = data
+      .parseLongs(",")
+      .toLongArray()
 
     val result = runBlocking {
       val input = Channel<Long>(Channel.UNLIMITED)
@@ -40,8 +42,10 @@ object Day13 : DayOf2019(13) {
     return result.count { it.value == 2 }
   }
 
-  override fun second(data: String): Any? {
-    val program = data.trim().parseLongs(",").toLongArray()
+  override fun second(): Any? {
+    val program = data
+      .parseLongs(",")
+      .toLongArray()
 
     val result = runBlocking {
       program[0] = 2L
@@ -91,29 +95,6 @@ object Day13 : DayOf2019(13) {
     }
 
     return result
-  }
-
-  @Suppress("unused")
-  private fun printField(field: Map<Vector2D, Int>) {
-    val minx = field.map { it.key.x }.minOrNull() ?: 0
-    val maxx = field.map { it.key.x }.maxOrNull() ?: 0
-    val miny = field.map { it.key.y }.minOrNull() ?: 0
-    val maxy = field.map { it.key.y }.maxOrNull() ?: 0
-
-    println(
-      (miny..maxy).joinToString(separator = "\n", prefix = "\n") { y ->
-        (minx..maxx).joinToString(separator = "") { x ->
-          when (field.getOrDefault(Vector2D(x, y), 0)) {
-            0 -> "  "
-            1 -> "██"
-            2 -> "░░"
-            3 -> "=="
-            4 -> "()"
-            else -> error("Unexpected value")
-          }
-        }
-      }
-    )
   }
 }
 

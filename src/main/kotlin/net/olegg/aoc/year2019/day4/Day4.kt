@@ -9,31 +9,27 @@ import net.olegg.aoc.year2019.DayOf2019
  * See [Year 2019, Day 4](https://adventofcode.com/2019/day/4)
  */
 object Day4 : DayOf2019(4) {
-  override fun first(data: String): Any? {
-    val (from, to) = data
-      .trim()
-      .parseInts("-")
+  override fun first(): Any? {
+    val (from, to) = data.parseInts("-")
 
     return (from..to)
       .asSequence()
       .map { it.toString() }
       .filter { it.length == 6 }
-      .filter { value -> value.windowed(2).any { it[0] == it[1] } }
-      .count { value -> value.windowed(2).none { it[0] > it[1] } }
+      .filter { value -> value.zipWithNext().any { it.first == it.second } }
+      .count { value -> value.zipWithNext().none { it.first > it.second } }
   }
 
-  override fun second(data: String): Any? {
-    val (from, to) = data
-      .trim()
-      .parseInts("-")
+  override fun second(): Any? {
+    val (from, to) = data.parseInts("-")
 
     return (from..to)
       .asSequence()
       .map { it.toString() }
       .filter { it.length == 6 }
-      .filter { value -> value.windowed(2).any { it[0] == it[1] } }
-      .filter { value -> value.windowed(2).none { it[0] > it[1] } }
-      .count { value -> value.toList().series().any { it.size == 2 } }
+      .filter { value -> value.zipWithNext().any { it.first == it.second } }
+      .filter { value -> value.zipWithNext().none { it.first > it.second } }
+      .count { value -> value.toList().series().any { it.second == 2 } }
   }
 }
 

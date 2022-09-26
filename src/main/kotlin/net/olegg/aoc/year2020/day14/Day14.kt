@@ -8,14 +8,14 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day14 : DayOf2020(14) {
   private val PATTERN = "^mem\\[(\\d+)] = (\\d+)$".toRegex()
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val memory = mutableMapOf<Long, Long>()
     var mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
-    data.trim().lines().forEach { line ->
+    lines.forEach { line ->
       when {
         line.startsWith("mask") -> {
-          mask = line.split(" = ").last()
+          mask = line.substringAfter(" = ")
         }
         line.startsWith("mem") -> {
           PATTERN.findAll(line).forEach {
@@ -32,14 +32,14 @@ object Day14 : DayOf2020(14) {
     return memory.values.sum()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val memory = mutableMapOf<Long, Long>()
     var mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
-    data.trim().lines().forEach { line ->
+    lines.forEach { line ->
       when {
         line.startsWith("mask") -> {
-          mask = line.split(" = ").last()
+          mask = line.substringAfter(" = ")
         }
         line.startsWith("mem") -> {
           PATTERN.findAll(line).forEach {

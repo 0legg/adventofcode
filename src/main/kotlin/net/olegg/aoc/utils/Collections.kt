@@ -35,21 +35,23 @@ fun <T : Any> List<T>.pairs(): Sequence<Pair<T, T>> {
 }
 
 /**
- * Splits iterable into list of subsequences such that each subsequence contains only equal items.
+ * Splits iterable into run-length encoded list.
  */
-fun <T> Iterable<T>.series(): List<List<T>> {
-  val list = mutableListOf<MutableList<T>>()
-  var store = mutableListOf<T>()
-  for (element in this) {
-    if (store.contains(element)) {
-      store.add(element)
-    } else {
-      store = mutableListOf(element)
-      list.add(store)
+fun <T> Iterable<T>.series(): List<Pair<T, Int>> {
+  return buildList {
+    var curr: T? = null
+    var count = 0
+    for (element in this@series) {
+      if (element == curr) {
+        count++
+      } else {
+        curr?.let { add(it to count) }
+        curr = element
+        count = 1
+      }
     }
+    curr?.let { add(it to count) }
   }
-
-  return list
 }
 
 /**

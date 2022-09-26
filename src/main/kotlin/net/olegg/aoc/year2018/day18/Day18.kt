@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2018.day18
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors8
+import net.olegg.aoc.utils.Directions.Companion.Neighbors8
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2018.DayOf2018
@@ -10,25 +10,16 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 18](https://adventofcode.com/2018/day/18)
  */
 object Day18 : DayOf2018(18) {
-  override fun first(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
-
-    return solve(map, 10)
+  override fun first(): Any? {
+    return solve(10)
   }
 
-  override fun second(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
-
-    return solve(map, 1000000000)
+  override fun second(): Any? {
+    return solve(1000000000)
   }
 
-  private fun solve(map: List<List<Char>>, minutes: Int): Int {
+  private fun solve(minutes: Int): Int {
+    val map = matrix
     val cache = mutableMapOf(map.joinToString(separator = "") { it.joinToString(separator = "") } to 0)
     val after = (1..minutes).fold(map) { acc, round ->
       val curr = acc.mapIndexed { y, row ->

@@ -18,10 +18,8 @@ object Day24 : DayOf2020(24) {
     "se" to Vector3D(0, -1, 1),
   )
 
-  override fun first(data: String): Any? {
-    val items = data
-      .trim()
-      .lines()
+  override fun first(): Any? {
+    val items = lines
       .map { line ->
         pattern.findAll(line).map { it.groupValues[1] }.toList()
       }
@@ -33,10 +31,8 @@ object Day24 : DayOf2020(24) {
     return tiles.groupBy { it }.count { it.value.size % 2 == 1 }
   }
 
-  override fun second(data: String): Any? {
-    val items = data
-      .trim()
-      .lines()
+  override fun second(): Any? {
+    val items = lines
       .map { line ->
         pattern.findAll(line).map { it.groupValues[1] }.toList()
       }
@@ -50,9 +46,10 @@ object Day24 : DayOf2020(24) {
       .keys
 
     val result = (0 until 100).fold(start) { prev, _ ->
-      val neighbors = prev.flatMap { cell -> dirs.values.map { it + cell } }
-        .groupBy { it }
-        .mapValues { it.value.size }
+      val neighbors = prev
+        .flatMap { cell -> dirs.values.map { it + cell } }
+        .groupingBy { it }
+        .eachCount()
 
       return@fold (prev.filter { neighbors[it] in 1..2 } + (neighbors.filterValues { it == 2 }.keys - prev)).toSet()
     }

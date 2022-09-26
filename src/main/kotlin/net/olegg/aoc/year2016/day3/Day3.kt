@@ -7,23 +7,26 @@ import net.olegg.aoc.year2016.DayOf2016
  * See [Year 2016, Day 3](https://adventofcode.com/2016/day/3)
  */
 object Day3 : DayOf2016(3) {
-  val DIGITS = "\\d+".toRegex()
+  private val DIGITS = "\\d+".toRegex()
 
-  override fun first(data: String): Any? {
-    return data
-      .lines()
+  override fun first(): Any? {
+    return lines
       .map { line ->
-        DIGITS.findAll(line).map { it.value.toInt() }.toList().sorted()
+        DIGITS.findAll(line)
+          .map { it.value.toInt() }
+          .toList()
+          .sorted()
       }
       .filter { it.size == 3 }
       .count { it[0] + it[1] > it[2] }
   }
 
-  override fun second(data: String): Any? {
-    val rows = data
-      .lines()
+  override fun second(): Any? {
+    val rows = lines
       .map { line ->
-        DIGITS.findAll(line).map { it.value.toInt() }.toList()
+        DIGITS.findAll(line)
+          .map { it.value.toInt() }
+          .toList()
       }
 
     val columns = (1..rows.size / 3)

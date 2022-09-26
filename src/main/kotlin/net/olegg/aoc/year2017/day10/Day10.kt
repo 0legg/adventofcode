@@ -8,9 +8,8 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 10](https://adventofcode.com/2017/day/10)
  */
 object Day10 : DayOf2017(10) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
-      .trim()
       .parseInts(",")
       .foldIndexed(List(256) { it } to 0) { index, acc, value ->
         val prev = acc.first + acc.first
@@ -25,9 +24,8 @@ object Day10 : DayOf2017(10) {
       .let { it[0] * it[1] }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return data
-      .trim()
       .map { it.code }
       .let { it + listOf(17, 31, 73, 47, 23) }
       .let { list -> (0 until 64).fold(emptyList<Int>()) { acc, _ -> acc + list } }
@@ -44,7 +42,7 @@ object Day10 : DayOf2017(10) {
       .chunked(16) { chunk ->
         chunk.reduce { acc, value -> acc xor value }
       }
-      .joinToString(separator = "") { "${(it / 16).toString(16)}${(it % 16).toString(16)}" }
+      .joinToString(separator = "") { "%02x".format(it) }
   }
 }
 

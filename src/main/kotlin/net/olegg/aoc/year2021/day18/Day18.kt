@@ -9,9 +9,8 @@ import net.olegg.aoc.year2021.day18.Day18.Expression.Tuple
  * See [Year 2021, Day 18](https://adventofcode.com/2021/day/18)
  */
 object Day18 : DayOf2021(18) {
-  override fun first(data: String): Any? {
-    return data.trim()
-      .lines()
+  override fun first(): Any? {
+    return lines
       .map { line ->
         parseNumber(ArrayDeque(line.toList()))
       }
@@ -19,12 +18,10 @@ object Day18 : DayOf2021(18) {
       .magnitude
   }
 
-  override fun second(data: String): Any? {
-    val numbers = data.trim()
-      .lines()
-      .map { line ->
-        parseNumber(ArrayDeque(line.toList()))
-      }
+  override fun second(): Any? {
+    val numbers = lines.map { line ->
+      parseNumber(ArrayDeque(line.toList()))
+    }
 
     return numbers.maxOf { a ->
       numbers.maxOf { b ->

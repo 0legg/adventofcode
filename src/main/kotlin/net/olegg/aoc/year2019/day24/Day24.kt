@@ -1,23 +1,21 @@
 package net.olegg.aoc.year2019.day24
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
 import net.olegg.aoc.utils.Directions.U
-import net.olegg.aoc.utils.Neighbors4
 import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2019.DayOf2019
 
 /**
  * See [Year 2019, Day 24](https://adventofcode.com/2019/day/24)
  */
 object Day24 : DayOf2019(24) {
-  override fun first(data: String): Any? {
-    val start = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+  override fun first(): Any? {
+    val start = matrix
 
     val visited = mutableSetOf<String>()
     var curr = start
@@ -45,11 +43,8 @@ object Day24 : DayOf2019(24) {
       .toBigInteger(2)
   }
 
-  override fun second(data: String): Any? {
-    val start = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+  override fun second(): Any? {
+    val start = matrix
 
     val size = start.size
     val center = Vector2D(size / 2, size / 2)
@@ -102,12 +97,6 @@ object Day24 : DayOf2019(24) {
   }
 
   private fun List<List<Char>>.footprint() = joinToString("") { it.joinToString("") }
-
-  private operator fun <T> List<List<T>>.get(v: Vector2D): T? = when {
-    v.y !in indices -> null
-    v.x !in this[v.y].indices -> null
-    else -> this[v.y][v.x]
-  }
 }
 
 fun main() = SomeDay.mainify(Day24)

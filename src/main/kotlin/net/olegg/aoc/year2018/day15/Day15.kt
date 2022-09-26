@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2018.day15
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.set
@@ -11,19 +11,15 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 15](https://adventofcode.com/2018/day/15)
  */
 object Day15 : DayOf2018(15) {
-  override fun first(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+  override fun first(): Any? {
+    val map = matrix
 
     var characters = map
-      .flatMapIndexed { y, row ->
+      .flatMapIndexedTo(mutableListOf()) { y, row ->
         row.mapIndexedNotNull { x, c ->
           if (c in listOf('E', 'G')) Character(Vector2D(x, y), c, 3, 200) else null
         }
       }
-      .toMutableList()
 
     val walls = map
       .map { row ->
@@ -87,8 +83,7 @@ object Day15 : DayOf2018(15) {
         if (minDistance > 0) {
           val nearest = adjacent
             .filter { currMap[it] == minDistance }
-            .sortedWith(compareBy({ it.y }, { it.x }))
-            .first()
+            .minWith(compareBy({ it.y }, { it.x }))
 
           val moves = mutableListOf<Vector2D>()
 
@@ -106,11 +101,8 @@ object Day15 : DayOf2018(15) {
             }
           }
 
-          val move = moves.minWithOrNull(compareBy({ it.y }, { it.x }))
-
-          move?.let {
-            character.pos = move
-          }
+          val move = moves.minWith(compareBy({ it.y }, { it.x }))
+          character.pos = move
         }
 
         val canHit = Neighbors4.map { character.pos + it.step }
@@ -127,11 +119,8 @@ object Day15 : DayOf2018(15) {
     return null
   }
 
-  override fun second(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+  override fun second(): Any? {
+    val map = matrix
 
     val walls = map
       .map { row ->
@@ -140,7 +129,7 @@ object Day15 : DayOf2018(15) {
 
     return (3..200).first { elvenHit ->
       var characters = map
-        .mapIndexed { y, row ->
+        .flatMapIndexedTo(mutableListOf()) { y, row ->
           row.mapIndexedNotNull { x, c ->
             when (c) {
               'E' -> Character(Vector2D(x, y), c, elvenHit, 200)
@@ -149,8 +138,6 @@ object Day15 : DayOf2018(15) {
             }
           }
         }
-        .flatten()
-        .toMutableList()
 
       val elves = characters.count { it.type == 'E' }
 
@@ -220,8 +207,7 @@ object Day15 : DayOf2018(15) {
           if (minDistance > 0) {
             val nearest = adjacent
               .filter { currMap[it] == minDistance }
-              .sortedWith(compareBy({ it.y }, { it.x }))
-              .first()
+              .minWith(compareBy({ it.y }, { it.x }))
 
             val moves = mutableListOf<Vector2D>()
 
@@ -239,11 +225,8 @@ object Day15 : DayOf2018(15) {
               }
             }
 
-            val move = moves.minWithOrNull(compareBy({ it.y }, { it.x }))
-
-            move?.let {
-              character.pos = it
-            }
+            val move = moves.minWith(compareBy({ it.y }, { it.x }))
+            character.pos = move
           }
 
           val canHit = Neighbors4.map { character.pos + it.step }

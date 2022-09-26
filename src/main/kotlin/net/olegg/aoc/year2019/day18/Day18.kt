@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2019.day18
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.find
 import net.olegg.aoc.utils.get
@@ -14,11 +14,8 @@ import java.util.PriorityQueue
  * See [Year 2019, Day 18](https://adventofcode.com/2019/day/18)
  */
 object Day18 : DayOf2019(18) {
-  override fun first(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+  override fun first(): Any? {
+    val map = matrix
 
     val keys = (('a'..'z') + '@')
       .associateWith { checkNotNull(map.find(it)) }
@@ -94,11 +91,8 @@ object Day18 : DayOf2019(18) {
     return best
   }
 
-  override fun second(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toMutableList() }
+  override fun second(): Any? {
+    val map = matrix.map { it.toMutableList() }
     val start = checkNotNull(map.find('@'))
     (-1..1).forEach { y ->
       (-1..1).forEach { x ->

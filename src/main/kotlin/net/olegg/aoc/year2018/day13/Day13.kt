@@ -1,9 +1,9 @@
 package net.olegg.aoc.year2018.day13
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.CCW
-import net.olegg.aoc.utils.CW
 import net.olegg.aoc.utils.Directions
+import net.olegg.aoc.utils.Directions.Companion.CCW
+import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
@@ -30,11 +30,8 @@ object Day13 : DayOf2018(13) {
     R to D
   )
 
-  override fun first(data: String): Any? {
-    val input = data
-      .lines()
-      .filterNot { it.isEmpty() }
-      .map { it.toList() }
+  override fun first(): Any? {
+    val input = matrix
 
     val tracks = input
       .map { line ->
@@ -93,11 +90,8 @@ object Day13 : DayOf2018(13) {
     return null
   }
 
-  override fun second(data: String): Any? {
-    val input = data
-      .lines()
-      .filterNot { it.isEmpty() }
-      .map { it.toList() }
+  override fun second(): Any? {
+    val input = matrix
 
     val tracks = input
       .map { line ->

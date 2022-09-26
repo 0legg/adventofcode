@@ -20,11 +20,11 @@ object Day3 : DayOf2015(3) {
   )
   private val moves = data.map { mapping[it]?.step ?: Vector2D() }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return visit(moves).size
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (even, odd) = moves
       .withIndex()
       .partition { it.index % 2 == 0 }
@@ -32,7 +32,7 @@ object Day3 : DayOf2015(3) {
   }
 
   private fun visit(moves: List<Vector2D>): Set<Vector2D> {
-    return moves.runningFold(Vector2D()) { pos, move -> pos + move }.toSet()
+    return moves.scan(Vector2D()) { pos, move -> pos + move }.toSet()
   }
 }
 

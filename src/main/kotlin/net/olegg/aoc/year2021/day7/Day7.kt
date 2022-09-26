@@ -9,19 +9,19 @@ import kotlin.math.abs
  * See [Year 2021, Day 7](https://adventofcode.com/2021/day/7)
  */
 object Day7 : DayOf2021(7) {
-  override fun first(data: String): Any? {
-    val positions = data.trim().parseInts(",")
+  override fun first(): Any? {
+    val positions = data.parseInts(",")
 
-    val min = positions.minOf { it }
-    val max = positions.maxOf { it }
+    val min = positions.min()
+    val max = positions.max()
 
     return (min..max).minOf { pos ->
       positions.sumOf { abs(it - pos) }
     }
   }
 
-  override fun second(data: String): Any? {
-    val positions = data.trim().parseInts(",")
+  override fun second(): Any? {
+    val positions = data.parseInts(",")
 
     val min = positions.minOf { it }
     val max = positions.maxOf { it }

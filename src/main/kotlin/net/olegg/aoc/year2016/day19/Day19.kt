@@ -9,7 +9,7 @@ import java.util.LinkedList
  * See [Year 2016, Day 19](https://adventofcode.com/2016/day/19)
  */
 object Day19 : DayOf2016(19) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val count = data.toInt()
     val elves = BitSet(count)
     elves.set(0, count)
@@ -23,7 +23,7 @@ object Day19 : DayOf2016(19) {
     return (position + 1)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val count = data.toInt()
     val elves = LinkedList((1..count).toList())
 

@@ -8,12 +8,10 @@ import java.math.BigInteger
  * See [Year 2019, Day 22](https://adventofcode.com/2019/day/22)
  */
 object Day22 : DayOf2019(22) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val deckSize = BigInteger.valueOf(10007L)
 
-    val input = data
-      .trim()
-      .lines()
+    val input = lines
       .map {
         val split = it.split(" ")
         when (split[1]) {
@@ -28,12 +26,10 @@ object Day22 : DayOf2019(22) {
     return shuffle(BigInteger.valueOf(2019L), deckSize, BigInteger.ONE, compressed)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val deckSize = BigInteger.valueOf(119315717514047L)
 
-    val input = data
-      .trim()
-      .lines()
+    val input = lines
       .map {
         val split = it.split(" ")
         when (split[1]) {

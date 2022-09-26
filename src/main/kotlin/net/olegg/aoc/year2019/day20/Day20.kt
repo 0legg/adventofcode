@@ -1,19 +1,17 @@
 package net.olegg.aoc.year2019.day20
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2019.DayOf2019
 
 /**
  * See [Year 2019, Day 20](https://adventofcode.com/2019/day/20)
  */
 object Day20 : DayOf2019(20) {
-  override fun first(data: String): Any? {
-    val map = data
-      .lines()
-      .filter { it.isNotEmpty() }
-      .map { it.toList() }
+  override fun first(): Any? {
+    val map = matrix
 
     val portals = mutableMapOf<String, MutableList<Vector2D>>()
 
@@ -47,7 +45,8 @@ object Day20 : DayOf2019(20) {
       }
     }
 
-    val routes = portals.filter { it.value.size == 2 }
+    val routes = portals
+      .filter { it.value.size == 2 }
       .flatMap { listOf(it.value.first() to it.value.last(), it.value.last() to it.value.first()) }
       .toMap()
 
@@ -74,11 +73,8 @@ object Day20 : DayOf2019(20) {
     return Int.MAX_VALUE
   }
 
-  override fun second(data: String): Any? {
-    val map = data
-      .lines()
-      .filter { it.isNotEmpty() }
-      .map { it.toList() }
+  override fun second(): Any? {
+    val map = matrix
 
     val portals = mutableMapOf<String, MutableList<Pair<Vector2D, Int>>>()
 
@@ -116,7 +112,8 @@ object Day20 : DayOf2019(20) {
       }
     }
 
-    val routes = portals.filter { it.value.size == 2 }
+    val routes = portals
+      .filter { it.value.size == 2 }
       .map { it.value.first() to it.value.last() }
       .flatMap { (a, b) ->
         listOf(
@@ -138,9 +135,10 @@ object Day20 : DayOf2019(20) {
         return step
       }
 
-      val next = Neighbors4.map { (it.step + point) to level } + listOfNotNull(routes[point])
+      val next = Neighbors4.map { (it.step + point) to level } +
+        listOfNotNull(routes[point]).map { it.first to level + it.second }
 
-      next.map { it.first to level + it.second }
+      next
         .filter { map[it.first] == '.' }
         .filter { it.second >= 0 }
         .filter { it !in visited }
@@ -151,12 +149,6 @@ object Day20 : DayOf2019(20) {
     }
 
     return Int.MAX_VALUE
-  }
-
-  private operator fun <T> List<List<T>>.get(v: Vector2D): T? = when {
-    v.y !in indices -> null
-    v.x !in this[v.y].indices -> null
-    else -> this[v.y][v.x]
   }
 }
 

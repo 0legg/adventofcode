@@ -1,11 +1,11 @@
 package net.olegg.aoc.year2018.day20
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
 import net.olegg.aoc.utils.Directions.U
-import net.olegg.aoc.utils.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2018.DayOf2018
 
@@ -21,13 +21,13 @@ object Day20 : DayOf2018(20) {
     'S' to D
   )
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val route = data.trim('^', '$', ' ', '\n')
 
-    return visitAll(route).values.maxOrNull()
+    return visitAll(route).values.max()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val route = data.trim('^', '$', ' ', '\n')
 
     return visitAll(route).count { it.value >= 1000 }

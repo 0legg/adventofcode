@@ -10,8 +10,8 @@ object Day24 : DayOf2021(24) {
   private val MAPPING = listOf('w', 'x', 'y', 'z').withIndex().associate { it.value to it.index }
   private val DIGITS = 1..9
 
-  override fun first(data: String): Any? {
-    return findDiffs(data)
+  override fun first(): Any? {
+    return findDiffs()
       .flatMap { (first, second, diff) ->
         val match = DIGITS.filter { it in DIGITS && it + diff in DIGITS }
           .maxOf { it }
@@ -22,8 +22,8 @@ object Day24 : DayOf2021(24) {
       .joinToString("")
   }
 
-  override fun second(data: String): Any? {
-    return findDiffs(data)
+  override fun second(): Any? {
+    return findDiffs()
       .flatMap { (first, second, diff) ->
         val match = DIGITS.filter { it in DIGITS && it + diff in DIGITS }
           .minOf { it }
@@ -34,8 +34,8 @@ object Day24 : DayOf2021(24) {
       .joinToString("")
   }
 
-  private fun findDiffs(data: String): List<Triple<Int, Int, Int>> {
-    val rawOps = data.trim()
+  private fun findDiffs(): List<Triple<Int, Int, Int>> {
+    val rawOps = data
       .split("inp w")
       .filter { it.isNotBlank() }
       .map { block ->

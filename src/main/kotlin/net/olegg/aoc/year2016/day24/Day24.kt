@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2016.day24
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.permutations
 import net.olegg.aoc.year2016.DayOf2016
@@ -10,8 +10,8 @@ import net.olegg.aoc.year2016.DayOf2016
  * See [Year 2016, Day 24](https://adventofcode.com/2016/day/24)
  */
 object Day24 : DayOf2016(24) {
-  override fun first(data: String): Any? {
-    val map = data.lines().map { it.toCharArray().toTypedArray() }
+  override fun first(): Any? {
+    val map = matrix
 
     val locations = ('0'..'7').flatMap { index ->
       map.mapIndexedNotNull { row, chars ->
@@ -51,8 +51,8 @@ object Day24 : DayOf2016(24) {
       }
   }
 
-  override fun second(data: String): Any? {
-    val map = data.lines().map { it.toCharArray().toTypedArray() }
+  override fun second(): Any? {
+    val map = matrix
 
     val locations = ('0'..'7').flatMap { index ->
       map.mapIndexedNotNull { row, chars ->

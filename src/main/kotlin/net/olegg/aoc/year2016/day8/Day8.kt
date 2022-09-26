@@ -7,26 +7,31 @@ import net.olegg.aoc.year2016.DayOf2016
  * See [Year 2016, Day 8](https://adventofcode.com/2016/day/8)
  */
 object Day8 : DayOf2016(8) {
-  private val PATTERN = "([^\\d]*)([\\d]+)[^\\d]*(\\d+)[^\\d]*".toRegex()
+  private val PATTERN = "(\\D*)(\\d+)\\D*(\\d+)\\D*".toRegex()
 
-  override fun first(data: String): Any? {
-
-    return applyOperations(50, 6, data.trim().lines())
+  override fun first(): Any? {
+    return applyOperations()
       .sumOf { row -> row.count { it } }
   }
 
-  override fun second(data: String): Any? {
-    return applyOperations(50, 6, data.trim().lines())
+  override fun second(): Any? {
+    return applyOperations()
       .joinToString(separator = "\n", prefix = "\n") { row ->
-        row.joinToString(separator = "") { if (it) "#" else "." }
+        row.joinToString(separator = "") { if (it) "██" else ".." }
       }
   }
 
-  private fun applyOperations(width: Int, height: Int, ops: List<String>): Array<BooleanArray> {
+  private fun applyOperations(): Array<BooleanArray> {
+    val width = 50
+    val height = 6
     val screen = Array(height) { BooleanArray(width) }
-    ops
-      .mapNotNull { PATTERN.matchEntire(it) }
-      .map { Triple(it.groupValues[1], it.groupValues[2].toInt(), it.groupValues[3].toInt()) }
+    lines
+      .mapNotNull { line ->
+        PATTERN.matchEntire(line)?.let { match ->
+          val (command, first, second) = match.destructured
+          Triple(command, first.toInt(), second.toInt())
+        }
+      }
       .forEach { (command, first, second) ->
         when (command) {
           "rect " ->
@@ -45,14 +50,6 @@ object Day8 : DayOf2016(8) {
       }
 
     return screen
-  }
-
-  class Screen(width: Int, height: Int) {
-    val data = Array(height) { BooleanArray(width) }
-
-    fun fill(width: Int, height: Int) {
-      (0 until height).forEach { y -> data[y].fill(true, 0, width) }
-    }
   }
 }
 

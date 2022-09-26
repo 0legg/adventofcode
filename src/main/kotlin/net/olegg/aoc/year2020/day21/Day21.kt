@@ -8,10 +8,8 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 21](https://adventofcode.com/2020/day/21)
  */
 object Day21 : DayOf2020(21) {
-  override fun first(data: String): Any? {
-    val foods = data
-      .trim()
-      .lines()
+  override fun first(): Any? {
+    val foods = lines
       .map { it.replace("(", "").replace(")", "").replace(",", "") }
       .map { it.split("contains").toPair() }
       .map { it.first.trim().split(" ").toSet() to it.second.trim().split(" ").toSet() }
@@ -44,13 +42,13 @@ object Day21 : DayOf2020(21) {
     val badItems = finalAllergens.values.toSet()
     val safeItems = allItems - badItems
 
-    return foods.flatMap { it.first }.count { it in safeItems }
+    return foods
+      .flatMap { it.first }
+      .count { it in safeItems }
   }
 
-  override fun second(data: String): Any? {
-    val foods = data
-      .trim()
-      .lines()
+  override fun second(): Any? {
+    val foods = lines
       .map { it.replace("(", "").replace(")", "").replace(",", "") }
       .map { it.split("contains").toPair() }
       .map { it.first.trim().split(" ").toSet() to it.second.trim().split(" ").toSet() }
@@ -80,7 +78,10 @@ object Day21 : DayOf2020(21) {
       }
     }
 
-    return finalAllergens.toList().sortedBy { it.first }.joinToString(",") { it.second }
+    return finalAllergens
+      .toList()
+      .sortedBy { it.first }
+      .joinToString(",") { it.second }
   }
 }
 

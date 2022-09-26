@@ -17,19 +17,18 @@ object Day23 : DayOf2021(23) {
     'D' to 1000,
   )
 
-  override fun first(data: String): Any? {
-    return solve(data.trim().lines())
+  override fun first(): Any? {
+    return solve(lines)
   }
 
-  override fun second(data: String): Any? {
-    val base = data.trim().lines()
+  override fun second(): Any? {
     val insert = """
       |  #D#C#B#A#
       |  #D#B#A#C#
     """.trimMargin().lines()
 
     return solve(
-      base.take(3) + insert + base.drop(3)
+      lines.take(3) + insert + lines.drop(3)
     )
   }
 

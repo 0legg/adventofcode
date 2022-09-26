@@ -15,11 +15,11 @@ import net.olegg.aoc.year2015.DayOf2015
 object Day12 : DayOf2015(12) {
   private val json = Json.parseToJsonElement(data)
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return sumRecursive(json).toString()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return sumRecursiveRed(json).toString()
   }
 

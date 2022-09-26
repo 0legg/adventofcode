@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2020.day12
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.CCW
-import net.olegg.aoc.utils.CW
+import net.olegg.aoc.utils.Directions.Companion.CCW
+import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
@@ -14,11 +14,8 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 12](https://adventofcode.com/2020/day/12)
  */
 object Day12 : DayOf2020(12) {
-  override fun first(data: String): Any? {
-    val route = data
-      .trim()
-      .lines()
-      .map { it.first() to it.drop(1).toInt() }
+  override fun first(): Any? {
+    val route = lines.map { it.first() to it.drop(1).toInt() }
 
     val target = route.fold(Vector2D() to R) { acc, (op, size) ->
       when (op) {
@@ -36,11 +33,8 @@ object Day12 : DayOf2020(12) {
     return target.first.manhattan()
   }
 
-  override fun second(data: String): Any? {
-    val route = data
-      .trim()
-      .lines()
-      .map { it.first() to it.drop(1).toInt() }
+  override fun second(): Any? {
+    val route = lines.map { it.first() to it.drop(1).toInt() }
 
     val target = route.fold(Vector2D() to Vector2D(10, -1)) { acc, (op, size) ->
       when (op) {

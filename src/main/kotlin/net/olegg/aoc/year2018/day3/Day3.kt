@@ -7,13 +7,10 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 3](https://adventofcode.com/2018/day/3)
  */
 object Day3 : DayOf2018(3) {
-  override fun first(data: String): Any? {
-    val requests = data
-      .trim()
-      .lines()
-      .mapNotNull { Request.fromString(it) }
-    val width = requests.map { it.left + it.width }.maxOrNull() ?: 0
-    val height = requests.map { it.top + it.height }.maxOrNull() ?: 0
+  override fun first(): Any? {
+    val requests = lines.mapNotNull { Request.fromString(it) }
+    val width = requests.maxOf { it.left + it.width }
+    val height = requests.maxOf { it.top + it.height }
 
     val field = Array(height) { Array(width) { 0 } }
 
@@ -28,11 +25,8 @@ object Day3 : DayOf2018(3) {
     return field.sumOf { row -> row.count { it > 1 } }
   }
 
-  override fun second(data: String): Any? {
-    val requests = data
-      .trim()
-      .lines()
-      .mapNotNull { Request.fromString(it) }
+  override fun second(): Any? {
+    val requests = lines.mapNotNull { Request.fromString(it) }
 
     return requests
       .first { request -> requests.all { it.notIntersects(request) } }
@@ -57,7 +51,7 @@ object Day3 : DayOf2018(3) {
             left = tokens[1],
             top = tokens[2],
             width = tokens[3],
-            height = tokens[4]
+            height = tokens[4],
           )
         }
       }

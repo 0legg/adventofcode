@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2017.day14
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.set
@@ -11,16 +11,19 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 14](https://adventofcode.com/2017/day/14)
  */
 object Day14 : DayOf2017(14) {
-  override fun first(data: String): Any? {
-    val key = data.trimIndent()
+  override fun first(): Any? {
     return (0..127)
-      .map { "$key-$it" }
+      .map { "$data-$it" }
       .sumOf { line ->
         line
           .map { it.code }
           .let { it + listOf(17, 31, 73, 47, 23) }
           .let { list ->
-            (0 until 64).fold(emptyList<Int>()) { acc, _ -> acc + list }
+            buildList(list.size * 64) {
+              repeat(64) {
+                addAll(list)
+              }
+            }
           }
           .foldIndexed(List(256) { it } to 0) { index, acc, value ->
             val prev = acc.first + acc.first
@@ -37,16 +40,20 @@ object Day14 : DayOf2017(14) {
       }
   }
 
-  override fun second(data: String): Any? {
-    val key = data.trimIndent()
-
+  override fun second(): Any? {
     val result = (0..127)
-      .map { "$key-$it" }
+      .map { "$data-$it" }
       .map { line ->
         line
           .map { it.code }
           .let { it + listOf(17, 31, 73, 47, 23) }
-          .let { list -> (0 until 64).fold(emptyList<Int>()) { acc, _ -> acc + list } }
+          .let { list ->
+            buildList(list.size * 64) {
+              repeat(64) {
+                addAll(list)
+              }
+            }
+          }
           .foldIndexed(List(256) { it } to 0) { index, acc, value ->
             val prev = acc.first + acc.first
             val curr = prev.subList(0, acc.second) +
@@ -77,7 +84,7 @@ object Day14 : DayOf2017(14) {
           .map { curr + it.step }
           .filter { result[it] == '1' }
           .forEach { point ->
-            result[point.y][point.x] = '0'
+            result[point] = '0'
             toVisit += point
           }
       }

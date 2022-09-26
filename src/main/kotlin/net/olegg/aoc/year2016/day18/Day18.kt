@@ -15,15 +15,15 @@ object Day18 : DayOf2016(18) {
     "\\.\\.\\^".toRegex()
   )
 
-  override fun first(data: String): Any? {
-    return solve(data, 40)
+  override fun first(): Any? {
+    return solve(40)
   }
 
-  override fun second(data: String): Any? {
-    return solve(data, 400000)
+  override fun second(): Any? {
+    return solve(400000)
   }
 
-  fun solve(data: String, rows: Int): Int {
+  fun solve(rows: Int): Int {
     return (1 until rows).fold(".$data." to data.count { it == '.' }) { acc, _ ->
       val traps = patterns.flatMap { pattern -> pattern.findAll(acc.first).map { it.range.first + 1 }.toList() }
       val row = acc.first.indices.map { if (traps.contains(it)) '^' else '.' }.joinToString(separator = "")

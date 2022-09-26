@@ -19,8 +19,8 @@ object Day25 : DayOf2017(25) {
       "- Continue with state ([A-Z]+)\\."
     ).toRegex()
 
-  override fun first(data: String): Any? {
-    val sections = data.trim().split("\n\n")
+  override fun first(): Any? {
+    val sections = data.split("\n\n")
 
     val (initialState, iterations) = HEADER_PATTERN.find(sections[0])?.destructured ?: error("Unable to parse")
 

@@ -9,10 +9,8 @@ import net.olegg.aoc.year2019.DayOf2019
 object Day14 : DayOf2019(14) {
   private const val ORE = 1000000000000L
 
-  override fun first(data: String): Any? {
-    val forms = data
-      .trim()
-      .lines()
+  override fun first(): Any? {
+    val forms = lines
       .map { line ->
         val raw = line.replace(" => ", ", ")
           .split(", ")
@@ -52,10 +50,8 @@ object Day14 : DayOf2019(14) {
     return stock["ORE"]
   }
 
-  override fun second(data: String): Any? {
-    val forms = data
-      .trim()
-      .lines()
+  override fun second(): Any? {
+    val forms = lines
       .map { line ->
         val raw = line.replace(" => ", ", ")
           .split(", ")
