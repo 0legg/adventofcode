@@ -24,11 +24,11 @@ object Day11 : DayOf2020(11) {
           }
         }
       }
-    }.windowed(2)
+    }.zipWithNext()
 
     return steps
-      .first { it.first() == it.last() }
-      .first()
+      .first { it.first == it.second }
+      .first
       .sumOf { line -> line.count { it == '#' } }
   }
 
@@ -55,11 +55,11 @@ object Day11 : DayOf2020(11) {
           }
         }
       }
-    }.windowed(2)
+    }.zipWithNext()
 
     return steps
-      .first { it.first() == it.last() }
-      .first()
+      .first { it.first == it.second }
+      .first
       .sumOf { line -> line.count { it == '#' } }
   }
 }

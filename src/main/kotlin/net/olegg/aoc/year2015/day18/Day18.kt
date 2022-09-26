@@ -35,9 +35,7 @@ object Day18 : DayOf2015(18) {
 
   private fun move(field: Set<Vector2D>): Set<Vector2D> {
     val neighbors = field
-      .flatMap { cell ->
-        Neighbors8.map { cell + it.step }
-      }
+      .flatMap { cell -> Neighbors8.map { cell + it.step } }
       .filter { matrix.fit(it) }
       .groupingBy { it }
       .eachCount()

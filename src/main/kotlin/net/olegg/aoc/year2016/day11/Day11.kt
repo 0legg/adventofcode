@@ -90,7 +90,7 @@ object Day11 : DayOf2016(11) {
     return queue.first { it.first == all }.second
   }
 
-  fun compress(state: List<Pair<Set<Int>, Set<Int>>>, elevator: Int, types: Int): Day11State {
+  private fun compress(state: List<Pair<Set<Int>, Set<Int>>>, elevator: Int, types: Int): Day11State {
     val data = IntArray(types * 2 + 1)
     data[0] = elevator
     state.forEachIndexed { floor, pair ->
@@ -98,7 +98,7 @@ object Day11 : DayOf2016(11) {
       pair.second.forEach { data[it * 2 + 2] = floor }
     }
 
-    return data.foldIndexed(0) { index: Int, acc: Int, i: Int -> acc or (i shl (index * 2)) }
+    return data.foldIndexed(0) { index, acc, value -> acc or (value shl (index * 2)) }
   }
 
   fun decompress(compressed: Pair<Day11State, Int>, types: Int): Triple<List<Pair<Set<Int>, Set<Int>>>, Int, Int> {
@@ -112,7 +112,7 @@ object Day11 : DayOf2016(11) {
     return Triple(
       decompressed,
       elevator,
-      compressed.second
+      compressed.second,
     )
   }
 }

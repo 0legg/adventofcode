@@ -10,16 +10,7 @@ object AsmBunny {
     return sequence {
       val code = program.map { it.split("\\s+".toRegex()).toMutableList() }.toMutableList()
       var position = 0
-      var opcount = 0L
-      var prev = Instant.now()
       while (position in code.indices) {
-        opcount += 1
-        if (opcount % 100_000_000L == 0L) {
-          val curr = Instant.now()
-          println("opcount ${opcount / 1_000_000L}M, spent ${Duration.between(prev, curr).toMillis()}ms")
-          prev = curr
-        }
-
         val parsed = code[position]
 
         position += if (validate(parsed)) when (parsed[0]) {
@@ -50,7 +41,9 @@ object AsmBunny {
           "out" -> {
             yield(value(parsed[1], registers)); 1
           }
-          else -> TODO("unimplemented")
+          else -> {
+            1
+          }
         } else {
           1
         }

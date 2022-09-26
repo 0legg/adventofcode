@@ -58,7 +58,7 @@ object Day13 : DayOf2021(13) {
     val maxY = final.maxOf { it.y }
     return (minY..maxY).joinToString(prefix = "\n", separator = "\n") { y ->
       (minX..maxX).joinToString(separator = "") { x ->
-        if (Vector2D(x, y) in final) "##" else ".."
+        if (Vector2D(x, y) in final) "██" else ".."
       }
     }
   }

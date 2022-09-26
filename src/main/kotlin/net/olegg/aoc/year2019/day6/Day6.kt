@@ -12,7 +12,7 @@ object Day6 : DayOf2019(6) {
       .mapTo(mutableListOf()) { line -> line.split(")").let { it.first() to it.last() } }
 
     val available = orbits.map { it.second }.toMutableSet()
-    val counts = orbits.flatMap { it.toList() }.map { it to 0 }.toMap().toMutableMap()
+    val counts = orbits.flatMap { it.toList() }.associateWithTo(mutableMapOf()) { 0 }
 
     while (available.isNotEmpty()) {
       val curr = available.first { planet -> orbits.none { it.first == planet } }

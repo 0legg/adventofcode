@@ -9,7 +9,9 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day3 : DayOf2020(3) {
   override fun first(): Any? {
-    return lines.mapIndexed { row, s -> s[(row * 3) % s.length] }.count { it == '#' }
+    return lines
+      .mapIndexed { row, s -> s[(row * 3) % s.length] }
+      .count { it == '#' }
   }
 
   override fun second(): Any? {
@@ -26,7 +28,9 @@ object Day3 : DayOf2020(3) {
     }
 
     val values = paths.map { sequence ->
-      sequence.map { lines[it.y][it.x % lines[it.y].length] }.count { it == '#' }.toLong()
+      sequence.map { lines[it.y][it.x % lines[it.y].length] }
+        .count { it == '#' }
+        .toLong()
     }
 
     return values.reduce { a, b -> a * b }

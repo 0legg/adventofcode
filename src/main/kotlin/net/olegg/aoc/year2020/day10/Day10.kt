@@ -12,8 +12,9 @@ object Day10 : DayOf2020(10) {
     val adapters = data.parseInts(delimiters = "\n").sorted()
     val jolts = listOf(0) + adapters + listOf(adapters.last() + 3)
 
-    val diffs = jolts.windowed(2)
-      .map { it.last() - it.first() }
+    val diffs = jolts
+      .zipWithNext()
+      .map { it.second - it.first }
       .groupingBy { it }
       .eachCount()
 
@@ -24,7 +25,7 @@ object Day10 : DayOf2020(10) {
     val adapters = data.parseInts(delimiters = "\n").sorted()
     val jolts = listOf(0) + adapters + listOf(adapters.last() + 3)
 
-    val options = jolts.associateWith { 0L }.toMutableMap()
+    val options = jolts.associateWithTo(mutableMapOf()) { 0L }
     options[0] = 1L
 
     jolts.forEach { value ->

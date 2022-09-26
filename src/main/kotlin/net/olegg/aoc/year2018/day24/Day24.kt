@@ -28,8 +28,8 @@ object Day24 : DayOf2018(24) {
       val result = solve(boosted + infection)
       when {
         result.isEmpty() -> println("Boost $boost, stalemate")
-        result.first().system == immune.first().system -> return result.sumOf { it.units.toInt() }
-        else -> println("Boost $boost, ${result.sumOf { it.units.toInt() }} units remaining")
+        result.first().system == immune.first().system -> return result.sumOf { it.units }
+        else -> println("Boost $boost, ${result.sumOf { it.units }} units remaining")
       }
     }
 
@@ -94,7 +94,7 @@ object Day24 : DayOf2018(24) {
     val type: String,
     val initiative: Int,
     val index: Int,
-    val system: Int
+    val system: Int,
   ) {
     companion object {
       private val PATTERN = (

@@ -12,8 +12,7 @@ object Day1 : DayOf2017(1) {
       .let { it + it[0] }
       .windowed(2)
       .filter { it[0] == it[1] }
-      .map { Character.digit(it[0], 10) }
-      .sum()
+      .sumOf { Character.digit(it[0], 10) }
   }
 
   override fun second(): Any? {

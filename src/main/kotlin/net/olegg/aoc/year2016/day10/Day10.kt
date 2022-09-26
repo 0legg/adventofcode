@@ -45,12 +45,12 @@ object Day10 : DayOf2016(10) {
           bots.getOrPut(action.second) { mutableSetOf() } += max
         }
 
-      active.keys
+      val toRemove = active.keys
         .filter { it >= 0 }
-        .forEach { id ->
-          bots.remove(id)
-          actions.remove(id)
-        }
+        .toSet()
+
+      bots -= toRemove
+      actions -= toRemove
     }
 
     return bots.filter { it.value == search }.keys.joinToString()
@@ -90,12 +90,12 @@ object Day10 : DayOf2016(10) {
           bots.getOrPut(action.second) { mutableSetOf() } += max
         }
 
-      active.keys
+      val toRemove = active.keys
         .filter { it >= 0 }
-        .forEach { id ->
-          bots.remove(id)
-          actions.remove(id)
-        }
+        .toSet()
+
+      bots -= toRemove
+      actions -= toRemove
     }
 
     return (-3..-1)

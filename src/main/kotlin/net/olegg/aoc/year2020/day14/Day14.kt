@@ -15,7 +15,7 @@ object Day14 : DayOf2020(14) {
     lines.forEach { line ->
       when {
         line.startsWith("mask") -> {
-          mask = line.split(" = ").last()
+          mask = line.substringAfter(" = ")
         }
         line.startsWith("mem") -> {
           PATTERN.findAll(line).forEach {
@@ -39,7 +39,7 @@ object Day14 : DayOf2020(14) {
     lines.forEach { line ->
       when {
         line.startsWith("mask") -> {
-          mask = line.split(" = ").last()
+          mask = line.substringAfter(" = ")
         }
         line.startsWith("mem") -> {
           PATTERN.findAll(line).forEach {

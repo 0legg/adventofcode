@@ -30,7 +30,7 @@ object Day12 : DayOf2018(12) {
     val rules = lines
       .drop(2)
       .associate { line ->
-        line.split(" => ".toRegex()).let { it.first() to it.last() }
+        line.split(" => ").let { it.first() to it.last() }
       }
 
     val finalState = (1..gens).fold(initialState) { state, gen ->

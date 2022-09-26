@@ -66,7 +66,7 @@ object Day22 : DayOf2018(22) {
     private val cache = mutableMapOf<Vector2D, Long>()
 
     operator fun get(pos: Vector2D): Long {
-      return cache.getOrElse(pos) {
+      return cache.getOrPut(pos) {
         when {
           pos.x == 0 && pos.y == 0 -> 0L
           pos == t -> 0L
@@ -75,8 +75,6 @@ object Day22 : DayOf2018(22) {
           else -> get(pos.copy(x = pos.x - 1)) * get(pos.copy(y = pos.y - 1))
         }.let {
           (it + depth) % 20183L
-        }.also {
-          cache[pos] = it
         }
       }
     }

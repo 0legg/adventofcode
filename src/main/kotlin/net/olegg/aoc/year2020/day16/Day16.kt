@@ -19,9 +19,9 @@ object Day16 : DayOf2020(16) {
     ranges
       .lines()
       .flatMap { line -> RANGE_PATTERN.find(line)?.groupValues?.drop(1).orEmpty() }
-      .windowed(2)
-      .map { it.toPair() }
-      .forEach { (from, to) -> (from.toInt()..to.toInt()).forEach { valid += it } }
+      .map { it.toInt() }
+      .zipWithNext()
+      .forEach { (from, to) -> (from..to).forEach { valid += it } }
 
     val invalid = mutableListOf<Int>()
     invalid += yours
@@ -52,8 +52,7 @@ object Day16 : DayOf2020(16) {
           ?.drop(1)
           .orEmpty()
           .map { it.toInt() }
-          .windowed(2)
-          .map { it.first()..it.last() }
+          .zipWithNext { a, b -> a..b }
           .toPair()
       }
 
@@ -74,19 +73,16 @@ object Day16 : DayOf2020(16) {
       .filter { line -> line.all { it in validValues } }
 
     val possiblePositions = rangeValues
-      .mapIndexed { column, range ->
+      .withIndex()
+      .associateTo(mutableMapOf()) { (column, range) ->
         column to yourTicket.indices
           .asSequence()
           .map { col ->
             col to validTickets.map { it[col] }
           }
           .filter { (_, col) -> col.all { it in range.first || it in range.second } }
-          .map { it.first }
-          .toSet()
-          .toMutableSet()
+          .mapTo(mutableSetOf()) { it.first }
       }
-      .toMap()
-      .toMutableMap()
 
     val fixedPositions = mutableMapOf<Int, Int>()
 

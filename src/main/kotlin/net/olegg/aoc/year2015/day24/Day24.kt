@@ -30,9 +30,9 @@ object Day24 : DayOf2015(24) {
 }
 
 fun subsets(sum: Long, list: List<Long>): List<List<Long>> = when {
-  (sum < 0L) -> listOf()
-  (sum == 0L) -> listOf(listOf())
-  (list.size == 1) -> if (sum == list[0]) listOf(list) else listOf()
+  (sum < 0L) -> emptyList()
+  (sum == 0L) -> listOf(emptyList())
+  (list.size == 1) -> if (sum == list[0]) listOf(list) else emptyList()
   else -> subsets(sum, list.drop(1)) + subsets(sum - list[0], list.drop(1)).map { listOf(list[0]) + it }
 }
 

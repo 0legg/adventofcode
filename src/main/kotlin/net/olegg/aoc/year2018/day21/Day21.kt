@@ -24,8 +24,6 @@ object Day21 : DayOf2018(21) {
         }
       }
 
-    println(program.mapIndexed { index, command -> "%1$-2d: $command".format(index) }.joinToString("\n"))
-
     val regs = longArrayOf(0L, 0L, 0L, 0L, 0L, 0L)
     (0..1_000_000_000_000L).forEach { _ ->
       val instruction = regs[pointer].toInt()
@@ -55,21 +53,16 @@ object Day21 : DayOf2018(21) {
         }
       }
 
-    println(program.mapIndexed { index, command -> "%1$-2d: $command".format(index) }.joinToString("\n"))
-
     val exit = mutableMapOf<Long, Long>()
     val regs = longArrayOf(0L, 0L, 0L, 0L, 0L, 0L)
     (0..1_000_000_000_000L).forEach { step ->
-      if (step % 100_000_000L == 0L) {
-        println("$step -> [${regs.joinToString()}]")
-      }
       val instruction = regs[pointer].toInt()
       if (instruction !in program.indices) {
         return -1
       }
       if (instruction == 28 && regs[5] !in exit) {
         exit[regs[5]] = step
-        println("Exiting with ${regs[5]} at $step")
+        //println("Exiting with ${regs[5]} at $step")
       }
       program[instruction].apply(regs)
       regs[pointer]++

@@ -42,7 +42,7 @@ object Day13 : DayOf2016(13) {
     val start = Vector2D(1, 1) to 0
 
     val known = mutableMapOf(start)
-    val queue = ArrayDeque(listOf(Vector2D(1, 1) to 0))
+    val queue = ArrayDeque(listOf(start))
 
     do {
       val (pos, step) = queue.removeFirst()

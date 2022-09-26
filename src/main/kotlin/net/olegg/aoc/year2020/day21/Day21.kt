@@ -42,7 +42,9 @@ object Day21 : DayOf2020(21) {
     val badItems = finalAllergens.values.toSet()
     val safeItems = allItems - badItems
 
-    return foods.flatMap { it.first }.count { it in safeItems }
+    return foods
+      .flatMap { it.first }
+      .count { it in safeItems }
   }
 
   override fun second(): Any? {
@@ -76,7 +78,10 @@ object Day21 : DayOf2020(21) {
       }
     }
 
-    return finalAllergens.toList().sortedBy { it.first }.joinToString(",") { it.second }
+    return finalAllergens
+      .toList()
+      .sortedBy { it.first }
+      .joinToString(",") { it.second }
   }
 }
 

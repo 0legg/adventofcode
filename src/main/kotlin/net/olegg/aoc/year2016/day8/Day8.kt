@@ -10,22 +10,28 @@ object Day8 : DayOf2016(8) {
   private val PATTERN = "(\\D*)(\\d+)\\D*(\\d+)\\D*".toRegex()
 
   override fun first(): Any? {
-    return applyOperations(50, 6, lines)
+    return applyOperations()
       .sumOf { row -> row.count { it } }
   }
 
   override fun second(): Any? {
-    return applyOperations(50, 6, lines)
+    return applyOperations()
       .joinToString(separator = "\n", prefix = "\n") { row ->
-        row.joinToString(separator = "") { if (it) "#" else "." }
+        row.joinToString(separator = "") { if (it) "██" else ".." }
       }
   }
 
-  private fun applyOperations(width: Int, height: Int, ops: List<String>): Array<BooleanArray> {
+  private fun applyOperations(): Array<BooleanArray> {
+    val width = 50
+    val height = 6
     val screen = Array(height) { BooleanArray(width) }
-    ops
-      .mapNotNull { PATTERN.matchEntire(it) }
-      .map { Triple(it.groupValues[1], it.groupValues[2].toInt(), it.groupValues[3].toInt()) }
+    lines
+      .mapNotNull { line ->
+        PATTERN.matchEntire(line)?.let { match ->
+          val (command, first, second) = match.destructured
+          Triple(command, first.toInt(), second.toInt())
+        }
+      }
       .forEach { (command, first, second) ->
         when (command) {
           "rect " ->

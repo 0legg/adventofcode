@@ -21,9 +21,9 @@ object Day21 : DayOf2017(21) {
       .map { part -> part.map { row -> row.split("/").map { it.toList() }.toList() } }
       .associate { lex(it.first()) to it.last() }
 
-    val sizes = ops.keys.map { it.size }.distinct().sorted()
+    val sizes = ops.keys.map { it.size }.toSortedSet()
 
-    val start = ".#./..#/###".split("/").map { it.toList() }.toList()
+    val start = ".#./..#/###".split("/").map { it.toList() }
 
     return (0 until iterations)
       .fold(start) { acc, _ ->
@@ -43,12 +43,11 @@ object Day21 : DayOf2017(21) {
                   ops[row] ?: ops.entries.first { it.key.size == size }.value
                 }
               }
-              .map { rows ->
+              .flatMap { rows ->
                 (0..size).map { row ->
                   rows.flatMap { it[row] }
                 }
               }
-              .flatten()
               .toList()
           } ?: acc
       }
@@ -66,7 +65,7 @@ object Day21 : DayOf2017(21) {
     )
 
     val rotations = flips
-      .map { flip ->
+      .flatMap { flip ->
         (0 until 3).scan(flip) { acc, _ ->
           (0 until size).map { first ->
             (0 until size).map { second ->
@@ -75,12 +74,11 @@ object Day21 : DayOf2017(21) {
           }
         }
       }
-      .flatten()
       .toSet()
 
-    return rotations
-      .minByOrNull { rot -> rot.joinToString(separator = "") { it.joinToString(separator = "") } }
-      .orEmpty()
+    return rotations.minBy { rot ->
+      rot.joinToString(separator = "") { it.joinToString(separator = "") }
+    }
   }
 }
 

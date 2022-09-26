@@ -40,9 +40,9 @@ object Day25 : DayOf2021(25) {
 
         Triple(step, newEast, newSouth)
       }
-      .windowed(2)
-      .first { it.first().second == it.last().second && it.first().third == it.last().third }
-      .last()
+      .zipWithNext()
+      .first { it.first.second == it.second.second && it.first.third == it.second.third }
+      .second
       .first
   }
 }

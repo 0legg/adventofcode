@@ -57,7 +57,7 @@ object Day22 : DayOf2015(22) {
     val myMove: Boolean = true
   )
 
-  fun countMana(mySpells: List<Spell>, bossSpells: List<Spell>): Int {
+  private fun countMana(mySpells: List<Spell>, bossSpells: List<Spell>): Int {
     val queue = ArrayDeque(listOf(Game(me, boss)))
     var best = Int.MAX_VALUE
     while (queue.isNotEmpty()) {

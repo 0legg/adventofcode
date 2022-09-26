@@ -64,6 +64,7 @@ object Day12 : DayOf2021(12) {
           finish += curr + "end"
         }
         queue += nexts
+          .asSequence()
           .filter { it !in setOf("start", "end") }
           .filter { it.uppercase() == it || it !in curr }
           .map { curr + it }
@@ -72,6 +73,7 @@ object Day12 : DayOf2021(12) {
 
         if (!twice) {
           queue += nexts
+            .asSequence()
             .filter { it !in setOf("start", "end") }
             .filter { it.lowercase() == it && it in curr }
             .map { curr + it }

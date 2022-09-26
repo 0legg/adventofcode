@@ -16,8 +16,8 @@ object Day4 : DayOf2019(4) {
       .asSequence()
       .map { it.toString() }
       .filter { it.length == 6 }
-      .filter { value -> value.windowed(2).any { it[0] == it[1] } }
-      .count { value -> value.windowed(2).none { it[0] > it[1] } }
+      .filter { value -> value.zipWithNext().any { it.first == it.second } }
+      .count { value -> value.zipWithNext().none { it.first > it.second } }
   }
 
   override fun second(): Any? {
@@ -27,8 +27,8 @@ object Day4 : DayOf2019(4) {
       .asSequence()
       .map { it.toString() }
       .filter { it.length == 6 }
-      .filter { value -> value.windowed(2).any { it[0] == it[1] } }
-      .filter { value -> value.windowed(2).none { it[0] > it[1] } }
+      .filter { value -> value.zipWithNext().any { it.first == it.second } }
+      .filter { value -> value.zipWithNext().none { it.first > it.second } }
       .count { value -> value.toList().series().any { it.second == 2 } }
   }
 }

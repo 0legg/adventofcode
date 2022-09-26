@@ -40,8 +40,7 @@ object Day22 : DayOf2016(22) {
       }
 
     return machines
-      .groupBy { it[1] }
-      .toSortedMap()
+      .groupByTo(sortedMapOf()) { it[1] }
       .map { (_, row) ->
         row.sortedBy { it[0] }.joinToString(separator = "") { cell ->
           when (cell[3]) {

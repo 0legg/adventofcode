@@ -12,7 +12,7 @@ object Day9 : DayOf2020(9) {
     val nums = data.parseLongs(delimiters = "\n")
 
     return nums.windowed(26)
-      .map { it.take(25) to it.last() }
+      .map { it.dropLast(1) to it.last() }
       .map { (head, tail) -> head.flatMapIndexed { i, x -> head.drop(i + 1).map { it + x } }.toSet() to tail }
       .first { (head, tail) -> tail !in head }
       .second
@@ -22,7 +22,7 @@ object Day9 : DayOf2020(9) {
     val nums = data.parseLongs(delimiters = "\n")
 
     val bad = nums.windowed(26)
-      .map { it.take(25) to it.last() }
+      .map { it.dropLast(1) to it.last() }
       .map { (head, tail) -> head.flatMapIndexed { i, x -> head.drop(i + 1).map { it + x } }.toSet() to tail }
       .first { (head, tail) -> tail !in head }
       .second

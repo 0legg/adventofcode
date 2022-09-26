@@ -11,7 +11,7 @@ object Day17 : DayOf2020(17) {
   private val NEIGHBORS_3D =
     (-1..1).flatMap { x ->
       (-1..1).flatMap { y ->
-        (-1..1).mapNotNull { z ->
+        (-1..1).map { z ->
           Vector3D(x, y, z)
         }
       }
@@ -21,7 +21,7 @@ object Day17 : DayOf2020(17) {
     (-1..1).flatMap { x ->
       (-1..1).flatMap { y ->
         (-1..1).flatMap { z ->
-          (-1..1).mapNotNull { w ->
+          (-1..1).map { w ->
             Vector4D(x, y, z, w)
           }
         }

@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2021.day6
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.parseLongs
+import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2021.DayOf2021
 
 /**
@@ -17,21 +17,25 @@ object Day6 : DayOf2021(6) {
   }
 
   private fun solve(days: Int): Long {
-    val input = data.parseLongs(",")
+    val input = data.parseInts(",")
 
-    val start = input
+    val counts = input
       .groupingBy { it }
       .eachCount()
-      .mapValues { it.value.toLong() }
+
+    val start = List(10) { counts.getOrDefault(it, 0).toLong() }
+
     val end = (1..days).fold(start) { acc, _ ->
-      val new = acc.mapKeys { it.key - 1 }.toMutableMap()
-      new[8] = new.getOrDefault(-1, 0L)
-      new[6] = new.getOrDefault(-1, 0L) + new.getOrDefault(6, 0L)
-      new.remove(-1)
-      return@fold new.toMap()
+      val reset = acc.first()
+      acc.drop(1).mapIndexed { index, value ->
+        when (index) {
+          6, 8 -> value + reset
+          else -> value
+        }
+      } + listOf(0L)
     }
 
-    return end.toList().sumOf { it.second }
+    return end.sum()
   }
 }
 

@@ -12,7 +12,10 @@ object Day3 : DayOf2016(3) {
   override fun first(): Any? {
     return lines
       .map { line ->
-        DIGITS.findAll(line).map { it.value.toInt() }.toList().sorted()
+        DIGITS.findAll(line)
+          .map { it.value.toInt() }
+          .toList()
+          .sorted()
       }
       .filter { it.size == 3 }
       .count { it[0] + it[1] > it[2] }
@@ -21,7 +24,9 @@ object Day3 : DayOf2016(3) {
   override fun second(): Any? {
     val rows = lines
       .map { line ->
-        DIGITS.findAll(line).map { it.value.toInt() }.toList()
+        DIGITS.findAll(line)
+          .map { it.value.toInt() }
+          .toList()
       }
 
     val columns = (1..rows.size / 3)

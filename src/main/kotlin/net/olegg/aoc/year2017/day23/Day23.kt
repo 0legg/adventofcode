@@ -21,7 +21,8 @@ object Day23 : DayOf2017(23) {
         "set" -> regs[op[1]] = extract(regs, op[2])
         "sub" -> regs[op[1]] = extract(regs, op[1]) - extract(regs, op[2])
         "mul" -> {
-          regs[op[1]] = extract(regs, op[1]) * extract(regs, op[2]); muls += 1
+          regs[op[1]] = extract(regs, op[1]) * extract(regs, op[2])
+          muls += 1
         }
         "jnz" -> if (extract(regs, op[1]) != BigInteger.ZERO) position += (extract(regs, op[2]).toInt() - 1)
       }

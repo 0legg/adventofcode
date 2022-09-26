@@ -37,7 +37,9 @@ object Day16 : DayOf2015(16) {
   )
 
   override fun first(): Any? {
-    return sues.filter { sue -> sue.second.all { it.value == footprint[it.key] } }.map { it.first }.first()
+    return sues
+      .first { sue -> sue.second.all { it.value == footprint[it.key] } }
+      .first
   }
 
   override fun second(): Any? {

@@ -6,6 +6,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Directions.D
+import net.olegg.aoc.utils.Directions.R
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2019.DayOf2019
@@ -49,8 +51,8 @@ object Day19 : DayOf2019(19) {
       .toLongArray()
 
     return runBlocking {
-      val stepRight = Vector2D(1, 0)
-      val stepDown = Vector2D(0, 1)
+      val stepRight = R.step
+      val stepDown = D.step
       val input = Channel<Long>(Channel.UNLIMITED)
       val output = Channel<Long>(Channel.UNLIMITED)
 

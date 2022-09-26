@@ -27,15 +27,14 @@ object Day5 : DayOf2018(5) {
     val filtered = ('a'..'z').map { a -> source.replace("$a", "").replace(a.uppercase(), "") }
 
     return filtered
-      .map { polymer ->
+      .minOf { polymer ->
         var curr = polymer
         do {
           val prev = curr
           curr = bad.fold(curr) { acc, token -> acc.replace(token, "") }
         } while (prev != curr)
-        return@map curr.length
+        return@minOf curr.length
       }
-      .min()
   }
 }
 

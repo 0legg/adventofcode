@@ -45,7 +45,8 @@ object Day20 : DayOf2019(20) {
       }
     }
 
-    val routes = portals.filter { it.value.size == 2 }
+    val routes = portals
+      .filter { it.value.size == 2 }
       .flatMap { listOf(it.value.first() to it.value.last(), it.value.last() to it.value.first()) }
       .toMap()
 
@@ -111,7 +112,8 @@ object Day20 : DayOf2019(20) {
       }
     }
 
-    val routes = portals.filter { it.value.size == 2 }
+    val routes = portals
+      .filter { it.value.size == 2 }
       .map { it.value.first() to it.value.last() }
       .flatMap { (a, b) ->
         listOf(
@@ -133,9 +135,10 @@ object Day20 : DayOf2019(20) {
         return step
       }
 
-      val next = Neighbors4.map { (it.step + point) to level } + listOfNotNull(routes[point])
+      val next = Neighbors4.map { (it.step + point) to level } +
+        listOfNotNull(routes[point]).map { it.first to level + it.second }
 
-      next.map { it.first to level + it.second }
+      next
         .filter { map[it.first] == '.' }
         .filter { it.second >= 0 }
         .filter { it !in visited }

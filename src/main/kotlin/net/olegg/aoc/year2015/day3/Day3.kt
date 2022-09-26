@@ -32,7 +32,7 @@ object Day3 : DayOf2015(3) {
   }
 
   private fun visit(moves: List<Vector2D>): Set<Vector2D> {
-    return moves.runningFold(Vector2D()) { pos, move -> pos + move }.toSet()
+    return moves.scan(Vector2D()) { pos, move -> pos + move }.toSet()
   }
 }
 

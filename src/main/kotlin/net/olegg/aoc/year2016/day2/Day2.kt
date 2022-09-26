@@ -3,6 +3,7 @@ package net.olegg.aoc.year2016.day2
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions
 import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2016.DayOf2016
 
 /**
@@ -14,8 +15,8 @@ object Day2 : DayOf2016(2) {
     "01230",
     "04560",
     "07890",
-    "00000"
-  )
+    "00000",
+  ).map { it.toList() }
 
   private val KEYPAD2 = listOf(
     "0000000",
@@ -24,25 +25,25 @@ object Day2 : DayOf2016(2) {
     "0567890",
     "00ABC00",
     "000D000",
-    "0000000"
-  )
+    "0000000",
+  ).map { it.toList() }
 
   override fun first(): Any? {
-    return solve(lines, KEYPAD1, Vector2D(2, 2))
+    return solve(KEYPAD1, Vector2D(2, 2))
   }
 
   override fun second(): Any? {
-    return solve(lines, KEYPAD2, Vector2D(2, 4))
+    return solve(KEYPAD2, Vector2D(2, 4))
   }
 
-  private fun solve(commands: List<String>, keypad: List<String>, start: Vector2D): String {
-    return commands.fold("" to start) { (acc, position), command ->
-      val point = command.toCharArray().fold(position) { accPosition, symbol ->
+  private fun solve(keypad: List<List<Char>>, start: Vector2D): String {
+    return lines.fold("" to start) { (acc, position), command ->
+      val point = command.fold(position) { accPosition, symbol ->
         (accPosition + Directions.valueOf(symbol.toString()).step).let {
-          if (keypad[it.y][it.x] != '0') it else accPosition
+          if (keypad[it] != '0') it else accPosition
         }
       }
-      acc + "${keypad[point.y][point.x]}" to point
+      acc + keypad[point] to point
     }.first
   }
 }

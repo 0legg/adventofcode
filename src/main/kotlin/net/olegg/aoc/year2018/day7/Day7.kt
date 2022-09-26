@@ -23,8 +23,9 @@ object Day7 : DayOf2018(7) {
 
     val neighbors = edges
       .groupBy { it.first }
-      .mapValues { neighbors -> neighbors.value.map { it.second }.toSet() }
-      .toMutableMap()
+      .mapValuesTo(mutableMapOf()) { neighbors ->
+        neighbors.value.map { it.second }.toSet()
+      }
 
     val answer = mutableListOf<String>()
     while (vertices.isNotEmpty()) {
@@ -54,8 +55,9 @@ object Day7 : DayOf2018(7) {
 
     val neighbors = edges
       .groupBy { it.first }
-      .mapValues { neighbors -> neighbors.value.map { it.second }.toSet() }
-      .toMutableMap()
+      .mapValuesTo(mutableMapOf()) { neighbors ->
+        neighbors.value.map { it.second }.toSet()
+      }
 
     val start = vertices.associateWithTo(mutableMapOf()) { 0 }
 

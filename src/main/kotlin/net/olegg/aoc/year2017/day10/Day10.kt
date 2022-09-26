@@ -42,7 +42,7 @@ object Day10 : DayOf2017(10) {
       .chunked(16) { chunk ->
         chunk.reduce { acc, value -> acc xor value }
       }
-      .joinToString(separator = "") { "${(it / 16).toString(16)}${(it % 16).toString(16)}" }
+      .joinToString(separator = "") { "%02x".format(it) }
   }
 }
 

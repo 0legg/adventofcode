@@ -59,7 +59,7 @@ object Day18 : DayOf2020(18) {
       val valStack = ArrayDeque<Long>()
       numQueue.forEach { op ->
         when (op) {
-          in '0'..'9' -> valStack += (op - '0').toLong()
+          in '0'..'9' -> valStack += op.digitToInt().toLong()
           '+' -> valStack += (valStack.removeLast() + valStack.removeLast())
           '*' -> valStack += (valStack.removeLast() * valStack.removeLast())
         }

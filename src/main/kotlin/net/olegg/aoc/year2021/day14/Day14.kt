@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2021.day14
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.toPair
 import net.olegg.aoc.year2021.DayOf2021
 import java.math.BigInteger
 
@@ -20,8 +21,7 @@ object Day14 : DayOf2021(14) {
     val (rawStart, rawPatterns) = data.split("\n\n")
 
     val patterns = rawPatterns.lines()
-      .map { it.split(" -> ") }
-      .map { it.first() to it.last() }
+      .map { it.split(" -> ").toPair() }
       .associate { it.first to setOf("${it.first.first()}${it.second}", "${it.second}${it.first.last()}") }
 
     val start = rawStart.windowed(2)

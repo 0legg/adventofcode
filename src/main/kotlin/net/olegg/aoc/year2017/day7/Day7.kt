@@ -38,7 +38,8 @@ object Day7 : DayOf2017(7) {
     var result = 0
     do {
       val disk = disks.getOrDefault(curr, 0 to emptyList())
-      val odd = disk.second.map { it to (weights[it] ?: 0) }
+      val odd = disk.second
+        .map { it to (weights[it] ?: 0) }
         .groupBy { it.second }
         .toList()
         .sortedBy { it.second.size }

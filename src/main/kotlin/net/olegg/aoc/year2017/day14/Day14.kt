@@ -19,7 +19,11 @@ object Day14 : DayOf2017(14) {
           .map { it.code }
           .let { it + listOf(17, 31, 73, 47, 23) }
           .let { list ->
-            (0 until 64).fold(emptyList<Int>()) { acc, _ -> acc + list }
+            buildList(list.size * 64) {
+              repeat(64) {
+                addAll(list)
+              }
+            }
           }
           .foldIndexed(List(256) { it } to 0) { index, acc, value ->
             val prev = acc.first + acc.first
@@ -43,7 +47,13 @@ object Day14 : DayOf2017(14) {
         line
           .map { it.code }
           .let { it + listOf(17, 31, 73, 47, 23) }
-          .let { list -> (0 until 64).fold(emptyList<Int>()) { acc, _ -> acc + list } }
+          .let { list ->
+            buildList(list.size * 64) {
+              repeat(64) {
+                addAll(list)
+              }
+            }
+          }
           .foldIndexed(List(256) { it } to 0) { index, acc, value ->
             val prev = acc.first + acc.first
             val curr = prev.subList(0, acc.second) +
@@ -74,7 +84,7 @@ object Day14 : DayOf2017(14) {
           .map { curr + it.step }
           .filter { result[it] == '1' }
           .forEach { point ->
-            result[point.y][point.x] = '0'
+            result[point] = '0'
             toVisit += point
           }
       }
