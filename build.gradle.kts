@@ -23,9 +23,12 @@ buildConfig {
 tasks.withType<KotlinCompile> {
   kotlinOptions {
     jvmTarget = "14"
+    languageVersion = "1.8"
     allWarningsAsErrors = true
     freeCompilerArgs += listOf(
+      "-Xsuppress-version-warnings",
       "-opt-in=kotlin.RequiresOptIn",
+      "-opt-in=kotlin.ExperimentalStdlibApi",
       "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
       "-opt-in=kotlinx.coroutines.FlowPreview",
     )
