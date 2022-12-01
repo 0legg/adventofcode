@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2016.day13
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2016.DayOf2016
 
@@ -9,8 +9,8 @@ import net.olegg.aoc.year2016.DayOf2016
  * See [Year 2016, Day 13](https://adventofcode.com/2016/day/13)
  */
 object Day13 : DayOf2016(13) {
-  override fun first(data: String): Any? {
-    val fav = data.trim().toInt()
+  override fun first(): Any? {
+    val fav = data.toInt()
 
     val target = Vector2D(31, 39)
     val start = Vector2D(1, 1) to 0
@@ -36,13 +36,13 @@ object Day13 : DayOf2016(13) {
     return known[target]
   }
 
-  override fun second(data: String): Any? {
-    val fav = data.trim().toInt()
+  override fun second(): Any? {
+    val fav = data.toInt()
 
     val start = Vector2D(1, 1) to 0
 
     val known = mutableMapOf(start)
-    val queue = ArrayDeque(listOf(Vector2D(1, 1) to 0))
+    val queue = ArrayDeque(listOf(start))
 
     do {
       val (pos, step) = queue.removeFirst()

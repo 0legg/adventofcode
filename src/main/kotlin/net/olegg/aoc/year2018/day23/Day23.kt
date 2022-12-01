@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2018.day23
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Vector3D
 import net.olegg.aoc.year2018.DayOf2018
 import java.util.PriorityQueue
 import kotlin.math.abs
@@ -11,52 +12,48 @@ import kotlin.math.abs
 object Day23 : DayOf2018(23) {
   private val PATTERN = "pos=<(-?\\d+),(-?\\d+),(-?\\d+)>, r=(-?\\d+)".toRegex()
 
-  override fun first(data: String): Any? {
-    val bots = data
-      .trim()
-      .lines()
+  override fun first(): Any? {
+    val bots = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)?.let { match ->
-          val (x, y, z, r) = match.groupValues.drop(1).map { it.toLong() }
-          return@mapNotNull Bot(x, y, z, r)
+          val (x, y, z, r) = match.groupValues.drop(1).map { it.toInt() }
+          return@mapNotNull Bot(Vector3D(x, y, z), r)
         }
       }
 
-    val strong = bots.maxByOrNull { it: Bot -> it.r } ?: bots.first()
+    val strong = bots.maxBy { it.r }
 
     return bots.count { strong.distance(it) <= strong.r }
   }
 
-  override fun second(data: String): Any? {
-    val bots = data
-      .trim()
-      .lines()
+  override fun second(): Any? {
+    val bots = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)?.let { match ->
-          val (x, y, z, r) = match.groupValues.drop(1).map { it.toLong() }
-          return@mapNotNull Bot(x, y, z, r)
+          val (x, y, z, r) = match.groupValues.drop(1).map { it.toInt() }
+          return@mapNotNull Bot(Vector3D(x, y, z), r)
         }
       }
 
-    var best = bots.count { it.distance(0, 0, 0) <= it.r } to 0L
-    val minX = bots.map { it.x }.minOrNull() ?: 0
-    val maxX = bots.map { it.x }.maxOrNull() ?: 0
-    val minY = bots.map { it.y }.minOrNull() ?: 0
-    val maxY = bots.map { it.y }.maxOrNull() ?: 0
-    val minZ = bots.map { it.z }.minOrNull() ?: 0
-    val maxZ = bots.map { it.z }.maxOrNull() ?: 0
+    var best = bots.count { it.pos.manhattan() <= it.r } to 0
+    val minX = bots.minOf { it.pos.x }
+    val maxX = bots.maxOf { it.pos.x }
+    val minY = bots.minOf { it.pos.y }
+    val maxY = bots.maxOf { it.pos.y }
+    val minZ = bots.minOf { it.pos.z }
+    val maxZ = bots.maxOf { it.pos.z }
 
     val queue = PriorityQueue<Pair<Box, Int>>(compareBy({ -it.second }, { it.first.size }))
-    queue.add(Box(minX, minY, minZ, maxX, maxY, maxZ) to bots.count())
+    queue.add(Box(Vector3D(minX, minY, minZ), Vector3D(maxX, maxY, maxZ)) to bots.count())
 
     while (queue.isNotEmpty()) {
       val (box, botsIn) = queue.poll()
       if (botsIn < best.first) continue
       val selected = bots.filter { it.distance(box) <= it.r }
       if (box.size <= 32) {
-        box.points().forEach { (x, y, z) ->
-          val distance = abs(x) + abs(y) + abs(z)
-          val botsCount = selected.count { it.distance(x, y, z) <= it.r }
+        box.points().forEach { point ->
+          val distance = point.manhattan()
+          val botsCount = selected.count { it.distance(point) <= it.r }
           if (botsCount > best.first || (botsCount == best.first && distance < best.second)) {
             best = botsCount to distance
             queue.removeIf { it.second < botsCount }
@@ -75,55 +72,57 @@ object Day23 : DayOf2018(23) {
   }
 
   data class Bot(
-    val x: Long,
-    val y: Long,
-    val z: Long,
-    val r: Long
+    val pos: Vector3D,
+    val r: Int,
   ) {
-    fun distance(other: Bot): Long {
-      return abs(x - other.x) + abs(y - other.y) + abs(z - other.z)
+    fun distance(other: Bot): Int {
+      return (pos - other.pos).manhattan()
     }
 
-    fun distance(otherX: Long, otherY: Long, otherZ: Long): Long {
-      return abs(x - otherX) + abs(y - otherY) + abs(z - otherZ)
+    fun distance(other: Vector3D): Int {
+      return (pos - other).manhattan()
     }
 
-    fun distance(box: Box): Long {
-      return distance(x.coerceIn(box.minX, box.maxX), y.coerceIn(box.minY, box.maxY), z.coerceIn(box.minZ, box.maxZ))
+    fun distance(otherX: Int, otherY: Int, otherZ: Int): Int {
+      return (pos - Vector3D(otherX, otherY, otherZ)).manhattan()
+    }
+
+    fun distance(box: Box): Int {
+      return distance(
+        pos.x.coerceIn(box.min.x, box.max.x),
+        pos.y.coerceIn(box.min.y, box.max.y),
+        pos.z.coerceIn(box.min.z, box.max.z),
+      )
     }
   }
 
   data class Box(
-    val minX: Long,
-    val minY: Long,
-    val minZ: Long,
-    val maxX: Long,
-    val maxY: Long,
-    val maxZ: Long
+    val min: Vector3D,
+    val max: Vector3D,
   ) {
     fun split(): List<Box> {
-      val midX = (minX + maxX) / 2
-      val midY = (minY + maxY) / 2
-      val midZ = (minZ + maxZ) / 2
+      val midX = (min.x + max.x) / 2
+      val midY = (min.y + max.y) / 2
+      val midZ = (min.z + max.z) / 2
       return listOf(
-        Box(minX, minY, minZ, midX, midY, midZ),
-        Box(midX + 1, minY, minZ, maxX, midY, midZ),
-        Box(minX, midY + 1, minZ, midX, maxY, midZ),
-        Box(midX + 1, midY + 1, minZ, maxX, maxY, midZ),
-        Box(minX, minY, midZ + 1, midX, midY, maxZ),
-        Box(midX + 1, minY, midZ + 1, maxX, midY, maxZ),
-        Box(minX, midY + 1, midZ + 1, midX, maxY, maxZ),
-        Box(midX + 1, midY + 1, midZ + 1, maxX, maxY, maxZ)
+        Box(Vector3D(min.x, min.y, min.z), Vector3D(midX, midY, midZ)),
+        Box(Vector3D(midX + 1, min.y, min.z), Vector3D(max.x, midY, midZ)),
+        Box(Vector3D(min.x, midY + 1, min.z), Vector3D(midX, max.y, midZ)),
+        Box(Vector3D(midX + 1, midY + 1, min.z), Vector3D(max.x, max.y, midZ)),
+        Box(Vector3D(min.x, min.y, midZ + 1), Vector3D(midX, midY, max.z)),
+        Box(Vector3D(midX + 1, min.y, midZ + 1), Vector3D(max.x, midY, max.z)),
+        Box(Vector3D(min.x, midY + 1, midZ + 1), Vector3D(midX, max.y, max.z)),
+        Box(Vector3D(midX + 1, midY + 1, midZ + 1), Vector3D(max.x, max.y, max.z)),
       )
     }
 
-    val size = maxOf(maxX - minX, maxY - minY, maxZ - minZ)
+    val size = maxOf(max.x - min.x, max.y - min.y, max.z - min.z)
 
-    fun points(): Sequence<Triple<Long, Long, Long>> {
-      return (minX..maxX).asSequence().flatMap { x ->
-        (minY..maxY).asSequence().flatMap { y ->
-          (minZ..maxZ).asSequence().map { z ->
-            Triple(x, y, z)
+    fun points(): Sequence<Vector3D> {
+      return (min.x..max.x).asSequence().flatMap { x ->
+        (min.y..max.y).asSequence().flatMap { y ->
+          (min.z..max.z).asSequence().map { z ->
+            Vector3D(x, y, z)
           }
         }
       }

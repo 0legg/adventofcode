@@ -10,24 +10,22 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day14 : DayOf2016(14) {
   private val MATCH_3 = "(.)(\\1)(\\1)".toRegex()
 
-  override fun first(data: String): Any? {
-    val trimmed = data.trim()
+  override fun first(): Any? {
     val cache = mutableMapOf<Int, String>()
     val hash = { n: Int ->
       cache.getOrPut(n) {
-        "$trimmed$n".md5()
+        "$data$n".md5()
       }
     }
 
     return solve(64, hash)
   }
 
-  override fun second(data: String): Any? {
-    val trimmed = data.trim()
+  override fun second(): Any? {
     val cache = mutableMapOf<Int, String>()
     val hash = { n: Int ->
       cache.getOrPut(n) {
-        (0..2016).fold("$trimmed$n") { acc, _ ->
+        (0..2016).fold("$data$n") { acc, _ ->
           acc.md5()
         }
       }
@@ -36,22 +34,18 @@ object Day14 : DayOf2016(14) {
     return solve(64, hash)
   }
 
-  fun solve(count: Int, hash: (Int) -> String): Int {
-    return sequence {
-      var i = 0
-      while (true) {
-        val curr = hash(i)
-        MATCH_3.find(curr)?.let { match ->
-          val next = match.groupValues[1].repeat(5)
-          if ((i + 1..i + 1000).any { value -> hash(value).contains(next) }) {
-            yield(i)
-          }
-        }
-        i++
+  private fun solve(count: Int, hash: (Int) -> String): Int {
+    return generateSequence(0) { it + 1 }
+      .map { it to hash(it) }
+      .filter { MATCH_3.containsMatchIn(it.second) }
+      .filter { (i, hashed) ->
+        val (match) = checkNotNull(MATCH_3.find(hashed)).destructured
+        val next = match.repeat(5)
+        (i + 1..i + 1000).any { value -> next in hash(value) }
       }
-    }
-      .take(count)
-      .last()
+      .drop(count - 1)
+      .first()
+      .first
   }
 }
 

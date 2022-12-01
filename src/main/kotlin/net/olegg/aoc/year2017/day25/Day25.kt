@@ -19,11 +19,10 @@ object Day25 : DayOf2017(25) {
       "- Continue with state ([A-Z]+)\\."
     ).toRegex()
 
-  override fun first(data: String): Any? {
-    val sections = data.trim().split("\n\n")
+  override fun first(): Any? {
+    val sections = data.split("\n\n")
 
-    val (initialState, iterations) = HEADER_PATTERN.find(sections[0])?.destructured
-      ?: throw IllegalArgumentException()
+    val (initialState, iterations) = HEADER_PATTERN.find(sections[0])?.destructured ?: error("Unable to parse")
 
     val states = sections
       .drop(1)
@@ -43,7 +42,7 @@ object Day25 : DayOf2017(25) {
 
     val tape = mutableMapOf<Int, Int>()
 
-    (0 until iterations.toInt())
+    (0..<iterations.toInt())
       .fold(initialState to 0) { (state, shift), _ ->
         states[state]
           ?.actions

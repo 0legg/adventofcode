@@ -11,10 +11,8 @@ object Day6 : DayOf2018(6) {
   private val PATTERN = "(\\d+), (\\d+)".toRegex()
   private const val TOTAL = 10000
 
-  override fun first(data: String): Any? {
-    val points = data
-      .trim()
-      .lines()
+  override fun first(): Any? {
+    val points = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)
           ?.destructured
@@ -23,34 +21,31 @@ object Day6 : DayOf2018(6) {
           ?.let { it.first() to it.last() }
       }
 
-    val left = points.minByOrNull { it.first }?.first ?: Int.MIN_VALUE
-    val top = points.minByOrNull { it.second }?.second ?: Int.MIN_VALUE
-    val right = points.maxByOrNull { it: Pair<Int, Int> -> it.first }?.first ?: Int.MAX_VALUE
-    val bottom = points.maxByOrNull { it: Pair<Int, Int> -> it.second }?.second ?: Int.MAX_VALUE
+    val left = points.minOf { it.first }
+    val top = points.minOf { it.second }
+    val right = points.maxOf { it.first }
+    val bottom = points.maxOf { it.second }
 
     val area = (top..bottom)
       .flatMap { y ->
         (left..right).mapNotNull { x ->
           val dist = points.map { abs(x - it.first) + abs(y - it.second) }
-          val best = dist.minOrNull() ?: 0
+          val best = dist.min()
           if (dist.count { it == best } == 1) dist.indexOfFirst { it == best } else null
         }
       }
 
     return area
-      .groupBy { it }
-      .mapValues { it.value.size }
+      .groupingBy { it }
+      .eachCount()
       .filterKeys { key ->
         points[key].first !in listOf(left, right) && points[key].second !in listOf(top, bottom)
       }
-      .maxByOrNull { it.value }
-      ?.value
+      .maxOf { it.value }
   }
 
-  override fun second(data: String): Any? {
-    val points = data
-      .trim()
-      .lines()
+  override fun second(): Any? {
+    val points = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)
           ?.destructured
@@ -59,10 +54,10 @@ object Day6 : DayOf2018(6) {
           ?.let { it.first() to it.last() }
       }
 
-    val left = points.minByOrNull { it.first }?.first ?: Int.MIN_VALUE
-    val top = points.minByOrNull { it.second }?.second ?: Int.MIN_VALUE
-    val right = points.maxByOrNull { it: Pair<Int, Int> -> it.first }?.first ?: Int.MAX_VALUE
-    val bottom = points.maxByOrNull { it: Pair<Int, Int> -> it.second }?.second ?: Int.MAX_VALUE
+    val left = points.minOf { it.first }
+    val top = points.minOf { it.second }
+    val right = points.maxOf { it.first }
+    val bottom = points.maxOf { it.second }
 
     val padding = TOTAL / points.size + 1
 

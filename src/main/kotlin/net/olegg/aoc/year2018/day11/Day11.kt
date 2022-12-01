@@ -7,8 +7,8 @@ import net.olegg.aoc.year2018.DayOf2018
  * See [Year 2018, Day 11](https://adventofcode.com/2018/day/11)
  */
 object Day11 : DayOf2018(11) {
-  override fun first(data: String): Any? {
-    val serial = data.trim().toInt()
+  override fun first(): Any? {
+    val serial = data.toInt()
 
     val grid = (1..300).map { y ->
       (1..300).map { x ->
@@ -27,12 +27,12 @@ object Day11 : DayOf2018(11) {
         (x to y) to sum
       }
     }
-      .maxByOrNull { it: Pair<Pair<Int, Int>, Int> -> it.second }
-      ?.let { "${it.first.first},${it.first.second}" }
+      .maxBy { it.second }
+      .let { "${it.first.first},${it.first.second}" }
   }
 
-  override fun second(data: String): Any? {
-    val serial = data.trim().toInt()
+  override fun second(): Any? {
+    val serial = data.toInt()
 
     val grid = (1..300).map { y ->
       (1..300).map { x ->
@@ -57,8 +57,8 @@ object Day11 : DayOf2018(11) {
         }
       }
     }
-      .maxByOrNull { it: Pair<Triple<Int, Int, Int>, Int> -> it.second }
-      ?.let { "${it.first.first},${it.first.second},${it.first.third}" }
+      .maxBy { it.second }
+      .let { "${it.first.first},${it.first.second},${it.first.third}" }
   }
 }
 

@@ -17,19 +17,18 @@ object Day23 : DayOf2021(23) {
     'D' to 1000,
   )
 
-  override fun first(data: String): Any? {
-    return solve(data.trim().lines())
+  override fun first(): Any? {
+    return solve(lines)
   }
 
-  override fun second(data: String): Any? {
-    val base = data.trim().lines()
+  override fun second(): Any? {
     val insert = """
       |  #D#C#B#A#
       |  #D#B#A#C#
     """.trimMargin().lines()
 
     return solve(
-      base.take(3) + insert + base.drop(3)
+      lines.take(3) + insert + lines.drop(3)
     )
   }
 
@@ -157,7 +156,7 @@ object Day23 : DayOf2021(23) {
             stacks = world.stacks.mapValues { (key, value) ->
               if (key == stack) value.drop(1) else value
             }
-          ) to score + (target.costX + costY) * cost[stackData.first()]!!
+          ) to score + (target.costX + costY) * cost.getValue(stackData.first())
         }
       }
 
@@ -181,7 +180,7 @@ object Day23 : DayOf2021(23) {
                 else -> value
               }
             }
-          ) to score + (target.costX + costFromY + costToY) * cost[stackData.first()]!!
+          ) to score + (target.costX + costFromY + costToY) * cost.getValue(stackData.first())
         }
       }
 
@@ -202,7 +201,7 @@ object Day23 : DayOf2021(23) {
                 else -> value
               }
             }
-          ) to score + (target.costX + costToY) * cost[char]!!
+          ) to score + (target.costX + costToY) * cost.getValue(char)
         }
       }
 
@@ -210,10 +209,10 @@ object Day23 : DayOf2021(23) {
         .filter { it.first !in seen }
         .map { (world, score) ->
           val spotCosts = world.spots.map { (node, char) ->
-            ((stacks.first { it.char == char }.x - node.x) + depth) * cost[char]!!
+            ((stacks.first { it.char == char }.x - node.x) + depth) * cost.getValue(char)
           }.sum()
           val stackCosts = world.stacks.map { (node, stack) ->
-            stack.filter { it != node.char }.sumOf { cost[it]!! } * 2 * depth
+            stack.filter { it != node.char }.sumOf { cost.getValue(it) } * 2 * depth
           }.sum()
           Triple(world, score, (spotCosts + stackCosts) / 4)
         }

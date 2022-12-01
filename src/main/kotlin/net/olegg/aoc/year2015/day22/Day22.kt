@@ -14,9 +14,7 @@ object Day22 : DayOf2015(22) {
   private const val ARMOR = 0
 
   private val me = Triple(HP, ARMOR, MANA)
-  private val boss = data
-    .trim()
-    .lines()
+  private val boss = lines
     .map { it.substringAfterLast(": ").toInt() }
     .let { it[0] to it[1] }
 
@@ -59,7 +57,7 @@ object Day22 : DayOf2015(22) {
     val myMove: Boolean = true
   )
 
-  fun countMana(mySpells: List<Spell>, bossSpells: List<Spell>): Int {
+  private fun countMana(mySpells: List<Spell>, bossSpells: List<Spell>): Int {
     val queue = ArrayDeque(listOf(Game(me, boss)))
     var best = Int.MAX_VALUE
     while (queue.isNotEmpty()) {
@@ -108,11 +106,11 @@ object Day22 : DayOf2015(22) {
     return best
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return countMana(spells, listOf(bossHit))
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return countMana(spells, listOf(hardBossHit))
   }
 }

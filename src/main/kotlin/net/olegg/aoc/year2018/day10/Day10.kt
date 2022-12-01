@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2018.day10
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2018.DayOf2018
 
 /**
@@ -10,65 +11,58 @@ object Day10 : DayOf2018(10) {
   private val PATTERN = "position=<\\s*(-?\\d+),\\s*(-?\\d+)> velocity=<\\s*(-?\\d+),\\s*(-?\\d+)>".toRegex()
   private const val HEIGHT = 16
 
-  override fun first(data: String): Any? {
-    var points = data
-      .trim()
-      .lines()
+  override fun first(): Any? {
+    val points = lines
       .mapNotNull { line ->
         PATTERN.find(line)?.let { match ->
           val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
-          return@let (x to y) to (vx to vy)
+          return@let Vector2D(x, y) to Vector2D(vx, vy)
         }
       }
 
-    do {
-      points = points.map { it.copy(first = it.first + it.second) }
-      val height = points
-        .map { it.first.second }
-        .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
-    } while (height > HEIGHT)
-
-    val coords = points.map { it.first }
-
-    val xmin = coords.map { it.first }.minOrNull() ?: 0
-    val xmax = coords.map { it.first }.maxOrNull() ?: 0
-    val ymin = coords.map { it.second }.minOrNull() ?: 0
-    val ymax = coords.map { it.second }.maxOrNull() ?: 0
-
-    val builder = StringBuilder("\n")
-    (ymin..ymax).forEach { y ->
-      (xmin..xmax).forEach { x ->
-        builder.append(if (x to y in coords) "#" else ".")
-      }
-      builder.append("\n")
+    val final = generateSequence(points) { curr ->
+      curr.map { it.copy(first = it.first + it.second) }
     }
+      .first { curr ->
+        curr.map { it.first.y }.let { it.max() - it.min() } <= HEIGHT
+      }
 
-    return builder.toString()
+    val coords = final.map { it.first }
+
+    val xmin = coords.minOf { it.x }
+    val xmax = coords.maxOf { it.x }
+    val ymin = coords.minOf { it.y }
+    val ymax = coords.maxOf { it.y }
+
+    return buildString {
+      append('\n')
+      (ymin..ymax).forEach { y ->
+        (xmin..xmax).forEach { x ->
+          append(if (Vector2D(x, y) in coords) "██" else "..")
+        }
+        append('\n')
+      }
+    }
   }
 
-  override fun second(data: String): Any? {
-    var points = data
-      .trim()
-      .lines()
+  override fun second(): Any? {
+    val points = lines
       .mapNotNull { line ->
         PATTERN.find(line)?.let { match ->
           val (x, y, vx, vy) = match.destructured.toList().map { it.toInt() }
-          return@let (x to y) to (vx to vy)
+          return@let Vector2D(x, y) to Vector2D(vx, vy)
         }
       }
-    var seconds = 0
-    do {
-      seconds++
-      points = points.map { it.copy(first = it.first + it.second) }
-      val height = points
-        .map { it.first.second }
-        .let { (it.maxOrNull() ?: 0) - (it.minOrNull() ?: 0) }
-    } while (height > HEIGHT)
 
-    return seconds
+    val final = generateSequence(points) { curr ->
+      curr.map { it.copy(first = it.first + it.second) }
+    }
+      .indexOfFirst { curr ->
+        curr.map { it.first.y }.let { it.max() - it.min() } <= HEIGHT
+      }
+
+    return final
   }
 }
-
-operator fun Pair<Int, Int>.plus(other: Pair<Int, Int>) = first + other.first to second + other.second
 
 fun main() = SomeDay.mainify(Day10)

@@ -11,7 +11,7 @@ object Day17 : DayOf2020(17) {
   private val NEIGHBORS_3D =
     (-1..1).flatMap { x ->
       (-1..1).flatMap { y ->
-        (-1..1).mapNotNull { z ->
+        (-1..1).map { z ->
           Vector3D(x, y, z)
         }
       }
@@ -21,18 +21,15 @@ object Day17 : DayOf2020(17) {
     (-1..1).flatMap { x ->
       (-1..1).flatMap { y ->
         (-1..1).flatMap { z ->
-          (-1..1).mapNotNull { w ->
+          (-1..1).map { w ->
             Vector4D(x, y, z, w)
           }
         }
       }
     } - Vector4D()
 
-  override fun first(data: String): Any? {
-    val items = data
-      .trim()
-      .lines()
-      .map { line -> line.map { it == '#' } }
+  override fun first(): Any? {
+    val items = lines.map { line -> line.map { it == '#' } }
 
     val initialState = items
       .flatMapIndexed { y, row ->
@@ -42,10 +39,10 @@ object Day17 : DayOf2020(17) {
       }
       .toSet()
 
-    val finalState = (0 until 6).fold(initialState) { state, _ ->
+    val finalState = (0..<6).fold(initialState) { state, _ ->
       val neighborCount = state.flatMap { it.neighbors3D() }
-        .groupBy { it }
-        .mapValues { it.value.size }
+        .groupingBy { it }
+        .eachCount()
 
       val alive = state.filter { neighborCount[it] in 2..3 }
       val born = neighborCount.filter { it.key !in state && it.value == 3 }.map { it.key }
@@ -56,11 +53,8 @@ object Day17 : DayOf2020(17) {
     return finalState.size
   }
 
-  override fun second(data: String): Any? {
-    val items = data
-      .trim()
-      .lines()
-      .map { line -> line.map { it == '#' } }
+  override fun second(): Any? {
+    val items = lines.map { line -> line.map { it == '#' } }
 
     val initialState = items
       .flatMapIndexed { y, row ->
@@ -70,10 +64,10 @@ object Day17 : DayOf2020(17) {
       }
       .toSet()
 
-    val finalState = (0 until 6).fold(initialState) { state, _ ->
+    val finalState = (0..<6).fold(initialState) { state, _ ->
       val neighborCount = state.flatMap { it.neighbors4D() }
-        .groupBy { it }
-        .mapValues { it.value.size }
+        .groupingBy { it }
+        .eachCount()
 
       val alive = state.filter { neighborCount[it] in 2..3 }
       val born = neighborCount.filter { it.key !in state && it.value == 3 }.map { it.key }

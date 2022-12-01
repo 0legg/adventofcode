@@ -1,19 +1,24 @@
 package net.olegg.aoc.year2018.day17
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Directions.D
+import net.olegg.aoc.utils.Directions.L
+import net.olegg.aoc.utils.Directions.R
+import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
+import net.olegg.aoc.utils.set
 import net.olegg.aoc.year2018.DayOf2018
-import kotlin.math.max
-import kotlin.math.min
 
 /**
  * See [Year 2018, Day 17](https://adventofcode.com/2018/day/17)
  */
 object Day17 : DayOf2018(17) {
-  private val PATTERN = "(\\w)=(\\d+), (\\w)=(\\d+)..(\\d+)".toRegex()
-  private val WATER = listOf('~', '|')
+  private val PATTERN = "(\\w)=(\\d+), \\w=(\\d+)..(\\d+)".toRegex()
+  private val WATER = setOf('~', '|')
+  private val STOP = setOf('~', '#', null)
 
-  override fun first(data: String): Any? {
-    val (xs, ys, map) = fill(data)
+  override fun first(): Any? {
+    val (xs, ys, map) = fill()
 
     return ys.sumOf { y ->
       xs.count { x ->
@@ -22,8 +27,8 @@ object Day17 : DayOf2018(17) {
     }
   }
 
-  override fun second(data: String): Any? {
-    val (xs, ys, map) = fill(data)
+  override fun second(): Any? {
+    val (xs, ys, map) = fill()
 
     return ys.sumOf { y ->
       xs.count { x ->
@@ -32,14 +37,12 @@ object Day17 : DayOf2018(17) {
     }
   }
 
-  private fun fill(data: String): Triple<IntRange, IntRange, List<MutableList<Char>>> {
-    val start = 500 to 0
-    val clay = data
-      .trim()
-      .lines()
+  private fun fill(): Triple<IntRange, IntRange, List<MutableList<Char>>> {
+    val start = Vector2D(500, 0)
+    val clay = lines
       .mapNotNull { line ->
         PATTERN.matchEntire(line)?.let { match ->
-          val (direction, valueRaw, _, rangeFromRaw, rangeToRaw) = match.destructured
+          val (direction, valueRaw, rangeFromRaw, rangeToRaw) = match.destructured
           return@mapNotNull if (direction == "x") {
             valueRaw.toInt()..valueRaw.toInt() to rangeFromRaw.toInt()..rangeToRaw.toInt()
           } else {
@@ -48,84 +51,61 @@ object Day17 : DayOf2018(17) {
         }
       }
 
-    val bbox = clay
-      .fold(start.first - 1..start.first + 1 to start.second..start.second) { acc, value ->
-        val (accxRange, accyRange) = acc
-        val (xRange, yRange) = value
-        return@fold Pair(
-          min(accxRange.first, xRange.first - 1)..max(accxRange.last, xRange.last + 1),
-          min(accyRange.first, yRange.first)..max(accyRange.last, yRange.last)
-        )
-      }
+    val minX = minOf(start.x - 1, clay.minOf { it.first.first - 1 })
+    val maxX = maxOf(start.x + 1, clay.maxOf { it.first.last + 1 })
+    val minY = minOf(start.y, clay.minOf { it.second.first })
+    val maxY = maxOf(start.y, clay.maxOf { it.second.last })
+    val bbox = Pair(
+      Vector2D(minX, minY),
+      Vector2D(maxX, maxY),
+    )
 
-    val map = List(bbox.second.last - bbox.second.first + 1) {
-      MutableList(bbox.first.last - bbox.first.first + 1) { '.' }
+    val map = List(maxY - minY + 1) {
+      MutableList(maxX - minX + 1) { '.' }
     }
 
     clay.forEach { line ->
       line.second.forEach { yRaw ->
         line.first.forEach { xRaw ->
-          map[yRaw - bbox.second.first][xRaw - bbox.first.first] = '#'
+          map[Vector2D(xRaw, yRaw) - bbox.first] = '#'
         }
       }
     }
 
-    fill(map, start.first - bbox.first.first to start.second - bbox.second.first)
+    fill(map, start - bbox.first)
 
     return Triple(
-      IntRange(0, bbox.first.last - bbox.first.first),
+      IntRange(0, maxX - minX),
       IntRange(
-        (clay.map { it.second.first }.minOrNull() ?: bbox.second.first) - bbox.second.first,
-        (clay.map { it.second.last }.maxOrNull() ?: bbox.second.last) - bbox.second.first
+        clay.minOf { it.second.first } - minY,
+        clay.maxOf { it.second.last } - minY,
       ),
-      map
+      map,
     )
   }
 
-  private fun fill(map: List<MutableList<Char>>, coord: Pair<Int, Int>): Boolean {
+  private fun fill(map: List<MutableList<Char>>, coord: Vector2D): Boolean {
     val reachBottom = when {
-      coord.second !in map.indices -> false
-      coord.first !in map[coord.second].indices -> false
-      coord.second == map.lastIndex -> {
-        map[coord.second][coord.first] = '|'
-        true
-      }
-      map[coord.second][coord.first] == '|' -> {
-        true
-      }
-      map[coord.second][coord.first] in setOf('~', '#') -> {
-        false
-      }
+      map[coord] in STOP -> false
+      coord.y == map.lastIndex -> true
+      map[coord] == '|' -> true
       else -> {
-        map[coord.second][coord.first] = '~'
-        if (map[coord.second + 1][coord.first] == '|' ||
-          (map[coord.second + 1][coord.first] == '.' && fill(map, coord.first to coord.second + 1))
-        ) {
-          true
-        } else {
-          val left = fill(map, coord.first - 1 to coord.second)
-          val right = fill(map, coord.first + 1 to coord.second)
-          left || right
-        }
+        map[coord] = '~'
+        fill(map, coord + D.step) || (fill(map, coord + L.step) or fill(map, coord + R.step))
       }
     }
 
     if (reachBottom) {
-      map[coord.second][coord.first] = '|'
-      for (x in coord.first - 1 downTo 0) {
-        if (map[coord.second][x] == '~') {
-          map[coord.second][x] = '|'
-        } else {
-          break
-        }
-      }
-      for (x in coord.first + 1..map[coord.second].indices.last) {
-        if (map[coord.second][x] == '~') {
-          map[coord.second][x] = '|'
-        } else {
-          break
-        }
-      }
+      map[coord] = '|'
+
+      generateSequence(coord) { it + L.step }
+        .drop(1)
+        .takeWhile { map[it] == '~' }
+        .forEach { map[it] = '|' }
+      generateSequence(coord) { it + R.step }
+        .drop(1)
+        .takeWhile { map[it] == '~' }
+        .forEach { map[it] = '|' }
     }
 
     return reachBottom

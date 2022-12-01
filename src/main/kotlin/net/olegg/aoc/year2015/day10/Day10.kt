@@ -8,16 +8,16 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 10](https://adventofcode.com/2015/day/10)
  */
 object Day10 : DayOf2015(10) {
-  fun lookAndSay(source: String) = source
+  private fun lookAndSay(source: String) = source
     .toList()
     .series()
-    .joinToString(separator = "") { "${it.size}${it.first()}" }
+    .joinToString(separator = "") { "${it.second}${it.first}" }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return (1..40).fold(data) { acc, _ -> lookAndSay(acc) }.length
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return (1..50).fold(data) { acc, _ -> lookAndSay(acc) }.length
   }
 }

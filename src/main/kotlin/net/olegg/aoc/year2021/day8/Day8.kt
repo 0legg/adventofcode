@@ -7,15 +7,14 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 8](https://adventofcode.com/2021/day/8)
  */
 object Day8 : DayOf2021(8) {
-  override fun first(data: String): Any? {
-    return data.trim()
-      .lines()
+  override fun first(): Any? {
+    return lines
       .map { it.split(" | ").last() }
       .flatMap { it.split(" ") }
       .count { it.length in setOf(2, 3, 4, 7) }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val sets = mapOf(
       "abcefg" to "0",
       "cf" to "1",
@@ -29,8 +28,7 @@ object Day8 : DayOf2021(8) {
       "abcdfg" to "9",
     ).mapKeys { it.key.toSet() }
 
-    return data.trim()
-      .lines()
+    return lines
       .sumOf { line ->
         val (sourceLine, fourLine) = line.split(" | ")
 

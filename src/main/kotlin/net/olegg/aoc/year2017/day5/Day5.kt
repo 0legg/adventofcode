@@ -8,8 +8,9 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 5](https://adventofcode.com/2017/day/5)
  */
 object Day5 : DayOf2017(5) {
-  override fun first(data: String): Any? {
-    val values = data.parseInts("\n")
+  override fun first(): Any? {
+    val values = data
+      .parseInts("\n")
       .toTypedArray()
 
     return generateSequence(0) { it + 1 }
@@ -25,8 +26,9 @@ object Day5 : DayOf2017(5) {
       .third
   }
 
-  override fun second(data: String): Any? {
-    val values = data.parseInts("\n")
+  override fun second(): Any? {
+    val values = data
+      .parseInts("\n")
       .toTypedArray()
 
     return generateSequence(0) { it + 1 }

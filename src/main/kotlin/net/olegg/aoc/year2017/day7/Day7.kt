@@ -7,9 +7,9 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 7](https://adventofcode.com/2017/day/7)
  */
 object Day7 : DayOf2017(7) {
-  override fun first(data: String): Any? {
-    return data.lines()
-      .map { it.split(" ").map { it.replace(",", "") } }
+  override fun first(): Any? {
+    return lines
+      .map { line -> line.split(" ").map { it.replace(",", "") } }
       .fold(emptySet<String>() to emptySet<String>()) { acc, list ->
         val used = if (list.size > 3) acc.second + list.subList(3, list.size) else acc.second
         val free = (acc.first + list[0]) - used
@@ -17,16 +17,12 @@ object Day7 : DayOf2017(7) {
       }
       .first
       .first()
-      .toString()
   }
 
-  override fun second(data: String): Any? {
-    val disks = data.lines()
-      .map { it.trim() }
-      .filter { it.isNotBlank() }
+  override fun second(): Any? {
+    val disks = lines
       .map { it.replace("[()\\->,]".toRegex(), "").split("\\s+".toRegex()) }
-      .map { it[0] to (it[1].toInt() to it.subList(2, it.size)) }
-      .toMap()
+      .associate { it[0] to (it[1].toInt() to it.subList(2, it.size)) }
 
     val head = disks.entries.fold(emptySet<String>() to emptySet<String>()) { acc, disk ->
       val used = acc.second + disk.value.second
@@ -41,8 +37,9 @@ object Day7 : DayOf2017(7) {
     var curr = head
     var result = 0
     do {
-      val disk = disks[curr] ?: 0 to emptyList()
-      val odd = disk.second.map { it to (weights[it] ?: 0) }
+      val disk = disks.getOrDefault(curr, 0 to emptyList())
+      val odd = disk.second
+        .map { it to (weights[it] ?: 0) }
         .groupBy { it.second }
         .toList()
         .sortedBy { it.second.size }
@@ -57,11 +54,11 @@ object Day7 : DayOf2017(7) {
   }
 
   private fun getWeights(map: Map<String, Pair<Int, List<String>>>, root: String): Map<String, Int> {
-    val curr = map[root] ?: 0 to emptyList()
+    val curr = map.getOrDefault(root, 0 to emptyList())
     val inter = curr.second
       .fold(emptyMap<String, Int>()) { acc, value -> acc + getWeights(map, value) }
       .let { children ->
-        children + mapOf(root to curr.first + curr.second.map { children[it] ?: 0 }.sum())
+        children + mapOf(root to curr.first + curr.second.sumOf { children[it] ?: 0 })
       }
     return inter
   }

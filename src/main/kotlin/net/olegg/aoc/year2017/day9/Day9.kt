@@ -12,7 +12,7 @@ object Day9 : DayOf2017(9) {
     NORMAL
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
       .replace("!.".toRegex(), "")
       .fold(Triple(0, 0, State.NORMAL)) { acc, char ->
@@ -29,7 +29,7 @@ object Day9 : DayOf2017(9) {
       .first
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return data
       .replace("!.".toRegex(), "")
       .fold(Pair(0, State.NORMAL)) { acc, char ->

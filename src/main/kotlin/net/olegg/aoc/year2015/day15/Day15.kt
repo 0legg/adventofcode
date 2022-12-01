@@ -10,15 +10,16 @@ object Day15 : DayOf2015(15) {
   private const val spoons = 100
   private val PATTERN = ".* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.* (-?\\d+)\\b.*".toRegex()
 
-  val items = data
-    .lines()
-    .mapNotNull { line ->
-      PATTERN.matchEntire(line)?.let { match ->
-        match.destructured.toList().map { it.toInt() }
-      }
+  private val items = lines
+    .map { line ->
+      PATTERN.matchEntire(line)
+        ?.destructured
+        ?.toList()
+        ?.map { it.toInt() }
+        .orEmpty()
     }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val itemsValues = (0..3).map { value -> items.map { it[value] } }
     return splitRange(items.size, spoons)
       .map { split ->
@@ -26,11 +27,10 @@ object Day15 : DayOf2015(15) {
           item.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0)
         }
       }
-      .map { it.reduce { acc, value -> acc * value } }
-      .maxOrNull()
+      .maxOf { it.reduce { acc, value -> acc * value } }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val itemsValues = (0..3).map { value -> items.map { it[value] } }
     val calories = items.map { it[4] }
     return splitRange(items.size, spoons)
@@ -40,8 +40,7 @@ object Day15 : DayOf2015(15) {
           item.mapIndexed { index, value -> split[index] * value }.sum().coerceAtLeast(0)
         }
       }
-      .map { it.reduce { acc, value -> acc * value } }
-      .maxOrNull()
+      .maxOf { it.reduce { acc, value -> acc * value } }
   }
 }
 

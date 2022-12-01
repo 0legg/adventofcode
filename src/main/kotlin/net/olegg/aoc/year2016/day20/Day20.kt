@@ -8,16 +8,16 @@ import java.util.TreeSet
  * See [Year 2016, Day 20](https://adventofcode.com/2016/day/20)
  */
 object Day20 : DayOf2016(20) {
-  val regex = "(\\d+)-(\\d+)".toRegex()
+  private val regex = "(\\d+)-(\\d+)".toRegex()
 
-  override fun first(data: String): Any? {
-    val banned = createBlacklist(data)
+  override fun first(): Any? {
+    val banned = createBlacklist()
 
     return if (banned.first().first > 0) 0 else banned.first().last + 1
   }
 
-  override fun second(data: String): Any? {
-    val banned = createBlacklist(data)
+  override fun second(): Any? {
+    val banned = createBlacklist()
 
     return banned.fold((-1L..-1L) to 0L) { acc, range ->
       range to acc.second + (range.first - acc.first.last - 1)
@@ -25,14 +25,13 @@ object Day20 : DayOf2016(20) {
       ((1L shl 32) - banned.last().last - 1)
   }
 
-  private fun createBlacklist(data: String): TreeSet<LongRange> {
+  private fun createBlacklist(): TreeSet<LongRange> {
     val banned = TreeSet<LongRange>(compareBy({ it.first }, { it.last }))
-    data.lines()
-      .filter { it.isNotBlank() }
-      .mapNotNull { regex.find(it)?.groupValues?.let { it[1].toLong()..it[2].toLong() } }
+    lines
+      .mapNotNull { line -> regex.find(line)?.groupValues?.let { it[1].toLong()..it[2].toLong() } }
       .forEach { mask ->
         val join = banned.filter { mask.overlaps(it) } + listOf(mask)
-        banned.removeAll(join)
+        banned.removeAll(join.toSet())
         val toBan = join.fold(LongRange.EMPTY) { acc, next ->
           if (acc.isEmpty()) {
             next

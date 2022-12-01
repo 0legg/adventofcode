@@ -9,9 +9,8 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day22 : DayOf2016(22) {
   val pattern = "/dev/grid/node-x(\\d+)-y(\\d+)\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)T\\s+(\\d+)%".toRegex()
 
-  override fun first(data: String): Any? {
-    val machines = data
-      .lines()
+  override fun first(): Any? {
+    val machines = lines
       .mapNotNull { line ->
         pattern.matchEntire(line)
           ?.groupValues
@@ -30,9 +29,8 @@ object Day22 : DayOf2016(22) {
       .size
   }
 
-  override fun second(data: String): Any? {
-    val machines = data
-      .lines()
+  override fun second(): Any? {
+    val machines = lines
       .mapNotNull { line ->
         pattern.matchEntire(line)
           ?.groupValues
@@ -42,8 +40,7 @@ object Day22 : DayOf2016(22) {
       }
 
     return machines
-      .groupBy { it[1] }
-      .toSortedMap()
+      .groupByTo(sortedMapOf()) { it[1] }
       .map { (_, row) ->
         row.sortedBy { it[0] }.joinToString(separator = "") { cell ->
           when (cell[3]) {

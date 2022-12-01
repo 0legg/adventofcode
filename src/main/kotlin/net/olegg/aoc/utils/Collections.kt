@@ -27,7 +27,7 @@ fun <T : Any> List<T>.pairs(): Sequence<Pair<T, T>> {
   require(size > 1)
   return sequence {
     for (x in indices) {
-      for (y in x + 1 until size) {
+      for (y in x + 1..<size) {
         yield(get(x) to get(y))
       }
     }
@@ -35,21 +35,23 @@ fun <T : Any> List<T>.pairs(): Sequence<Pair<T, T>> {
 }
 
 /**
- * Splits iterable into list of subsequences such that each subsequence contains only equal items.
+ * Splits iterable into run-length encoded list.
  */
-fun <T> Iterable<T>.series(): List<List<T>> {
-  val list = mutableListOf<MutableList<T>>()
-  var store = mutableListOf<T>()
-  for (element in this) {
-    if (store.contains(element)) {
-      store.add(element)
-    } else {
-      store = mutableListOf(element)
-      list.add(store)
+fun <T> Iterable<T>.series(): List<Pair<T, Int>> {
+  return buildList {
+    var curr: T? = null
+    var count = 0
+    for (element in this@series) {
+      if (element == curr) {
+        count++
+      } else {
+        curr?.let { add(it to count) }
+        curr = element
+        count = 1
+      }
     }
+    curr?.let { add(it to count) }
   }
-
-  return list
 }
 
 /**
@@ -68,8 +70,8 @@ fun <T> List<List<T>>.find(value: T): Vector2D? {
 
 operator fun <T> List<MutableList<T>>.set(v: Vector2D, value: T) {
   when {
-    v.y !in indices -> throw IndexOutOfBoundsException()
-    v.x !in this[v.y].indices -> throw IndexOutOfBoundsException()
+    v.y !in indices -> throw IndexOutOfBoundsException("index: ${v.y}.${v.x}")
+    v.x !in this[v.y].indices -> throw IndexOutOfBoundsException("index: ${v.y}.${v.x}")
     else -> this[v.y][v.x] = value
   }
 }

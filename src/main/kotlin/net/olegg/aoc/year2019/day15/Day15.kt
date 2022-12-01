@@ -6,11 +6,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
 import net.olegg.aoc.utils.Directions.U
-import net.olegg.aoc.utils.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2019.DayOf2019
@@ -20,9 +20,8 @@ import net.olegg.aoc.year2019.Intcode
  * See [Year 2019, Day 15](https://adventofcode.com/2019/day/15)
  */
 object Day15 : DayOf2019(15) {
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val program = data
-      .trim()
       .parseLongs(",")
       .toLongArray()
 
@@ -55,7 +54,7 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack += Move.Return(returns[curr.dir] ?: throw IllegalStateException())
+                  stack += Move.Return(checkNotNull(returns[curr.dir]))
                   stack += Neighbors4.filter { it != returns[curr.dir] }
                     .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                     .map { Move.Forward(it, newPosition, curr.distance + 1) }
@@ -70,9 +69,8 @@ object Day15 : DayOf2019(15) {
     return map.values.first { it.first == 2L }.second
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val program = data
-      .trim()
       .parseLongs(",")
       .toLongArray()
 
@@ -105,7 +103,7 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack += Move.Return(returns[curr.dir] ?: throw IllegalStateException())
+                  stack += Move.Return(checkNotNull(returns[curr.dir]))
                   stack += Neighbors4.filter { it != returns[curr.dir] }
                     .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                     .map { Move.Forward(it, newPosition, curr.distance + 1) }
@@ -131,7 +129,7 @@ object Day15 : DayOf2019(15) {
         }
     }
 
-    return filledMap.values.maxOrNull()
+    return filledMap.values.max()
   }
 
   sealed class Move {

@@ -9,13 +9,11 @@ import kotlin.math.max
  * See [Year 2017, Day 24](https://adventofcode.com/2017/day/24)
  */
 object Day24 : DayOf2017(24) {
-  override fun first(data: String): Any? {
-    val ports = data
-      .trim()
-      .lines()
+  override fun first(): Any? {
+    val ports = lines
       .map { line -> line.split("/").mapNotNull { it.toIntOrNull() } }
       .mapIndexed { index, value ->
-        Triple(value.minOrNull() ?: 0, value.maxOrNull() ?: 0, index)
+        Triple(value.min(), value.max(), index)
       }
 
     var best = 0
@@ -53,13 +51,11 @@ object Day24 : DayOf2017(24) {
     return best
   }
 
-  override fun second(data: String): Any? {
-    val ports = data
-      .trim()
-      .lines()
+  override fun second(): Any? {
+    val ports = lines
       .map { line -> line.split("/").mapNotNull { it.toIntOrNull() } }
       .mapIndexed { index, value ->
-        Triple(value.minOrNull() ?: 0, value.maxOrNull() ?: 0, index)
+        Triple(value.min(), value.max(), index)
       }
 
     val start = ports

@@ -8,12 +8,10 @@ import kotlin.math.abs
  * See [Year 2019, Day 16](https://adventofcode.com/2019/day/16)
  */
 object Day16 : DayOf2019(16) {
-  override fun first(data: String): Any? {
-    val input = data
-      .trim()
-      .map { it - '0' }
+  override fun first(): Any? {
+    val input = data.map { it - '0' }
 
-    return (0 until 100)
+    return (0..<100)
       .fold(input) { list, _ ->
         list.indices.map { index ->
           list.asSequence()
@@ -26,10 +24,8 @@ object Day16 : DayOf2019(16) {
       .joinToString(separator = "")
   }
 
-  override fun second(data: String): Any? {
-    val input = data
-      .trim()
-      .map { it - '0' }
+  override fun second(): Any? {
+    val input = data.map { it - '0' }
 
     val position = data.substring(0, 7).toInt()
 
@@ -41,7 +37,7 @@ object Day16 : DayOf2019(16) {
 
     val tail = largeInput.drop(position).toList().asReversed()
 
-    return (0 until 100)
+    return (0..<100)
       .fold(tail) { list, _ ->
         list.runningReduce { acc, item -> acc + item }
           .map { abs(it % 10) }

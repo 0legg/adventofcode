@@ -8,25 +8,21 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 9](https://adventofcode.com/2020/day/9)
  */
 object Day9 : DayOf2020(9) {
-  override fun first(data: String): Any? {
-    val nums = data
-      .trim()
-      .parseLongs(delimiters = "\n")
+  override fun first(): Any? {
+    val nums = data.parseLongs(delimiters = "\n")
 
     return nums.windowed(26)
-      .map { it.take(25) to it.last() }
+      .map { it.dropLast(1) to it.last() }
       .map { (head, tail) -> head.flatMapIndexed { i, x -> head.drop(i + 1).map { it + x } }.toSet() to tail }
       .first { (head, tail) -> tail !in head }
       .second
   }
 
-  override fun second(data: String): Any? {
-    val nums = data
-      .trim()
-      .parseLongs(delimiters = "\n")
+  override fun second(): Any? {
+    val nums = data.parseLongs(delimiters = "\n")
 
     val bad = nums.windowed(26)
-      .map { it.take(25) to it.last() }
+      .map { it.dropLast(1) to it.last() }
       .map { (head, tail) -> head.flatMapIndexed { i, x -> head.drop(i + 1).map { it + x } }.toSet() to tail }
       .first { (head, tail) -> tail !in head }
       .second

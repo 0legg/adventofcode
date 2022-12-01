@@ -7,9 +7,8 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 12](https://adventofcode.com/2021/day/12)
  */
 object Day12 : DayOf2021(12) {
-  override fun first(data: String): Any? {
-    val edges = data.trim()
-      .lines()
+  override fun first(): Any? {
+    val edges = lines
       .map { it.split("-") }
       .flatMap { listOf(it.first() to it.last(), it.last() to it.first()) }
       .groupBy(
@@ -41,9 +40,8 @@ object Day12 : DayOf2021(12) {
     return finish.size
   }
 
-  override fun second(data: String): Any? {
-    val edges = data.trim()
-      .lines()
+  override fun second(): Any? {
+    val edges = lines
       .map { it.split("-") }
       .flatMap { listOf(it.first() to it.last(), it.last() to it.first()) }
       .groupBy(
@@ -66,6 +64,7 @@ object Day12 : DayOf2021(12) {
           finish += curr + "end"
         }
         queue += nexts
+          .asSequence()
           .filter { it !in setOf("start", "end") }
           .filter { it.uppercase() == it || it !in curr }
           .map { curr + it }
@@ -74,6 +73,7 @@ object Day12 : DayOf2021(12) {
 
         if (!twice) {
           queue += nexts
+            .asSequence()
             .filter { it !in setOf("start", "end") }
             .filter { it.lowercase() == it && it in curr }
             .map { curr + it }

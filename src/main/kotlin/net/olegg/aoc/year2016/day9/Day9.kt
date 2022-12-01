@@ -9,12 +9,12 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day9 : DayOf2016(9) {
   private val PATTERN = "\\((\\d+)x(\\d+)\\)".toRegex()
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val input = data.replace("\\s".toRegex(), "")
     return measure(input, false)
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val input = data.replace("\\s".toRegex(), "")
     return measure(input, true)
   }

@@ -13,7 +13,7 @@ object Day16 : DayOf2018(16) {
   private val OPS_PATTERN = "(\\d+) (\\d+) (\\d+) (\\d+)".toRegex()
   private val EMPTY = listOf(0L, 0L, 0L, 0L)
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     val firstPart = data.split("\n\n\n\n")[0]
     val inputs = firstPart
       .split("\n\n")
@@ -38,7 +38,7 @@ object Day16 : DayOf2018(16) {
       .count { it >= 3 }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val (firstPart, secondPart) = data.split("\n\n\n\n")
     val inputs = firstPart
       .split("\n\n")

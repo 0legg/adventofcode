@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2019.day18
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.find
 import net.olegg.aoc.utils.get
@@ -14,15 +14,11 @@ import java.util.PriorityQueue
  * See [Year 2019, Day 18](https://adventofcode.com/2019/day/18)
  */
 object Day18 : DayOf2019(18) {
-  override fun first(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toList() }
+  override fun first(): Any? {
+    val map = matrix
 
     val keys = (('a'..'z') + '@')
-      .map { it to (map.find(it) ?: throw IllegalStateException()) }
-      .toMap()
+      .associateWith { checkNotNull(map.find(it)) }
     val routes = mutableMapOf<Char, MutableMap<Char, Pair<Int, BitSet>>>()
 
     keys.entries.forEach { (key, position) ->
@@ -70,7 +66,7 @@ object Day18 : DayOf2019(18) {
         .filterNot { config.keys[it.key - 'a'] }
         .filter { (_, route) ->
           val doors = route.second
-          return@filter (0 until 26).none { doors[it] && !config.keys[it] }
+          return@filter (0..<26).none { doors[it] && !config.keys[it] }
         }
         .map { (next, route) ->
           return@map Config(
@@ -95,12 +91,9 @@ object Day18 : DayOf2019(18) {
     return best
   }
 
-  override fun second(data: String): Any? {
-    val map = data
-      .trim()
-      .lines()
-      .map { it.toMutableList() }
-    val start = map.find('@') ?: throw IllegalStateException()
+  override fun second(): Any? {
+    val map = matrix.map { it.toMutableList() }
+    val start = checkNotNull(map.find('@'))
     (-1..1).forEach { y ->
       (-1..1).forEach { x ->
         map[start + Vector2D(x, y)] = '#'
@@ -114,8 +107,7 @@ object Day18 : DayOf2019(18) {
     val bots = "@$%&".toList()
 
     val keys = (('a'..'z') + bots)
-      .map { it to (map.find(it) ?: throw IllegalStateException()) }
-      .toMap()
+      .associateWith { checkNotNull(map.find(it)) }
     val routes = mutableMapOf<Char, MutableMap<Char, Pair<Int, BitSet>>>()
 
     keys.entries.forEach { (key, position) ->
@@ -164,7 +156,7 @@ object Day18 : DayOf2019(18) {
         .filterNot { config.keys[it.second - 'a'] }
         .filter { (_, _, route) ->
           val doors = route.second
-          return@filter (0 until 26).none { doors[it] && !config.keys[it] }
+          return@filter (0..<26).none { doors[it] && !config.keys[it] }
         }
         .map { (curr, next, route) ->
           return@map MultiConfig(

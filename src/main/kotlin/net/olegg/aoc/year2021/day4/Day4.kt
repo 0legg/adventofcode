@@ -8,9 +8,8 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 4](https://adventofcode.com/2021/day/4)
  */
 object Day4 : DayOf2021(4) {
-  override fun first(data: String): Any? {
-    val values = data
-      .lines()
+  override fun first(): Any? {
+    val values = lines
       .first()
       .parseInts(",")
     val boards = data
@@ -24,14 +23,14 @@ object Day4 : DayOf2021(4) {
       }
 
       newAcc.forEach { board ->
-        for (x in 0 until 5) {
-          if ((0 until 5).all { y -> board[5 * y + x].second }) {
+        for (x in 0..<5) {
+          if ((0..<5).all { y -> board[5 * y + x].second }) {
             return score(board, value)
           }
         }
 
-        for (y in 0 until 5) {
-          if ((0 until 5).all { x -> board[5 * y + x].second }) {
+        for (y in 0..<5) {
+          if ((0..<5).all { x -> board[5 * y + x].second }) {
             return score(board, value)
           }
         }
@@ -43,9 +42,8 @@ object Day4 : DayOf2021(4) {
     return 0
   }
 
-  override fun second(data: String): Any? {
-    val values = data
-      .lines()
+  override fun second(): Any? {
+    val values = lines
       .first()
       .parseInts(",")
     val boards = data
@@ -59,14 +57,14 @@ object Day4 : DayOf2021(4) {
       }
 
       val filteredAcc = newAcc.filter { board ->
-        for (x in 0 until 5) {
-          if ((0 until 5).all { y -> board[5 * y + x].second }) {
+        for (x in 0..<5) {
+          if ((0..<5).all { y -> board[5 * y + x].second }) {
             return@filter false
           }
         }
 
-        for (y in 0 until 5) {
-          if ((0 until 5).all { x -> board[5 * y + x].second }) {
+        for (y in 0..<5) {
+          if ((0..<5).all { x -> board[5 * y + x].second }) {
             return@filter false
           }
         }

@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2021.day11
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors8
+import net.olegg.aoc.utils.Directions.Companion.Neighbors8
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.fit
 import net.olegg.aoc.utils.get
@@ -12,12 +12,10 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 11](https://adventofcode.com/2021/day/11)
  */
 object Day11 : DayOf2021(11) {
-  override fun first(data: String): Any? {
-    val start = data.trim()
-      .lines()
-      .map { line -> line.map { it.digitToInt() } }
+  override fun first(): Any? {
+    val start = lines.map { line -> line.map { it.digitToInt() } }
 
-    val (_, result) = (0 until 100).fold(start to 0) { (field, flash), _ ->
+    val (_, result) = (0..<100).fold(start to 0) { (field, flash), _ ->
       val new = field.map { line ->
         line.map { it + 1 }.toMutableList()
       }
@@ -52,10 +50,8 @@ object Day11 : DayOf2021(11) {
     return result
   }
 
-  override fun second(data: String): Any? {
-    val start = data.trim()
-      .lines()
-      .map { line -> line.map { it.digitToInt() } }
+  override fun second(): Any? {
+    val start = lines.map { line -> line.map { it.digitToInt() } }
 
     val allSize = start.flatten().size
 

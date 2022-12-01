@@ -7,26 +7,23 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 16](https://adventofcode.com/2015/day/16)
  */
 object Day16 : DayOf2015(16) {
-  val PATTERN = "^Sue (\\d+): (?:([a-z]+): (\\d+)(?:, )?)*$".toRegex()
+  private val PATTERN = "^Sue (\\d+): (.*)$".toRegex()
+  private val ANIMAL = "([a-z]+): (\\d+)".toRegex()
 
-  val sues = data
-    .trim()
-    .lines()
+  private val sues = lines
     .mapNotNull { line ->
       PATTERN.matchEntire(line)?.let { match ->
-        println(match.groupValues.joinToString(separator = "\n"))
-        println()
         val index = match.groupValues[1].toInt()
-        val own = match.groupValues
-          .drop(2)
-          .windowed(2)
-          .map { it.first() to it.last().toInt() }
-          .toMap()
+        val animals = match.groupValues[2]
+        val own = ANIMAL.findAll(animals).associate {
+          val (animal, count) = it.destructured
+          animal to count.toInt()
+        }
         return@let index to own
       }
     }
 
-  val footprint = mapOf(
+  private val footprint = mapOf(
     "children" to 3,
     "cats" to 7,
     "samoyeds" to 2,
@@ -39,19 +36,21 @@ object Day16 : DayOf2015(16) {
     "perfumes" to 1
   )
 
-  override fun first(data: String): Any? {
-    println(sues)
-    return sues.filter { it.second.all { it.value == footprint[it.key] } }.map { it.first }.first()
+  override fun first(): Any? {
+    return sues
+      .first { sue -> sue.second.all { it.value == footprint[it.key] } }
+      .first
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return sues
       .first { (_, own) ->
         own.all { (key, value) ->
+          val footprintValue = footprint[key] ?: 0
           when (key) {
-            "cats", "trees" -> (value > footprint[key] ?: 0)
-            "pomeranians", "goldfish" -> (value < footprint[key] ?: 0)
-            else -> value == footprint[key]
+            "cats", "trees" -> value > footprintValue
+            "pomeranians", "goldfish" -> value < footprintValue
+            else -> value == footprintValue
           }
         }
       }

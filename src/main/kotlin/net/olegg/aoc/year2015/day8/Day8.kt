@@ -7,10 +7,9 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 8](https://adventofcode.com/2015/day/8)
  */
 object Day8 : DayOf2015(8) {
-  private val strings = data.trim().lines()
-  override fun first(data: String): Any? {
-    return strings.sumOf { it.length } -
-      strings.sumOf { line ->
+  override fun first(): Any? {
+    return lines.sumOf { it.length } -
+      lines.sumOf { line ->
         line
           .replace("^\"".toRegex(), "")
           .replace("\"$".toRegex(), "")
@@ -21,8 +20,8 @@ object Day8 : DayOf2015(8) {
       }
   }
 
-  override fun second(data: String): Any? {
-    return strings
+  override fun second(): Any? {
+    return lines
       .sumOf { line ->
         line
           .map { char ->
@@ -33,7 +32,7 @@ object Day8 : DayOf2015(8) {
             }
           }
           .joinToString(prefix = "\"", postfix = "\"", separator = "").length
-      } - strings.sumOf { it.length }
+      } - lines.sumOf { it.length }
   }
 }
 

@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2021.day15
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.fit
 import net.olegg.aoc.utils.get
@@ -12,22 +12,18 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 15](https://adventofcode.com/2021/day/15)
  */
 object Day15 : DayOf2021(15) {
-  override fun first(data: String): Any? {
-    val map = data.trim()
-      .lines()
-      .map { line -> 
-        line.map { it.digitToInt() }
-      }
+  override fun first(): Any? {
+    val map = lines.map { line ->
+      line.map { it.digitToInt() }
+    }
 
     return solve(map)
   }
 
-  override fun second(data: String): Any? {
-    val map = data.trim()
-      .lines()
-      .map { line ->
-        line.map { it.digitToInt() }
-      }
+  override fun second(): Any? {
+    val map = lines.map { line ->
+      line.map { it.digitToInt() }
+    }
 
     val mappings = (1..9).associateWith { start ->
       (1..9).scan(start) { acc, _ ->
@@ -39,7 +35,7 @@ object Day15 : DayOf2021(15) {
       map.map { row ->
         (0..4).flatMap { dx ->
           row.map { value ->
-            mappings[value]!![dx + dy]
+            mappings.getValue(value)[dx + dy]
           }
         }
       }

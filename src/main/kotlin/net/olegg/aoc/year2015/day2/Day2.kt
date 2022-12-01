@@ -8,13 +8,13 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 2](https://adventofcode.com/2015/day/2)
  */
 object Day2 : DayOf2015(2) {
-  private val boxes = data.trim().lines().map { it.parseInts("x").sorted() }
+  private val boxes = lines.map { it.parseInts("x").sorted() }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return boxes.sumOf { 3 * it[0] * it[1] + 2 * it[0] * it[2] + 2 * it[1] * it[2] }.toString()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return boxes.sumOf { 2 * (it[0] + it[1]) + it[0] * it[1] * it[2] }.toString()
   }
 }

@@ -1,8 +1,8 @@
 package net.olegg.aoc.year2016.day1
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.CCW
-import net.olegg.aoc.utils.CW
+import net.olegg.aoc.utils.Directions.Companion.CCW
+import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Directions.U
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2016.DayOf2016
@@ -16,9 +16,8 @@ object Day1 : DayOf2016(1) {
     'R' to CW
   )
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return data
-      .trim()
       .split(", ")
       .map { it[0] to it.substring(1).toInt() }
       .fold(Pair(Vector2D(), U)) { (pos, dir), command ->
@@ -29,10 +28,10 @@ object Day1 : DayOf2016(1) {
       .manhattan()
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val visited = mutableSetOf<Vector2D>()
 
-    data.trim()
+    data
       .split(", ")
       .map { it[0] to it.substring(1).toInt() }
       .fold(Pair(Vector2D(), U)) { (pos, dir), command ->

@@ -7,15 +7,13 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 23](https://adventofcode.com/2020/day/23)
  */
 object Day23 : DayOf2020(23) {
-  override fun first(data: String): Any? {
-    val items = data
-      .trim()
-      .map { it.toString().toInt() }
+  override fun first(): Any? {
+    val items = data.map { it.digitToInt() }
 
     val queue = ArrayDeque(items)
 
-    val min = items.minOf { it }
-    val max = items.maxOf { it }
+    val min = items.min()
+    val max = items.max()
 
     repeat(100) {
       val head = queue.removeFirst()
@@ -42,15 +40,13 @@ object Day23 : DayOf2020(23) {
     return result.joinToString("")
   }
 
-  override fun second(data: String): Any? {
-    val initialItems = data
-      .trim()
-      .map { it.toString().toInt() }
+  override fun second(): Any? {
+    val initialItems = data.map { it.digitToInt() }
 
-    val items = initialItems + ((initialItems.maxOf { it } + 1)..1_000_000).toList()
+    val items = initialItems + ((initialItems.max() + 1)..1_000_000).toList()
 
-    val min = items.minOf { it }
-    val max = items.maxOf { it }
+    val min = items.min()
+    val max = items.max()
 
     val all = List(1_000_000 + 1) { Item(it) }
 
@@ -62,8 +58,8 @@ object Day23 : DayOf2020(23) {
 
     var head = queue.first()
 
-    repeat(10_000_000) {
-      val took = (0 until 3).scan(head) { acc, _ -> all[acc.next] }
+    repeat(10_000_000) { _ ->
+      val took = (0..<3).scan(head) { acc, _ -> all[acc.next] }
       val excluded = took.map { it.value }
       var place = head.value - 1
       while (place < min || place in excluded) {

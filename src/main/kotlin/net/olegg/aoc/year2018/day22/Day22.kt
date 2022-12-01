@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2018.day22
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.Neighbors4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2018.DayOf2018
@@ -11,8 +11,8 @@ import java.util.PriorityQueue
  * See [Year 2018, Day 22](https://adventofcode.com/2018/day/22)
  */
 object Day22 : DayOf2018(22) {
-  override fun first(data: String): Any? {
-    val (depthLine, targetLine) = data.trim().lines().map { it.substringAfter(": ") }
+  override fun first(): Any? {
+    val (depthLine, targetLine) = lines.map { it.substringAfter(": ") }
     val depth = depthLine.toInt()
     val (tx, ty) = targetLine.parseInts(",")
     val t = Vector2D(tx, ty)
@@ -25,8 +25,8 @@ object Day22 : DayOf2018(22) {
     }
   }
 
-  override fun second(data: String): Any? {
-    val (depthLine, targetLine) = data.trim().lines().map { it.substringAfter(": ") }
+  override fun second(): Any? {
+    val (depthLine, targetLine) = lines.map { it.substringAfter(": ") }
     val depth = depthLine.toInt()
     val (tx, ty) = targetLine.parseInts(",")
     val t = Vector2D(tx, ty)
@@ -66,7 +66,7 @@ object Day22 : DayOf2018(22) {
     private val cache = mutableMapOf<Vector2D, Long>()
 
     operator fun get(pos: Vector2D): Long {
-      return cache.getOrElse(pos) {
+      return cache.getOrPut(pos) {
         when {
           pos.x == 0 && pos.y == 0 -> 0L
           pos == t -> 0L
@@ -75,8 +75,6 @@ object Day22 : DayOf2018(22) {
           else -> get(pos.copy(x = pos.x - 1)) * get(pos.copy(y = pos.y - 1))
         }.let {
           (it + depth) % 20183L
-        }.also {
-          cache[pos] = it
         }
       }
     }

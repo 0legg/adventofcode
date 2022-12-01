@@ -18,7 +18,7 @@ data class Vector3D(
     0 -> x
     1 -> y
     2 -> z
-    else -> throw IllegalArgumentException()
+    else -> throw IllegalArgumentException("Index: $index")
   }
 
   fun length2() = x * x + y * y + z * z

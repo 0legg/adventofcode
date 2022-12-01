@@ -10,45 +10,39 @@ object Day14 : DayOf2015(14) {
   private const val TIME = 2503
   private val LINE_PATTERN = ".*\\b(\\d+)\\b.*\\b(\\d+)\\b.*\\b(\\d+)\\b.*".toRegex()
 
-  private val speeds = data
-    .trim()
-    .lines()
-    .mapNotNull { line ->
-      LINE_PATTERN.matchEntire(line)?.let { match ->
-        val (speed, time, rest) = match.destructured
-        return@let Triple(speed.toInt(), time.toInt(), time.toInt() + rest.toInt())
-      }
+  private val speeds = lines
+    .map { line ->
+      val match = checkNotNull(LINE_PATTERN.matchEntire(line))
+      val (speed, time, rest) = match.destructured
+      return@map Triple(speed.toInt(), time.toInt(), time.toInt() + rest.toInt())
     }
 
-  override fun first(data: String): Any? {
-    return speeds
-      .map { (speed, active, period) ->
-        ((TIME / period) * active + (TIME % period).coerceAtMost(active)) * speed
-      }
-      .maxOrNull()
+  override fun first(): Any? {
+    return speeds.maxOf { (speed, active, period) ->
+      ((TIME / period) * active + (TIME % period).coerceAtMost(active)) * speed
+    }
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     val distances = speeds
       .map { (speed, active, period) ->
-        (0 until TIME).scan(0) { acc, value ->
+        (0..<TIME).scan(0) { acc, value ->
           if (value % period < active) acc + speed else acc
         }.drop(1)
       }
-    val timestamps = (0 until TIME)
+    val timestamps = (0..<TIME)
       .map { second ->
         distances.map { it[second] }
       }
       .map { list ->
-        list.map { if (it == list.maxOrNull()) 1 else 0 }
+        val max = list.max()
+        list.map { if (it == max) 1 else 0 }
       }
     return speeds
       .indices
-      .map { speed ->
-        timestamps.map { it[speed] }
+      .maxOf { speed ->
+        timestamps.sumOf { it[speed] }
       }
-      .map { it.sum() }
-      .maxOrNull()
   }
 }
 

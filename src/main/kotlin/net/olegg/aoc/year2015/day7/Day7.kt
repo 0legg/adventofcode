@@ -13,52 +13,52 @@ object Day7 : DayOf2015(7) {
   private val OR_PATTERN = "^(\\d+) OR (\\d+)$".toRegex()
   private val LSHIFT_PATTERN = "^(\\d+) LSHIFT (\\d+)$".toRegex()
   private val RSHIFT_PATTERN = "^(\\d+) RSHIFT (\\d+)$".toRegex()
-  private var VAR_PATTERN = "[a-z]".toRegex()
+  private val VAR_PATTERN = "[a-z]".toRegex()
 
-  val source = data
-    .trim()
-    .lines()
-    .mapNotNull { line ->
-      COMMAND_PATTERN.matchEntire(line)?.let { match ->
-        val (command, wire) = match.destructured
-        return@let wire to command
-      }
+  private val source = lines
+    .associate { line ->
+      val match = checkNotNull(COMMAND_PATTERN.matchEntire(line))
+      val (command, wire) = match.destructured
+      return@associate wire to command
     }
-    .toMap()
 
-  fun measure(board: Map<String, String>, pin: String): String {
+  private fun measure(board: Map<String, String>, pin: String): String {
     var state = board
     val resolved = linkedMapOf<String, String>()
-    while (!resolved.contains(pin)) {
+    while (pin !in resolved) {
       val temp = state
-        .filterValues { !it.contains(VAR_PATTERN) }
+        .filterValues { VAR_PATTERN !in it }
         .mapValues { (_, value) ->
-          NOT_PATTERN.matchEntire(value)?.let { match ->
-            val (first) = match.destructured
-            first.toInt().inv()
-          }
-            ?: AND_PATTERN.matchEntire(value)?.let { match ->
-              val (first, second) = match.destructured
+          when {
+            NOT_PATTERN.matches(value) -> {
+              val (first) = checkNotNull(NOT_PATTERN.find(value)).destructured
+              first.toInt().inv()
+            }
+            AND_PATTERN.matches(value) -> {
+              val (first, second) = checkNotNull(AND_PATTERN.find(value)).destructured
               first.toInt() and second.toInt()
             }
-            ?: OR_PATTERN.matchEntire(value)?.let { match ->
-              val (first, second) = match.destructured
+            OR_PATTERN.matches(value) -> {
+              val (first, second) = checkNotNull(OR_PATTERN.find(value)).destructured
               first.toInt() or second.toInt()
             }
-            ?: LSHIFT_PATTERN.matchEntire(value)?.let { match ->
-              val (first, second) = match.destructured
+            LSHIFT_PATTERN.matches(value) -> {
+              val (first, second) = checkNotNull(LSHIFT_PATTERN.find(value)).destructured
               first.toInt() shl second.toInt()
             }
-            ?: RSHIFT_PATTERN.matchEntire(value)?.let { match ->
-              val (first, second) = match.destructured
+            RSHIFT_PATTERN.matches(value) -> {
+              val (first, second) = checkNotNull(RSHIFT_PATTERN.find(value)).destructured
               first.toInt() shr second.toInt()
             }
-            ?: value.toInt()
+            else -> {
+              value.toInt()
+            }
+          }
         }
         .mapValues { (0xFFFF and it.value).toString() }
 
       state = state
-        .filterKeys { !temp.containsKey(it) }
+        .filterKeys { it !in temp }
         .mapValues { (_, command) ->
           temp.toList().fold(command) { acc, value ->
             acc.replace("\\b${value.first}\\b".toRegex(), value.second)
@@ -66,14 +66,14 @@ object Day7 : DayOf2015(7) {
         }
       resolved.putAll(temp)
     }
-    return resolved[pin] ?: ""
+    return resolved[pin].orEmpty()
   }
 
-  override fun first(data: String): Any? {
+  override fun first(): Any? {
     return measure(source, "a")
   }
 
-  override fun second(data: String): Any? {
+  override fun second(): Any? {
     return measure(source + ("b" to measure(source, "a")), "a")
   }
 }

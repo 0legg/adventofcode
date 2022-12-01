@@ -7,16 +7,14 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 6](https://adventofcode.com/2015/day/6)
  */
 object Day6 : DayOf2015(6) {
-  val commands = data.lines()
-
-  fun toPoints(command: String): List<Int> {
-    val matcher = "[\\D]*(\\d+),(\\d+)[\\D]*(\\d+),(\\d+)[\\D]*".toPattern().matcher(command)
+  private fun toPoints(command: String): List<Int> {
+    val matcher = "\\D*(\\d+),(\\d+)\\D*(\\d+),(\\d+)\\D*".toPattern().matcher(command)
     matcher.find()
     return (1..4).map { matcher.group(it).toInt() }
   }
 
-  override fun first(data: String): Any? {
-    return commands.fold(Array(1000) { Array(1000) { false } }) { acc, value ->
+  override fun first(): Any? {
+    return lines.fold(Array(1000) { Array(1000) { false } }) { acc, value ->
       val points = toPoints(value)
       (points[0]..points[2]).forEach { row ->
         (points[1]..points[3]).forEach { column ->
@@ -29,11 +27,11 @@ object Day6 : DayOf2015(6) {
         }
       }
       acc
-    }.sumOf { it.count { it } }
+    }.sumOf { row -> row.count { it } }
   }
 
-  override fun second(data: String): Any? {
-    return commands.fold(Array(1000) { Array(1000) { 0 } }) { acc, value ->
+  override fun second(): Any? {
+    return lines.fold(Array(1000) { Array(1000) { 0 } }) { acc, value ->
       val points = toPoints(value)
       (points[0]..points[2]).forEach { row ->
         (points[1]..points[3]).forEach { column ->

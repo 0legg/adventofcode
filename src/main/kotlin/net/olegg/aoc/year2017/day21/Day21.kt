@@ -7,28 +7,25 @@ import net.olegg.aoc.year2017.DayOf2017
  * See [Year 2017, Day 21](https://adventofcode.com/2017/day/21)
  */
 object Day21 : DayOf2017(21) {
-  override fun first(data: String): Any? {
-    return countOn(data, 5)
+  override fun first(): Any? {
+    return countOn(5)
   }
 
-  override fun second(data: String): Any? {
-    return countOn(data, 18)
+  override fun second(): Any? {
+    return countOn(18)
   }
 
-  private fun countOn(data: String, iterations: Int): Int {
-    val ops = data
-      .trim()
-      .lines()
+  private fun countOn(iterations: Int): Int {
+    val ops = lines
       .map { it.split(" => ") }
       .map { part -> part.map { row -> row.split("/").map { it.toList() }.toList() } }
-      .map { lex(it.first()) to it.last() }
-      .toMap()
+      .associate { lex(it.first()) to it.last() }
 
-    val sizes = ops.keys.map { it.size }.distinct().sorted()
+    val sizes = ops.keys.map { it.size }.toSortedSet()
 
-    val start = ".#./..#/###".split("/").map { it.toList() }.toList()
+    val start = ".#./..#/###".split("/").map { it.toList() }
 
-    return (0 until iterations)
+    return (0..<iterations)
       .fold(start) { acc, _ ->
         sizes.firstOrNull { acc.size % it == 0 }
           ?.let { size ->
@@ -37,7 +34,7 @@ object Day21 : DayOf2017(21) {
               .chunked(size)
               .map { rows ->
                 val perRow = rows.map { it.chunked(size) }
-                return@map (0 until chunks).map { cols ->
+                return@map (0..<chunks).map { cols ->
                   lex(perRow.map { it[cols] })
                 }
               }
@@ -46,12 +43,11 @@ object Day21 : DayOf2017(21) {
                   ops[row] ?: ops.entries.first { it.key.size == size }.value
                 }
               }
-              .map { rows ->
+              .flatMap { rows ->
                 (0..size).map { row ->
                   rows.flatMap { it[row] }
                 }
               }
-              .flatten()
               .toList()
           } ?: acc
       }
@@ -69,21 +65,20 @@ object Day21 : DayOf2017(21) {
     )
 
     val rotations = flips
-      .map { flip ->
-        (0 until 3).scan(flip) { acc, _ ->
-          (0 until size).map { first ->
-            (0 until size).map { second ->
+      .flatMap { flip ->
+        (0..<3).scan(flip) { acc, _ ->
+          (0..<size).map { first ->
+            (0..<size).map { second ->
               acc[second][first]
             }
           }
         }
       }
-      .flatten()
       .toSet()
 
-    return rotations
-      .minByOrNull { rot -> rot.joinToString(separator = "") { it.joinToString(separator = "") } }
-      .orEmpty()
+    return rotations.minBy { rot ->
+      rot.joinToString(separator = "") { it.joinToString(separator = "") }
+    }
   }
 }
 

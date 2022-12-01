@@ -10,20 +10,20 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 19](https://adventofcode.com/2021/day/19)
  */
 object Day19 : DayOf2021(19) {
-  override fun first(data: String): Any? {
-    return findAllData(data).first.size
+  override fun first(): Any? {
+    return findAllData().first.size
   }
 
-  override fun second(data: String): Any? {
-    return findAllData(data)
+  override fun second(): Any? {
+    return findAllData()
       .second
       .toList()
       .pairs()
       .maxOf { (a, b) -> (a - b).manhattan() }
   }
 
-  private fun findAllData(data: String): Pair<Set<Vector3D>, Set<Vector3D>> {
-    val visibleBeacons = data.trim()
+  private fun findAllData(): Pair<Set<Vector3D>, Set<Vector3D>> {
+    val visibleBeacons = data
       .split("\n\n")
       .map { block ->
         block.lines()

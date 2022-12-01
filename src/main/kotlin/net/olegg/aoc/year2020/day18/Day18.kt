@@ -7,12 +7,8 @@ import net.olegg.aoc.year2020.DayOf2020
  * See [Year 2020, Day 18](https://adventofcode.com/2020/day/18)
  */
 object Day18 : DayOf2020(18) {
-  override fun first(data: String): Any? {
-    val entries = data
-      .trim()
-      .lines()
-
-    return solve(entries) {
+  override fun first(): Any? {
+    return solve {
       when (it) {
         '*' -> 1
         '+' -> 1
@@ -21,12 +17,8 @@ object Day18 : DayOf2020(18) {
     }
   }
 
-  override fun second(data: String): Any? {
-    val entries = data
-      .trim()
-      .lines()
-
-    return solve(entries) {
+  override fun second(): Any? {
+    return solve {
       when (it) {
         '*' -> 1
         '+' -> 2
@@ -35,8 +27,8 @@ object Day18 : DayOf2020(18) {
     }
   }
 
-  private fun solve(entries: List<String>, precedence: (Char) -> Int): Long {
-    val values = entries.map { entry ->
+  private fun solve(precedence: (Char) -> Int): Long {
+    val values = lines.map { entry ->
       val numQueue = ArrayDeque<Char>()
       val opQueue = ArrayDeque<Char>()
 
@@ -67,7 +59,7 @@ object Day18 : DayOf2020(18) {
       val valStack = ArrayDeque<Long>()
       numQueue.forEach { op ->
         when (op) {
-          in '0'..'9' -> valStack += (op - '0').toLong()
+          in '0'..'9' -> valStack += op.digitToInt().toLong()
           '+' -> valStack += (valStack.removeLast() + valStack.removeLast())
           '*' -> valStack += (valStack.removeLast() * valStack.removeLast())
         }

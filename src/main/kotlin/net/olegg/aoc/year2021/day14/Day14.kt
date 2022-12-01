@@ -1,6 +1,7 @@
 package net.olegg.aoc.year2021.day14
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.toPair
 import net.olegg.aoc.year2021.DayOf2021
 import java.math.BigInteger
 
@@ -8,26 +9,25 @@ import java.math.BigInteger
  * See [Year 2021, Day 14](https://adventofcode.com/2021/day/14)
  */
 object Day14 : DayOf2021(14) {
-  override fun first(data: String): Any? {
-    return solve(data, 10)
+  override fun first(): Any? {
+    return solve(10)
   }
 
-  override fun second(data: String): Any? {
-    return solve(data, 40)
+  override fun second(): Any? {
+    return solve(40)
   }
 
-  private fun solve(data: String, steps: Int): BigInteger {
-    val (rawStart, rawPatterns) = data.trim().split("\n\n")
+  private fun solve(steps: Int): BigInteger {
+    val (rawStart, rawPatterns) = data.split("\n\n")
 
     val patterns = rawPatterns.lines()
-      .map { it.split(" -> ") }
-      .map { it.first() to it.last() }
-      .map { it.first to setOf("${it.first.first()}${it.second}", "${it.second}${it.first.last()}") }
-      .toMap()
+      .map { it.split(" -> ").toPair() }
+      .associate { it.first to setOf("${it.first.first()}${it.second}", "${it.second}${it.first.last()}") }
 
     val start = rawStart.windowed(2)
-      .groupBy { it }
-      .mapValues { it.value.size.toBigInteger() }
+      .groupingBy { it }
+      .eachCount()
+      .mapValues { it.value.toBigInteger() }
 
     val end = (1..steps).fold(start) { acc, _ ->
       val next = mutableMapOf<String, BigInteger>()
