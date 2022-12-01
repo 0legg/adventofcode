@@ -3,6 +3,7 @@ package net.olegg.aoc.someday
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.cookies.ConstantCookiesStorage
 import io.ktor.client.plugins.cookies.HttpCookies
 import io.ktor.client.request.get
@@ -25,6 +26,7 @@ object Fetcher {
         )
       )
     }
+    install(HttpCache)
   }
 
   suspend fun fetchInput(year: Int, day: Int): String {
