@@ -13,6 +13,15 @@ object Day1 : DayOf2022(1) {
       .map { it.parseInts("\n") }
       .maxOf { it.sum() }
   }
+
+  override fun second(): Any? {
+    return data.split("\n\n")
+      .map { it.parseInts("\n") }
+      .map { it.sum() }
+      .sortedDescending()
+      .take(3)
+      .sum()
+  }
 }
 
 fun main() = SomeDay.mainify(Day1)
