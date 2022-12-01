@@ -52,7 +52,7 @@ object Day10 : DayOf2019(10) {
 
     val maxLength = linesFromTop.maxOf { it.size }
 
-    val ordered = (0 until maxLength).flatMap { pos ->
+    val ordered = (0..<maxLength).flatMap { pos ->
       linesFromTop.mapNotNull { line -> line.getOrNull(pos) }
     }
 

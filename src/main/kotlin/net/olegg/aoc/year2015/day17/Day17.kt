@@ -18,7 +18,7 @@ object Day17 : DayOf2015(17) {
   }
 
   override fun second(): Any? {
-    return (0 until 1.shl(containers.size))
+    return (0..<1.shl(containers.size))
       .map { value ->
         containers.mapIndexed { index, container -> value.shr(index).and(1) * container }
       }

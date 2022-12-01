@@ -16,7 +16,7 @@ object Day25 : DayOf2020(25) {
     val loop = generateSequence(1L) { (it * 7L) % modulo }
       .indexOfFirst { it == items[0] }
 
-    return (0 until loop).fold(1L) { acc, _ -> (acc * items[1]) % modulo }
+    return (0..<loop).fold(1L) { acc, _ -> (acc * items[1]) % modulo }
   }
 }
 

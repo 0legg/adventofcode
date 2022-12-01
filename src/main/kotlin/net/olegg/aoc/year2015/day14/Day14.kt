@@ -26,11 +26,11 @@ object Day14 : DayOf2015(14) {
   override fun second(): Any? {
     val distances = speeds
       .map { (speed, active, period) ->
-        (0 until TIME).scan(0) { acc, value ->
+        (0..<TIME).scan(0) { acc, value ->
           if (value % period < active) acc + speed else acc
         }.drop(1)
       }
-    val timestamps = (0 until TIME)
+    val timestamps = (0..<TIME)
       .map { second ->
         distances.map { it[second] }
       }

@@ -25,7 +25,7 @@ object Day21 : DayOf2017(21) {
 
     val start = ".#./..#/###".split("/").map { it.toList() }
 
-    return (0 until iterations)
+    return (0..<iterations)
       .fold(start) { acc, _ ->
         sizes.firstOrNull { acc.size % it == 0 }
           ?.let { size ->
@@ -34,7 +34,7 @@ object Day21 : DayOf2017(21) {
               .chunked(size)
               .map { rows ->
                 val perRow = rows.map { it.chunked(size) }
-                return@map (0 until chunks).map { cols ->
+                return@map (0..<chunks).map { cols ->
                   lex(perRow.map { it[cols] })
                 }
               }
@@ -66,9 +66,9 @@ object Day21 : DayOf2017(21) {
 
     val rotations = flips
       .flatMap { flip ->
-        (0 until 3).scan(flip) { acc, _ ->
-          (0 until size).map { first ->
-            (0 until size).map { second ->
+        (0..<3).scan(flip) { acc, _ ->
+          (0..<size).map { first ->
+            (0..<size).map { second ->
               acc[second][first]
             }
           }

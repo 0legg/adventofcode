@@ -22,7 +22,7 @@ object Day22 : DayOf2017(22) {
       }
     }
 
-    return (0 until 10000).fold(Triple(Vector2D(), Directions.U, 0)) { (pos, dir, state), _ ->
+    return (0..<10000).fold(Triple(Vector2D(), Directions.U, 0)) { (pos, dir, state), _ ->
       val curr = map.getOrDefault(pos, false)
       val newDir = (if (curr) CW[dir] else CCW[dir]) ?: dir
       map[pos] = !curr
@@ -44,7 +44,7 @@ object Day22 : DayOf2017(22) {
       }
     }
 
-    return (0 until 10000000).fold(Triple(Vector2D(), Directions.U, 0)) { (pos, dir, state), _ ->
+    return (0..<10000000).fold(Triple(Vector2D(), Directions.U, 0)) { (pos, dir, state), _ ->
       val curr = map.getOrDefault(pos, 0)
       val newDir = when (curr) {
         0 -> CCW[dir]

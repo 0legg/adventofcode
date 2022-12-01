@@ -27,7 +27,7 @@ fun <T : Any> List<T>.pairs(): Sequence<Pair<T, T>> {
   require(size > 1)
   return sequence {
     for (x in indices) {
-      for (y in x + 1 until size) {
+      for (y in x + 1..<size) {
         yield(get(x) to get(y))
       }
     }

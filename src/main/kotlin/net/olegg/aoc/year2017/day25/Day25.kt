@@ -42,7 +42,7 @@ object Day25 : DayOf2017(25) {
 
     val tape = mutableMapOf<Int, Int>()
 
-    (0 until iterations.toInt())
+    (0..<iterations.toInt())
       .fold(initialState to 0) { (state, shift), _ ->
         states[state]
           ?.actions

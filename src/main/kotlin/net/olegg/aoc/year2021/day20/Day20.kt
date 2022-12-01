@@ -24,7 +24,7 @@ object Day20 : DayOf2021(20) {
       .lines()
       .map { it.toList() }
 
-    return (0 until steps)
+    return (0..<steps)
       .fold(source to '.') { acc, _ ->
         enhance(acc.first, algo, acc.second)
       }

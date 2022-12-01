@@ -45,7 +45,7 @@ object Day24 : DayOf2020(24) {
       .filterValues { it.size % 2 == 1 }
       .keys
 
-    val result = (0 until 100).fold(start) { prev, _ ->
+    val result = (0..<100).fold(start) { prev, _ ->
       val neighbors = prev
         .flatMap { cell -> dirs.values.map { it + cell } }
         .groupingBy { it }

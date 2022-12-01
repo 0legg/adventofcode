@@ -15,7 +15,7 @@ object Day25 : DayOf2015(25) {
       ?.let { match ->
         val (row, column) = match.destructured.toList().map { it.toInt() }
         val pos = (row + column - 1) * (row + column - 2) / 2 + column
-        return@let (1 until pos).fold(20151125L) { acc, _ -> (acc * 252533L) % 33554393L }
+        return@let (1..<pos).fold(20151125L) { acc, _ -> (acc * 252533L) % 33554393L }
       }
   }
 }

@@ -67,7 +67,7 @@ object Day16 : DayOf2021(16) {
           }
           1 -> {
             val packets = buffer.consume(11).toInt(2)
-            (0 until packets).map { readPacket(buffer) }
+            (0..<packets).map { readPacket(buffer) }
           }
           else -> emptyList()
         }
