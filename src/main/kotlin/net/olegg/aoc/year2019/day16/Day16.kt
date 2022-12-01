@@ -11,7 +11,7 @@ object Day16 : DayOf2019(16) {
   override fun first(): Any? {
     val input = data.map { it - '0' }
 
-    return (0 until 100)
+    return (0..<100)
       .fold(input) { list, _ ->
         list.indices.map { index ->
           list.asSequence()
@@ -37,7 +37,7 @@ object Day16 : DayOf2019(16) {
 
     val tail = largeInput.drop(position).toList().asReversed()
 
-    return (0 until 100)
+    return (0..<100)
       .fold(tail) { list, _ ->
         list.runningReduce { acc, item -> acc + item }
           .map { abs(it % 10) }

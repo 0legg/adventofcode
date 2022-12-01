@@ -23,7 +23,7 @@ object Day3 : DayOf2021(3) {
   override fun second(): Any? {
     val length = lines.first().length
 
-    val oxygen = (0 until length)
+    val oxygen = (0..<length)
       .fold(lines) { acc, position ->
         if (acc.size == 1) return@fold acc
         val sum = acc.sumOf { it[position].digitToInt() }
@@ -33,7 +33,7 @@ object Day3 : DayOf2021(3) {
       .first()
       .toInt(2)
 
-    val co2 = (0 until length)
+    val co2 = (0..<length)
       .fold(lines) { acc, position ->
         if (acc.size == 1) return@fold acc
         val sum = acc.sumOf { it[position].digitToInt() }

@@ -23,8 +23,8 @@ object Day12 : DayOf2020(12) {
         'W' -> acc.first + L.step * size to acc.second
         'E' -> acc.first + R.step * size to acc.second
         'S' -> acc.first + D.step * size to acc.second
-        'L' -> acc.first to (0 until size / 90).fold(acc.second) { dir, _ -> CCW[dir] ?: dir }
-        'R' -> acc.first to (0 until size / 90).fold(acc.second) { dir, _ -> CW[dir] ?: dir }
+        'L' -> acc.first to (0..<size / 90).fold(acc.second) { dir, _ -> CCW[dir] ?: dir }
+        'R' -> acc.first to (0..<size / 90).fold(acc.second) { dir, _ -> CW[dir] ?: dir }
         'F' -> acc.first + acc.second.step * size to acc.second
         else -> acc
       }
@@ -42,8 +42,8 @@ object Day12 : DayOf2020(12) {
         'W' -> acc.first to acc.second + L.step * size
         'E' -> acc.first to acc.second + R.step * size
         'S' -> acc.first to acc.second + D.step * size
-        'L' -> acc.first to (0 until size / 90).fold(acc.second) { dir, _ -> Vector2D(dir.y, -dir.x) }
-        'R' -> acc.first to (0 until size / 90).fold(acc.second) { dir, _ -> Vector2D(-dir.y, dir.x) }
+        'L' -> acc.first to (0..<size / 90).fold(acc.second) { dir, _ -> Vector2D(dir.y, -dir.x) }
+        'R' -> acc.first to (0..<size / 90).fold(acc.second) { dir, _ -> Vector2D(-dir.y, dir.x) }
         'F' -> acc.first + acc.second * size to acc.second
         else -> acc
       }

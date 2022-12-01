@@ -15,7 +15,7 @@ object Day15 : DayOf2018(15) {
     val map = matrix
 
     var characters = map
-      .flatMapIndexedTo(mutableListOf()) { y, row ->
+      .flatMapIndexed() { y, row ->
         row.mapIndexedNotNull { x, c ->
           if (c in listOf('E', 'G')) Character(Vector2D(x, y), c, 3, 200) else null
         }
@@ -129,7 +129,7 @@ object Day15 : DayOf2018(15) {
 
     return (3..200).first { elvenHit ->
       var characters = map
-        .flatMapIndexedTo(mutableListOf()) { y, row ->
+        .flatMapIndexed() { y, row ->
           row.mapIndexedNotNull { x, c ->
             when (c) {
               'E' -> Character(Vector2D(x, y), c, elvenHit, 200)

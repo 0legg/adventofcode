@@ -104,7 +104,7 @@ object Day11 : DayOf2016(11) {
   fun decompress(compressed: Pair<Day11State, Int>, types: Int): Triple<List<Pair<Set<Int>, Set<Int>>>, Int, Int> {
     val decompressed = List(4) { mutableSetOf<Int>() to mutableSetOf<Int>() }
     val elevator = compressed.first and 3
-    (0 until types).forEach { index ->
+    (0..<types).forEach { index ->
       decompressed[compressed.first[index * 2 + 1]].first += index
       decompressed[compressed.first[index * 2 + 2]].second += index
     }

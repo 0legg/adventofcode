@@ -61,10 +61,10 @@ object Day24 : DayOf2019(24) {
               .flatMap { (dir, point) ->
                 when {
                   point == center -> when (dir) {
-                    L -> (0 until size).map { level - 1 to Vector2D(size - 1, it) }
-                    R -> (0 until size).map { level - 1 to Vector2D(0, it) }
-                    U -> (0 until size).map { level - 1 to Vector2D(it, size - 1) }
-                    D -> (0 until size).map { level - 1 to Vector2D(it, 0) }
+                    L -> (0..<size).map { level - 1 to Vector2D(size - 1, it) }
+                    R -> (0..<size).map { level - 1 to Vector2D(0, it) }
+                    U -> (0..<size).map { level - 1 to Vector2D(it, size - 1) }
+                    D -> (0..<size).map { level - 1 to Vector2D(it, 0) }
                     else -> emptyList()
                   }
                   point.x < 0 -> listOf(level + 1 to center + L.step)

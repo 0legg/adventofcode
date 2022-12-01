@@ -32,7 +32,7 @@ object Day4 : DayOf2018(4) {
 
     val minutes = IntArray(60)
     sleeper.value.forEach { (_, prev, curr) ->
-      (prev.minute until curr.minute).forEach { minutes[it] += 1 }
+      (prev.minute..<curr.minute).forEach { minutes[it] += 1 }
     }
 
     return sleeper.key * (minutes.withIndex().maxBy { it.value }.index)
@@ -57,7 +57,7 @@ object Day4 : DayOf2018(4) {
     val freqs = sleeps.mapValues { entry ->
       val minutes = IntArray(60)
       entry.value.forEach { (_, prev, curr) ->
-        (prev.minute until curr.minute).forEach { minutes[it] += 1 }
+        (prev.minute..<curr.minute).forEach { minutes[it] += 1 }
       }
       return@mapValues minutes
     }

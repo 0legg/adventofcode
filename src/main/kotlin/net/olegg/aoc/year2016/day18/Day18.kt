@@ -24,7 +24,7 @@ object Day18 : DayOf2016(18) {
   }
 
   fun solve(rows: Int): Int {
-    return (1 until rows).fold(".$data." to data.count { it == '.' }) { acc, _ ->
+    return (1..<rows).fold(".$data." to data.count { it == '.' }) { acc, _ ->
       val traps = patterns.flatMap { pattern -> pattern.findAll(acc.first).map { it.range.first + 1 }.toList() }
       val row = acc.first.indices.map { if (traps.contains(it)) '^' else '.' }.joinToString(separator = "")
       return@fold row to acc.second + row.count { it == '.' } - 2

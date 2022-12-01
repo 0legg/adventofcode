@@ -66,7 +66,7 @@ object Day18 : DayOf2019(18) {
         .filterNot { config.keys[it.key - 'a'] }
         .filter { (_, route) ->
           val doors = route.second
-          return@filter (0 until 26).none { doors[it] && !config.keys[it] }
+          return@filter (0..<26).none { doors[it] && !config.keys[it] }
         }
         .map { (next, route) ->
           return@map Config(
@@ -156,7 +156,7 @@ object Day18 : DayOf2019(18) {
         .filterNot { config.keys[it.second - 'a'] }
         .filter { (_, _, route) ->
           val doors = route.second
-          return@filter (0 until 26).none { doors[it] && !config.keys[it] }
+          return@filter (0..<26).none { doors[it] && !config.keys[it] }
         }
         .map { (curr, next, route) ->
           return@map MultiConfig(

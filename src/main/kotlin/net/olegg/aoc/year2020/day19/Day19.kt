@@ -61,7 +61,7 @@ object Day19 : DayOf2020(19) {
           return when (rules.size) {
             0 -> false
             1 -> matches(from, to, rules.first())
-            else -> (from + 1 until to).any { mid ->
+            else -> (from + 1..<to).any { mid ->
               matches(from, mid, rules.first()) && matches(mid, to, rules.drop(1))
             }
           }

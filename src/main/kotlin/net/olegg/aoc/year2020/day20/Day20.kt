@@ -63,7 +63,7 @@ object Day20 : DayOf2020(20) {
 
     available -= topLeftTile
 
-    (1 until SIZE).forEach { x ->
+    (1..<SIZE).forEach { x ->
       val left = grid[0][x - 1]
       val rightCount = available.count { left.second[2] in it.value.flatten() }
       if (rightCount != 1) {
@@ -79,7 +79,7 @@ object Day20 : DayOf2020(20) {
       available -= right.first
     }
 
-    (1 until SIZE).forEach { y ->
+    (1..<SIZE).forEach { y ->
       val top = grid[y - 1][0]
       val bottomCount = available.count { top.second[3] in it.value.flatten() }
       if (bottomCount != 1) {
@@ -95,8 +95,8 @@ object Day20 : DayOf2020(20) {
       available -= bottom.first
     }
 
-    (1 until SIZE).forEach { y ->
-      (1 until SIZE).forEach { x ->
+    (1..<SIZE).forEach { y ->
+      (1..<SIZE).forEach { x ->
         val left = grid[y][x - 1]
         val top = grid[y - 1][x]
         val edge = listOf(left.second[2], top.second[3])
@@ -178,7 +178,7 @@ object Day20 : DayOf2020(20) {
     val right = tile.map { it.last() }
 
     return listOf(listOf(left, top, right, bottom))
-      .flatMap { order -> (0 until 3).scan(order) { acc, _ -> acc.drop(1) + acc.take(1) } }
+      .flatMap { order -> (0..<3).scan(order) { acc, _ -> acc.drop(1) + acc.take(1) } }
       .flatMap { listOf(it, it.reversed().map { order -> order.reversed() }) }
       .map { listOf(it[0].reversed(), it[1], it[2], it[3].reversed()) }
       .map { order -> order.map { it.joinToString(separator = "").replace('#', '1').replace('.', '0').toInt(2) } }
@@ -196,8 +196,8 @@ object Day20 : DayOf2020(20) {
 
     val target = List(size) { y -> MutableList(size) { x -> this[y][x] } }
 
-    for (i in 0 until size / 2) {
-      for (j in i until size - i - 1) {
+    for (i in 0..<size / 2) {
+      for (j in i..<size - i - 1) {
         target[i][j] = this[size - 1 - j][i]
         target[size - 1 - j][i] = this[size - 1 - i][size - 1 - j]
         target[size - 1 - i][size - 1 - j] = this[j][size - 1 - i]

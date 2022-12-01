@@ -39,7 +39,7 @@ object Day17 : DayOf2020(17) {
       }
       .toSet()
 
-    val finalState = (0 until 6).fold(initialState) { state, _ ->
+    val finalState = (0..<6).fold(initialState) { state, _ ->
       val neighborCount = state.flatMap { it.neighbors3D() }
         .groupingBy { it }
         .eachCount()
@@ -64,7 +64,7 @@ object Day17 : DayOf2020(17) {
       }
       .toSet()
 
-    val finalState = (0 until 6).fold(initialState) { state, _ ->
+    val finalState = (0..<6).fold(initialState) { state, _ ->
       val neighborCount = state.flatMap { it.neighbors4D() }
         .groupingBy { it }
         .eachCount()

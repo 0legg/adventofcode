@@ -15,8 +15,8 @@ object Day3 : DayOf2018(3) {
     val field = Array(height) { Array(width) { 0 } }
 
     requests.forEach { request ->
-      (request.top until request.top + request.height).forEach { y ->
-        (request.left until request.left + request.width).forEach { x ->
+      (request.top..<request.top + request.height).forEach { y ->
+        (request.left..<request.left + request.width).forEach { x ->
           field[y][x] += 1
         }
       }

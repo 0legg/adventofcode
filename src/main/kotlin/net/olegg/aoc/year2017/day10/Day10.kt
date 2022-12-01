@@ -28,7 +28,7 @@ object Day10 : DayOf2017(10) {
     return data
       .map { it.code }
       .let { it + listOf(17, 31, 73, 47, 23) }
-      .let { list -> (0 until 64).fold(emptyList<Int>()) { acc, _ -> acc + list } }
+      .let { list -> (0..<64).fold(emptyList<Int>()) { acc, _ -> acc + list } }
       .foldIndexed(List(256) { it } to 0) { index, acc, value ->
         val prev = acc.first + acc.first
         val curr = prev.subList(0, acc.second) +

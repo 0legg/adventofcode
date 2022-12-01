@@ -47,7 +47,7 @@ object Day14 : DayOf2020(14) {
             val bitValue = address.toString(2).padStart(36, '0')
 
             val count = mask.count { c -> c == 'X' }
-            (0 until (1 shl count)).forEach { unmasked ->
+            (0..<(1 shl count)).forEach { unmasked ->
               val submask = unmasked.toString(2).padStart(count, '0')
               var meetX = 0
               val newAddress = bitValue.zip(mask) { b, m ->

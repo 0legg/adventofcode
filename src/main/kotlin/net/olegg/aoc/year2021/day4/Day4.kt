@@ -23,14 +23,14 @@ object Day4 : DayOf2021(4) {
       }
 
       newAcc.forEach { board ->
-        for (x in 0 until 5) {
-          if ((0 until 5).all { y -> board[5 * y + x].second }) {
+        for (x in 0..<5) {
+          if ((0..<5).all { y -> board[5 * y + x].second }) {
             return score(board, value)
           }
         }
 
-        for (y in 0 until 5) {
-          if ((0 until 5).all { x -> board[5 * y + x].second }) {
+        for (y in 0..<5) {
+          if ((0..<5).all { x -> board[5 * y + x].second }) {
             return score(board, value)
           }
         }
@@ -57,14 +57,14 @@ object Day4 : DayOf2021(4) {
       }
 
       val filteredAcc = newAcc.filter { board ->
-        for (x in 0 until 5) {
-          if ((0 until 5).all { y -> board[5 * y + x].second }) {
+        for (x in 0..<5) {
+          if ((0..<5).all { y -> board[5 * y + x].second }) {
             return@filter false
           }
         }
 
-        for (y in 0 until 5) {
-          if ((0 until 5).all { x -> board[5 * y + x].second }) {
+        for (y in 0..<5) {
+          if ((0..<5).all { x -> board[5 * y + x].second }) {
             return@filter false
           }
         }
