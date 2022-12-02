@@ -22,6 +22,14 @@ object Day2 : DayOf2022(2) {
         }
       }
   }
+
+  override fun second(): Any? {
+    return lines
+      .map { line -> line.split(" ").map { it.first() }.toPair() }
+      .sumOf { (first, second) ->
+        xyz.indexOf(second) * 3 + (abc.indexOf(first) + xyz.lastIndexOf(second) - 1) % 3 + 1
+      }
+  }
 }
 
 fun main() = SomeDay.mainify(Day2)
