@@ -8,6 +8,11 @@ import net.olegg.aoc.year2022.DayOf2022
  */
 object Day3 : DayOf2022(3) {
 
+  private val alphabet = buildSet {
+    addAll('a'..'z')
+    addAll('A'..'Z')
+  }
+
   override fun first(): Any? {
     return lines
       .map { line ->
@@ -15,6 +20,23 @@ object Day3 : DayOf2022(3) {
       }
       .map { (first, second) ->
         first.toSet().intersect(second.toSet())
+      }
+      .sumOf {
+        when (val char = it.first()) {
+          in 'a'..'z' -> char - 'a' + 1
+          in 'A'..'Z' -> char - 'A' + 27
+          else -> 0
+        }
+      }
+  }
+
+  override fun second(): Any? {
+    return lines
+      .chunked(3)
+      .map { threeLines ->
+        threeLines.fold(alphabet) { acc, value ->
+          acc.intersect(value.toSet())
+        }
       }
       .sumOf {
         when (val char = it.first()) {
