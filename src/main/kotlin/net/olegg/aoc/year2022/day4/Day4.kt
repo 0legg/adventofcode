@@ -17,6 +17,16 @@ object Day4 : DayOf2022(4) {
         (second.first in first && second.last in first) || (first.first in second && first.last in second)
       }
   }
+
+  override fun second(): Any? {
+    return lines
+      .map { it.parseInts("-", ",") }
+      .count { line ->
+        val first = IntRange(line[0], line[1])
+        val second = IntRange(line[2], line[3])
+        (second.first in first || second.last in first) || (first.first in second || first.last in second)
+      }
+  }
 }
 
 fun main() = SomeDay.mainify(Day4)
