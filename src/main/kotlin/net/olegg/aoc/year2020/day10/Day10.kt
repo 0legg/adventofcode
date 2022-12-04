@@ -9,7 +9,7 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day10 : DayOf2020(10) {
   override fun first(): Any? {
-    val adapters = data.parseInts(delimiters = "\n").sorted()
+    val adapters = data.parseInts("\n").sorted()
     val jolts = listOf(0) + adapters + listOf(adapters.last() + 3)
 
     val diffs = jolts
@@ -22,7 +22,7 @@ object Day10 : DayOf2020(10) {
   }
 
   override fun second(): Any? {
-    val adapters = data.parseInts(delimiters = "\n").sorted()
+    val adapters = data.parseInts("\n").sorted()
     val jolts = listOf(0) + adapters + listOf(adapters.last() + 3)
 
     val options = jolts.associateWithTo(mutableMapOf()) { 0L }

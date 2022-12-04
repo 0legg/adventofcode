@@ -9,7 +9,7 @@ import net.olegg.aoc.year2021.DayOf2021
  */
 object Day1 : DayOf2021(1) {
   override fun first(): Any? {
-    val nums = data.parseInts(delimiters = "\n")
+    val nums = data.parseInts("\n")
 
     return nums
       .zipWithNext()
@@ -17,7 +17,7 @@ object Day1 : DayOf2021(1) {
   }
 
   override fun second(): Any? {
-    val nums = data.parseInts(delimiters = "\n")
+    val nums = data.parseInts("\n")
 
     return nums.windowed(3)
       .map { it.sum() }

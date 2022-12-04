@@ -8,7 +8,7 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 17](https://adventofcode.com/2015/day/17)
  */
 object Day17 : DayOf2015(17) {
-  private val containers = data.parseInts(delimiters = "\n")
+  private val containers = data.parseInts("\n")
   override fun first(): Any? {
     return containers.fold(listOf(1) + List(150) { 0 }) { acc, container ->
       acc.mapIndexed { index, value ->
