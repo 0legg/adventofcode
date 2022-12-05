@@ -56,6 +56,55 @@ object Day5 : DayOf2022(5) {
       .map { it.second }
       .joinToString(separator = "") { it.toString() }
   }
+
+  override fun second(): Any? {
+    val (stacksData, commandsData) = data.split("\n\n")
+
+    val stackPositions = stacksData
+      .lines()
+      .last()
+      .let { line ->
+        val columns = NUM_PATTERN.findAll(line)
+        columns.map {
+          it.value.toInt() to it.range.first
+        }
+      }
+
+    val stacks = stackPositions.associate { it.first to ArrayDeque<Char>() }
+    stacksData
+      .lines()
+      .dropLast(1)
+      .forEach { line ->
+        stackPositions.forEach { (value, position) ->
+          if (line[position] != ' ') {
+            stacks.getValue(value).addLast(line[position])
+          }
+        }
+      }
+
+    val commands = commandsData
+      .lines()
+      .mapNotNull { COMMAND_PATTERN.find(it) }
+      .map { line -> line.destructured.toList().map { it.toInt() } }
+      .map { Triple(it[0], it[1], it[2]) }
+
+    commands.forEach { (count, from, to) ->
+      val fromStack = stacks.getValue(from)
+      val toStack = stacks.getValue(to)
+      val stack = fromStack.take(count).asReversed()
+      repeat(count) {
+        fromStack.removeFirst()
+        toStack.addFirst(stack[it])
+      }
+    }
+
+    return stacks
+      .mapValues { it.value.first() }
+      .toList()
+      .sortedBy { it.first }
+      .map { it.second }
+      .joinToString(separator = "") { it.toString() }
+  }
 }
 
 fun main() = SomeDay.mainify(Day5)
