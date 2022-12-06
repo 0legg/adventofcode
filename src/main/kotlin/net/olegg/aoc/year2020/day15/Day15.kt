@@ -17,7 +17,7 @@ object Day15 : DayOf2020(15) {
   }
 
   private fun solve(steps: Int): Int {
-    val nums = data.parseInts(delimiters = ",")
+    val nums = data.parseInts(",")
 
     val meets = nums.dropLast(1)
       .withIndex()

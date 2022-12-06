@@ -8,7 +8,7 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 24](https://adventofcode.com/2015/day/24)
  */
 object Day24 : DayOf2015(24) {
-  private val weights = data.parseLongs(delimiters = "\n")
+  private val weights = data.parseLongs("\n")
 
   override fun first(): Any? {
     val sum = weights.sum() / 3

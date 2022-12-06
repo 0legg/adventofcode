@@ -9,7 +9,7 @@ import net.olegg.aoc.year2020.DayOf2020
  */
 object Day9 : DayOf2020(9) {
   override fun first(): Any? {
-    val nums = data.parseLongs(delimiters = "\n")
+    val nums = data.parseLongs("\n")
 
     return nums.windowed(26)
       .map { it.dropLast(1) to it.last() }
@@ -19,7 +19,7 @@ object Day9 : DayOf2020(9) {
   }
 
   override fun second(): Any? {
-    val nums = data.parseLongs(delimiters = "\n")
+    val nums = data.parseLongs("\n")
 
     val bad = nums.windowed(26)
       .map { it.dropLast(1) to it.last() }
