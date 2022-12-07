@@ -11,7 +11,54 @@ import net.olegg.aoc.year2022.day7.Day7.Node.File
  */
 object Day7 : DayOf2022(7) {
 
+  /*override val localData: String?
+    get() = """
+      $ cd /
+      $ ls
+      dir a
+      14848514 b.txt
+      8504156 c.dat
+      dir d
+      $ cd a
+      $ ls
+      dir e
+      29116 f
+      2557 g
+      62596 h.lst
+      $ cd e
+      $ ls
+      584 i
+      $ cd ..
+      $ cd ..
+      $ cd d
+      $ ls
+      4060174 j
+      8033020 d.log
+      5626152 d.ext
+      7214296 k
+    """.trimIndent()*/
+
   override fun first(): Any? {
+    return solve {
+      this.map { it.size }
+        .filter { it <= 100000L }
+        .sum()
+    }
+  }
+
+  override fun second(): Any? {
+    return solve {
+      val rootSize = maxOf { it.size }
+      val unused = 70000000L - rootSize
+      val toDelete = 30000000L - unused
+
+      this.map { it.size }
+        .filter { it >= toDelete }
+        .min()
+    }
+  }
+
+  private fun solve(action: List<Dir>.() -> Long): Long {
     val root = Dir(
       name = "/",
       parent = null,
@@ -53,13 +100,11 @@ object Day7 : DayOf2022(7) {
       }
     }
 
-    println("Total size ${root.size}")
-
-    return root.sumSmallSizes()
+    return root.flattenDirs().action()
   }
 
-  private fun Dir.sumSmallSizes(): Long {
-    return (if (size <= 100000L) size else 0) + content.filterIsInstance<Dir>().sumOf { it.sumSmallSizes() }
+  private fun Dir.flattenDirs(): List<Dir> {
+    return listOf(this) + content.filterIsInstance<Dir>().flatMap { it.flattenDirs() }
   }
 
   sealed interface Node {
