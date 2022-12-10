@@ -13,6 +13,7 @@ data class Vector2D(
   operator fun unaryMinus() = Vector2D(-x, -y)
   operator fun times(other: Int) = Vector2D(x * other, y * other)
   operator fun timesAssign(other: Int) = run { x *= other; y *= other }
+  operator fun div(other: Int) = Vector2D(x / other, y / other)
 
   fun length2() = x * x + y * y
   fun manhattan() = abs(x) + abs(y)
