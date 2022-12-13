@@ -27,6 +27,18 @@ object Day13 : DayOf2022(13) {
       .sumOf { it.index + 1 }
   }
 
+  override fun second(): Any? {
+    val two = parseLine("[[2]]")
+    val six = parseLine("[[6]]")
+    val inputs = lines
+      .filter { it.isNotBlank() }
+      .map { parseLine(it) }
+      .plus(listOf(two, six))
+      .sorted()
+
+    return (inputs.indexOf(two) + 1) * (inputs.indexOf(six) + 1)
+  }
+
   private fun parseLine(line: String): Node {
     val queue = ArrayDeque(line.toList())
     val stack = ArrayDeque<MutableList<Node>>()
