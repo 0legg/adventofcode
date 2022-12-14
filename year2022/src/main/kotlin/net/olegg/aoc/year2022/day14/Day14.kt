@@ -20,7 +20,7 @@ object Day14 : DayOf2022(14) {
   private val STOP = setOf('#', null)
 
   override fun first(): Any? {
-    val map = fill()
+    val map = fill(false)
 
     return map.sumOf { row ->
       row.count {
@@ -29,7 +29,17 @@ object Day14 : DayOf2022(14) {
     }
   }
 
-  private fun fill(): List<List<Char>> {
+  override fun second(): Any? {
+    val map = fill(true)
+
+    return map.sumOf { row ->
+      row.count {
+        it == 'o'
+      }
+    }
+  }
+
+  private fun fill(addFloor: Boolean): List<List<Char>> {
     val start = Vector2D(500, 0)
     val rocks = lines
       .flatMap { line ->
@@ -49,17 +59,25 @@ object Day14 : DayOf2022(14) {
     val maxX = maxOf(start.x + 1, rocks.maxOf { it.x + 1 })
     val minY = minOf(start.y, rocks.minOf { it.y })
     val maxY = maxOf(start.y, rocks.maxOf { it.y })
+    val addY = if (addFloor) 3 else 0
+    val extendX = if (addFloor) maxY + addY - minY + 1 else 0
     val bbox = Pair(
-      Vector2D(minX, minY),
-      Vector2D(maxX, maxY),
+      Vector2D(minX - extendX, minY),
+      Vector2D(maxX + extendX, maxY + addY),
     )
 
-    val map = List(maxY - minY + 1) {
-      MutableList(maxX - minX + 1) { '.' }
+    val map = List(bbox.second.y - bbox.first.y + 1) {
+      MutableList(bbox.second.x - bbox.first.x + 1) { '.' }
     }
+
+    map[start - bbox.first] = '+'
 
     rocks.forEach { rock ->
       map[rock - bbox.first] = '#'
+    }
+
+    if (addFloor) {
+      map[map.lastIndex - 1].fill('#')
     }
 
     fill(map, start - bbox.first)
@@ -72,6 +90,7 @@ object Day14 : DayOf2022(14) {
       map[coord] in STOP -> false
       coord.y == map.lastIndex -> true
       map[coord] == '~' -> true
+      map[coord] == 'o' -> false
       else -> {
         map[coord] = 'o'
         fill(map, coord + D.step) || fill(map, coord + DL.step) || fill(map, coord + DR.step)
@@ -80,15 +99,6 @@ object Day14 : DayOf2022(14) {
 
     if (reachBottom) {
       map[coord] = '~'
-
-      generateSequence(coord) { it + UL.step }
-        .drop(1)
-        .takeWhile { map[it] == 'o' }
-        .forEach { map[it] = '~' }
-      generateSequence(coord) { it + UR.step }
-        .drop(1)
-        .takeWhile { map[it] == '0' }
-        .forEach { map[it] = '~' }
     }
 
     return reachBottom
