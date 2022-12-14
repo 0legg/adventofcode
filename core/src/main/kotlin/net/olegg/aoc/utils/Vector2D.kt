@@ -1,6 +1,7 @@
 package net.olegg.aoc.utils
 
 import kotlin.math.abs
+import kotlin.math.sign
 
 data class Vector2D(
   var x: Int = 0,
@@ -18,4 +19,9 @@ data class Vector2D(
   fun length2() = x * x + y * y
   fun manhattan() = abs(x) + abs(y)
   fun toList() = listOf(x, y)
+  fun dir() = when {
+    x == 0 -> Vector2D(0, y.sign)
+    y == 0 -> Vector2D(x.sign, 0)
+    else -> error("Not aligned with axis: $this")
+  }
 }
