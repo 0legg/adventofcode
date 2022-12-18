@@ -24,4 +24,5 @@ data class Vector3D(
   fun length2() = x * x + y * y + z * z
   fun manhattan() = abs(x) + abs(y) + abs(z)
   fun toList() = listOf(x, y, z)
+  fun volume() = x * y * z
 }
