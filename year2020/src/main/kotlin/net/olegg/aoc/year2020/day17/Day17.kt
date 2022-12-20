@@ -2,6 +2,7 @@ package net.olegg.aoc.year2020.day17
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Vector3D
+import net.olegg.aoc.utils.Vector4D
 import net.olegg.aoc.year2020.DayOf2020
 
 /**
@@ -76,15 +77,6 @@ object Day17 : DayOf2020(17) {
     }
 
     return finalState.size
-  }
-
-  data class Vector4D(
-    var x: Int = 0,
-    var y: Int = 0,
-    var z: Int = 0,
-    var w: Int = 0,
-  ) {
-    operator fun plus(other: Vector4D) = Vector4D(x + other.x, y + other.y, z + other.z, w + other.w)
   }
 
   private fun Vector3D.neighbors3D(): List<Vector3D> {
