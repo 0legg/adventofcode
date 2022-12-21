@@ -28,6 +28,29 @@ object Day20 : DayOf2022(20) {
       numbers[(position + 2000) % numbers.size].first +
       numbers[(position + 3000) % numbers.size].first
   }
+
+  override fun second(): Any? {
+    val numbers = lines
+      .mapIndexed { index, line -> line.toLong() * 811589153L to index }
+      .toMutableList()
+    val mod = numbers.size - 1
+
+    repeat(10) {
+      numbers.indices.forEach { index ->
+        val positionBefore = numbers.indexOfFirst { it.second == index }
+        val value = numbers[positionBefore]
+        val positionAfter = ((((positionBefore + value.first) % mod) + mod) % mod).toInt()
+        numbers.removeAt(positionBefore)
+        numbers.add(positionAfter, value)
+      }
+    }
+
+    val position = numbers.indexOfFirst { it.first == 0L }
+
+    return numbers[(position + 1000) % numbers.size].first +
+      numbers[(position + 2000) % numbers.size].first +
+      numbers[(position + 3000) % numbers.size].first
+  }
 }
 
 fun main() = SomeDay.mainify(Day20)
