@@ -62,6 +62,67 @@ object Day24 : DayOf2022(24) {
 
     return step
   }
+
+  override fun second(): Any? {
+    val from = Vector2D(
+      matrix.first().indexOf('.'),
+      0,
+    )
+    val to = Vector2D(
+      matrix.last().indexOf('.'),
+      matrix.lastIndex,
+    )
+
+    val height = matrix.size
+    val width = matrix.first().size
+
+    var blizzards = matrix.flatMapIndexed { y, row ->
+      row.mapIndexedNotNull { x, c ->
+        val position = Vector2D(x, y)
+        when (c) {
+          '<' -> position to Directions.L
+          '>' -> position to Directions.R
+          '^' -> position to Directions.U
+          'v' -> position to Directions.D
+          else -> null
+        }
+      }
+    }
+
+    val start = from to 0
+    val finish = to to 3
+    var positions = setOf(start)
+    var step = 0
+    while (finish !in positions) {
+      step++
+      blizzards = blizzards.map { (vector, dir) ->
+        val maybeNext = vector + dir.step
+        when {
+          maybeNext.x == 0 -> Vector2D(width - 2, maybeNext.y)
+          maybeNext.x == width - 1 -> Vector2D(1, maybeNext.y)
+          maybeNext.y == 0 -> Vector2D(maybeNext.x, height - 2)
+          maybeNext.y == height - 1 -> Vector2D(maybeNext.x, 1)
+          else -> maybeNext
+        } to dir
+      }
+
+      positions = positions.flatMap { curr ->
+        (listOf(curr.first) + Neighbors4.map { curr.first + it.step })
+          .filter { matrix[it] !in stop }
+          .filter { next -> blizzards.none { it.first == next } }
+          .map { next ->
+            when {
+              next == to && curr.second == 0 -> next to 1
+              next == from && curr.second == 1 -> next to 2
+              next == to && curr.second == 2 -> next to 3
+              else -> next to curr.second
+            }
+          }
+      }.toSet()
+    }
+
+    return step
+  }
 }
 
 fun main() = SomeDay.mainify(Day24)
