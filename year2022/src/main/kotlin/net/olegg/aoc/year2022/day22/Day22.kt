@@ -40,8 +40,7 @@ object Day22 : DayOf2022(22) {
         "R" -> pos to CW.getValue(dir)
         "L" -> pos to CCW.getValue(dir)
         else -> {
-          var curr = pos
-          for (i in 0 until instruction.toInt()) {
+          val final = (1..instruction.toInt()).fold(pos) { curr, _ ->
             var next = curr + dir.step
             while (map[next] == null || map[next] == ' ') {
               next = if (map[next] == null) {
@@ -55,13 +54,13 @@ object Day22 : DayOf2022(22) {
             }
 
             if (map[next] == '.') {
-              curr = next
+              next
             } else {
-              break
+              curr
             }
           }
 
-          curr to dir
+          final to dir
         }
       }
     }
@@ -103,16 +102,13 @@ object Day22 : DayOf2022(22) {
         "R" -> pos to CW.getValue(dir)
         "L" -> pos to CCW.getValue(dir)
         else -> {
-          var currPos = pos
-          var currDir = dir
-          val currPlane = planes.first {
-            currPos.x in it.first.x..it.second.x && currPos.y in it.first.y..it.second.y
-          }
-
-          for (i in 0 until move.toInt()) {
+          val (finalPos, finalDir) = (1..move.toInt()).fold(pos to dir) { (currPos, currDir), _ ->
             var nextPos = currPos + currDir.step
             var nextDir = currDir
             if (map[nextPos] == null || map[nextPos] == ' ') {
+              val currPlane = planes.first {
+                currPos.x in it.first.x..it.second.x && currPos.y in it.first.y..it.second.y
+              }
               val (fixedDir, fixedPos) = when {
                 currPlane == top && currDir == U -> R to Vector2D(0, 100 + currPos.x)
                 currPlane == top && currDir == L -> R to Vector2D(0, 150 - currPos.y - 1)
@@ -135,13 +131,13 @@ object Day22 : DayOf2022(22) {
             }
 
             if (map[nextPos] == '.') {
-              currPos = nextPos
-              currDir = nextDir
+              nextPos to nextDir
             } else {
-              break
+              currPos to currDir
             }
           }
-          currPos to currDir
+
+          finalPos to finalDir
         }
       }
     }
