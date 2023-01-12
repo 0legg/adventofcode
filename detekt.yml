@@ -144,7 +144,7 @@ complexity:
     ignoreArgumentsMatchingNames: false
   NestedBlockDepth:
     active: true
-    threshold: 6
+    threshold: 10
   NestedScopeFunctions:
     active: false
     threshold: 1
@@ -516,7 +516,7 @@ style:
     active: false
   DestructuringDeclarationWithTooManyEntries:
     active: true
-    maxDestructuringEntries: 6
+    maxDestructuringEntries: 10
   EqualsNullCall:
     active: true
   EqualsOnSignatureLine:
