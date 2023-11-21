@@ -1,4 +1,4 @@
-import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -7,7 +7,6 @@ buildscript {
   }
 }
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   base
   alias(libs.plugins.kotlin.jvm) apply false
@@ -27,27 +26,26 @@ allprojects {
 
   dependencies {
     val implementation by configurations
-    @Suppress("UnstableApiUsage")
     implementation(rootProject.libs.kotlinx.coroutines.core)
   }
 
-  tasks.withType<KotlinCompile> {
-    kotlinOptions {
-      jvmTarget = "14"
-      languageVersion = "1.8"
-      allWarningsAsErrors = true
-      freeCompilerArgs += listOf(
-        "-Xsuppress-version-warnings",
-        "-opt-in=kotlin.RequiresOptIn",
-        "-opt-in=kotlin.ExperimentalStdlibApi",
-        "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-        "-opt-in=kotlinx.coroutines.FlowPreview",
+  tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions {
+      allWarningsAsErrors.set(true)
+      freeCompilerArgs.set(
+        listOf(
+          "-Xsuppress-version-warnings",
+          "-opt-in=kotlin.RequiresOptIn",
+          "-opt-in=kotlin.ExperimentalStdlibApi",
+          "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+          "-opt-in=kotlinx.coroutines.FlowPreview",
+        )
       )
     }
   }
 
-  tasks.withType<Detekt>().configureEach {
-    jvmTarget = "14"
+  extensions.configure<KotlinProjectExtension> {
+    jvmToolchain(17)
   }
 
   detekt {
