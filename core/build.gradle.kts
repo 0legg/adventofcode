@@ -6,10 +6,11 @@ plugins {
 
 buildConfig {
   packageName(rootProject.group.toString())
+  useKotlinOutput()
   buildConfigField(
     type = "String",
     name = "COOKIE",
-    value = rootProject.findProperty("COOKIE")?.toString() ?: "error(\"Please provide cookie\")"
+    value = rootProject.property("COOKIE").toString()
   )
 }
 
