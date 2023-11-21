@@ -7,10 +7,11 @@ buildscript {
   }
 }
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   base
-  kotlin("jvm") apply false
-  id("io.gitlab.arturbosch.detekt")
+  alias(libs.plugins.kotlin.jvm) apply false
+  alias(libs.plugins.detekt)
 }
 
 allprojects {
@@ -21,12 +22,13 @@ allprojects {
     mavenCentral()
   }
 
-  apply(plugin = "org.jetbrains.kotlin.jvm")
-  apply(plugin = "io.gitlab.arturbosch.detekt")
+  apply(plugin = rootProject.libs.plugins.kotlin.jvm.get().pluginId)
+  apply(plugin = rootProject.libs.plugins.detekt.get().pluginId)
 
   dependencies {
     val implementation by configurations
-    implementation(KotlinX.coroutines.core)
+    @Suppress("UnstableApiUsage")
+    implementation(rootProject.libs.kotlinx.coroutines.core)
   }
 
   tasks.withType<KotlinCompile> {
@@ -55,5 +57,5 @@ allprojects {
 }
 
 dependencies {
-  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
+  detektPlugins(libs.detekt.formatting)
 }

@@ -1,14 +1,19 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-  kotlin("jvm")
-  id("com.github.gmazzo.buildconfig")
+  alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.buildconfig)
 }
 
 buildConfig {
-  packageName(project.group.toString())
-  buildConfigField("String", "COOKIE", "\"${project.findProperty("COOKIE")?.toString() ?: "Please provide cookie"}\"")
+  packageName(rootProject.group.toString())
+  buildConfigField(
+    type = "String",
+    name = "COOKIE",
+    value = rootProject.findProperty("COOKIE")?.toString() ?: "error(\"Please provide cookie\")"
+  )
 }
 
 dependencies {
-  implementation(Kotlin.stdlib.jdk8)
-  implementation(Ktor.client.cio)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.ktor.client.cio)
 }
