@@ -49,7 +49,7 @@ allprojects {
   }
 
   detekt {
-    config = rootProject.files("detekt.yml")
+    config.from(rootProject.files("detekt.yml"))
     baseline = rootProject.file("detekt-baseline.xml")
   }
 }
