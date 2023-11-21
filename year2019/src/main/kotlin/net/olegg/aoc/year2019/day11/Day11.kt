@@ -1,5 +1,6 @@
 package net.olegg.aoc.year2019.day11
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import net.olegg.aoc.year2019.Intcode
 /**
  * See [Year 2019, Day 11](https://adventofcode.com/2019/day/11)
  */
+@OptIn(DelicateCoroutinesApi::class)
 object Day11 : DayOf2019(11) {
   override fun first(): Any? {
     val program = data
