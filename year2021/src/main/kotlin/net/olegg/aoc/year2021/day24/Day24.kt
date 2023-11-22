@@ -60,12 +60,20 @@ object Day24 : DayOf2021(24) {
   }
 
   sealed interface Op {
-    fun apply(regs: IntArray, input: IntArray, pos: Int)
+    fun apply(
+      regs: IntArray,
+      input: IntArray,
+      pos: Int
+    )
 
     data class Inp(
       val reg: Int,
     ) : Op {
-      override fun apply(regs: IntArray, input: IntArray, pos: Int) {
+      override fun apply(
+        regs: IntArray,
+        input: IntArray,
+        pos: Int
+      ) {
         regs[reg] = input[pos]
       }
     }
@@ -74,7 +82,11 @@ object Day24 : DayOf2021(24) {
       val a: Arg,
       val b: Arg,
     ) : Op {
-      override fun apply(regs: IntArray, input: IntArray, pos: Int) {
+      override fun apply(
+        regs: IntArray,
+        input: IntArray,
+        pos: Int
+      ) {
         regs[(a as Arg.Reg).reg] = a.getValue(regs) + b.getValue(regs)
       }
     }
@@ -83,7 +95,11 @@ object Day24 : DayOf2021(24) {
       val a: Arg,
       val b: Arg,
     ) : Op {
-      override fun apply(regs: IntArray, input: IntArray, pos: Int) {
+      override fun apply(
+        regs: IntArray,
+        input: IntArray,
+        pos: Int
+      ) {
         regs[(a as Arg.Reg).reg] = a.getValue(regs) * b.getValue(regs)
       }
     }
@@ -92,7 +108,11 @@ object Day24 : DayOf2021(24) {
       val a: Arg,
       val b: Arg,
     ) : Op {
-      override fun apply(regs: IntArray, input: IntArray, pos: Int) {
+      override fun apply(
+        regs: IntArray,
+        input: IntArray,
+        pos: Int
+      ) {
         regs[(a as Arg.Reg).reg] = a.getValue(regs) / b.getValue(regs)
       }
     }
@@ -101,7 +121,11 @@ object Day24 : DayOf2021(24) {
       val a: Arg,
       val b: Arg,
     ) : Op {
-      override fun apply(regs: IntArray, input: IntArray, pos: Int) {
+      override fun apply(
+        regs: IntArray,
+        input: IntArray,
+        pos: Int
+      ) {
         regs[(a as Arg.Reg).reg] = ((a.getValue(regs) % b.getValue(regs)) + b.getValue(regs)) % b.getValue(regs)
       }
     }
@@ -110,7 +134,11 @@ object Day24 : DayOf2021(24) {
       val a: Arg,
       val b: Arg,
     ) : Op {
-      override fun apply(regs: IntArray, input: IntArray, pos: Int) {
+      override fun apply(
+        regs: IntArray,
+        input: IntArray,
+        pos: Int
+      ) {
         regs[(a as Arg.Reg).reg] = if (a.getValue(regs) == b.getValue(regs)) 1 else 0
       }
     }

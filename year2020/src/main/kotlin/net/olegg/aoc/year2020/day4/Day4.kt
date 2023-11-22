@@ -29,7 +29,10 @@ object Day4 : DayOf2020(4) {
     return passports.count { (it - "cid").size == 7 && it.all { (key, value) -> isValid(key, value) } }
   }
 
-  private fun isValid(field: String, value: String): Boolean {
+  private fun isValid(
+    field: String,
+    value: String
+  ): Boolean {
     return try {
       when (field) {
         "byr" -> value.toInt() in 1920..2002

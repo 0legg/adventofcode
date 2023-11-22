@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2016.day13
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2016.DayOf2016
 
@@ -21,7 +21,7 @@ object Day13 : DayOf2016(13) {
     do {
       val (pos, step) = queue.removeFirst()
 
-      val nexts = Neighbors4
+      val nexts = NEXT_4
         .map { pos + it.step }
         .filter { it.x >= 0 && it.y >= 0 }
         .filter { it.isOpen(fav) }
@@ -47,7 +47,7 @@ object Day13 : DayOf2016(13) {
     do {
       val (pos, step) = queue.removeFirst()
 
-      val nexts = Neighbors4
+      val nexts = NEXT_4
         .map { pos + it.step }
         .filter { it.x >= 0 && it.y >= 0 }
         .filter { it.isOpen(fav) }
@@ -62,8 +62,7 @@ object Day13 : DayOf2016(13) {
     return known.count { it.value <= 50 }
   }
 
-  private fun Vector2D.isOpen(fav: Int) =
-    Integer.bitCount(x * x + 3 * x + 2 * x * y + y + y * y + fav) % 2 == 0
+  private fun Vector2D.isOpen(fav: Int) = Integer.bitCount(x * x + 3 * x + 2 * x * y + y + y * y + fav) % 2 == 0
 }
 
 fun main() = SomeDay.mainify(Day13)

@@ -15,14 +15,17 @@ object Day7 : DayOf2015(7) {
   private val RSHIFT_PATTERN = "^(\\d+) RSHIFT (\\d+)$".toRegex()
   private val VAR_PATTERN = "[a-z]".toRegex()
 
-  private val source = lines
+  private val SOURCE = lines
     .associate { line ->
       val match = checkNotNull(COMMAND_PATTERN.matchEntire(line))
       val (command, wire) = match.destructured
       return@associate wire to command
     }
 
-  private fun measure(board: Map<String, String>, pin: String): String {
+  private fun measure(
+    board: Map<String, String>,
+    pin: String
+  ): String {
     var state = board
     val resolved = linkedMapOf<String, String>()
     while (pin !in resolved) {
@@ -70,11 +73,11 @@ object Day7 : DayOf2015(7) {
   }
 
   override fun first(): Any? {
-    return measure(source, "a")
+    return measure(SOURCE, "a")
   }
 
   override fun second(): Any? {
-    return measure(source + ("b" to measure(source, "a")), "a")
+    return measure(SOURCE + ("b" to measure(SOURCE, "a")), "a")
   }
 }
 

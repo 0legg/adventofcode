@@ -12,10 +12,10 @@ enum class Directions(val step: Vector2D) {
   ;
 
   constructor(x: Int, y: Int) : this(Vector2D(x, y))
-  
+
   companion object {
-    val Neighbors4 = listOf(U, D, L, R)
-    val Neighbors8 = listOf(UL, U, UR, L, R, DL, D, DR)
+    val NEXT_4 = listOf(U, D, L, R)
+    val NEXT_8 = listOf(UL, U, UR, L, R, DL, D, DR)
     val CCW = mapOf(U to L, L to D, D to R, R to U)
     val CW = mapOf(U to R, R to D, D to L, L to U)
     val REV = mapOf(U to D, D to U, L to R, R to L)

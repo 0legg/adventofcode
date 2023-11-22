@@ -44,7 +44,7 @@ object Day24 : DayOf2018(24) {
       board
         .sortedWith(
           compareByDescending<Group> { it.power() }
-            .thenByDescending { it.initiative }
+            .thenByDescending { it.initiative },
         )
         .forEach { group ->
           val targets = board
@@ -57,7 +57,7 @@ object Day24 : DayOf2018(24) {
             .sortedWith(
               compareByDescending<Pair<Group, Long>> { it.second }
                 .thenByDescending { it.first.power() }
-                .thenByDescending { it.first.initiative }
+                .thenByDescending { it.first.initiative },
             )
             .firstOrNull()
             ?.let { attacks[group.system to group.index] = it.first }
@@ -102,7 +102,11 @@ object Day24 : DayOf2018(24) {
           " ?\\(?([^)]*)\\)? with an attack that does (-?\\d+) (\\w+) damage at initiative (-?\\d+)"
         ).toRegex()
 
-      fun from(string: String, index: Int, system: Int): Group? {
+      fun from(
+        string: String,
+        index: Int,
+        system: Int
+      ): Group? {
         return PATTERN.matchEntire(string)?.let { match ->
           val (unitsRaw, hitRaw, specRaw, attackRaw, type, initiativeRaw) = match.destructured
           val weak = mutableSetOf<String>()
@@ -128,7 +132,7 @@ object Day24 : DayOf2018(24) {
             type = type,
             initiative = initiativeRaw.toInt(),
             index = index,
-            system = system
+            system = system,
           )
         }
       }

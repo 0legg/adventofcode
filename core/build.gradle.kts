@@ -1,14 +1,19 @@
 plugins {
-  kotlin("jvm")
-  id("com.github.gmazzo.buildconfig")
+  alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.buildconfig)
 }
 
 buildConfig {
-  packageName(project.group.toString())
-  buildConfigField("String", "COOKIE", "\"${project.findProperty("COOKIE")?.toString() ?: "Please provide cookie"}\"")
+  packageName(rootProject.group.toString())
+  useKotlinOutput()
+  buildConfigField(
+    type = "String",
+    name = "COOKIE",
+    value = rootProject.property("COOKIE").toString()
+  )
 }
 
 dependencies {
-  implementation(Kotlin.stdlib.jdk8)
-  implementation(Ktor.client.cio)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.ktor.client.cio)
 }

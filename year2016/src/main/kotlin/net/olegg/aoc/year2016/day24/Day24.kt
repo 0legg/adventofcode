@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2016.day24
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.permutations
 import net.olegg.aoc.year2016.DayOf2016
@@ -27,7 +27,7 @@ object Day24 : DayOf2016(24) {
       while (queue.isNotEmpty()) {
         val pos = queue.removeFirst()
         val steps = visit[pos] ?: 0
-        Neighbors4
+        NEXT_4
           .map { pos + it.step }
           .filterNot { it in visit }
           .filterNot { map[it.y][it.x] == '#' }
@@ -68,7 +68,7 @@ object Day24 : DayOf2016(24) {
       while (queue.isNotEmpty()) {
         val pos = queue.removeFirst()
         val steps = visit[pos] ?: 0
-        Neighbors4
+        NEXT_4
           .map { pos + it.step }
           .filterNot { it in visit }
           .filterNot { map[it.y][it.x] == '#' }

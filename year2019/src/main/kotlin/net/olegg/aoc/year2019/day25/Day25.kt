@@ -1,7 +1,10 @@
 package net.olegg.aoc.year2019.day25
 
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
@@ -23,24 +26,29 @@ object Day25 : DayOf2019(25) {
       val input = Channel<Long>(Channel.UNLIMITED)
       val output = Channel<Long>(Channel.UNLIMITED)
 
-      launch(Dispatchers.Default) {
+      val intCodeJob = launch(Dispatchers.Default) {
         val intcode = Intcode(program)
         intcode.eval(input, output)
       }
 
-      launch(Dispatchers.Default) {
-        while (!output.isClosedForReceive) {
-          print(output.receive().toInt().toChar())
+      val ioJob = launch(Dispatchers.IO) {
+        output.receiveAsFlow().collect {
+          print(it.toInt().toChar())
         }
       }
 
-      do {
-        val command = readLine().orEmpty()
-        (command + "\n")
+      val cliJob = async(Dispatchers.IO) {
+        generateSequence { readln() }
+          .takeWhile { it != "!quit" }
+          .flatMap { it.toList() + '\n' }
           .map { it.code.toLong() }
-          .forEach { input.send(it) }
-      } while (command != "!quit")
+          .asFlow()
+          .collect(input::send)
+      }
 
+      cliJob.await()
+      ioJob.cancel()
+      intCodeJob.cancel()
       return@runBlocking 0
     }
   }

@@ -82,8 +82,10 @@ object Day4 : DayOf2021(4) {
     return 0
   }
 
-  private fun score(board: List<Pair<Int, Boolean>>, value: Int) =
-    board.filter { !it.second }.sumOf { it.first } * value
+  private fun score(
+    board: List<Pair<Int, Boolean>>,
+    value: Int
+  ) = board.filter { !it.second }.sumOf { it.first } * value
 }
 
 fun main() = SomeDay.mainify(Day4)

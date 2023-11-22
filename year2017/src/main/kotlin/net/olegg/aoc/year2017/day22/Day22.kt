@@ -29,7 +29,7 @@ object Day22 : DayOf2017(22) {
       return@fold Triple(
         pos + newDir.step,
         newDir,
-        if (curr) state else state + 1
+        if (curr) state else state + 1,
       )
     }.third
   }
@@ -57,7 +57,7 @@ object Day22 : DayOf2017(22) {
       return@fold Triple(
         pos + newDir.step,
         newDir,
-        if (curr == 1) state + 1 else state
+        if (curr == 1) state + 1 else state,
       )
     }.third
   }

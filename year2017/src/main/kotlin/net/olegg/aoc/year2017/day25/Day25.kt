@@ -35,7 +35,7 @@ object Day25 : DayOf2017(25) {
               val (value, write, shift, state) = match.destructured
               value.toInt() to Action(write.toInt(), if (shift == "left") -1 else 1, state)
             }
-            .toMap()
+            .toMap(),
         )
       }
       .associateBy { it.name }

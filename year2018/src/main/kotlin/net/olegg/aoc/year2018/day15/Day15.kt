@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2018.day15
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.set
@@ -15,7 +15,7 @@ object Day15 : DayOf2018(15) {
     val map = matrix
 
     var characters = map
-      .flatMapIndexed() { y, row ->
+      .flatMapIndexed { y, row ->
         row.mapIndexedNotNull { x, c ->
           if (c in listOf('E', 'G')) Character(Vector2D(x, y), c, 3, 200) else null
         }
@@ -52,7 +52,7 @@ object Day15 : DayOf2018(15) {
 
         val adjacent = targets
           .flatMap { target ->
-            Neighbors4.map { target.pos + it.step }
+            NEXT_4.map { target.pos + it.step }
           }
           .distinct()
           .filter { cell -> currMap[cell] != -1 }
@@ -66,7 +66,7 @@ object Day15 : DayOf2018(15) {
           val (pos, step) = queue.removeFirst()
           if (currMap[pos]!! > step) {
             currMap[pos] = step
-            queue += Neighbors4
+            queue += NEXT_4
               .map { pos + it.step }
               .filter { currMap[it] != -1 }
               .filter { currMap[it]!! > step + 1 }
@@ -93,7 +93,7 @@ object Day15 : DayOf2018(15) {
             if (step == 1) {
               moves += pos
             } else {
-              revQueue += Neighbors4
+              revQueue += NEXT_4
                 .map { pos + it.step }
                 .filter { currMap[it] != -1 }
                 .filter { currMap[it] == step - 1 }
@@ -105,7 +105,7 @@ object Day15 : DayOf2018(15) {
           character.pos = move
         }
 
-        val canHit = Neighbors4.map { character.pos + it.step }
+        val canHit = NEXT_4.map { character.pos + it.step }
 
         val target = targets.filter { it.pos in canHit }
           .minWithOrNull(compareBy({ it.hit }, { it.pos.y }, { it.pos.x }))
@@ -129,7 +129,7 @@ object Day15 : DayOf2018(15) {
 
     return (3..200).first { elvenHit ->
       var characters = map
-        .flatMapIndexed() { y, row ->
+        .flatMapIndexed { y, row ->
           row.mapIndexedNotNull { x, c ->
             when (c) {
               'E' -> Character(Vector2D(x, y), c, elvenHit, 200)
@@ -176,7 +176,7 @@ object Day15 : DayOf2018(15) {
 
           val adjacent = targets
             .flatMap { target ->
-              Neighbors4.map { target.pos + it.step }
+              NEXT_4.map { target.pos + it.step }
             }
             .distinct()
             .filter { currMap[it] != -1 }
@@ -190,7 +190,7 @@ object Day15 : DayOf2018(15) {
             val (pos, step) = queue.removeFirst()
             if (currMap[pos]!! > step) {
               currMap[pos] = step
-              queue += Neighbors4
+              queue += NEXT_4
                 .map { pos + it.step }
                 .filter { currMap[it] != -1 }
                 .filter { currMap[it]!! > step + 1 }
@@ -217,7 +217,7 @@ object Day15 : DayOf2018(15) {
               if (step == 1) {
                 moves += pos
               } else {
-                revQueue += Neighbors4
+                revQueue += NEXT_4
                   .map { pos + it.step }
                   .filter { currMap[it] != -1 }
                   .filter { currMap[it] == step - 1 }
@@ -229,7 +229,7 @@ object Day15 : DayOf2018(15) {
             character.pos = move
           }
 
-          val canHit = Neighbors4.map { character.pos + it.step }
+          val canHit = NEXT_4.map { character.pos + it.step }
 
           val target = targets.filter { it.pos in canHit }
             .minWithOrNull(compareBy({ it.hit }, { it.pos.y }, { it.pos.x }))

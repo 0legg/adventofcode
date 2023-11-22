@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2018.day22
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2018.DayOf2018
@@ -34,7 +34,7 @@ object Day22 : DayOf2018(22) {
 
     val erosions = ErosionCache(depth.toLong(), t)
     val queue = PriorityQueue<Pair<Config, Int>>(
-      compareBy({ it.second }, { it.first.pos.x }, { it.first.pos.y }, { it.first.tool })
+      compareBy({ it.second }, { it.first.pos.x }, { it.first.pos.y }, { it.first.tool }),
     )
     val start = Config(Vector2D(), Tool.Torch)
     val visited = mutableSetOf<Config>()
@@ -53,7 +53,7 @@ object Day22 : DayOf2018(22) {
         .filter { it != tool }
         .filter { surface in it.surfaces }
         .map { curr.copy(tool = it) to time + 7 }
-      queue += Neighbors4
+      queue += NEXT_4
         .map { curr.copy(pos = curr.pos + it.step) }
         .filter { it.pos.x >= 0 && it.pos.y >= 0 }
         .filter { erosions[it.pos] % 3 in it.tool.surfaces }

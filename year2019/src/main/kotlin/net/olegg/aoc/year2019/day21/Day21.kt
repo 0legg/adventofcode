@@ -24,12 +24,13 @@ object Day21 : DayOf2019(21) {
       val output = Channel<Long>(Channel.UNLIMITED)
 
       val droid = mutableListOf<String>()
-      droid += """
+      droid +=
+        """
         OR A J
         AND C J
         NOT J J
         AND D J
-      """.trimIndent().lines()
+        """.trimIndent().lines()
 
       launch(Dispatchers.Default) {
         val intcode = Intcode(program.copyOf())
@@ -58,14 +59,15 @@ object Day21 : DayOf2019(21) {
       val output = Channel<Long>(Channel.UNLIMITED)
 
       val droid = mutableListOf<String>()
-      droid += """
+      droid +=
+        """
         NOT H J
         OR C J
         AND B J
         AND A J
         NOT J J
         AND D J
-      """.trimIndent().lines()
+        """.trimIndent().lines()
 
       launch(Dispatchers.Default) {
         val intcode = Intcode(program.copyOf())

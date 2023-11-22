@@ -7,7 +7,6 @@ import net.olegg.aoc.year2022.DayOf2022
  * See [Year 2022, Day 6](https://adventofcode.com/2022/day/6)
  */
 object Day6 : DayOf2022(6) {
-
   override fun first(): Any? {
     return solve(4)
   }

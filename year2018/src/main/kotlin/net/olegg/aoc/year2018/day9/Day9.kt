@@ -24,7 +24,10 @@ object Day9 : DayOf2018(9) {
     return play(players, points * 100).max()
   }
 
-  private fun play(players: Int, points: Int): List<Long> {
+  private fun play(
+    players: Int,
+    points: Int
+  ): List<Long> {
     val result = LongArray(players)
     val loop = LinkedList(listOf(0))
     var iterator = loop.listIterator()

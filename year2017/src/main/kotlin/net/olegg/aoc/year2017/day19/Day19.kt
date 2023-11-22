@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2017.day19
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.fit
 import net.olegg.aoc.utils.get
@@ -24,7 +24,7 @@ object Day19 : DayOf2017(19) {
           append(char)
         }
         val dirs = listOf(dir) +
-          Neighbors4.map { it.step }.filter { abs(it.x) != abs(dir.x) || abs(it.y) != abs(dir.y) }
+          NEXT_4.map { it.step }.filter { abs(it.x) != abs(dir.x) || abs(it.y) != abs(dir.y) }
         val newDir = dirs.firstOrNull { curr ->
           val next = pos + curr
           map.fit(next) && map[next] != ' '
@@ -48,7 +48,7 @@ object Day19 : DayOf2017(19) {
     while (true) {
       steps += 1
       val dirs = listOf(dir) +
-        Neighbors4.map { it.step }.filter { abs(it.x) != abs(dir.x) || abs(it.y) != abs(dir.y) }
+        NEXT_4.map { it.step }.filter { abs(it.x) != abs(dir.x) || abs(it.y) != abs(dir.y) }
       val newDir = dirs.firstOrNull { curr ->
         val next = pos + curr
         map.fit(next) && map[next] != ' '

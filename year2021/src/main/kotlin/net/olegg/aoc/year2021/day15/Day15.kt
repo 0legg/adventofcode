@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2021.day15
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.fit
 import net.olegg.aoc.utils.get
@@ -55,7 +55,7 @@ object Day15 : DayOf2021(15) {
       val curr = queue.removeFirst()
       val value = best[curr] ?: 1_000_000
 
-      Neighbors4.map { curr + it.step }
+      NEXT_4.map { curr + it.step }
         .filter { map.fit(it) }
         .map { it to value + map[it]!! }
         .filter { it.second < best[it.first]!! }

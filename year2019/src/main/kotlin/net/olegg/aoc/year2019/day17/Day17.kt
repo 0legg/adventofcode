@@ -8,7 +8,7 @@ import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions.Companion.CCW
 import net.olegg.aoc.utils.Directions.Companion.CW
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
@@ -50,7 +50,7 @@ object Day17 : DayOf2019(17) {
           val pos = Vector2D(x, y)
 
           return@mapIndexedNotNull x.takeIf { _ ->
-            c == '#' && Neighbors4.map { pos + it.step }.all { map[it] == '#' }
+            c == '#' && NEXT_4.map { pos + it.step }.all { map[it] == '#' }
           }
         }.sumOf { it * y }
       }.sum()
@@ -204,7 +204,10 @@ object Day17 : DayOf2019(17) {
     }
   }
 
-  private fun <T> List<T>.matches(from: Int, other: List<T>): Boolean {
+  private fun <T> List<T>.matches(
+    from: Int,
+    other: List<T>
+  ): Boolean {
     return other.size + from <= size && subList(from, from + other.size) == other
   }
 }

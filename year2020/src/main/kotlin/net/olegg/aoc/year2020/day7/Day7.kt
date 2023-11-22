@@ -43,7 +43,10 @@ object Day7 : DayOf2020(7) {
     return count(rules, MINE) - 1
   }
 
-  private fun count(rules: Map<String, List<Pair<Int, String>>>, name: String): Long {
+  private fun count(
+    rules: Map<String, List<Pair<Int, String>>>,
+    name: String
+  ): Long {
     val inner = rules[name].orEmpty()
     return when {
       name !in rules -> 0

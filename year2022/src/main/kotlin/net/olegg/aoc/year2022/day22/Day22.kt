@@ -1,12 +1,12 @@
 package net.olegg.aoc.year2022.day22
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Directions.Companion.CCW
+import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
 import net.olegg.aoc.utils.Directions.U
-import net.olegg.aoc.utils.Directions.Companion.CCW
-import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2022.DayOf2022
@@ -15,7 +15,7 @@ import net.olegg.aoc.year2022.DayOf2022
  * See [Year 2022, Day 22](https://adventofcode.com/2022/day/22)
  */
 object Day22 : DayOf2022(22) {
-  private val pattern = "(\\d+)([RL])?".toRegex()
+  private val PATTERN = "(\\d+)([RL])?".toRegex()
   override fun first(): Any? {
     val (rawMap, rawInstructions) = data.split("\n\n")
     val width = rawMap
@@ -25,7 +25,7 @@ object Day22 : DayOf2022(22) {
       .lines()
       .map { it.padEnd(width).toList() }
 
-    val instructions = pattern
+    val instructions = PATTERN
       .findAll(rawInstructions)
       .flatMap { match ->
         listOfNotNull(match.groupValues[1], match.groupValues.getOrNull(2)?.ifEmpty { null })
@@ -87,7 +87,7 @@ object Day22 : DayOf2022(22) {
     val back = Vector2D(0, 150) to Vector2D(49, 199)
     val planes = listOf(top, front, bottom, right, left, back)
 
-    val instructions = pattern
+    val instructions = PATTERN
       .findAll(rawInstructions)
       .flatMap { match ->
         listOfNotNull(match.groupValues[1], match.groupValues.getOrNull(2)?.ifEmpty { null })

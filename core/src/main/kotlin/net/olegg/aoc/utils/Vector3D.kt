@@ -8,12 +8,24 @@ data class Vector3D(
   var z: Int = 0,
 ) {
   operator fun plus(other: Vector3D) = Vector3D(x + other.x, y + other.y, z + other.z)
-  operator fun plusAssign(other: Vector3D) = run { x += other.x; y += other.y; z += other.z }
+  operator fun plusAssign(other: Vector3D) = run {
+    x += other.x
+    y += other.y
+    z += other.z
+  }
   operator fun minus(other: Vector3D) = Vector3D(x - other.x, y - other.y, z - other.z)
-  operator fun minusAssign(other: Vector3D) = run { x -= other.x; y -= other.y; z -= other.z }
+  operator fun minusAssign(other: Vector3D) = run {
+    x -= other.x
+    y -= other.y
+    z -= other.z
+  }
   operator fun unaryMinus() = Vector3D(-x, -y, -z)
   operator fun times(other: Int) = Vector3D(x * other, y * other, z * other)
-  operator fun timesAssign(other: Int) = run { x *= other; y *= other; z *= other }
+  operator fun timesAssign(other: Int) = run {
+    x *= other
+    y *= other
+    z *= other
+  }
   operator fun get(index: Int): Int = when (index) {
     0 -> x
     1 -> y

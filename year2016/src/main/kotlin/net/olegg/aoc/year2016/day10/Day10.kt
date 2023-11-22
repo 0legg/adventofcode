@@ -29,7 +29,7 @@ object Day10 : DayOf2016(10) {
         val (id, lowType, lowId, highType, highId) = match.destructured
         actions[id.toInt()] = Pair(
           if (lowType == "output") -lowId.toInt() - 1 else lowId.toInt(),
-          if (highType == "output") -highId.toInt() - 1 else highId.toInt()
+          if (highType == "output") -highId.toInt() - 1 else highId.toInt(),
         )
       }
     }
@@ -74,7 +74,7 @@ object Day10 : DayOf2016(10) {
         val (id, lowType, lowId, highType, highId) = match.destructured
         actions[id.toInt()] = Pair(
           if (lowType == "output") -lowId.toInt() - 1 else lowId.toInt(),
-          if (highType == "output") -highId.toInt() - 1 else highId.toInt()
+          if (highType == "output") -highId.toInt() - 1 else highId.toInt(),
         )
       }
     }

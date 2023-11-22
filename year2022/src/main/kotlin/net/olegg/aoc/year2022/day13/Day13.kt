@@ -1,7 +1,6 @@
 package net.olegg.aoc.year2022.day13
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.toPair
 import net.olegg.aoc.year2022.DayOf2022
 import net.olegg.aoc.year2022.day13.Day13.Node.Collection
@@ -51,7 +50,7 @@ object Day13 : DayOf2022(13) {
         ']' -> {
           val items = stack.removeLast()
           stack.last().add(
-            Collection(items)
+            Collection(items),
           )
         }
         in '0'..'9' -> {
@@ -62,7 +61,7 @@ object Day13 : DayOf2022(13) {
             }
           }.toInt()
           stack.last().add(
-            Value(number)
+            Value(number),
           )
         }
         else -> Unit

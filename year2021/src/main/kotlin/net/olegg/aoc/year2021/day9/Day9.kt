@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2021.day9
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2021.DayOf2021
@@ -16,7 +16,7 @@ object Day9 : DayOf2021(9) {
     return points.mapIndexed { y, line ->
       line.filterIndexed { x, value ->
         val point = Vector2D(x, y)
-        Neighbors4.map { point + it.step }.all { neighbor ->
+        NEXT_4.map { point + it.step }.all { neighbor ->
           points[neighbor]?.let { it > value } ?: true
         }
       }.sumOf { it + 1 }
@@ -29,7 +29,7 @@ object Day9 : DayOf2021(9) {
     val low = points.flatMapIndexed { y, line ->
       line.mapIndexedNotNull { x, value ->
         Vector2D(x, y).takeIf { point ->
-          Neighbors4.map { point + it.step }.all { neighbor ->
+          NEXT_4.map { point + it.step }.all { neighbor ->
             points[neighbor]?.let { it > value } ?: true
           }
         }
@@ -45,7 +45,7 @@ object Day9 : DayOf2021(9) {
         val (curr, value) = queue.removeFirst()
         if (curr !in seen) {
           seen[curr] = value
-          val next = Neighbors4.map { curr + it.step }
+          val next = NEXT_4.map { curr + it.step }
             .mapNotNull { neighbor -> points[neighbor]?.let { neighbor to it } }
             .filter { it.second > value && it.second != 9 }
 

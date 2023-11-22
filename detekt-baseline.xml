@@ -1,11 +1,5 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
-  <CurrentIssues>
-    <ID>MaxLineLength:BuildConfig.kt$BuildConfig$"53616c7465645f5f3e8d14d5771318cd7e22efe50d7f89ab2a3d6a7aae3025341daade45794bfefcd40a4a81e66a3c9ec961db40d16b42c67841b56c90763b04"</ID>
-    <ID>UnnecessaryFilter:Day3.kt$Day3$filter { it.size == 3 }</ID>
-    <ID>UnnecessaryFilter:Day4.kt$Day4$filter { value -&gt; value.zipWithNext().any { it.first == it.second } }</ID>
-    <ID>UnnecessaryFilter:Day4.kt$Day4$filter { value -&gt; value.zipWithNext().none { it.first &gt; it.second } }</ID>
-    <ID>UnnecessaryFilter:Day5.kt$Day5$filter { ABA_REGEX in it }</ID>
-  </CurrentIssues>
+  <CurrentIssues></CurrentIssues>
 </SmellBaseline>

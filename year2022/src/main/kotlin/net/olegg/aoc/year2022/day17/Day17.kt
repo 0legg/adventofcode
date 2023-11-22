@@ -3,37 +3,35 @@ package net.olegg.aoc.year2022.day17
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.fit
-import net.olegg.aoc.utils.gcd
-import net.olegg.aoc.utils.lcf
 import net.olegg.aoc.year2022.DayOf2022
 
 /**
  * See [Year 2022, Day 17](https://adventofcode.com/2022/day/17)
  */
 object Day17 : DayOf2022(17) {
-  private val rocks = listOf(
+  private val ROCKS = listOf(
     """
-      ####
+    ####
     """.trimIndent(),
     """
-      .#.
-      ###
-      .#.
+    .#.
+    ###
+    .#.
     """.trimIndent(),
     """
-      ..#
-      ..#
-      ###
+    ..#
+    ..#
+    ###
     """.trimIndent(),
     """
-      #
-      #
-      #
-      #
+    #
+    #
+    #
+    #
     """.trimIndent(),
     """
-      ##
-      ##
+    ##
+    ##
     """.trimIndent(),
   ).map { raw -> raw.lines().map { it.toList() } }
 
@@ -64,8 +62,8 @@ object Day17 : DayOf2022(17) {
     val until = steps.coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
 
     repeat(until) { step ->
-      val rockIndex = step % rocks.size
-      val rock = rocks[rockIndex]
+      val rockIndex = step % ROCKS.size
+      val rock = ROCKS[rockIndex]
       repeat(3 + rock.size) {
         stack.addFirst(MutableList(7) { '.' })
       }
@@ -123,7 +121,11 @@ object Day17 : DayOf2022(17) {
     return stack.size.toLong()
   }
 
-  private fun canMove(rock: List<List<Char>>, stack: List<List<Char>>, topLeft: Vector2D): Boolean {
+  private fun canMove(
+    rock: List<List<Char>>,
+    stack: List<List<Char>>,
+    topLeft: Vector2D
+  ): Boolean {
     val bottomRight = Vector2D(topLeft.x + rock.first().size - 1, topLeft.y + rock.size - 1)
     if (!stack.fit(topLeft) || !stack.fit(bottomRight)) {
       return false

@@ -15,7 +15,7 @@ import net.olegg.aoc.BuildConfig
  * Network client.
  */
 object Fetcher {
-  private val client = HttpClient(CIO) {
+  private val CLIENT = HttpClient(CIO) {
     install(HttpCookies) {
       storage = ConstantCookiesStorage(
         Cookie(
@@ -23,13 +23,16 @@ object Fetcher {
           value = BuildConfig.COOKIE,
           domain = ".adventofcode.com",
           encoding = CookieEncoding.RAW,
-        )
+        ),
       )
     }
     install(HttpCache)
   }
 
-  suspend fun fetchInput(year: Int, day: Int): String {
-    return client.get("https://adventofcode.com/$year/day/$day/input").body()
+  suspend fun fetchInput(
+    year: Int,
+    day: Int
+  ): String {
+    return CLIENT.get("https://adventofcode.com/$year/day/$day/input").body()
   }
 }

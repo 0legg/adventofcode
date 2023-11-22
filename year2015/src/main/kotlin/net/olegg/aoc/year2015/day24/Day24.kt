@@ -8,11 +8,11 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 24](https://adventofcode.com/2015/day/24)
  */
 object Day24 : DayOf2015(24) {
-  private val weights = data.parseLongs("\n")
+  private val WEIGHTS = data.parseLongs("\n")
 
   override fun first(): Any? {
-    val sum = weights.sum() / 3
-    return subsets(sum, weights)
+    val sum = WEIGHTS.sum() / 3
+    return subsets(sum, WEIGHTS)
       .groupBy { it.size }
       .minBy { it.key }
       .value
@@ -20,8 +20,8 @@ object Day24 : DayOf2015(24) {
   }
 
   override fun second(): Any? {
-    val sum = weights.sum() / 4
-    return subsets(sum, weights)
+    val sum = WEIGHTS.sum() / 4
+    return subsets(sum, WEIGHTS)
       .groupBy { it.size }
       .minBy { it.key }
       .value
@@ -29,7 +29,10 @@ object Day24 : DayOf2015(24) {
   }
 }
 
-fun subsets(sum: Long, list: List<Long>): List<List<Long>> = when {
+fun subsets(
+  sum: Long,
+  list: List<Long>
+): List<List<Long>> = when {
   (sum < 0L) -> emptyList()
   (sum == 0L) -> listOf(emptyList())
   (list.size == 1) -> if (sum == list[0]) listOf(list) else emptyList()

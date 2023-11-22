@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2018.day18
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors8
+import net.olegg.aoc.utils.Directions.Companion.NEXT_8
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2018.DayOf2018
@@ -25,7 +25,7 @@ object Day18 : DayOf2018(18) {
       val curr = acc.mapIndexed { y, row ->
         row.mapIndexed { x, c ->
           val pos = Vector2D(x, y)
-          val adjacent = Neighbors8
+          val adjacent = NEXT_8
             .map { pos + it.step }
             .mapNotNull { acc[it] }
           when (c) {

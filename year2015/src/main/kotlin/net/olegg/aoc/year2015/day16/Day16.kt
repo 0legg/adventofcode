@@ -10,7 +10,7 @@ object Day16 : DayOf2015(16) {
   private val PATTERN = "^Sue (\\d+): (.*)$".toRegex()
   private val ANIMAL = "([a-z]+): (\\d+)".toRegex()
 
-  private val sues = lines
+  private val SUES = lines
     .mapNotNull { line ->
       PATTERN.matchEntire(line)?.let { match ->
         val index = match.groupValues[1].toInt()
@@ -23,7 +23,7 @@ object Day16 : DayOf2015(16) {
       }
     }
 
-  private val footprint = mapOf(
+  private val FOOTPRINT = mapOf(
     "children" to 3,
     "cats" to 7,
     "samoyeds" to 2,
@@ -33,20 +33,20 @@ object Day16 : DayOf2015(16) {
     "goldfish" to 5,
     "trees" to 3,
     "cars" to 2,
-    "perfumes" to 1
+    "perfumes" to 1,
   )
 
   override fun first(): Any? {
-    return sues
-      .first { sue -> sue.second.all { it.value == footprint[it.key] } }
+    return SUES
+      .first { sue -> sue.second.all { it.value == FOOTPRINT[it.key] } }
       .first
   }
 
   override fun second(): Any? {
-    return sues
+    return SUES
       .first { (_, own) ->
         own.all { (key, value) ->
-          val footprintValue = footprint[key] ?: 0
+          val footprintValue = FOOTPRINT[key] ?: 0
           when (key) {
             "cats", "trees" -> value > footprintValue
             "pomeranians", "goldfish" -> value < footprintValue

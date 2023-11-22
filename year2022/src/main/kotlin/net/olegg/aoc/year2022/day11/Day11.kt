@@ -110,7 +110,7 @@ object Day11 : DayOf2022(11) {
 
     data class Val(
       val value: Long,
-    ): Arg {
+    ) : Arg {
       override fun apply(to: Long): Long = value
     }
 

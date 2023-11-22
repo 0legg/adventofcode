@@ -8,12 +8,12 @@ import net.olegg.aoc.year2021.DayOf2021
  * See [Year 2021, Day 22](https://adventofcode.com/2021/day/22)
  */
 object Day22 : DayOf2021(22) {
-  private val pattern = "(on|off) x=(-?\\d+)\\.\\.(-?\\d+),y=(-?\\d+)\\.\\.(-?\\d+),z=(-?\\d+)\\.\\.(-?\\d+)".toRegex()
+  private val PATTERN = "(on|off) x=(-?\\d+)\\.\\.(-?\\d+),y=(-?\\d+)\\.\\.(-?\\d+),z=(-?\\d+)\\.\\.(-?\\d+)".toRegex()
 
   override fun first(): Any? {
     val ops = lines
       .mapNotNull { line ->
-        val parsed = pattern.find(line)?.groupValues.orEmpty()
+        val parsed = PATTERN.find(line)?.groupValues.orEmpty()
         if (parsed.size == 8) {
           val op = parsed[1]
           val from = Vector3D(parsed[2].toInt(), parsed[4].toInt(), parsed[6].toInt())
@@ -32,7 +32,7 @@ object Day22 : DayOf2021(22) {
   override fun second(): Any? {
     val ops = lines
       .mapNotNull { line ->
-        val parsed = pattern.find(line)?.groupValues.orEmpty()
+        val parsed = PATTERN.find(line)?.groupValues.orEmpty()
         if (parsed.size == 8) {
           val op = parsed[1]
           val from = Vector3D(parsed[2].toInt(), parsed[4].toInt(), parsed[6].toInt())
@@ -53,8 +53,10 @@ object Day22 : DayOf2021(22) {
     val (oldFrom, oldTo) = old
     val (newFrom, newTo) = new
 
-    return !(oldTo.x < newFrom.x || oldTo.y < newFrom.y || oldTo.z < newFrom.z
-      || oldFrom.x > newTo.x || oldFrom.y > newTo.y || oldFrom.z > newTo.z)
+    return !(
+      oldTo.x < newFrom.x || oldTo.y < newFrom.y || oldTo.z < newFrom.z ||
+        oldFrom.x > newTo.x || oldFrom.y > newTo.y || oldFrom.z > newTo.z
+      )
   }
 
   private fun solve(ops: List<Pair<String, Pair<Vector3D, Vector3D>>>): Long {
@@ -87,13 +89,18 @@ object Day22 : DayOf2021(22) {
     return xParts.flatMap { (fromX, toX, partX) ->
       yParts.flatMap { (fromY, toY, partY) ->
         zParts.mapNotNull { (fromZ, toZ, partZ) ->
-          (Vector3D(fromX, fromY, fromZ) to Vector3D(toX, toY, toZ)).takeIf { !partX || !partY ||!partZ }
+          (Vector3D(fromX, fromY, fromZ) to Vector3D(toX, toY, toZ)).takeIf { !partX || !partY || !partZ }
         }
       }
     }
   }
 
-  private fun buildParts(oldFrom: Int, oldTo: Int, newFrom: Int, newTo: Int): List<Triple<Int, Int, Boolean>> {
+  private fun buildParts(
+    oldFrom: Int,
+    oldTo: Int,
+    newFrom: Int,
+    newTo: Int
+  ): List<Triple<Int, Int, Boolean>> {
     return buildList {
       var partial = newFrom <= oldFrom
       var mark = oldFrom

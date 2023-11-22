@@ -87,7 +87,6 @@ object Day19 : DayOf2021(19) {
         }
         .toList()
 
-
       val matchCount = mutableMapOf<Pair<Int, Int>, Int>()
       baseDists.forEach { baseTriple ->
         newDists.forEach { newTriple ->
@@ -106,7 +105,7 @@ object Day19 : DayOf2021(19) {
 
       val matches = matchCount.filterValues { it == 11 }.keys
 
-      val rotation = allRotations.first { currRotation ->
+      val rotation = ALL_ROTATIONS.first { currRotation ->
         matches
           .map { (baseIndex, newIndex) ->
             val baseA = orientedBeacons[base][baseIndex]
@@ -139,8 +138,8 @@ object Day19 : DayOf2021(19) {
 
     return beacons to scanners
   }
-  
-  private val allRotations: List<Vector3D.() -> Vector3D> = listOf(
+
+  private val ALL_ROTATIONS: List<Vector3D.() -> Vector3D> = listOf(
     { Vector3D(x, y, z) },
     { Vector3D(x, y, -z) },
     { Vector3D(x, -y, z) },

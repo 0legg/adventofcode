@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2019.day20
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2019.DayOf2019
@@ -61,7 +61,7 @@ object Day20 : DayOf2019(20) {
         return curr.second
       }
 
-      (Neighbors4.map { it.step + curr.first } + listOfNotNull(routes[curr.first]))
+      (NEXT_4.map { it.step + curr.first } + listOfNotNull(routes[curr.first]))
         .filter { map[it] == '.' }
         .filter { it !in visited }
         .forEach {
@@ -118,7 +118,7 @@ object Day20 : DayOf2019(20) {
       .flatMap { (a, b) ->
         listOf(
           a.first to (b.first to a.second),
-          b.first to (a.first to b.second)
+          b.first to (a.first to b.second),
         )
       }
       .toMap()
@@ -135,7 +135,7 @@ object Day20 : DayOf2019(20) {
         return step
       }
 
-      val next = Neighbors4.map { (it.step + point) to level } +
+      val next = NEXT_4.map { (it.step + point) to level } +
         listOfNotNull(routes[point]).map { it.first to level + it.second }
 
       next

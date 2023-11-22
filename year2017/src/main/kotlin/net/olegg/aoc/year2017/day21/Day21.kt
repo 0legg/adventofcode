@@ -61,7 +61,7 @@ object Day21 : DayOf2017(21) {
       grid,
       grid.reversed(),
       grid.map { it.reversed() },
-      grid.reversed().map { it.reversed() }
+      grid.reversed().map { it.reversed() },
     )
 
     val rotations = flips
