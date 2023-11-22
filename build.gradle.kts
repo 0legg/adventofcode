@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -10,7 +11,7 @@ buildscript {
 plugins {
   base
   alias(libs.plugins.kotlin.jvm) apply false
-  alias(libs.plugins.detekt)
+  alias(libs.plugins.detekt) apply false
 }
 
 allprojects {
@@ -23,11 +24,6 @@ allprojects {
 
   apply(plugin = rootProject.libs.plugins.kotlin.jvm.get().pluginId)
   apply(plugin = rootProject.libs.plugins.detekt.get().pluginId)
-
-  dependencies {
-    val implementation by configurations
-    implementation(rootProject.libs.kotlinx.coroutines.core)
-  }
 
   tasks.withType<KotlinCompile>().configureEach {
     compilerOptions {
@@ -48,12 +44,16 @@ allprojects {
     jvmToolchain(17)
   }
 
-  detekt {
+  extensions.configure<DetektExtension> {
     config.from(rootProject.files("detekt.yml"))
     baseline = rootProject.file("detekt-baseline.xml")
+    autoCorrect = true
   }
-}
 
-dependencies {
-  detektPlugins(libs.detekt.formatting)
+  dependencies {
+    val implementation by configurations
+    val detektPlugins by configurations
+    implementation(rootProject.libs.kotlinx.coroutines.core)
+    detektPlugins(rootProject.libs.detekt.formatting)
+  }
 }
