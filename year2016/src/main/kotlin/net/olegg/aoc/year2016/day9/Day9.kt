@@ -19,7 +19,10 @@ object Day9 : DayOf2016(9) {
     return measure(input, true)
   }
 
-  private fun measure(data: String, unfold: Boolean): Long {
+  private fun measure(
+    data: String,
+    unfold: Boolean
+  ): Long {
     return PATTERN.find(data)?.let { match ->
       val (length, repeats) = match.groupValues.drop(1).let { it.first().toInt() to it.last().toLong() }
       val (matchStart, matchEnd) = (match.range.first to match.range.last)

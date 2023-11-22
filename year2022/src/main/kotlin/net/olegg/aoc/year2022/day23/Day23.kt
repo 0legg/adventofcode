@@ -34,7 +34,7 @@ object Day23 : DayOf2022(23) {
 
     val (finish, _) = (1..10).fold(start to startDirs) { (elves, dirs), _ ->
       val proposed = elves.map { elf ->
-        if (Directions.Neighbors8.none { elf + it.step in elves }) {
+        if (Directions.NEXT_8.none { elf + it.step in elves }) {
           elf
         } else {
           val maybeDir = dirs.firstOrNull { dir ->
@@ -75,14 +75,14 @@ object Day23 : DayOf2022(23) {
         D to listOf(DL, D, DR),
         L to listOf(UL, L, DL),
         R to listOf(UR, R, DR),
-      )
+      ),
     )
 
     var moves = 0
     do {
       moves++
       val proposed = elves.map { elf ->
-        if (Directions.Neighbors8.none { elf + it.step in elves }) {
+        if (Directions.NEXT_8.none { elf + it.step in elves }) {
           elf
         } else {
           val maybeDir = dirs.firstOrNull { dir ->

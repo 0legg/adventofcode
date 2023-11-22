@@ -166,13 +166,19 @@ object Day21 : DayOf2016(21) {
     return unscramble("fbgdceah", ops)
   }
 
-  private fun scramble(password: String, operations: List<Op>): String {
+  private fun scramble(
+    password: String,
+    operations: List<Op>
+  ): String {
     val acc = StringBuilder(password)
     operations.forEach { it.apply(acc) }
     return acc.toString()
   }
 
-  private fun unscramble(password: String, operations: List<Op>): String {
+  private fun unscramble(
+    password: String,
+    operations: List<Op>
+  ): String {
     val acc = StringBuilder(password)
     operations.reversed().forEach { it.unapply(acc) }
     return acc.toString()

@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2018.day20
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
@@ -18,7 +18,7 @@ object Day20 : DayOf2018(20) {
     'W' to L,
     'E' to R,
     'N' to U,
-    'S' to D
+    'S' to D,
   )
 
   override fun first(): Any? {
@@ -58,7 +58,7 @@ object Day20 : DayOf2018(20) {
     while (queue.isNotEmpty()) {
       val curr = queue.removeFirst()
       val dist = visited.getValue(curr) + 1
-      val nexts = Neighbors4
+      val nexts = NEXT_4
         .map { curr + it.step }
         .filter { it in verts }
         .filter { it !in visited }

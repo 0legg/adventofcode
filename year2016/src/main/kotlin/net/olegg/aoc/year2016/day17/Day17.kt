@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2016.day17
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.md5
 import net.olegg.aoc.year2016.DayOf2016
@@ -19,7 +19,7 @@ object Day17 : DayOf2016(17) {
     do {
       val (curr, tail) = queue.removeAt(0)
 
-      val next = Neighbors4
+      val next = NEXT_4
         .zip("$data$tail".md5().substring(0, 4).uppercase().toList())
         .filter { it.second in "BCDEF" }
         .map { curr + it.first.step to tail + it.first.name }
@@ -47,7 +47,7 @@ object Day17 : DayOf2016(17) {
         continue
       }
 
-      val next = Neighbors4
+      val next = NEXT_4
         .zip("$data$tail".md5().substring(0, 4).uppercase().toList())
         .filter { it.second in "BCDEF" }
         .map { curr + it.first.step to tail + it.first.name }

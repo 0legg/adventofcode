@@ -9,13 +9,13 @@ import java.util.PriorityQueue
  * See [Year 2022, Day 16](https://adventofcode.com/2022/day/16)
  */
 object Day16 : DayOf2022(16) {
-  private val pattern = "Valve (.*) has flow rate=(\\d+); tunnels? leads? to valves? (.*)".toRegex()
+  private val PATTERN = "Valve (.*) has flow rate=(\\d+); tunnels? leads? to valves? (.*)".toRegex()
   override fun first(): Any? {
     val valvesRaw = lines
-      .mapNotNull { pattern.find(it)?.destructured?.toList() }
+      .mapNotNull { PATTERN.find(it)?.destructured?.toList() }
       .associateBy(
         keySelector = { it.first() },
-        valueTransform = { tokens -> tokens[1].toInt() to tokens[2].split(", ") }
+        valueTransform = { tokens -> tokens[1].toInt() to tokens[2].split(", ") },
       )
     val size = valvesRaw.size
     val valvesMapping = valvesRaw
@@ -58,7 +58,7 @@ object Day16 : DayOf2022(16) {
                 or(curr.open)
                 set(curr.position)
               },
-            )
+            ),
           )
         }
         valve.second.forEach { next ->
@@ -68,7 +68,7 @@ object Day16 : DayOf2022(16) {
               pressure = curr.pressure,
               timeLeft = curr.timeLeft - 1,
               open = curr.open,
-            )
+            ),
           )
         }
       }
@@ -79,10 +79,10 @@ object Day16 : DayOf2022(16) {
 
   override fun second(): Any? {
     val valvesRaw = lines
-      .mapNotNull { pattern.find(it)?.destructured?.toList() }
+      .mapNotNull { PATTERN.find(it)?.destructured?.toList() }
       .associateBy(
         keySelector = { it.first() },
-        valueTransform = { tokens -> tokens[1].toInt() to tokens[2].split(", ") }
+        valueTransform = { tokens -> tokens[1].toInt() to tokens[2].split(", ") },
       )
     val size = valvesRaw.size
     val valvesMapping = valvesRaw
@@ -190,7 +190,7 @@ object Day16 : DayOf2022(16) {
               open = BitSet(size).apply {
                 or(curr.open)
                 set(curr.positions.second)
-              }
+              },
             )
 
             val newVisit = visited

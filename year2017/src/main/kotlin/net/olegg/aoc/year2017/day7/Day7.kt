@@ -53,7 +53,10 @@ object Day7 : DayOf2017(7) {
     return result
   }
 
-  private fun getWeights(map: Map<String, Pair<Int, List<String>>>, root: String): Map<String, Int> {
+  private fun getWeights(
+    map: Map<String, Pair<Int, List<String>>>,
+    root: String
+  ): Map<String, Int> {
     val curr = map.getOrDefault(root, 0 to emptyList())
     val inter = curr.second
       .fold(emptyMap<String, Int>()) { acc, value -> acc + getWeights(map, value) }

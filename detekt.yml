@@ -874,7 +874,7 @@ formatting:
   FunctionSignature:
     active: true
     autoCorrect: true
-    forceMultilineWhenParameterCountGreaterOrEqualThan: 2147483647
+    forceMultilineWhenParameterCountGreaterOrEqualThan: 2
     functionBodyExpressionWrapping: 'default'
     maxLineLength: 120
     indentSize: 2
@@ -999,6 +999,7 @@ formatting:
     maxLineLength: 120
   PropertyName:
     active: true
+    autoCorrect: true
   PropertyWrapping:
     active: true
     autoCorrect: true
@@ -1058,7 +1059,7 @@ formatting:
     autoCorrect: true
     indentSize: 2
   TrailingCommaOnCallSite:
-    active: false
+    active: true
     autoCorrect: true
     useTrailingCommaOnCallSite: true
   TrailingCommaOnDeclarationSite:

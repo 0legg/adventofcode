@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2019.day24
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
@@ -24,7 +24,7 @@ object Day24 : DayOf2019(24) {
 
       curr = curr.mapIndexed { y, row ->
         row.mapIndexed { x, c ->
-          val neighbors = Neighbors4.map { it.step + Vector2D(x, y) }
+          val neighbors = NEXT_4.map { it.step + Vector2D(x, y) }
             .mapNotNull { curr[it] }
             .count { it == '#' }
           when {
@@ -57,7 +57,7 @@ object Day24 : DayOf2019(24) {
         return@associateWith prev.mapIndexed { y, row ->
           row.mapIndexed { x, c ->
             val base = Vector2D(x, y)
-            val neighbors = Neighbors4.map { it to it.step + base }
+            val neighbors = NEXT_4.map { it to it.step + base }
               .flatMap { (dir, point) ->
                 when {
                   point == center -> when (dir) {

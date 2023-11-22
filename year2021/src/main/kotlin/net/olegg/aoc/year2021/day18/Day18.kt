@@ -30,9 +30,7 @@ object Day18 : DayOf2021(18) {
     }
   }
 
-  private fun parseNumber(
-    tokens: ArrayDeque<Char>,
-  ): Expression {
+  private fun parseNumber(tokens: ArrayDeque<Char>): Expression {
     return when (val token = tokens.removeFirst()) {
       in '0'..'9' -> Literal(token.digitToInt())
       '[' -> {

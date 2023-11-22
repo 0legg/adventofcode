@@ -20,14 +20,14 @@ object Day13 : DayOf2018(13) {
     U to R,
     R to U,
     D to L,
-    L to D
+    L to D,
   )
 
   private val TURNS_BACKSLASH = mapOf(
     U to L,
     L to U,
     D to R,
-    R to D
+    R to D,
   )
 
   override fun first(): Any? {

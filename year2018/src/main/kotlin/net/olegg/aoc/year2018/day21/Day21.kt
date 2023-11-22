@@ -62,7 +62,7 @@ object Day21 : DayOf2018(21) {
       }
       if (instruction == 28 && regs[5] !in exit) {
         exit[regs[5]] = step
-        //println("Exiting with ${regs[5]} at $step")
+        // println("Exiting with ${regs[5]} at $step")
       }
       program[instruction].apply(regs)
       regs[pointer]++

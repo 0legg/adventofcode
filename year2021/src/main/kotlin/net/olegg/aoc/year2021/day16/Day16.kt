@@ -50,7 +50,7 @@ object Day16 : DayOf2021(16) {
           } while (chunk.first() != '0')
         }
         Body.Literal(
-          number = value.toBigInteger(2)
+          number = value.toBigInteger(2),
         )
       }
       else -> {
@@ -74,7 +74,7 @@ object Day16 : DayOf2021(16) {
         Body.Nested(
           lengthType = lengthType,
           packets = packets,
-          operation = Body.Nested.Operation.mappings.getValue(type),
+          operation = Body.Nested.Operation.MAPPINGS.getValue(type),
         )
       }
     }
@@ -166,9 +166,9 @@ object Day16 : DayOf2021(16) {
           }
           const val TYPE = 7
         }
-        
+
         companion object {
-          val mappings = mapOf(
+          val MAPPINGS = mapOf(
             Sum.TYPE to Sum,
             Product.TYPE to Product,
             Minimum.TYPE to Minimum,

@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2020.day11
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors8
+import net.olegg.aoc.utils.Directions.Companion.NEXT_8
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2020.DayOf2020
@@ -18,8 +18,8 @@ object Day11 : DayOf2020(11) {
         row.mapIndexed { x, c ->
           val place = Vector2D(x, y)
           when {
-            c == 'L' && Neighbors8.map { it.step + place }.none { curr[it] == '#' } -> '#'
-            c == '#' && Neighbors8.map { it.step + place }.count { curr[it] == '#' } >= 4 -> 'L'
+            c == 'L' && NEXT_8.map { it.step + place }.none { curr[it] == '#' } -> '#'
+            c == '#' && NEXT_8.map { it.step + place }.count { curr[it] == '#' } >= 4 -> 'L'
             else -> c
           }
         }
@@ -39,7 +39,7 @@ object Day11 : DayOf2020(11) {
       curr.mapIndexed { y, row ->
         row.mapIndexed { x, c ->
           val place = Vector2D(x, y)
-          val occupied = Neighbors8
+          val occupied = NEXT_8
             .map { it.step }
             .map { step ->
               generateSequence(1) { it + 1 }

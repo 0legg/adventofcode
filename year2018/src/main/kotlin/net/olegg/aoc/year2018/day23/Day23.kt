@@ -4,7 +4,6 @@ import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Vector3D
 import net.olegg.aoc.year2018.DayOf2018
 import java.util.PriorityQueue
-import kotlin.math.abs
 
 /**
  * See [Year 2018, Day 23](https://adventofcode.com/2018/day/23)
@@ -83,7 +82,11 @@ object Day23 : DayOf2018(23) {
       return (pos - other).manhattan()
     }
 
-    fun distance(otherX: Int, otherY: Int, otherZ: Int): Int {
+    fun distance(
+      otherX: Int,
+      otherY: Int,
+      otherZ: Int
+    ): Int {
       return (pos - Vector3D(otherX, otherY, otherZ)).manhattan()
     }
 

@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2021.day11
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors8
+import net.olegg.aoc.utils.Directions.Companion.NEXT_8
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.fit
 import net.olegg.aoc.utils.get
@@ -32,11 +32,11 @@ object Day11 : DayOf2021(11) {
         val curr = queue.removeFirst()
         if (curr !in flashed) {
           flashed += curr
-          Neighbors8.map { curr + it.step }
+          NEXT_8.map { curr + it.step }
             .filter { it !in flashed }
             .filter { new.fit(it) }
             .forEach { new[it] = new[it]!! + 1 }
-          queue += Neighbors8.map { curr + it.step }
+          queue += NEXT_8.map { curr + it.step }
             .filter { new.fit(it) }
             .filter { new[it]!! > 9 }
         }
@@ -73,11 +73,11 @@ object Day11 : DayOf2021(11) {
           val curr = queue.removeFirst()
           if (curr !in flashed) {
             flashed += curr
-            Neighbors8.map { curr + it.step }
+            NEXT_8.map { curr + it.step }
               .filter { it !in flashed }
               .filter { new.fit(it) }
               .forEach { new[it] = new[it]!! + 1 }
-            queue += Neighbors8.map { curr + it.step }
+            queue += NEXT_8.map { curr + it.step }
               .filter { new.fit(it) }
               .filter { new[it]!! > 9 }
           }

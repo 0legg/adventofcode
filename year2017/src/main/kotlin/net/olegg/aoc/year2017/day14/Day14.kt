@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2017.day14
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.set
@@ -80,7 +80,7 @@ object Day14 : DayOf2017(14) {
       while (toVisit.isNotEmpty()) {
         val curr = toVisit.removeFirst()
         result[curr] = '0'
-        Neighbors4
+        NEXT_4
           .map { curr + it.step }
           .filter { result[it] == '1' }
           .forEach { point ->

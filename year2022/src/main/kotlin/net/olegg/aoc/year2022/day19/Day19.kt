@@ -9,13 +9,15 @@ import java.util.PriorityQueue
  * See [Year 2022, Day 19](https://adventofcode.com/2022/day/19)
  */
 object Day19 : DayOf2022(19) {
-  private val template = ("Blueprint (\\d+): Each ore robot costs (\\d+) ore\\. " +
-    "Each clay robot costs (\\d+) ore\\. " +
-    "Each obsidian robot costs (\\d+) ore and (\\d+) clay\\. " +
-    "Each geode robot costs (\\d+) ore and (\\d+) obsidian\\.").toRegex()
+  private val PATTERN = (
+    "Blueprint (\\d+): Each ore robot costs (\\d+) ore\\. " +
+      "Each clay robot costs (\\d+) ore\\. " +
+      "Each obsidian robot costs (\\d+) ore and (\\d+) clay\\. " +
+      "Each geode robot costs (\\d+) ore and (\\d+) obsidian\\."
+    ).toRegex()
 
-  private val blueprints = lines
-    .mapNotNull { template.find(it) }
+  private val BLUEPRINTS = lines
+    .mapNotNull { PATTERN.find(it) }
     .map {
       val (number, oreOre, clayOre, obsidianOre, obsidianClay, geodeOre, geodeObsidian) = it.destructured
 
@@ -61,18 +63,21 @@ object Day19 : DayOf2022(19) {
     }
 
   override fun first(): Any? {
-    return blueprints.take(1).sumOf { blueprint ->
+    return BLUEPRINTS.take(1).sumOf { blueprint ->
       maxGeodes(blueprint, 24) * blueprint.number
     }
   }
 
   override fun second(): Any? {
-    return blueprints.take(3)
+    return BLUEPRINTS.take(3)
       .map { maxGeodes(it, 32) }
       .reduce(Int::times)
   }
 
-  private fun maxGeodes(blueprint: Blueprint, time: Int): Int {
+  private fun maxGeodes(
+    blueprint: Blueprint,
+    time: Int
+  ): Int {
     val initialState = State(
       robots = Vector4D(1, 0, 0, 0),
       resources = Vector4D(0, 0, 0, 0),
@@ -84,7 +89,7 @@ object Day19 : DayOf2022(19) {
         { -it.robots.manhattan() },
         { -it.resources.w },
         { it.time },
-      )
+      ),
     ).apply {
       this += initialState
     }

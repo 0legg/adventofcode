@@ -8,9 +8,15 @@ import kotlin.math.abs
  * See [Year 2022, Day 10](https://adventofcode.com/2022/day/10)
  */
 object Day10 : DayOf2022(10) {
-  private val times = listOf(
-    20, 60, 100, 140, 180, 220,
+  private val TIMES = listOf(
+    20,
+    60,
+    100,
+    140,
+    180,
+    220,
   )
+
   override fun first(): Any? {
     val ops = lines.map { Op.parse(it) }
 
@@ -20,7 +26,7 @@ object Day10 : DayOf2022(10) {
       }
       .flatMap { it.second }
 
-    return times.sumOf { time -> time * values[time - 1] }
+    return TIMES.sumOf { time -> time * values[time - 1] }
   }
 
   override fun second(): Any? {
@@ -38,7 +44,8 @@ object Day10 : DayOf2022(10) {
     }
 
     return lit.joinToString(separator = "\n", prefix = "\n") {
-      row -> row.joinToString(separator = "") {
+        row ->
+      row.joinToString(separator = "") {
         if (it) "██" else ".."
       }
     }

@@ -13,7 +13,7 @@ import net.olegg.aoc.year2016.DayOf2016
 object Day1 : DayOf2016(1) {
   private val SHIFT = mapOf(
     'L' to CCW,
-    'R' to CW
+    'R' to CW,
   )
 
   override fun first(): Any? {

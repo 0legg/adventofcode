@@ -21,7 +21,10 @@ class UnionFind(size: Int) {
     return root
   }
 
-  fun union(a: Int, b: Int) {
+  fun union(
+    a: Int,
+    b: Int
+  ) {
     val rootA = root(a)
     val rootB = root(b)
     if (rootA != rootB) {
@@ -36,5 +39,8 @@ class UnionFind(size: Int) {
     }
   }
 
-  fun find(a: Int, b: Int) = root(a) == root(b)
+  fun find(
+    a: Int,
+    b: Int
+  ) = root(a) == root(b)
 }

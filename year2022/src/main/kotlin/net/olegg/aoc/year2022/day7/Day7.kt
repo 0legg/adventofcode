@@ -10,7 +10,6 @@ import net.olegg.aoc.year2022.day7.Day7.Node.File
  * See [Year 2022, Day 7](https://adventofcode.com/2022/day/7)
  */
 object Day7 : DayOf2022(7) {
-
   /*override val localData: String?
     get() = """
       $ cd /

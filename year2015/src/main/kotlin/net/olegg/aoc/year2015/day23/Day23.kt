@@ -53,12 +53,12 @@ object Day23 : DayOf2015(23) {
           when (match?.get(1)?.value) {
             "a" -> state.copy(
               third = state.third +
-                if (state.first % 2 == 0) (match[2]?.value?.toInt() ?: 0) else 1
+                if (state.first % 2 == 0) (match[2]?.value?.toInt() ?: 0) else 1,
             )
 
             "b" -> state.copy(
               third = state.third +
-                if (state.second % 2 == 0) (match[2]?.value?.toInt() ?: 0) else 1
+                if (state.second % 2 == 0) (match[2]?.value?.toInt() ?: 0) else 1,
             )
 
             else -> state
@@ -70,12 +70,12 @@ object Day23 : DayOf2015(23) {
           when (match?.get(1)?.value) {
             "a" -> state.copy(
               third = state.third +
-                if (state.first == 1) (match[2]?.value?.toInt() ?: 0) else 1
+                if (state.first == 1) (match[2]?.value?.toInt() ?: 0) else 1,
             )
 
             "b" -> state.copy(
               third = state.third +
-                if (state.second == 1) (match[2]?.value?.toInt() ?: 0) else 1
+                if (state.second == 1) (match[2]?.value?.toInt() ?: 0) else 1,
             )
 
             else -> state

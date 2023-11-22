@@ -2,7 +2,6 @@ package net.olegg.aoc.year2022.day20
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.year2022.DayOf2022
-import java.util.LinkedList
 
 /**
  * See [Year 2022, Day 20](https://adventofcode.com/2022/day/20)

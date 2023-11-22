@@ -97,7 +97,10 @@ object Day18 : DayOf2017(18) {
     return send[1]
   }
 
-  private fun extract(map: Map<String, Long>, field: String): Long {
+  private fun extract(
+    map: Map<String, Long>,
+    field: String
+  ): Long {
     return field.toLongOrNull() ?: map.getOrDefault(field, 0)
   }
 }

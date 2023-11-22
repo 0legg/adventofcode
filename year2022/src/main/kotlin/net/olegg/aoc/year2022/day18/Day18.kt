@@ -9,7 +9,7 @@ import net.olegg.aoc.year2022.DayOf2022
  * See [Year 2022, Day 18](https://adventofcode.com/2022/day/18)
  */
 object Day18 : DayOf2022(18) {
-  private val dirs = listOf(
+  private val DIRS = listOf(
     Vector3D(1, 0, 0),
     Vector3D(-1, 0, 0),
     Vector3D(0, 1, 0),
@@ -25,7 +25,7 @@ object Day18 : DayOf2022(18) {
       .toSet()
 
     return blocks.sumOf { block ->
-      dirs.count { (block + it) !in blocks }
+      DIRS.count { (block + it) !in blocks }
     }
   }
 
@@ -56,7 +56,7 @@ object Day18 : DayOf2022(18) {
         continue
       }
       filled += curr
-      queue += dirs
+      queue += DIRS
         .map { it + curr }
         .filter { it.x >= minBlock.x && it.y >= minBlock.y && it.z >= minBlock.z }
         .filter { it.x <= maxBlock.x && it.y <= maxBlock.y && it.z <= maxBlock.z }
@@ -65,7 +65,7 @@ object Day18 : DayOf2022(18) {
     }
 
     return blocks.sumOf { block ->
-      dirs.count { (block + it) in filled }
+      DIRS.count { (block + it) in filled }
     }
   }
 }

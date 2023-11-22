@@ -2,7 +2,7 @@ package net.olegg.aoc.year2022.day24
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2022.DayOf2022
@@ -11,7 +11,8 @@ import net.olegg.aoc.year2022.DayOf2022
  * See [Year 2022, Day 24](https://adventofcode.com/2022/day/24)
  */
 object Day24 : DayOf2022(24) {
-  private val stop = setOf(null, '#')
+  private val STOP = setOf(null, '#')
+
   override fun first(): Any? {
     val from = Vector2D(
       matrix.first().indexOf('.'),
@@ -54,8 +55,8 @@ object Day24 : DayOf2022(24) {
       }
 
       positions = positions.flatMap { curr ->
-        (listOf(curr) + Neighbors4.map { curr + it.step })
-          .filter { matrix[it] !in stop }
+        (listOf(curr) + NEXT_4.map { curr + it.step })
+          .filter { matrix[it] !in STOP }
           .filter { next -> blizzards.none { it.first == next } }
       }.toSet()
     }
@@ -107,8 +108,8 @@ object Day24 : DayOf2022(24) {
       }
 
       positions = positions.flatMap { curr ->
-        (listOf(curr.first) + Neighbors4.map { curr.first + it.step })
-          .filter { matrix[it] !in stop }
+        (listOf(curr.first) + NEXT_4.map { curr.first + it.step })
+          .filter { matrix[it] !in STOP }
           .filter { next -> blizzards.none { it.first == next } }
           .map { next ->
             when {

@@ -1,12 +1,9 @@
 package net.olegg.aoc.year2022.day14
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.DL
 import net.olegg.aoc.utils.Directions.DR
-import net.olegg.aoc.utils.Directions.UL
-import net.olegg.aoc.utils.Directions.UR
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.parseInts
@@ -85,7 +82,10 @@ object Day14 : DayOf2022(14) {
     return map
   }
 
-  private fun fill(map: List<MutableList<Char>>, coord: Vector2D): Boolean {
+  private fun fill(
+    map: List<MutableList<Char>>,
+    coord: Vector2D
+  ): Boolean {
     val reachBottom = when {
       map[coord] in STOP -> false
       coord.y == map.lastIndex -> true

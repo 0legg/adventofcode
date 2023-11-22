@@ -13,52 +13,66 @@ object Day22 : DayOf2015(22) {
   private const val MANA = 500
   private const val ARMOR = 0
 
-  private val me = Triple(HP, ARMOR, MANA)
-  private val boss = lines
+  data class Stats(
+    val hp: Int,
+    val armor: Int,
+    val power: Int
+  )
+
+  private val ME = Stats(
+    hp = HP,
+    armor = ARMOR,
+    power = MANA,
+  )
+
+  private val BOSS = lines
     .map { it.substringAfterLast(": ").toInt() }
-    .let { it[0] to it[1] }
+    .let { (hp, hits) -> Stats(hp, 0, hits) }
 
   data class Spell(
     val cost: Int,
     val duration: Int,
-    val action: (Pair<Triple<Int, Int, Int>, Pair<Int, Int>>) -> Pair<Triple<Int, Int, Int>, Pair<Int, Int>>
+    val action: (Pair<Stats, Stats>) -> Pair<Stats, Stats>
   )
 
-  private val magicMissile = Spell(53, 1) { (me, boss) ->
-    me to boss.copy(first = boss.first - 4)
+  private val MAGIC_MISSILE = Spell(53, 1) { (me, boss) ->
+    me to boss.copy(hp = boss.hp - 4)
   }
-  private val drain = Spell(73, 1) { (me, boss) ->
-    me.copy(first = me.first + 2) to boss.copy(first = boss.first - 2)
+  private val DRAIN = Spell(73, 1) { (me, boss) ->
+    me.copy(hp = me.hp + 2) to boss.copy(hp = boss.hp - 2)
   }
-  private val shield = Spell(113, 6) { (me, boss) ->
-    me.copy(second = 7) to boss
+  private val SHIELD = Spell(113, 6) { (me, boss) ->
+    me.copy(armor = 7) to boss
   }
-  private val poison = Spell(173, 6) { (me, boss) ->
-    me to boss.copy(first = boss.first - 3)
+  private val POISON = Spell(173, 6) { (me, boss) ->
+    me to boss.copy(hp = boss.hp - 3)
   }
-  private val recharge = Spell(229, 5) { (me, boss) ->
-    me.copy(third = me.third + 101) to boss
-  }
-
-  private val bossHit = Spell(0, 1) { (me, boss) ->
-    me.copy(first = me.first - max(boss.second - me.second, 1)) to boss
-  }
-  private val hardBossHit = Spell(0, 1) { (me, boss) ->
-    me.copy(first = me.first - max(boss.second - me.second, 1) - 1) to boss
+  private val RECHARGE = Spell(229, 5) { (me, boss) ->
+    me.copy(power = me.power + 101) to boss
   }
 
-  private val spells = listOf(magicMissile, drain, shield, poison, recharge)
+  private val BOSS_HIT = Spell(0, 1) { (me, boss) ->
+    me.copy(hp = me.hp - max(boss.power - me.armor, 1)) to boss
+  }
+  private val HARD_BOSS_HIT = Spell(0, 1) { (me, boss) ->
+    me.copy(hp = me.hp - max(boss.power - me.armor, 1) - 1) to boss
+  }
+
+  private val SPELLS = listOf(MAGIC_MISSILE, DRAIN, SHIELD, POISON, RECHARGE)
 
   data class Game(
-    val me: Triple<Int, Int, Int>,
-    val boss: Pair<Int, Int>,
+    val me: Stats,
+    val boss: Stats,
     val spells: Map<Spell, Int> = mapOf(),
     val mana: Int = 0,
     val myMove: Boolean = true
   )
 
-  private fun countMana(mySpells: List<Spell>, bossSpells: List<Spell>): Int {
-    val queue = ArrayDeque(listOf(Game(me, boss)))
+  private fun countMana(
+    mySpells: List<Spell>,
+    bossSpells: List<Spell>
+  ): Int {
+    val queue = ArrayDeque(listOf(Game(ME, BOSS)))
     var best = Int.MAX_VALUE
     while (queue.isNotEmpty()) {
       val game = queue.removeFirst()
@@ -66,17 +80,17 @@ object Day22 : DayOf2015(22) {
       val states = game.spells.keys
         .fold(game.me to game.boss) { acc, spell -> spell.action(acc) }
         .let { state ->
-          if (game.spells[shield] != 1) {
+          if (game.spells[SHIELD] != 1) {
             state
           } else {
-            state.copy(first = state.first.copy(second = 0))
+            state.copy(first = state.first.copy(armor = 0))
           }
         }
 
-      if (states.first.first <= 0) {
+      if (states.first.hp <= 0) {
         continue
       }
-      if (states.second.first <= 0) {
+      if (states.second.hp <= 0) {
         best = min(best, game.mana)
         continue
       }
@@ -86,7 +100,7 @@ object Day22 : DayOf2015(22) {
 
       val spells = if (game.myMove) {
         mySpells
-          .filter { it.cost <= states.first.third }
+          .filter { it.cost <= states.first.power }
           .filterNot { it in activeSpells }
           .filter { game.mana + it.cost < best }
       } else {
@@ -95,11 +109,11 @@ object Day22 : DayOf2015(22) {
 
       queue += spells.map { spell ->
         game.copy(
-          me = states.first.copy(third = states.first.third - spell.cost),
+          me = states.first.copy(power = states.first.power - spell.cost),
           boss = states.second,
           spells = activeSpells + (spell to spell.duration),
           mana = game.mana + spell.cost,
-          myMove = !game.myMove
+          myMove = !game.myMove,
         )
       }
     }
@@ -107,11 +121,11 @@ object Day22 : DayOf2015(22) {
   }
 
   override fun first(): Any? {
-    return countMana(spells, listOf(bossHit))
+    return countMana(SPELLS, listOf(BOSS_HIT))
   }
 
   override fun second(): Any? {
-    return countMana(spells, listOf(hardBossHit))
+    return countMana(SPELLS, listOf(HARD_BOSS_HIT))
   }
 }
 

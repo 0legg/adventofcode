@@ -9,10 +9,10 @@ import kotlin.math.sign
  * See [Year 2021, Day 17](https://adventofcode.com/2021/day/17)
  */
 object Day17 : DayOf2021(17) {
-  private val REGEX = "target area: x=(-?\\d+)\\.\\.(-?\\d+), y=(-?\\d+)\\.\\.(-?\\d+)".toRegex()
+  private val PATTERN = "target area: x=(-?\\d+)\\.\\.(-?\\d+), y=(-?\\d+)\\.\\.(-?\\d+)".toRegex()
 
   override fun first(): Any? {
-    val (fromX, toX, fromY, toY) = REGEX.find(data)?.groupValues.orEmpty().drop(1).map { it.toInt() }
+    val (fromX, toX, fromY, toY) = PATTERN.find(data)?.groupValues.orEmpty().drop(1).map { it.toInt() }
 
     var best = fromY
     (0..toX).forEach { x ->
@@ -29,7 +29,7 @@ object Day17 : DayOf2021(17) {
           }
         }.map { it.first }.toList()
 
-        if (positions.any { it.x in fromX..toX && it.y in fromY..toY}) {
+        if (positions.any { it.x in fromX..toX && it.y in fromY..toY }) {
           best = maxOf(best, positions.maxOf { it.y })
         }
       }
@@ -38,7 +38,7 @@ object Day17 : DayOf2021(17) {
   }
 
   override fun second(): Any? {
-    val (fromX, toX, fromY, toY) = REGEX.find(data)?.groupValues.orEmpty().drop(1).map { it.toInt() }
+    val (fromX, toX, fromY, toY) = PATTERN.find(data)?.groupValues.orEmpty().drop(1).map { it.toInt() }
 
     return (0..toX).sumOf { x ->
       (-100..100).sumOf { y ->
@@ -54,7 +54,7 @@ object Day17 : DayOf2021(17) {
           }
         }.map { it.first }.toList()
 
-        if (positions.any { it.x in fromX..toX && it.y in fromY..toY}) {
+        if (positions.any { it.x in fromX..toX && it.y in fromY..toY }) {
           1L
         } else {
           0L

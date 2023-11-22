@@ -35,7 +35,7 @@ object Day21 : DayOf2021(21) {
               value
             }
           },
-          move = 1 - universe.move
+          move = 1 - universe.move,
         )
       }
       .map { un -> un.states.map { it.score } }
@@ -83,7 +83,7 @@ object Day21 : DayOf2021(21) {
             states = curr.states.mapIndexed { index, value ->
               if (index == curr.move) state else value
             },
-            move = 1 - curr.move
+            move = 1 - curr.move,
           ) to count
         }
 

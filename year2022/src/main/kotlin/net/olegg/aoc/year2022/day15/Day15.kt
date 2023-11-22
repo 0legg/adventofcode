@@ -9,10 +9,10 @@ import kotlin.math.abs
  * See [Year 2022, Day 15](https://adventofcode.com/2022/day/15)
  */
 object Day15 : DayOf2022(15) {
-  private val pattern = "^Sensor at x=(-?\\d+), y=(-?\\d+): closest beacon is at x=(-?\\d+), y=(-?\\d+)$".toRegex()
+  private val PATTERN = "^Sensor at x=(-?\\d+), y=(-?\\d+): closest beacon is at x=(-?\\d+), y=(-?\\d+)$".toRegex()
   override fun first(): Any? {
     val tuples = lines
-      .mapNotNull { pattern.find(it) }
+      .mapNotNull { PATTERN.find(it) }
       .map { match -> match.destructured.toList().map { it.toInt() } }
       .map { coords ->
         val sensor = Vector2D(coords[0], coords[1])
@@ -42,7 +42,7 @@ object Day15 : DayOf2022(15) {
 
   override fun second(): Any? {
     val tuples = lines
-      .mapNotNull { pattern.find(it) }
+      .mapNotNull { PATTERN.find(it) }
       .map { match -> match.destructured.toList().map { it.toInt() } }
       .map { coords ->
         val sensor = Vector2D(coords[0], coords[1])

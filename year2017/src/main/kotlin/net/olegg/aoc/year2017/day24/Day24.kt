@@ -38,7 +38,7 @@ object Day24 : DayOf2017(24) {
           Triple(
             next,
             curr.second + port.first + port.second,
-            BitSet(ports.size).also { it.or(curr.third) }.also { it.set(port.third) }
+            BitSet(ports.size).also { it.or(curr.third) }.also { it.set(port.third) },
           )
         }
         .filterNot { (it.first to it.third) in visited }
@@ -79,7 +79,7 @@ object Day24 : DayOf2017(24) {
           Triple(
             next,
             (curr.second.first + 1 to curr.second.second + port.first + port.second),
-            BitSet(ports.size).also { it.or(curr.third) }.also { it.set(port.third) }
+            BitSet(ports.size).also { it.or(curr.third) }.also { it.set(port.third) },
           )
         }
         .filterNot { (it.first to it.third) in visited }

@@ -10,7 +10,7 @@ import kotlin.math.abs
  * See [Year 2021, Day 23](https://adventofcode.com/2021/day/23)
  */
 object Day23 : DayOf2021(23) {
-  private val cost = mapOf(
+  private val COST = mapOf(
     'A' to 1,
     'B' to 10,
     'C' to 100,
@@ -28,7 +28,7 @@ object Day23 : DayOf2021(23) {
     """.trimMargin().lines()
 
     return solve(
-      lines.take(3) + insert + lines.drop(3)
+      lines.take(3) + insert + lines.drop(3),
     )
   }
 
@@ -155,8 +155,8 @@ object Day23 : DayOf2021(23) {
             spots = world.spots + (target.to to stackData.first()),
             stacks = world.stacks.mapValues { (key, value) ->
               if (key == stack) value.drop(1) else value
-            }
-          ) to score + (target.costX + costY) * cost.getValue(stackData.first())
+            },
+          ) to score + (target.costX + costY) * COST.getValue(stackData.first())
         }
       }
 
@@ -179,8 +179,8 @@ object Day23 : DayOf2021(23) {
                 target.to -> stackData.take(1) + value
                 else -> value
               }
-            }
-          ) to score + (target.costX + costFromY + costToY) * cost.getValue(stackData.first())
+            },
+          ) to score + (target.costX + costFromY + costToY) * COST.getValue(stackData.first())
         }
       }
 
@@ -200,8 +200,8 @@ object Day23 : DayOf2021(23) {
                 target.to -> listOf(char) + value
                 else -> value
               }
-            }
-          ) to score + (target.costX + costToY) * cost.getValue(char)
+            },
+          ) to score + (target.costX + costToY) * COST.getValue(char)
         }
       }
 
@@ -209,10 +209,10 @@ object Day23 : DayOf2021(23) {
         .filter { it.first !in seen }
         .map { (world, score) ->
           val spotCosts = world.spots.map { (node, char) ->
-            ((stacks.first { it.char == char }.x - node.x) + depth) * cost.getValue(char)
+            ((stacks.first { it.char == char }.x - node.x) + depth) * COST.getValue(char)
           }.sum()
           val stackCosts = world.stacks.map { (node, stack) ->
-            stack.filter { it != node.char }.sumOf { cost.getValue(it) } * 2 * depth
+            stack.filter { it != node.char }.sumOf { COST.getValue(it) } * 2 * depth
           }.sum()
           Triple(world, score, (spotCosts + stackCosts) / 4)
         }

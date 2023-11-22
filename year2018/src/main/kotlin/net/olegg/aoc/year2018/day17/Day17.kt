@@ -84,7 +84,10 @@ object Day17 : DayOf2018(17) {
     )
   }
 
-  private fun fill(map: List<MutableList<Char>>, coord: Vector2D): Boolean {
+  private fun fill(
+    map: List<MutableList<Char>>,
+    coord: Vector2D
+  ): Boolean {
     val reachBottom = when {
       map[coord] in STOP -> false
       coord.y == map.lastIndex -> true
