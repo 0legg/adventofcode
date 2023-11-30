@@ -1,12 +1,13 @@
 package net.olegg.aoc.year2019.day11
 
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions
+import net.olegg.aoc.utils.Directions.Companion.CCW
+import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2019.DayOf2019
@@ -15,7 +16,6 @@ import net.olegg.aoc.year2019.Intcode
 /**
  * See [Year 2019, Day 11](https://adventofcode.com/2019/day/11)
  */
-@OptIn(DelicateCoroutinesApi::class)
 object Day11 : DayOf2019(11) {
   override fun first(): Any? {
     val program = data
@@ -30,20 +30,21 @@ object Day11 : DayOf2019(11) {
       coroutineScope {
         launch {
           val map = mutableMapOf<Vector2D, Long>()
-          var position = Vector2D()
-          var direction = Directions.U.step
+          val position = Vector2D()
+          var direction = Directions.U
 
-          while (!output.isClosedForReceive) {
-            input.send(map.getOrDefault(position, 0L))
-            map[position] = output.receive()
-            painted += position
-            val turn = output.receive()
+          while (true) {
+            val currentPosition = position.copy()
+            input.send(map.getOrDefault(currentPosition, 0L))
+            map[currentPosition] = output.receiveCatching().getOrNull() ?: break
+            painted += currentPosition
+            val turn = output.receiveCatching().getOrNull() ?: break
             direction = when (turn) {
-              0L -> Vector2D(direction.y, -direction.x)
-              1L -> Vector2D(-direction.y, direction.x)
-              else -> error("Turn is not 0 or 1: $turn")
-            }
-            position = position + direction
+              0L -> CCW[direction]
+              1L -> CW[direction]
+              else -> direction
+            } ?: direction
+            position += direction.step
           }
         }
 
@@ -72,19 +73,20 @@ object Day11 : DayOf2019(11) {
 
       coroutineScope {
         launch {
-          var position = Vector2D()
-          var direction = Directions.U.step
+          val position = Vector2D()
+          var direction = Directions.U
 
-          while (!output.isClosedForReceive) {
-            input.send(map.getOrDefault(position, 0L))
-            map[position] = output.receive()
-            val turn = output.receive()
+          while (true) {
+            val currentPosition = position.copy()
+            input.send(map.getOrDefault(currentPosition, 0L))
+            map[currentPosition] = output.receiveCatching().getOrNull() ?: break
+            val turn = output.receiveCatching().getOrNull() ?: break
             direction = when (turn) {
-              0L -> Vector2D(direction.y, -direction.x)
-              1L -> Vector2D(-direction.y, direction.x)
-              else -> error("Turn is not 0 or 1: $turn")
-            }
-            position = position + direction
+              0L -> CCW[direction]
+              1L -> CW[direction]
+              else -> direction
+            } ?: direction
+            position += direction.step
           }
         }
 

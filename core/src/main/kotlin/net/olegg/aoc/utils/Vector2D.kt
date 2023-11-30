@@ -23,11 +23,18 @@ data class Vector2D(
     x *= other
     y *= other
   }
+  operator fun times(other: Vector2D) = x * other.x + y * other.y
   operator fun div(other: Int) = Vector2D(x / other, y / other)
+  operator fun divAssign(other: Int) = run {
+    x /= other
+    y /= other
+  }
 
   fun length2() = x * x + y * y
   fun manhattan() = abs(x) + abs(y)
   fun toList() = listOf(x, y)
+  fun toPair() = Pair(x, y)
+  fun volume() = abs(x * y)
   fun dir() = when {
     x == 0 -> Vector2D(0, y.sign)
     y == 0 -> Vector2D(x.sign, 0)
