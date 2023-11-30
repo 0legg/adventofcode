@@ -16,7 +16,7 @@ plugins {
 
 allprojects {
   group = "net.olegg.aoc"
-  version = "2022.0.0"
+  version = "2023.0.0"
 
   repositories {
     mavenCentral()
