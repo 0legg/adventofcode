@@ -26,6 +26,8 @@ ktor = "2.3.6"
 
 kotlinx-serialization = "1.6.2"
 
+slf4j = "2.0.9"
+
 [libraries]
 
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
@@ -37,3 +39,5 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+
+slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }

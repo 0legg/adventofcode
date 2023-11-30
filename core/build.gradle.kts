@@ -9,11 +9,12 @@ buildConfig {
   buildConfigField(
     type = "String",
     name = "COOKIE",
-    value = rootProject.property("COOKIE").toString()
+    value = rootProject.property("COOKIE").toString(),
   )
 }
 
 dependencies {
   implementation(libs.kotlin.stdlib)
   implementation(libs.ktor.client.cio)
+  implementation(libs.slf4j.simple)
 }
