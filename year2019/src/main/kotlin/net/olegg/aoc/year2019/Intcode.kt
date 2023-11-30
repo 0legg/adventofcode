@@ -10,7 +10,6 @@ import java.nio.CharBuffer
 import java.nio.LongBuffer
 
 class Intcode(program: LongArray) {
-
   private var offset = 0L
   private var memory = LongBuffer.wrap(program)
 
@@ -50,12 +49,18 @@ class Intcode(program: LongArray) {
     }
   }
 
-  operator fun set(index: Long, value: Long) {
+  operator fun set(
+    index: Long,
+    value: Long
+  ) {
     resizeIfNecessary(index)
     memory.put(index.toInt(), value)
   }
 
-  operator fun set(arg: Arg, value: Long) {
+  operator fun set(
+    arg: Arg,
+    value: Long
+  ) {
     when (arg) {
       is Address -> set(arg.index, value)
       is Value -> set(arg.value, value)
@@ -86,7 +91,10 @@ class Intcode(program: LongArray) {
       output: SendChannel<Long>
     ) -> Unit
   ) {
-    fun parseArgs(program: Intcode, modes: CharBuffer): List<Arg> = modes.indices
+    fun parseArgs(
+      program: Intcode,
+      modes: CharBuffer
+    ): List<Arg> = modes.indices
       .map {
         when (val mode = modes.get()) {
           '0' -> Address(program.get())
@@ -146,7 +154,7 @@ class Intcode(program: LongArray) {
       9 to Op(2) { program, modes, _, _ ->
         val (arg1) = parseArgs(program, modes)
         program.offset += program[arg1]
-      }
+      },
     )
   }
 

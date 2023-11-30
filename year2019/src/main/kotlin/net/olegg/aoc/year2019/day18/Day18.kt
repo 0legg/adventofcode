@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2019.day18
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.find
 import net.olegg.aoc.utils.get
@@ -27,7 +27,7 @@ object Day18 : DayOf2019(18) {
 
       while (queue.isNotEmpty()) {
         val (curr, steps, doors) = queue.removeFirst()
-        Neighbors4.map { it.step + curr }
+        NEXT_4.map { it.step + curr }
           .filter { map[it] != '#' }
           .filter { it !in visited }
           .forEach { next ->
@@ -72,7 +72,7 @@ object Day18 : DayOf2019(18) {
           return@map Config(
             char = next,
             steps = config.steps + route.first,
-            keys = config.keys.get(0, 26).apply { set(next - 'a') }
+            keys = config.keys.get(0, 26).apply { set(next - 'a') },
           )
         }
         .filter { it.steps < best }
@@ -116,7 +116,7 @@ object Day18 : DayOf2019(18) {
 
       while (queue.isNotEmpty()) {
         val (curr, steps, doors) = queue.removeFirst()
-        Neighbors4.map { it.step + curr }
+        NEXT_4.map { it.step + curr }
           .filter { map[it] != '#' }
           .filter { it !in visited }
           .forEach { next ->
@@ -162,7 +162,7 @@ object Day18 : DayOf2019(18) {
           return@map MultiConfig(
             bots = config.bots.replace(curr, next),
             steps = config.steps + route.first,
-            keys = config.keys.get(0, 26).apply { set(next - 'a') }
+            keys = config.keys.get(0, 26).apply { set(next - 'a') },
           )
         }
         .filter { it.steps < best }

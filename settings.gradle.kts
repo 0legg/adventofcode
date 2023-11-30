@@ -5,7 +5,7 @@ pluginManagement {
 }
 
 plugins {
-  id("de.fayard.refreshVersions") version "0.51.0"
+  id("de.fayard.refreshVersions") version "0.60.3"
 }
 
 rootProject.name = "advent-of-code"
@@ -20,4 +20,5 @@ include(
   ":year2020",
   ":year2021",
   ":year2022",
+  ":year2023",
 )

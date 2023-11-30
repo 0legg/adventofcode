@@ -34,7 +34,10 @@ object Day14 : DayOf2016(14) {
     return solve(64, hash)
   }
 
-  private fun solve(count: Int, hash: (Int) -> String): Int {
+  private fun solve(
+    count: Int,
+    hash: (Int) -> String
+  ): Int {
     return generateSequence(0) { it + 1 }
       .map { it to hash(it) }
       .filter { MATCH_3.containsMatchIn(it.second) }

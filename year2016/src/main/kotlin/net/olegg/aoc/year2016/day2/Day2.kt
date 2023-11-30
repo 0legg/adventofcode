@@ -36,7 +36,10 @@ object Day2 : DayOf2016(2) {
     return solve(KEYPAD2, Vector2D(2, 4))
   }
 
-  private fun solve(keypad: List<List<Char>>, start: Vector2D): String {
+  private fun solve(
+    keypad: List<List<Char>>,
+    start: Vector2D
+  ): String {
     return lines.fold("" to start) { (acc, position), command ->
       val point = command.fold(position) { accPosition, symbol ->
         (accPosition + Directions.valueOf(symbol.toString()).step).let {

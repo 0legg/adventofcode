@@ -11,7 +11,7 @@ object Day6 : DayOf2016(6) {
     return lines
       .flatMap { it.withIndex() }
       .groupBy(
-        keySelector =  { it.index },
+        keySelector = { it.index },
         valueTransform = { it.value },
       )
       .mapValues { (_, value) -> value.groupingBy { it }.eachCount() }
@@ -26,7 +26,7 @@ object Day6 : DayOf2016(6) {
     return lines
       .flatMap { it.withIndex() }
       .groupBy(
-        keySelector =  { it.index },
+        keySelector = { it.index },
         valueTransform = { it.value },
       )
       .mapValues { (_, value) -> value.groupingBy { it }.eachCount() }

@@ -1,8 +1,7 @@
 package net.olegg.aoc.year2017.day3
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions
-import net.olegg.aoc.utils.Directions.Companion.Neighbors8
+import net.olegg.aoc.utils.Directions.Companion.NEXT_8
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
@@ -45,7 +44,7 @@ object Day3 : DayOf2017(3) {
         square += 1
       }
 
-      val value = Neighbors8.sumOf { visited[nextPos + it.step] ?: 0 }
+      val value = NEXT_8.sumOf { visited[nextPos + it.step] ?: 0 }
       current = nextPos to value
       visited += current
     }

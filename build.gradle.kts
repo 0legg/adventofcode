@@ -1,4 +1,5 @@
-import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.extensions.DetektExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
@@ -9,51 +10,50 @@ buildscript {
 
 plugins {
   base
-  kotlin("jvm") apply false
-  id("io.gitlab.arturbosch.detekt")
+  alias(libs.plugins.kotlin.jvm) apply false
+  alias(libs.plugins.detekt) apply false
 }
 
 allprojects {
   group = "net.olegg.aoc"
-  version = "2022.0.0"
+  version = "2023.0.0"
 
   repositories {
     mavenCentral()
   }
 
-  apply(plugin = "org.jetbrains.kotlin.jvm")
-  apply(plugin = "io.gitlab.arturbosch.detekt")
+  apply(plugin = rootProject.libs.plugins.kotlin.jvm.get().pluginId)
+  apply(plugin = rootProject.libs.plugins.detekt.get().pluginId)
 
-  dependencies {
-    val implementation by configurations
-    implementation(KotlinX.coroutines.core)
-  }
-
-  tasks.withType<KotlinCompile> {
-    kotlinOptions {
-      jvmTarget = "14"
-      languageVersion = "1.8"
-      allWarningsAsErrors = true
-      freeCompilerArgs += listOf(
-        "-Xsuppress-version-warnings",
-        "-opt-in=kotlin.RequiresOptIn",
-        "-opt-in=kotlin.ExperimentalStdlibApi",
-        "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-        "-opt-in=kotlinx.coroutines.FlowPreview",
+  tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions {
+      allWarningsAsErrors.set(true)
+      freeCompilerArgs.set(
+        listOf(
+          "-Xsuppress-version-warnings",
+          "-opt-in=kotlin.RequiresOptIn",
+          "-opt-in=kotlin.ExperimentalStdlibApi",
+          "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+          "-opt-in=kotlinx.coroutines.FlowPreview",
+        )
       )
     }
   }
 
-  tasks.withType<Detekt>().configureEach {
-    jvmTarget = "14"
+  extensions.configure<KotlinProjectExtension> {
+    jvmToolchain(17)
   }
 
-  detekt {
-    config = rootProject.files("detekt.yml")
+  extensions.configure<DetektExtension> {
+    config.from(rootProject.files("detekt.yml"))
     baseline = rootProject.file("detekt-baseline.xml")
+    autoCorrect = true
   }
-}
 
-dependencies {
-  detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:_")
+  dependencies {
+    val implementation by configurations
+    val detektPlugins by configurations
+    implementation(rootProject.libs.kotlinx.coroutines.core)
+    detektPlugins(rootProject.libs.detekt.formatting)
+  }
 }

@@ -10,34 +10,35 @@ import net.olegg.aoc.year2015.DayOf2015
 object Day9 : DayOf2015(9) {
   private val PATTERN = "^\\b(\\w*)\\b to \\b(\\w*)\\b = (\\d*)$".toRegex()
 
-  private val edges = lines
+  private val EDGES = lines
     .flatMap { line ->
       PATTERN.matchEntire(line)?.let { match ->
         val (city1, city2, distance) = match.destructured
         return@let listOf(
           Pair(city1, city2) to distance.toInt(),
-          Pair(city2, city1) to distance.toInt()
+          Pair(city2, city1) to distance.toInt(),
         )
       }.orEmpty()
     }
     .toMap()
-  private val cities = edges.keys.flatMap { listOf(it.first, it.second) }.distinct()
+
+  private val CITIES = EDGES.keys.flatMap { listOf(it.first, it.second) }.distinct()
 
   override fun first(): Any? {
-    return cities.permutations()
+    return CITIES.permutations()
       .minOf { city ->
         city
           .zipWithNext()
-          .sumOf { edges[it] ?: 0 }
+          .sumOf { EDGES[it] ?: 0 }
       }
   }
 
   override fun second(): Any? {
-    return cities.permutations()
+    return CITIES.permutations()
       .maxOf { city ->
         city
           .zipWithNext()
-          .sumOf { edges[it] ?: 0 }
+          .sumOf { EDGES[it] ?: 0 }
       }
   }
 }

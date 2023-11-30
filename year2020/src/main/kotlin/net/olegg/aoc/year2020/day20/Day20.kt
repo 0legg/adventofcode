@@ -14,7 +14,9 @@ object Day20 : DayOf2020(20) {
     |                  # 
     |#    ##    ##    ###
     | #  #  #  #  #  #   
-  """.trimMargin().lines().map { it.toList() }
+  """.trimMargin().lines().map {
+    it.toList()
+  }
 
   override fun first(): Any? {
     val tiles = data
@@ -184,7 +186,10 @@ object Day20 : DayOf2020(20) {
       .map { order -> order.map { it.joinToString(separator = "").replace('#', '1').replace('.', '0').toInt(2) } }
   }
 
-  private fun matchProfile(tile: List<List<Char>>, profile: List<Int>): List<List<Char>> {
+  private fun matchProfile(
+    tile: List<List<Char>>,
+    profile: List<Int>
+  ): List<List<Char>> {
     return (0..3)
       .scan(tile) { acc, _ -> acc.rotate() }
       .flatMap { listOf(it, it.map { row -> row.reversed() }) }
@@ -208,7 +213,11 @@ object Day20 : DayOf2020(20) {
     return target
   }
 
-  private fun hasPattern(x: Int, y: Int, map: List<List<Char>>): Boolean {
+  private fun hasPattern(
+    x: Int,
+    y: Int,
+    map: List<List<Char>>
+  ): Boolean {
     return MONSTER.mapIndexed { my, row ->
       row.mapIndexed { mx, char ->
         val tx = x + mx
@@ -219,7 +228,11 @@ object Day20 : DayOf2020(20) {
     }.all { it }
   }
 
-  private fun replacePattern(x: Int, y: Int, map: List<MutableList<Char>>) {
+  private fun replacePattern(
+    x: Int,
+    y: Int,
+    map: List<MutableList<Char>>
+  ) {
     if (hasPattern(x, y, map)) {
       MONSTER.forEachIndexed { my, row ->
         row.forEachIndexed { mx, char ->

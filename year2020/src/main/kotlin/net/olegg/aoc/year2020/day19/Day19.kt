@@ -52,12 +52,23 @@ object Day19 : DayOf2020(19) {
     return solve(rules, messages.lines())
   }
 
-  private fun solve(rules: Map<Int, Rule>, messages: List<String>): Int {
+  private fun solve(
+    rules: Map<Int, Rule>,
+    messages: List<String>
+  ): Int {
     return messages.count { message ->
       val cache = mutableMapOf<Triple<Int, Int, Int>, Boolean>()
 
-      fun matches(from: Int, to: Int, ruleNum: Int): Boolean {
-        fun matches(from: Int, to: Int, rules: List<Int>): Boolean {
+      fun matches(
+        from: Int,
+        to: Int,
+        ruleNum: Int
+      ): Boolean {
+        fun matches(
+          from: Int,
+          to: Int,
+          rules: List<Int>
+        ): Boolean {
           return when (rules.size) {
             0 -> false
             1 -> matches(from, to, rules.first())

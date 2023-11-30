@@ -16,7 +16,8 @@ object Day5 : DayOf2021(5) {
       .map { it.split(" -> ") }
       .map { line ->
         line.first().parseInts(",").let { Vector2D(it.first(), it.last()) } to
-          line.last().parseInts(",").let { Vector2D(it.first(), it.last()) } }
+          line.last().parseInts(",").let { Vector2D(it.first(), it.last()) }
+      }
 
     val points = mutableMapOf<Vector2D, Int>()
 
@@ -41,7 +42,8 @@ object Day5 : DayOf2021(5) {
       .map { it.split(" -> ") }
       .map { line ->
         line.first().parseInts(",").let { Vector2D(it.first(), it.last()) } to
-          line.last().parseInts(",").let { Vector2D(it.first(), it.last()) } }
+          line.last().parseInts(",").let { Vector2D(it.first(), it.last()) }
+      }
 
     val points = mutableMapOf<Vector2D, Int>()
 

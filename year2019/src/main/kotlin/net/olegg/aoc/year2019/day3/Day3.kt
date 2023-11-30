@@ -4,7 +4,6 @@ import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.year2019.DayOf2019
-import kotlin.math.abs
 
 /**
  * See [Year 2019, Day 3](https://adventofcode.com/2019/day/3)

@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
@@ -37,12 +37,12 @@ object Day15 : DayOf2019(15) {
         output.close()
       }
 
-      val stack = ArrayDeque<Move>(Neighbors4.map { Move.Forward(it, Vector2D(), 1) })
+      val stack = ArrayDeque<Move>(NEXT_4.map { Move.Forward(it, Vector2D(), 1) })
 
       launch {
         while (stack.isNotEmpty()) {
           val curr = stack.removeFirst()
-          input.send(codes[curr.dir] ?: 0L)
+          input.send(CODES[curr.dir] ?: 0L)
           val result = output.receive()
           if (curr is Move.Forward) {
             val newPosition = curr.position + curr.dir.step
@@ -54,8 +54,8 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack += Move.Return(checkNotNull(returns[curr.dir]))
-                  stack += Neighbors4.filter { it != returns[curr.dir] }
+                  stack += Move.Return(checkNotNull(RETURNS[curr.dir]))
+                  stack += NEXT_4.filter { it != RETURNS[curr.dir] }
                     .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                     .map { Move.Forward(it, newPosition, curr.distance + 1) }
                 }
@@ -86,12 +86,12 @@ object Day15 : DayOf2019(15) {
         output.close()
       }
 
-      val stack = ArrayDeque<Move>(Neighbors4.map { Move.Forward(it, Vector2D(), 1) })
+      val stack = ArrayDeque<Move>(NEXT_4.map { Move.Forward(it, Vector2D(), 1) })
 
       launch {
         while (stack.isNotEmpty()) {
           val curr = stack.removeFirst()
-          input.send(codes[curr.dir] ?: 0L)
+          input.send(CODES[curr.dir] ?: 0L)
           val result = output.receive()
           if (curr is Move.Forward) {
             val newPosition = curr.position + curr.dir.step
@@ -103,8 +103,8 @@ object Day15 : DayOf2019(15) {
                 val prev = map[newPosition]
                 if (prev == null || prev.second > curr.distance) {
                   map[newPosition] = result to curr.distance
-                  stack += Move.Return(checkNotNull(returns[curr.dir]))
-                  stack += Neighbors4.filter { it != returns[curr.dir] }
+                  stack += Move.Return(checkNotNull(RETURNS[curr.dir]))
+                  stack += NEXT_4.filter { it != RETURNS[curr.dir] }
                     .filter { (map[newPosition + it.step]?.second ?: Int.MAX_VALUE) > curr.distance + 1 }
                     .map { Move.Forward(it, newPosition, curr.distance + 1) }
                 }
@@ -120,7 +120,7 @@ object Day15 : DayOf2019(15) {
     val queue = ArrayDeque(listOf(start to 0))
     while (queue.isNotEmpty()) {
       val curr = queue.removeFirst()
-      Neighbors4.map { curr.first + it.step }
+      NEXT_4.map { curr.first + it.step }
         .filter { it !in filledMap }
         .filter { map[it]?.first == 1L }
         .forEach {
@@ -146,8 +146,8 @@ object Day15 : DayOf2019(15) {
     ) : Move()
   }
 
-  private val returns = mapOf(U to D, D to U, L to R, R to L)
-  private val codes = mapOf(U to 1L, D to 2L, L to 3L, R to 4L)
+  private val RETURNS = mapOf(U to D, D to U, L to R, R to L)
+  private val CODES = mapOf(U to 1L, D to 2L, L to 3L, R to 4L)
 }
 
 fun main() = SomeDay.mainify(Day15)

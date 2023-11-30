@@ -1,23 +1,25 @@
 package net.olegg.aoc.utils
 
 /**
- * Extension functions and utility methods for collections.
- */
-
-/**
  * Generates the sequence of all permutations of items in current list.
  */
-fun <T : Any> List<T>.permutations(): Sequence<List<T>> = if (size == 1) sequenceOf(this) else {
+fun <T : Any> List<T>.permutations(): Sequence<List<T>> = if (size == 1) {
+  sequenceOf(this)
+} else {
   val iterator = iterator()
   var head = iterator.next()
   var permutations = (this - head).permutations().iterator()
 
-  fun nextPermutation(): List<T>? = if (permutations.hasNext()) listOf(head) + permutations.next() else {
+  fun nextPermutation(): List<T>? = if (permutations.hasNext()) {
+    listOf(head) + permutations.next()
+  } else {
     if (iterator.hasNext()) {
       head = iterator.next()
       permutations = (this - head).permutations().iterator()
       nextPermutation()
-    } else null
+    } else {
+      null
+    }
   }
 
   generateSequence { nextPermutation() }
@@ -68,7 +70,10 @@ fun <T> List<List<T>>.find(value: T): Vector2D? {
   return null
 }
 
-operator fun <T> List<MutableList<T>>.set(v: Vector2D, value: T) {
+operator fun <T> List<MutableList<T>>.set(
+  v: Vector2D,
+  value: T
+) {
   when {
     v.y !in indices -> throw IndexOutOfBoundsException("index: ${v.y}.${v.x}")
     v.x !in this[v.y].indices -> throw IndexOutOfBoundsException("index: ${v.y}.${v.x}")
@@ -76,7 +81,11 @@ operator fun <T> List<MutableList<T>>.set(v: Vector2D, value: T) {
   }
 }
 
-operator fun <T> List<MutableList<T>>.set(i: Int, j: Int, value: T) {
+operator fun <T> List<MutableList<T>>.set(
+  i: Int,
+  j: Int,
+  value: T
+) {
   this[i][j] = value
 }
 

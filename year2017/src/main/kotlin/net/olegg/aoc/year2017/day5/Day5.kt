@@ -18,7 +18,7 @@ object Day5 : DayOf2017(5) {
         Triple(
           acc.first.copyOf().also { it[acc.second] += 1 },
           acc.second + acc.first[acc.second],
-          acc.third + 1
+          acc.third + 1,
         )
       }
       .drop(1)
@@ -36,7 +36,7 @@ object Day5 : DayOf2017(5) {
         Triple(
           acc.first.copyOf().also { it[acc.second] += if (it[acc.second] < 3) 1 else -1 },
           acc.second + acc.first[acc.second],
-          acc.third + 1
+          acc.third + 1,
         )
       }
       .drop(1)

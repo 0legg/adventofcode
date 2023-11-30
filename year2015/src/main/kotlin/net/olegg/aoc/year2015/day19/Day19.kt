@@ -7,31 +7,34 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 19](https://adventofcode.com/2015/day/19)
  */
 object Day19 : DayOf2015(19) {
-  private val transitions = lines
+  private val TRANSITIONS = lines
     .dropLast(2)
     .map { it.split(" => ") }
     .map { it.first() to it.last() }
-  private val molecule = lines.last()
+  private val MOLECULE = lines.last()
 
-  private fun applyTransitions(molecule: String, transition: Pair<Regex, String>): Set<String> {
-    val (regex, replacement) = transition
-    return regex.findAll(molecule)
+  private fun applyTransitions(
+    molecule: String,
+    transition: Pair<Regex, String>
+  ): Set<String> {
+    val (pattern, replacement) = transition
+    return pattern.findAll(molecule)
       .map { molecule.replaceRange(it.range, replacement) }
       .toSet()
   }
 
   override fun first(): Any? {
-    return transitions
+    return TRANSITIONS
       .map { it.first.toRegex() to it.second }
-      .flatMap { applyTransitions(molecule, it) }
+      .flatMap { applyTransitions(MOLECULE, it) }
       .toSet()
       .size
   }
 
   override fun second(): Any? {
-    val reverse = transitions.map { it.second.toRegex() to it.first }
-    val molecules = mutableMapOf(molecule to 0)
-    val queue = ArrayDeque(listOf(molecule))
+    val reverse = TRANSITIONS.map { it.second.toRegex() to it.first }
+    val molecules = mutableMapOf(MOLECULE to 0)
+    val queue = ArrayDeque(listOf(MOLECULE))
     while ("e" !in molecules && queue.isNotEmpty()) {
       val curr = queue.removeFirst()
       val size = molecules.getOrDefault(curr, Int.MAX_VALUE)

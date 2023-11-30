@@ -66,7 +66,10 @@ object Day22 : DayOf2020(22) {
     return result.mapIndexed { index, value -> (result.size - index) * value }.sum()
   }
 
-  private fun playRecursive(in1: List<Int>, in2: List<Int>): Boolean {
+  private fun playRecursive(
+    in1: List<Int>,
+    in2: List<Int>
+  ): Boolean {
     val cache = mutableSetOf<Pair<List<Int>, List<Int>>>()
     val p1 = ArrayDeque(in1)
     val p2 = ArrayDeque(in2)

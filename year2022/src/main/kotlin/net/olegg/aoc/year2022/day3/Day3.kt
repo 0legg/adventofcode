@@ -7,8 +7,7 @@ import net.olegg.aoc.year2022.DayOf2022
  * See [Year 2022, Day 3](https://adventofcode.com/2022/day/3)
  */
 object Day3 : DayOf2022(3) {
-
-  private val alphabet = buildSet {
+  private val ALPHABET = buildSet {
     addAll('a'..'z')
     addAll('A'..'Z')
   }
@@ -34,7 +33,7 @@ object Day3 : DayOf2022(3) {
     return lines
       .chunked(3)
       .map { threeLines ->
-        threeLines.fold(alphabet) { acc, value ->
+        threeLines.fold(ALPHABET) { acc, value ->
           acc.intersect(value.toSet())
         }
       }

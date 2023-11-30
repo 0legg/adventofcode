@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2022.day12
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.fit
 import net.olegg.aoc.utils.get
@@ -41,10 +41,10 @@ object Day12 : DayOf2022(12) {
       }
       visited += curr
 
-      queue += Neighbors4.map { curr + it.step }
+      queue += NEXT_4.map { curr + it.step }
         .filter { map.fit(it) }
         .filter { it !in visited }
-        .filter { map[it]!!- map[curr]!! <= 1 }
+        .filter { map[it]!! - map[curr]!! <= 1 }
         .map { it to step + 1 }
     }
 
@@ -80,10 +80,10 @@ object Day12 : DayOf2022(12) {
       }
       visited += curr
 
-      queue += Neighbors4.map { curr + it.step }
+      queue += NEXT_4.map { curr + it.step }
         .filter { map.fit(it) }
         .filter { it !in visited }
-        .filter { map[it]!!- map[curr]!! >= -1 }
+        .filter { map[it]!! - map[curr]!! >= -1 }
         .map { it to step + 1 }
     }
 

@@ -7,15 +7,15 @@ import net.olegg.aoc.year2022.DayOf2022
  * See [Year 2022, Day 21](https://adventofcode.com/2022/day/21)
  */
 object Day21 : DayOf2022(21) {
-  private val root = "(root): ([a-z]+) ([-+/*]) ([a-z]+)".toRegex()
-  private val human = "(humn): ([0-9]+)".toRegex()
-  private val op = "([a-z]+): ([a-z]+) ([-+/*]) ([a-z]+)".toRegex()
-  private val number = "([a-z]+): ([0-9]+)".toRegex()
+  private val ROOT = "(root): ([a-z]+) ([-+/*]) ([a-z]+)".toRegex()
+  private val HUMAN = "(humn): ([0-9]+)".toRegex()
+  private val OP = "([a-z]+): ([a-z]+) ([-+/*]) ([a-z]+)".toRegex()
+  private val NUMBER = "([a-z]+): ([0-9]+)".toRegex()
 
   override fun first(): Any? {
     val monkeys = lines.mapNotNull { line ->
       when {
-        op.matches(line) -> op.find(line)?.let { match ->
+        OP.matches(line) -> OP.find(line)?.let { match ->
           val (name, left, op, right) = match.destructured
           when (op) {
             "+" -> Monkey.Op.Plus(
@@ -41,7 +41,7 @@ object Day21 : DayOf2022(21) {
             else -> null
           }
         }
-        number.matches(line) -> number.find(line)?.let { match ->
+        NUMBER.matches(line) -> NUMBER.find(line)?.let { match ->
           val (name, number) = match.destructured
           Monkey.Value(
             name = name,
@@ -73,7 +73,7 @@ object Day21 : DayOf2022(21) {
             is Monkey.Op.Minus -> left.value - right.value
             is Monkey.Op.Mult -> left.value * right.value
             is Monkey.Op.Div -> left.value / right.value
-          }
+          },
         )
       }
     }
@@ -84,7 +84,7 @@ object Day21 : DayOf2022(21) {
   override fun second(): Any? {
     val monkeys = lines.mapNotNull { line ->
       when {
-        root.matches(line) -> root.find(line)?.let { match ->
+        ROOT.matches(line) -> ROOT.find(line)?.let { match ->
           val (name, left, _, right) = match.destructured
           Monkey.Root(
             name = name,
@@ -92,14 +92,14 @@ object Day21 : DayOf2022(21) {
             right = right,
           )
         }
-        human.matches(line) -> human.find(line)?.let { match ->
+        HUMAN.matches(line) -> HUMAN.find(line)?.let { match ->
           val (name, _) = match.destructured
           Monkey.Human(
             name = name,
             value = 0L,
           )
         }
-        op.matches(line) -> op.find(line)?.let { match ->
+        OP.matches(line) -> OP.find(line)?.let { match ->
           val (name, left, op, right) = match.destructured
           when (op) {
             "+" -> Monkey.Op.Plus(
@@ -125,7 +125,7 @@ object Day21 : DayOf2022(21) {
             else -> null
           }
         }
-        number.matches(line) -> number.find(line)?.let { match ->
+        NUMBER.matches(line) -> NUMBER.find(line)?.let { match ->
           val (name, number) = match.destructured
           Monkey.Value(
             name = name,
@@ -157,7 +157,7 @@ object Day21 : DayOf2022(21) {
             is Monkey.Op.Minus -> left.value - right.value
             is Monkey.Op.Mult -> left.value * right.value
             is Monkey.Op.Div -> left.value / right.value
-          }
+          },
         )
       }
     } while (canResolve.isNotEmpty())
@@ -225,25 +225,25 @@ object Day21 : DayOf2022(21) {
         override val name: String,
         override val left: String,
         override val right: String,
-      ): Op
+      ) : Op
 
       data class Minus(
         override val name: String,
         override val left: String,
         override val right: String,
-      ): Op
+      ) : Op
 
       data class Mult(
         override val name: String,
         override val left: String,
         override val right: String,
-      ): Op
+      ) : Op
 
       data class Div(
         override val name: String,
         override val left: String,
         override val right: String,
-      ): Op
+      ) : Op
     }
   }
 }

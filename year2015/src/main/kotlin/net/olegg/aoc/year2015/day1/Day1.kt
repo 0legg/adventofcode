@@ -7,14 +7,14 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 1](https://adventofcode.com/2015/day/1)
  */
 object Day1 : DayOf2015(1) {
-  private val floors = data.map { 1 - 2 * (it.minus('(')) }
+  private val FLOORS = data.map { 1 - 2 * (it.minus('(')) }
 
   override fun first(): Any? {
-    return floors.sum()
+    return FLOORS.sum()
   }
 
   override fun second(): Any? {
-    return floors.runningReduce { acc, value -> acc + value }.indexOfFirst { it < 0 } + 1
+    return FLOORS.runningReduce { acc, value -> acc + value }.indexOfFirst { it < 0 } + 1
   }
 }
 

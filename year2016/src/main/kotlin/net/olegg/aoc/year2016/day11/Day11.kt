@@ -16,7 +16,7 @@ object Day11 : DayOf2016(11) {
       .map { floor ->
         Pair(
           GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
-          CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet()
+          CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
         )
       }
 
@@ -28,7 +28,7 @@ object Day11 : DayOf2016(11) {
       .map { floor ->
         Pair(
           GEN_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
-          CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet()
+          CHIP_PATTERN.findAll(floor).map { it.value[0] }.toSet(),
         )
       }
 
@@ -90,7 +90,11 @@ object Day11 : DayOf2016(11) {
     return queue.first { it.first == all }.second
   }
 
-  private fun compress(state: List<Pair<Set<Int>, Set<Int>>>, elevator: Int, types: Int): Day11State {
+  private fun compress(
+    state: List<Pair<Set<Int>, Set<Int>>>,
+    elevator: Int,
+    types: Int
+  ): Day11State {
     val data = IntArray(types * 2 + 1)
     data[0] = elevator
     state.forEachIndexed { floor, pair ->
@@ -101,7 +105,10 @@ object Day11 : DayOf2016(11) {
     return data.foldIndexed(0) { index, acc, value -> acc or (value shl (index * 2)) }
   }
 
-  fun decompress(compressed: Pair<Day11State, Int>, types: Int): Triple<List<Pair<Set<Int>, Set<Int>>>, Int, Int> {
+  fun decompress(
+    compressed: Pair<Day11State, Int>,
+    types: Int
+  ): Triple<List<Pair<Set<Int>, Set<Int>>>, Int, Int> {
     val decompressed = List(4) { mutableSetOf<Int>() to mutableSetOf<Int>() }
     val elevator = compressed.first and 3
     (0..<types).forEach { index ->

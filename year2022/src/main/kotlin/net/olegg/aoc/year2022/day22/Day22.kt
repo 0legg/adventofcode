@@ -1,12 +1,12 @@
 package net.olegg.aoc.year2022.day22
 
 import net.olegg.aoc.someday.SomeDay
+import net.olegg.aoc.utils.Directions.Companion.CCW
+import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Directions.D
 import net.olegg.aoc.utils.Directions.L
 import net.olegg.aoc.utils.Directions.R
 import net.olegg.aoc.utils.Directions.U
-import net.olegg.aoc.utils.Directions.Companion.CCW
-import net.olegg.aoc.utils.Directions.Companion.CW
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2022.DayOf2022
@@ -15,7 +15,7 @@ import net.olegg.aoc.year2022.DayOf2022
  * See [Year 2022, Day 22](https://adventofcode.com/2022/day/22)
  */
 object Day22 : DayOf2022(22) {
-  private val pattern = "(\\d+)([RL])?".toRegex()
+  private val PATTERN = "(\\d+)([RL])?".toRegex()
   override fun first(): Any? {
     val (rawMap, rawInstructions) = data.split("\n\n")
     val width = rawMap
@@ -25,7 +25,7 @@ object Day22 : DayOf2022(22) {
       .lines()
       .map { it.padEnd(width).toList() }
 
-    val instructions = pattern
+    val instructions = PATTERN
       .findAll(rawInstructions)
       .flatMap { match ->
         listOfNotNull(match.groupValues[1], match.groupValues.getOrNull(2)?.ifEmpty { null })
@@ -40,8 +40,7 @@ object Day22 : DayOf2022(22) {
         "R" -> pos to CW.getValue(dir)
         "L" -> pos to CCW.getValue(dir)
         else -> {
-          var curr = pos
-          for (i in 0 until instruction.toInt()) {
+          val final = (1..instruction.toInt()).fold(pos) { curr, _ ->
             var next = curr + dir.step
             while (map[next] == null || map[next] == ' ') {
               next = if (map[next] == null) {
@@ -55,13 +54,13 @@ object Day22 : DayOf2022(22) {
             }
 
             if (map[next] == '.') {
-              curr = next
+              next
             } else {
-              break
+              curr
             }
           }
 
-          curr to dir
+          final to dir
         }
       }
     }
@@ -88,7 +87,7 @@ object Day22 : DayOf2022(22) {
     val back = Vector2D(0, 150) to Vector2D(49, 199)
     val planes = listOf(top, front, bottom, right, left, back)
 
-    val instructions = pattern
+    val instructions = PATTERN
       .findAll(rawInstructions)
       .flatMap { match ->
         listOfNotNull(match.groupValues[1], match.groupValues.getOrNull(2)?.ifEmpty { null })
@@ -103,16 +102,13 @@ object Day22 : DayOf2022(22) {
         "R" -> pos to CW.getValue(dir)
         "L" -> pos to CCW.getValue(dir)
         else -> {
-          var currPos = pos
-          var currDir = dir
-          val currPlane = planes.first {
-            currPos.x in it.first.x..it.second.x && currPos.y in it.first.y..it.second.y
-          }
-
-          for (i in 0 until move.toInt()) {
+          val (finalPos, finalDir) = (1..move.toInt()).fold(pos to dir) { (currPos, currDir), _ ->
             var nextPos = currPos + currDir.step
             var nextDir = currDir
             if (map[nextPos] == null || map[nextPos] == ' ') {
+              val currPlane = planes.first {
+                currPos.x in it.first.x..it.second.x && currPos.y in it.first.y..it.second.y
+              }
               val (fixedDir, fixedPos) = when {
                 currPlane == top && currDir == U -> R to Vector2D(0, 100 + currPos.x)
                 currPlane == top && currDir == L -> R to Vector2D(0, 150 - currPos.y - 1)
@@ -135,13 +131,13 @@ object Day22 : DayOf2022(22) {
             }
 
             if (map[nextPos] == '.') {
-              currPos = nextPos
-              currDir = nextDir
+              nextPos to nextDir
             } else {
-              break
+              currPos to currDir
             }
           }
-          currPos to currDir
+
+          finalPos to finalDir
         }
       }
     }

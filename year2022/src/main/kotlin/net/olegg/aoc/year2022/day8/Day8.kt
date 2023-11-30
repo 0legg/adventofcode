@@ -1,7 +1,7 @@
 package net.olegg.aoc.year2022.day8
 
 import net.olegg.aoc.someday.SomeDay
-import net.olegg.aoc.utils.Directions.Companion.Neighbors4
+import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.fit
 import net.olegg.aoc.utils.get
@@ -15,7 +15,7 @@ object Day8 : DayOf2022(8) {
     val trees = matrix.map { line ->
       line.map {
         Tree(
-          height = it.digitToInt()
+          height = it.digitToInt(),
         )
       }
     }
@@ -57,7 +57,7 @@ object Day8 : DayOf2022(8) {
     val trees = matrix.map { line ->
       line.map {
         Tree(
-          height = it.digitToInt()
+          height = it.digitToInt(),
         )
       }
     }
@@ -66,7 +66,7 @@ object Day8 : DayOf2022(8) {
       row.mapIndexed { x, tree ->
         val start = Vector2D(x, y)
 
-        Neighbors4
+        NEXT_4
           .map { dir ->
             val line = generateSequence(start) { it + dir.step }
               .drop(1)

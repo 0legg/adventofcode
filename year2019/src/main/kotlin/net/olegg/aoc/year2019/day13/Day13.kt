@@ -3,6 +3,7 @@ package net.olegg.aoc.year2019.day13
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.toList
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import net.olegg.aoc.someday.SomeDay
@@ -51,47 +52,37 @@ object Day13 : DayOf2019(13) {
       program[0] = 2L
       val input = Channel<Long>(Channel.UNLIMITED)
       val output = Channel<Long>(Channel.UNLIMITED)
-      val scores = Channel<Int>(Channel.UNLIMITED)
+      val score = MutableStateFlow(0)
 
       coroutineScope {
         launch {
           val intcode = Intcode(program)
           intcode.eval(input, output)
-          output.close()
           input.close()
         }
 
         launch {
-          val field = mutableMapOf<Vector2D, Int>()
           var me = Vector2D()
           var ball = Vector2D()
-          while (!input.isClosedForSend) {
-            if (!output.isClosedForReceive) {
+          runCatching {
+            do {
               do {
                 val (x, y, tile) = List(3) { output.receive().toInt() }
                 val pos = Vector2D(x, y)
-                when (tile) {
-                  3 -> me = pos
-                  4 -> ball = pos
+                when {
+                  pos == SCORE -> score.value = tile
+                  tile == 3 -> me = pos
+                  tile == 4 -> ball = pos
                 }
-                if (pos == SCORE) {
-                  scores.send(tile)
-                } else {
-                  field[pos] = tile
-                }
-              } while (!output.isClosedForReceive && !output.isEmpty)
-            }
+              } while (!output.isEmpty)
 
-            if (!input.isClosedForSend) {
-              input.send((ball - me).x.sign.toLong())
-            }
+              val toSend = (ball - me).x.sign.toLong()
+            } while (input.trySend(toSend).isSuccess)
           }
         }
       }
 
-      scores.close()
-
-      return@runBlocking scores.toList().last()
+      return@runBlocking score.value
     }
 
     return result

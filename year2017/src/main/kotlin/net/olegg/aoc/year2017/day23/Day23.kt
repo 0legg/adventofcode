@@ -52,7 +52,10 @@ object Day23 : DayOf2017(23) {
     return extract(regs, "h")
   }
 
-  private fun extract(map: Map<String, BigInteger>, field: String): BigInteger {
+  private fun extract(
+    map: Map<String, BigInteger>,
+    field: String
+  ): BigInteger {
     return field.toBigIntegerOrNull() ?: map.getOrDefault(field, BigInteger.ZERO)
   }
 }

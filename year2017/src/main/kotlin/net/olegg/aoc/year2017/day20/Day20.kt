@@ -3,9 +3,7 @@ package net.olegg.aoc.year2017.day20
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Vector3D
 import net.olegg.aoc.utils.parseInts
-import net.olegg.aoc.utils.parseLongs
 import net.olegg.aoc.year2017.DayOf2017
-import kotlin.math.abs
 
 /**
  * See [Year 2017, Day 20](https://adventofcode.com/2017/day/20)

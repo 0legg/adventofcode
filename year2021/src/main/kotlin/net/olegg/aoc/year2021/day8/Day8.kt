@@ -57,7 +57,7 @@ object Day8 : DayOf2021(8) {
           (sources - noG).all { char in it } && noG.none { char in it }
         }
         mappings['b'] = digits[8].first { it !in mappings.values }
-        
+
         val reverse = sets.mapKeys { (key, _) -> key.map { mappings[it]!! }.toSet() }
 
         return@sumOf fourLine.split(" ")

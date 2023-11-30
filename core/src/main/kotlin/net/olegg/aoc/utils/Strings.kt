@@ -11,8 +11,12 @@ import java.security.MessageDigest
 fun String.md5(): String =
   "%032x".format(BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray(StandardCharsets.UTF_8))))
 
-fun String?.parseInts(vararg delimiters: String, radix: Int = 10): List<Int> =
-  this?.split(*delimiters)?.mapNotNull { it.toIntOrNull(radix) }.orEmpty()
+fun String?.parseInts(
+  vararg delimiters: String,
+  radix: Int = 10
+): List<Int> = this?.split(*delimiters)?.mapNotNull { it.toIntOrNull(radix) }.orEmpty()
 
-fun String?.parseLongs(vararg delimiters: String, radix: Int = 10): List<Long> =
-  this?.split(*delimiters)?.mapNotNull { it.toLongOrNull(radix) }.orEmpty()
+fun String?.parseLongs(
+  vararg delimiters: String,
+  radix: Int = 10
+): List<Long> = this?.split(*delimiters)?.mapNotNull { it.toLongOrNull(radix) }.orEmpty()

@@ -12,20 +12,20 @@ import net.olegg.aoc.year2015.DayOf2015
  * See [Year 2015, Day 3](https://adventofcode.com/2015/day/3)
  */
 object Day3 : DayOf2015(3) {
-  private val mapping = mapOf(
+  private val MAPPING = mapOf(
     '<' to L,
     '>' to R,
     '^' to U,
-    'v' to D
+    'v' to D,
   )
-  private val moves = data.map { mapping[it]?.step ?: Vector2D() }
+  private val MOVES = data.map { MAPPING[it]?.step ?: Vector2D() }
 
   override fun first(): Any? {
-    return visit(moves).size
+    return visit(MOVES).size
   }
 
   override fun second(): Any? {
-    val (even, odd) = moves
+    val (even, odd) = MOVES
       .withIndex()
       .partition { it.index % 2 == 0 }
     return (visit(even.map { it.value }) + visit(odd.map { it.value })).size
