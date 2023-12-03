@@ -33,6 +33,30 @@ object Day3 : DayOf2023(3) {
       }
       .sum()
   }
+
+  override fun second(): Any? {
+    val nextToGears = lines
+      .flatMapIndexed { y, row ->
+        NUMBER.findAll(row)
+          .flatMap { match ->
+            val value = match.value.toLong()
+            match.range
+              .flatMap { x ->
+                NEXT_8
+                  .map { it.step + Vector2D(x, y) }
+                  .filter { matrix[it] == '*' }
+              }
+              .toSet()
+              .map { it to value }
+          }
+      }
+
+    return nextToGears.groupBy { it.first }
+      .filterValues { it.size == 2 }
+      .mapValues { it.value.first().second * it.value.last().second }
+      .toList()
+      .sumOf { it.second }
+  }
 }
 
 fun main() = SomeDay.mainify(Day3)
