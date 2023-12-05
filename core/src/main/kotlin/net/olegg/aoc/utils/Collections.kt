@@ -97,4 +97,6 @@ operator fun <T> List<List<T>>.get(v: Vector2D): T? = when {
 
 fun <T> List<List<T>>.fit(v: Vector2D) = v.y in indices && v.x in this[v.y].indices
 
-fun <T> List<T>.toPair(): Pair<T, T> = first() to last()
+fun <T> List<T>.toPair(): Pair<T, T> = Pair(get(0), get(1))
+
+fun <T> List<T>.toTriple(): Triple<T, T, T> = Triple(get(0), get(1), get(2))
