@@ -16,6 +16,13 @@ object Day6 : DayOf2023(6) {
       (0..time).count { it * (time - it) >= dist }.toLong()
     }.reduce(Long::times)
   }
+
+  override fun second(): Any? {
+    val time = lines.first().filter { it.isDigit() }.toLong()
+    val dist = lines.last().filter { it.isDigit() }.toLong()
+
+    return (0..time).count { it * (time - it) >= dist }
+  }
 }
 
 fun main() = SomeDay.mainify(Day6)
