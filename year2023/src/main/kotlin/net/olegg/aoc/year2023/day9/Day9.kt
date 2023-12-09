@@ -20,6 +20,21 @@ object Day9 : DayOf2023(9) {
         .sumOf { it.last() }
     }
   }
+
+  override fun second(): Any? {
+    return lines.sumOf { line ->
+      val base = line.parseLongs(" ")
+
+      generateSequence(0) { it + 1 }
+        .scan(base) { acc, _ ->
+          acc.zipWithNext { a, b -> b - a }
+        }
+        .takeWhile { row -> row.any { it != 0L } }
+        .map { it.first() }
+        .toList()
+        .reduceRight { a, b -> a - b }
+    }
+  }
 }
 
 fun main() = SomeDay.mainify(Day9)
