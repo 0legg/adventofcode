@@ -10,6 +10,14 @@ import net.olegg.aoc.year2023.DayOf2023
  */
 object Day11 : DayOf2023(11) {
   override fun first(): Any? {
+    return solve(2)
+  }
+
+  override fun second(): Any? {
+    return solve(1000000)
+  }
+
+  private fun solve(add: Long): Long {
     val emptyRows = matrix.mapIndexedNotNull { index, row ->
       index.takeIf { row.all { it == '.' } }
     }
@@ -18,22 +26,7 @@ object Day11 : DayOf2023(11) {
         matrix.all { it[column] == '.' }
       }
 
-    val sparseMatrix = matrix.flatMapIndexed { y, row ->
-      val mapped = row.flatMapIndexed { x, char ->
-        if (x in emptyColumns) {
-          listOf(char, char)
-        } else {
-          listOf(char)
-        }
-      }
-      if (y in emptyRows) {
-        listOf(mapped, mapped)
-      } else {
-        listOf(mapped)
-      }
-    }
-
-    val galaxies = sparseMatrix.flatMapIndexed { y, row ->
+    val galaxies = matrix.flatMapIndexed { y, row ->
       row.mapIndexedNotNull { x, c ->
         if (c == '#') {
           Vector2D(x, y)
@@ -44,7 +37,20 @@ object Day11 : DayOf2023(11) {
     }
 
     return galaxies.pairs()
-      .sumOf { (it.second - it.first).manhattan() }
+      .map {
+        val dx = (minOf(it.first.x, it.second.x)..<maxOf(it.first.x, it.second.x))
+          .sumOf { x ->
+            if (x in emptyColumns) add else 1
+          }
+
+        val dy = (minOf(it.first.y, it.second.y)..<maxOf(it.first.y, it.second.y))
+          .sumOf { y ->
+            if (y in emptyRows) add else 1
+          }
+
+        dx + dy
+      }
+      .sum()
   }
 }
 
