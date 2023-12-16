@@ -17,9 +17,22 @@ import net.olegg.aoc.year2023.DayOf2023
  */
 object Day16 : DayOf2023(16) {
   override fun first(): Any? {
+    return countEnergy(Vector2D(), R)
+  }
+
+  override fun second(): Any? {
+    return buildList {
+      addAll(List(matrix.size) { Vector2D(0, it) to R })
+      addAll(List(matrix.size) { Vector2D(matrix.first().lastIndex, it) to L })
+      addAll(List(matrix.first().size) { Vector2D(it, 0) to D })
+      addAll(List(matrix.last().size) { Vector2D(it, matrix.lastIndex) to U })
+    }.maxOf { countEnergy(it.first, it.second) }
+  }
+
+  private fun countEnergy(start: Vector2D, direction: Directions): Int {
     val energized = matrix.map { it.map { 0 }.toMutableList() }
 
-    val queue = ArrayDeque(listOf(Vector2D() to R))
+    val queue = ArrayDeque(listOf(start to direction))
     val seen = mutableSetOf<Pair<Vector2D, Directions>>()
 
     while (queue.isNotEmpty()) {
@@ -29,7 +42,7 @@ object Day16 : DayOf2023(16) {
       val (pos, dir) = curr
       if (!energized.fit(pos)) continue
       energized[pos] = 1
-      
+
       when (matrix[pos]) {
         '.' -> queue.add(pos + dir.step to dir)
         '|' -> when (dir) {
