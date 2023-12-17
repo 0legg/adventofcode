@@ -66,6 +66,47 @@ object Day17 : DayOf2023(17) {
     return null
   }
 
+  override fun second(): Any? {
+    val seen = mutableSetOf<Config>()
+
+    val queue = PriorityQueue<Pair<Config, Int>>(
+      compareBy(
+        { it.second },
+        { -it.first.pos.manhattan() }
+      )
+    )
+
+    queue.add(Config(Vector2D(), Directions.R, 0) to 0)
+    queue.add(Config(Vector2D(), Directions.D, 0) to 0)
+
+    while (queue.isNotEmpty()) {
+      val (config, score) = queue.remove()
+      if (config in seen) {
+        continue
+      }
+      seen += config
+      if (config.pos == FINISH) {
+        return score
+      }
+
+      queue += listOfNotNull(Directions.CW[config.dir], Directions.CCW[config.dir])
+        .flatMap { dir ->
+          (1..10).scan(config to score) { (prev, acc), _ ->
+            val next = prev.pos + dir.step
+            Config(
+              pos = next,
+              dir = dir,
+              count = 0,
+            ) to (acc + (matrix[next]?.digitToInt() ?: 0))
+          }
+            .drop(4)
+            .filter { matrix.fit(it.first.pos) }
+        }
+    }
+
+    return null
+  }
+
   data class Config(
     val pos: Vector2D,
     val dir: Directions,
