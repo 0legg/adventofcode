@@ -55,6 +55,60 @@ object Day20 : DayOf2023(20) {
     return lowCount * highCount
   }
 
+  override fun second(): Any? {
+    val nodes = lines.associate { line ->
+      val (nameRaw, outputsRaw) = line.split(" -> ")
+      val outputs = outputsRaw.split(", ")
+
+      when (nameRaw[0]) {
+        '&' -> nameRaw.drop(1) to Node.Conjunction(
+          output = outputs,
+          inputs = mutableMapOf(),
+        )
+        '%' -> nameRaw.drop(1) to Node.FlipFlop(
+          output = outputs,
+        )
+        else -> nameRaw to Node.Broadcaster(
+          output = outputs,
+        )
+      }
+    }
+
+    nodes.forEach { (name, node) ->
+      node.output
+        .mapNotNull { nodes[it] as? Node.Conjunction }
+        .forEach { it.inputs[name] = false }
+    }
+
+    val rxInputs = nodes
+      .filterValues { it is Node.Conjunction && "ns" in it.output }
+      .mapValues { -1L }
+      .toMutableMap()
+
+    generateSequence(1) { it + 1 }.forEach { push ->
+      val queue = ArrayDeque(listOf(Triple("button", "broadcaster", false)))
+
+      while (queue.isNotEmpty()) {
+        val (src, dst, signal) = queue.removeFirst()
+
+        if (rxInputs[src] == -1L && signal) {
+          rxInputs[src] = push.toLong()
+          if (rxInputs.values.none { it == -1L }) {
+            return rxInputs.values.reduce(Long::times)
+          }
+        }
+
+        val node = nodes.getOrDefault(dst, Node.Noop)
+
+        queue += node
+          .handle(src, signal)
+          .map { (newDst, newSignal) -> Triple(dst, newDst, newSignal) }
+      }
+    }
+
+    return -1
+  }
+
   sealed interface Node {
     val output: List<String>
     fun handle(source: String, signal: Boolean): List<Pair<String, Boolean>>
