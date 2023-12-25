@@ -13,13 +13,22 @@ fun String.md5(): String =
 
 fun String?.parseInts(
   vararg delimiters: String,
-  radix: Int = 10
-): List<Int> = this?.split(*delimiters)?.mapNotNull { it.toIntOrNull(radix) }.orEmpty()
+  radix: Int = 10,
+): List<Int> = this?.split(*delimiters)?.mapNotNull { it.trim().toIntOrNull(radix) }.orEmpty()
 
 fun String?.parseLongs(
   vararg delimiters: String,
-  radix: Int = 10
-): List<Long> = this?.split(*delimiters)?.mapNotNull { it.toLongOrNull(radix) }.orEmpty()
+  radix: Int = 10,
+): List<Long> = this?.split(*delimiters)?.mapNotNull { it.trim().toLongOrNull(radix) }.orEmpty()
+
+fun String?.parseBigInts(
+  vararg delimiters: String,
+  radix: Int = 10,
+): List<BigInteger> = this?.split(*delimiters)?.mapNotNull { it.trim().toBigIntegerOrNull(radix) }.orEmpty()
+
+fun String?.parseDoubles(
+  vararg delimiters: String,
+): List<Double> = this?.split(*delimiters)?.mapNotNull { it.trim().toDoubleOrNull() }.orEmpty()
 
 /**
  * Finds all occurrences of [this] in [input] starting from [startIndex], including overlapping ones.
