@@ -28,6 +28,8 @@ kotlinx-serialization = "1.6.2"
 
 slf4j = "2.0.9"
 
+z3 = "4.8.14-v5"
+
 [libraries]
 
 detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
@@ -41,3 +43,5 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+
+z3 = { module = "io.github.p-org.solvers:z3", version.ref = "z3" }
