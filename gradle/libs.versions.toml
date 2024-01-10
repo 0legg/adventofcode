@@ -8,6 +8,8 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 
+dotenv = { id = "co.uzzu.dotenv.gradle", version.ref = "dotenv" }
+
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [versions]
@@ -15,6 +17,8 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 buildconfig = "5.3.3"
 
 detekt = "1.23.4"
+
+dotenv = "4.0.0"
 
 kotlin = "1.9.21"
 ##  ⬆ = "2.0.0-Beta1"

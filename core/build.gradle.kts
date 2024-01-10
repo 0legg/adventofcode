@@ -9,7 +9,7 @@ buildConfig {
   buildConfigField(
     type = "String",
     name = "COOKIE",
-    value = rootProject.property("COOKIE").toString(),
+    value = env.COOKIE.value,
   )
 }
 

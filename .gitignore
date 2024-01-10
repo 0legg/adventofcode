@@ -82,5 +82,5 @@ gradle-app.setting
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
-# Local Gradle properties
-gradle.properties
+# Environment properties (such as cookie).
+.env
