@@ -22,19 +22,14 @@ object Day10 : DayOf2023(10) {
   private val STEPS = mapOf(
     ('-' to L.step) to L.step,
     ('-' to R.step) to R.step,
-
     ('|' to U.step) to U.step,
     ('|' to D.step) to D.step,
-
     ('J' to D.step) to L.step,
     ('J' to R.step) to U.step,
-
     ('L' to D.step) to R.step,
     ('L' to L.step) to U.step,
-
     ('7' to R.step) to D.step,
     ('7' to U.step) to L.step,
-
     ('F' to L.step) to D.step,
     ('F' to U.step) to R.step,
   )

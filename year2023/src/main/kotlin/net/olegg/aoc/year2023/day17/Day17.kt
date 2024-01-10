@@ -23,8 +23,8 @@ object Day17 : DayOf2023(17) {
     val queue = PriorityQueue<Pair<Config, Int>>(
       compareBy(
         { it.second },
-        { -it.first.pos.manhattan() }
-      )
+        { -it.first.pos.manhattan() },
+      ),
     )
     queue.add(Config(Vector2D(), Directions.R, 0) to 0)
 
@@ -45,7 +45,7 @@ object Day17 : DayOf2023(17) {
             pos = forward,
             dir = config.dir,
             count = config.count + 1,
-          ) to (score + matrix[forward]!!.digitToInt())
+          ) to (score + matrix[forward]!!.digitToInt()),
         )
       }
 
@@ -58,7 +58,7 @@ object Day17 : DayOf2023(17) {
               pos = next,
               dir = it,
               count = 1,
-            ) to (score + matrix[next]!!.digitToInt())
+            ) to (score + matrix[next]!!.digitToInt()),
           )
         }
     }
@@ -72,8 +72,8 @@ object Day17 : DayOf2023(17) {
     val queue = PriorityQueue<Pair<Config, Int>>(
       compareBy(
         { it.second },
-        { -it.first.pos.manhattan() }
-      )
+        { -it.first.pos.manhattan() },
+      ),
     )
 
     queue.add(Config(Vector2D(), Directions.R, 0) to 0)

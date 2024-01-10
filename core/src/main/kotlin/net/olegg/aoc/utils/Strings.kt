@@ -26,9 +26,8 @@ fun String?.parseBigInts(
   radix: Int = 10,
 ): List<BigInteger> = this?.split(*delimiters)?.mapNotNull { it.trim().toBigIntegerOrNull(radix) }.orEmpty()
 
-fun String?.parseDoubles(
-  vararg delimiters: String,
-): List<Double> = this?.split(*delimiters)?.mapNotNull { it.trim().toDoubleOrNull() }.orEmpty()
+fun String?.parseDoubles(vararg delimiters: String): List<Double> =
+  this?.split(*delimiters)?.mapNotNull { it.trim().toDoubleOrNull() }.orEmpty()
 
 /**
  * Finds all occurrences of [this] in [input] starting from [startIndex], including overlapping ones.

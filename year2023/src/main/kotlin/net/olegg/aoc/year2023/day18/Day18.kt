@@ -45,6 +45,6 @@ object Day18 : DayOf2023(18) {
 
     return (xs.zip(ys.drop(1), Long::times).sum() - ys.zip(xs.drop(1), Long::times).sum()) / 2 + (perimeter / 2 + 1)
   }
- }
+}
 
 fun main() = SomeDay.mainify(Day18)

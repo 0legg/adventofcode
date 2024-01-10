@@ -71,7 +71,7 @@ object Day23 : DayOf2023(23) {
     var best = 0
     val seen = mutableSetOf<List<Int>>()
     val queue = PriorityQueue<List<Int>>(
-      compareBy { -it.size }
+      compareBy { -it.size },
     )
 
     queue.add(listOf(0))
@@ -138,7 +138,7 @@ object Day23 : DayOf2023(23) {
     var best = 0
     val seen = mutableSetOf<List<Int>>()
     val queue = PriorityQueue<List<Int>>(
-      compareBy { -it.size }
+      compareBy { -it.size },
     )
 
     queue.add(listOf(0))

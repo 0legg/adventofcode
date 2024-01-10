@@ -89,7 +89,10 @@ object Day25 : DayOf2023(25) {
       .reduce(Int::times)
   }
 
-  private fun buildEdges(adjList: Map<Int, List<Int>>, vertices: List<Int>): List<IntArray> {
+  private fun buildEdges(
+    adjList: Map<Int, List<Int>>,
+    vertices: List<Int>
+  ): List<IntArray> {
     return vertices.flatMap { from ->
       val vector = adjList[from]!!
       vector.map { to ->

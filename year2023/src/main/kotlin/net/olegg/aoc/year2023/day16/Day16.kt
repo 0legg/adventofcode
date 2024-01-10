@@ -29,7 +29,10 @@ object Day16 : DayOf2023(16) {
     }.maxOf { countEnergy(it.first, it.second) }
   }
 
-  private fun countEnergy(start: Vector2D, direction: Directions): Int {
+  private fun countEnergy(
+    start: Vector2D,
+    direction: Directions
+  ): Int {
     val energized = matrix.map { it.map { 0 }.toMutableList() }
 
     val queue = ArrayDeque(listOf(start to direction))

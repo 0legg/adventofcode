@@ -111,12 +111,18 @@ object Day20 : DayOf2023(20) {
 
   sealed interface Node {
     val output: List<String>
-    fun handle(source: String, signal: Boolean): List<Pair<String, Boolean>>
+    fun handle(
+      source: String,
+      signal: Boolean
+    ): List<Pair<String, Boolean>>
 
     data class Broadcaster(
       override val output: List<String>
     ) : Node {
-      override fun handle(source: String, signal: Boolean): List<Pair<String, Boolean>> {
+      override fun handle(
+        source: String,
+        signal: Boolean
+      ): List<Pair<String, Boolean>> {
         return output.map { it to signal }
       }
     }
@@ -125,7 +131,10 @@ object Day20 : DayOf2023(20) {
       override val output: List<String>,
       var state: Boolean = false
     ) : Node {
-      override fun handle(source: String, signal: Boolean): List<Pair<String, Boolean>> {
+      override fun handle(
+        source: String,
+        signal: Boolean
+      ): List<Pair<String, Boolean>> {
         if (!signal) {
           state = !state
           return output.map { it to state }
@@ -139,7 +148,10 @@ object Day20 : DayOf2023(20) {
       override val output: List<String>,
       val inputs: MutableMap<String, Boolean>,
     ) : Node {
-      override fun handle(source: String, signal: Boolean): List<Pair<String, Boolean>> {
+      override fun handle(
+        source: String,
+        signal: Boolean
+      ): List<Pair<String, Boolean>> {
         inputs[source] = signal
         val send = !inputs.values.all { it }
         return output.map { it to send }
@@ -149,7 +161,10 @@ object Day20 : DayOf2023(20) {
     data object Noop : Node {
       override val output: List<String> = emptyList()
 
-      override fun handle(source: String, signal: Boolean): List<Pair<String, Boolean>> = emptyList()
+      override fun handle(
+        source: String,
+        signal: Boolean
+      ): List<Pair<String, Boolean>> = emptyList()
     }
   }
 }

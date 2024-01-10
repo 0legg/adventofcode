@@ -2,8 +2,8 @@ package net.olegg.aoc.year2023.day3
 
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions.Companion.NEXT_8
-import net.olegg.aoc.utils.get
 import net.olegg.aoc.utils.Vector2D
+import net.olegg.aoc.utils.get
 import net.olegg.aoc.year2023.DayOf2023
 
 /**

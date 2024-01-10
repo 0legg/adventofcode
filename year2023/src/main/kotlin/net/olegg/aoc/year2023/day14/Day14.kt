@@ -20,7 +20,7 @@ object Day14 : DayOf2023(14) {
     var curr = matrix
     var step = 0
 
-    while (curr !in seen){
+    while (curr !in seen) {
       rev[step] = curr
       seen[curr] = step
       step++
