@@ -20,17 +20,22 @@ detekt = "1.23.4"
 
 dotenv = "4.0.0"
 
-kotlin = "1.9.21"
+kotlin = "1.9.22"
 ##  ⬆ = "2.0.0-Beta1"
+##  ⬆ = "2.0.0-Beta2"
 
 kotlinx-coroutines = "1.7.3"
+##              ⬆ = "1.8.0-RC"
+##              ⬆ = "1.8.0-RC2"
 
-ktor = "2.3.6"
+ktor = "2.3.7"
 ##⬆ = "3.0.0-beta-1"
 
 kotlinx-serialization = "1.6.2"
 
-slf4j = "2.0.9"
+slf4j = "2.0.11"
+## ⬆ = "2.1.0-alpha0"
+## ⬆ = "2.1.0-alpha1"
 
 z3 = "4.8.14-v5"
 
