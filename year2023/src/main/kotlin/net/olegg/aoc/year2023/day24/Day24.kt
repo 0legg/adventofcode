@@ -11,7 +11,6 @@ import net.olegg.aoc.year2023.DayOf2023
 import java.math.BigInteger
 import kotlin.math.sign
 
-
 /**
  * See [Year 2023, Day 24](https://adventofcode.com/2023/day/24)
  */
@@ -116,7 +115,7 @@ object Day24 : DayOf2023(24) {
           ctx.mkEq(
             ctx.mkAdd(zi, ctx.mkMul(dzi, ti)),
             ctx.mkAdd(z0, ctx.mkMul(dz0, ti)),
-          )
+          ),
         )
       }
 
