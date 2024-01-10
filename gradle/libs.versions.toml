@@ -12,7 +12,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 [versions]
 
-buildconfig = "4.2.0"
+buildconfig = "5.3.3"
 
 detekt = "1.23.4"
 
