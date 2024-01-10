@@ -9,7 +9,6 @@ import net.olegg.aoc.year2023.DayOf2023
  * See [Year 2023, Day 12](https://adventofcode.com/2023/day/12)
  */
 object Day12 : DayOf2023(12) {
-  private val DOTS = "\\.+".toRegex()
   private val EMPTY = setOf('.', '?', null)
   private val FILLED = setOf('#', '?')
 
@@ -38,7 +37,10 @@ object Day12 : DayOf2023(12) {
       }
   }
 
-  private fun count(line: String, counts: List<Int>): Long {
+  private fun count(
+    line: String,
+    counts: List<Int>
+  ): Long {
     val dyn = Array(counts.size + 1) { LongArray(line.length + 1) { 0 } }
 
     dyn[0][line.length] = 1
@@ -57,7 +59,8 @@ object Day12 : DayOf2023(12) {
         if (line[i] in FILLED) {
           if (line.getOrNull(i - 1) in EMPTY &&
             (i + 1..<i + count).all { line.getOrNull(it) in FILLED } &&
-            line.getOrNull(i + count) in EMPTY) {
+            line.getOrNull(i + count) in EMPTY
+          ) {
             dyn[j][i] += dyn[j - 1].getOrElse(i + count + fix) { 0 }
           }
         }

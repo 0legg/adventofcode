@@ -8,7 +8,6 @@ import net.olegg.aoc.year2023.DayOf2023
  * See [Year 2023, Day 19](https://adventofcode.com/2023/day/19)
  */
 object Day19 : DayOf2023(19) {
-
   override fun first(): Any? {
     val (rulesBlock, partsBlock) = data.split("\n\n")
     val rules = rulesBlock.lines()
@@ -84,7 +83,7 @@ object Day19 : DayOf2023(19) {
             "m" to listOf(1..4000),
             "a" to listOf(1..4000),
             "s" to listOf(1..4000),
-          )
+          ),
         ),
       ),
     )
@@ -96,7 +95,7 @@ object Day19 : DayOf2023(19) {
       if (node == "R") {
         continue
       }
-      if (curr == PartRanges.Empty) {
+      if (curr == PartRanges.EMPTY) {
         continue
       }
       if (node == "A") {
@@ -106,7 +105,7 @@ object Day19 : DayOf2023(19) {
 
       rules.getValue(node).fold(curr) { acc, (rule, target) ->
         val (accept, reject) = rule.partition(acc)
-        if (accept != PartRanges.Empty) {
+        if (accept != PartRanges.EMPTY) {
           queue.add(target to accept)
         }
         reject
@@ -151,13 +150,13 @@ object Day19 : DayOf2023(19) {
         val acceptParts = if (accept.isNotEmpty()) {
           partRanges.copy(map = partRanges.map + (stat to accept))
         } else {
-          PartRanges.Empty
+          PartRanges.EMPTY
         }
 
         val rejectParts = if (accept.isNotEmpty()) {
           partRanges.copy(map = partRanges.map + (stat to reject))
         } else {
-          PartRanges.Empty
+          PartRanges.EMPTY
         }
 
         return acceptParts to rejectParts
@@ -181,7 +180,7 @@ object Day19 : DayOf2023(19) {
             range.first > value -> accept.add(range)
             range.last < value -> reject.add(range)
             else -> {
-              reject.add(range.first ..value)
+              reject.add(range.first..value)
               accept.add(value + 1..range.last)
             }
           }
@@ -190,13 +189,13 @@ object Day19 : DayOf2023(19) {
         val acceptParts = if (accept.isNotEmpty()) {
           partRanges.copy(map = partRanges.map + (stat to accept))
         } else {
-          PartRanges.Empty
+          PartRanges.EMPTY
         }
 
         val rejectParts = if (accept.isNotEmpty()) {
           partRanges.copy(map = partRanges.map + (stat to reject))
         } else {
-          PartRanges.Empty
+          PartRanges.EMPTY
         }
 
         return acceptParts to rejectParts
@@ -207,7 +206,7 @@ object Day19 : DayOf2023(19) {
       override fun accept(part: Part): Boolean = true
 
       override fun partition(partRanges: PartRanges): Pair<PartRanges, PartRanges> {
-        return partRanges to PartRanges.Empty
+        return partRanges to PartRanges.EMPTY
       }
     }
   }
@@ -230,7 +229,7 @@ object Day19 : DayOf2023(19) {
     val s: List<IntRange> by map
 
     companion object {
-      val Empty = PartRanges(
+      val EMPTY = PartRanges(
         map = emptyMap(),
       )
     }
