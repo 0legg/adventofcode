@@ -84,3 +84,6 @@ gradle-app.setting
 
 # Environment properties (such as cookie).
 .env
+
+# Kotlin service directory
+.kotlin
