@@ -24,8 +24,7 @@ kotlin = "2.1.0"
 
 kotlinx-coroutines = "1.9.0"
 
-ktor = "2.3.7"
-##⬆ = "3.0.0-beta-1"
+ktor = "3.0.1"
 
 kotlinx-serialization = "1.7.3"
 
