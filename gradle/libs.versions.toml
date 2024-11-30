@@ -14,28 +14,21 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 [versions]
 
-buildconfig = "5.3.3"
+buildconfig = "5.5.1"
 
-detekt = "1.23.4"
+detekt = "1.23.7"
 
 dotenv = "4.0.0"
 
-kotlin = "1.9.22"
-##  ⬆ = "2.0.0-Beta1"
-##  ⬆ = "2.0.0-Beta2"
+kotlin = "2.1.0"
 
-kotlinx-coroutines = "1.7.3"
-##              ⬆ = "1.8.0-RC"
-##              ⬆ = "1.8.0-RC2"
+kotlinx-coroutines = "1.9.0"
 
-ktor = "2.3.7"
-##⬆ = "3.0.0-beta-1"
+ktor = "3.0.1"
 
-kotlinx-serialization = "1.6.2"
+kotlinx-serialization = "1.7.3"
 
-slf4j = "2.0.11"
-## ⬆ = "2.1.0-alpha0"
-## ⬆ = "2.1.0-alpha1"
+slf4j = "2.0.16"
 
 z3 = "4.8.14-v5"
 

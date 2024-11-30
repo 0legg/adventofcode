@@ -47,6 +47,7 @@ allprojects {
 
   extensions.configure<DetektExtension> {
     config.from(rootProject.files("detekt.yml"))
+    buildUponDefaultConfig = true
     baseline = rootProject.file("detekt-baseline.xml")
     autoCorrect = true
   }
