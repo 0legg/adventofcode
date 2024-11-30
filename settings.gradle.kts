@@ -22,4 +22,5 @@ include(
   ":year2021",
   ":year2022",
   ":year2023",
+  ":year2024",
 )
