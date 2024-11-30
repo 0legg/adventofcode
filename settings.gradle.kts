@@ -5,7 +5,8 @@ pluginManagement {
 }
 
 plugins {
-  id("de.fayard.refreshVersions") version "0.60.3"
+  id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+  id("de.fayard.refreshVersions") version "0.60.5"
 }
 
 rootProject.name = "advent-of-code"
@@ -21,4 +22,5 @@ include(
   ":year2021",
   ":year2022",
   ":year2023",
+  ":year2024",
 )

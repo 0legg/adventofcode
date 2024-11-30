@@ -11,7 +11,15 @@ object Day24 : DayOf2018(24) {
     val (immune, infection) = data
       .split("\n\n")
       .map { it.lines().drop(1) }
-      .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
+      .mapIndexed { system, group ->
+        group.mapIndexedNotNull { index, line ->
+          Group.from(
+            line,
+            index + 1,
+            system
+          )
+        }
+      }
 
     return solve(immune + infection).sumOf { it.units.toInt() }
   }
@@ -20,7 +28,15 @@ object Day24 : DayOf2018(24) {
     val (immune, infection) = data
       .split("\n\n")
       .map { it.lines().drop(1) }
-      .mapIndexed { system, group -> group.mapIndexedNotNull { index, line -> Group.from(line, index + 1, system) } }
+      .mapIndexed { system, group ->
+        group.mapIndexedNotNull { index, line ->
+          Group.from(
+            line,
+            index + 1,
+            system
+          )
+        }
+      }
 
     generateSequence(0) { it + 1 }.forEach { boost ->
       val boosted = immune.map { it.copy(attack = it.attack + boost) }

@@ -17,7 +17,7 @@ plugins {
 
 allprojects {
   group = "net.olegg.aoc"
-  version = "2023.0.0"
+  version = "2024.0.0"
 
   repositories {
     mavenCentral()
@@ -47,6 +47,7 @@ allprojects {
 
   extensions.configure<DetektExtension> {
     config.from(rootProject.files("detekt.yml"))
+    buildUponDefaultConfig = true
     baseline = rootProject.file("detekt-baseline.xml")
     autoCorrect = true
   }
