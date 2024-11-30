@@ -14,9 +14,9 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 
 [versions]
 
-buildconfig = "5.3.3"
+buildconfig = "5.5.1"
 
-detekt = "1.23.4"
+detekt = "1.23.7"
 
 dotenv = "4.0.0"
 
@@ -27,11 +27,9 @@ kotlinx-coroutines = "1.9.0"
 ktor = "2.3.7"
 ##⬆ = "3.0.0-beta-1"
 
-kotlinx-serialization = "1.6.2"
+kotlinx-serialization = "1.7.3"
 
-slf4j = "2.0.11"
-## ⬆ = "2.1.0-alpha0"
-## ⬆ = "2.1.0-alpha1"
+slf4j = "2.0.16"
 
 z3 = "4.8.14-v5"
 
