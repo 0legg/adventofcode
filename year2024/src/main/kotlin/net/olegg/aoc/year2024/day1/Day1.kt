@@ -18,6 +18,16 @@ object Day1 : DayOf2024(1) {
 
     return first.zip(second) { a, b -> (a - b).absoluteValue }.sum()
   }
+
+  override fun second(): Any? {
+    val (nums, appears) = lines
+      .map { it.parseInts(" ") }
+      .transpose()
+
+    val freqs = appears.groupingBy { it }.eachCount()
+
+    return nums.sumOf { it * freqs.getOrDefault(it, 0) }
+  }
 }
 
 fun main() = SomeDay.mainify(Day1)
