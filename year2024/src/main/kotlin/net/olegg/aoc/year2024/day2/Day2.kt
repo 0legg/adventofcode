@@ -12,8 +12,20 @@ object Day2 : DayOf2024(2) {
   override fun first(): Any? {
     return lines
       .map { it.parseInts(" ") }
-      .filter { it == it.sorted() || it == it.sortedDescending() }
-      .count { report -> report.zipWithNext { a, b -> (a - b).absoluteValue }.all { it in 1..3 } }
+      .count { it.isSafe() }
+  }
+
+  override fun second(): Any? {
+    return lines
+      .map { it.parseInts(" ") }
+      .count { report ->
+        report.indices.map { report.toMutableList().apply { removeAt(it) } }.any { it.isSafe() }
+      }
+  }
+
+  private fun List<Int>.isSafe(): Boolean {
+    val sorted = sorted()
+    return (this == sorted || asReversed() == sorted) && sorted.zipWithNext { a, b -> b - a }.all { it in 1..3 }
   }
 }
 
