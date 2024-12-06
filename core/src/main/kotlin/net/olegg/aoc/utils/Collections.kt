@@ -70,6 +70,13 @@ fun <T> List<List<T>>.find(value: T): Vector2D? {
   return null
 }
 
+fun <T> List<List<T>>.transpose(): List<List<T>> {
+  if (isEmpty()) return emptyList()
+  return List(first().size) { x ->
+    map { it[x] }
+  }
+}
+
 operator fun <T> List<MutableList<T>>.set(
   v: Vector2D,
   value: T
