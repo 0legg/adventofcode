@@ -32,6 +32,30 @@ object Day8 : DayOf2024(8) {
 
     return antinodes.count { matrix.fit(it) }
   }
+
+  override fun second(): Any? {
+    val antinodes = mutableSetOf<Vector2D>()
+
+    val points = matrix
+      .flatMapIndexed { y, row ->
+        row.mapIndexedNotNull { x, c ->
+          if (c != '.') c to Vector2D(x, y) else null
+        }
+      }
+      .groupingBy { it.first }
+      .fold(emptyList<Vector2D>()) { acc, (_, value) -> acc + value }
+
+    points.forEach { (_, set) ->
+      set.pairs().forEach { (a, b) ->
+        val delta = b - a
+
+        antinodes += generateSequence(a) { x -> x - delta }.takeWhile { matrix.fit(it) }
+        antinodes += generateSequence(b) { x -> x + delta }.takeWhile { matrix.fit(it) }
+      }
+    }
+
+    return antinodes.count { matrix.fit(it) }
+  }
 }
 
 fun main() = SomeDay.mainify(Day8)
