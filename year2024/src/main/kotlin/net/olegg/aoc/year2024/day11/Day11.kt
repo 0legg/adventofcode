@@ -9,23 +9,38 @@ import java.math.BigInteger
  * See [Year 2024, Day 11](https://adventofcode.com/2024/day/11)
  */
 object Day11 : DayOf2024(11) {
+  private val mult = 2024.toBigInteger()
+
   override fun first(): Any? {
     val start = data.parseBigInts(" ")
-    val mult = 2024.toBigInteger()
 
-    return (1..25).fold(start) { acc, _ ->
-      acc.flatMap { stone ->
-        val string = stone.toString()
-        when {
-          string == "0" -> listOf(BigInteger.ONE)
-          string.length % 2 == 0 -> listOf(
-            BigInteger(string.take(string.length / 2)),
-            BigInteger(string.drop(string.length / 2)),
-          )
-          else -> listOf(stone * mult)
+    return solve(start, 25)
+  }
+
+  override fun second(): Any? {
+    val start = data.parseBigInts(" ")
+
+    return solve(start, 75)
+  }
+
+  private fun solve(input: List<BigInteger>, steps: Int): Long {
+    val start = input.groupingBy { it }.eachCount().mapValues { it.value.toLong() }
+    return (1..steps).fold(start) { acc, _ ->
+      acc
+        .flatMap { (stone, count) ->
+          val string = stone.toString()
+          when {
+            string == "0" -> listOf(BigInteger.ONE to count)
+            string.length % 2 == 0 -> listOf(
+              BigInteger(string.take(string.length / 2)) to count,
+              BigInteger(string.drop(string.length / 2)) to count,
+            )
+            else -> listOf(stone * mult to count)
+          }
         }
-      }
-    }.size
+        .groupingBy { it.first }
+        .fold(0) { sum, (_, count) -> sum + count }
+    }.values.sum()
   }
 }
 
