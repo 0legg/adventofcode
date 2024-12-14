@@ -11,7 +11,7 @@ object Day14 : DayOf2024(14) {
   private val digits = "(-?\\d+)".toRegex()
   private const val width = 101
   private const val height = 103
-  
+
   override fun first(): Any? {
     val startRobots = lines
       .map { line -> digits.findAll(line).map { it.value.toInt() }.toList() }
@@ -30,6 +30,32 @@ object Day14 : DayOf2024(14) {
       final.count { it.first.x < width / 2 && it.first.y > height / 2 }.toLong() *
       final.count { it.first.x > width / 2 && it.first.y < height / 2 }.toLong() *
       final.count { it.first.x > width / 2 && it.first.y > height / 2 }.toLong()
+  }
+
+  override fun second(): Any? {
+    val startData = lines.map { line -> digits.findAll(line).map { it.value.toInt() }.toList() }
+    val positions = startData.map { (px, py, _, _) -> Vector2D(px, py) }
+    val speeds = startData.map { (_, _, vx, vy) -> Vector2D(vx, vy) }
+
+    return generateSequence(positions) { robots ->
+      robots.zip(speeds) { position, speed ->
+        Vector2D(
+          (position.x + speed.x + width) % width,
+          (position.y + speed.y + height) % height,
+        )
+      }
+    }
+      .map { robots ->
+        buildString(height * (width * 2 + 2)) {
+          (0 until height).forEach { y ->
+            (0 until width).forEach { x ->
+              if (robots.any { it.y == y && it.x == x }) append("██") else append("..")
+            }
+            append("\n")
+          }
+        }
+      }
+      .indexOfFirst { "██████████████████████████████████████████████████████████████" in it }
   }
 }
 
