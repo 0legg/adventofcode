@@ -5,6 +5,7 @@ import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.get
+import net.olegg.aoc.utils.set
 import net.olegg.aoc.year2024.DayOf2024
 
 /**
@@ -43,6 +44,58 @@ object Day18 : DayOf2024(18) {
     }
 
     return -1
+  }
+
+  override fun second(): Any? {
+    val bytes = lines.map { line ->
+      val (x, y) = line.parseInts(",")
+      Vector2D(x, y)
+    }
+
+    var left = 0
+    var right = bytes.lastIndex
+    var mid = (left + right) / 2
+
+    while (right - left > 1) {
+      val cut = bytes.take(mid).toSet()
+      val map = List(size) { y -> MutableList(size) { x -> Vector2D(x, y) in cut } }
+
+      if (fill(map)) {
+        left = mid
+      } else {
+        right = mid
+      }
+      mid = (left + right) / 2
+    }
+
+    return bytes[left].let { "${it.x},${it.y}" }
+  }
+
+  private fun fill(map: List<MutableList<Boolean>>): Boolean {
+    val start = Vector2D(0, 0)
+    val finish = Vector2D(size - 1, size - 1)
+    val queue = ArrayDeque(listOf(start))
+    val seen = mutableSetOf<Vector2D>()
+
+    while (queue.isNotEmpty()) {
+      val curr = queue.removeFirst()
+      if (curr == finish) {
+        return true
+      }
+      if (curr in seen) {
+        continue
+      }
+      seen += curr
+
+      val next = NEXT_4.map { curr + it.step }
+        .filter { map[it] == false }
+
+      next.forEach { map[it] = true }
+
+      queue += next
+    }
+
+    return map[finish]!!
   }
 }
 
