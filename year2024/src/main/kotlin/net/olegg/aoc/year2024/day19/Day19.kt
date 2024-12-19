@@ -30,6 +30,31 @@ object Day19 : DayOf2024(19) {
       reachable.last()
     }
   }
+
+  override fun second(): Any? {
+    val (rawPatterns, rawTowels) = data.split("\n\n")
+
+    val patterns = rawPatterns.split(", ")
+
+    return rawTowels.lines().sumOf { towel ->
+      val reachable = MutableList(towel.length + 1) { 0L }
+      reachable[0] = 1L
+
+      reachable.indices.forEach { index ->
+        val count = reachable[index]
+        if (count != 0L) {
+          val tail = towel.substring(index)
+          patterns.forEach { pattern ->
+            if (tail.startsWith(pattern)) {
+              reachable[index + pattern.length] += count
+            }
+          }
+        }
+      }
+
+      reachable.last()
+    }
+  }
 }
 
 fun main() = SomeDay.mainify(Day19)
