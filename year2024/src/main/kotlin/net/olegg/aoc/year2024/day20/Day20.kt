@@ -12,9 +12,15 @@ import net.olegg.aoc.year2024.DayOf2024
  * See [Year 2024, Day 20](https://adventofcode.com/2024/day/20)
  */
 object Day20 : DayOf2024(20) {
-  private val cheats = NEXT_4.map { it.step * 2 }
-
   override fun first(): Any? {
+    return solve(2)
+  }
+
+  override fun second(): Any? {
+    return solve(20)
+  }
+
+  private fun solve(maxCheat: Int, minSave: Int = 100): Int {
     val start = matrix.find('S')!!
     val end = matrix.find('E')!!
 
@@ -48,7 +54,9 @@ object Day20 : DayOf2024(20) {
       val (firstPos, firstStep) = first
       val (secondPos, secondStep) = second
 
-      secondStep - firstStep - 2 >= 100 && (secondPos - firstPos) in cheats
+      val delta = (secondPos - firstPos).manhattan()
+
+      delta <= maxCheat && secondStep - firstStep - delta >= minSave
     }
   }
 }
