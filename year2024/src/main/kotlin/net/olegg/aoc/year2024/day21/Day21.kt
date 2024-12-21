@@ -25,6 +25,14 @@ object Day21 : DayOf2024(21) {
   """.trimIndent().lines().map { it.toList() }
 
   override fun first(): Any? {
+    return solve(2)
+  }
+
+  override fun second(): Any? {
+    return solve(25)
+  }
+
+  private fun solve(robots: Int): Long {
     val digitsMap = digits.flatMapIndexed { y, row ->
       row.mapIndexedNotNull { x, c ->
         if (c != ' ') c to Vector2D(x, y) else null
@@ -34,15 +42,17 @@ object Day21 : DayOf2024(21) {
     return lines.sumOf { line ->
       val code = pattern.find(line)?.value?.toIntOrNull() ?: 0
 
+      val cache = mutableMapOf<Triple<Vector2D, Vector2D, Int>, Long>()
+
       val length = "A$line"
-        .zipWithNext { a, b -> bestPath(digits, arms, digitsMap[a]!!, digitsMap[b]!!, 0) }
+        .zipWithNext { a, b ->
+          bestPath(digits, arms, digitsMap[a]!!, digitsMap[b]!!, 0, robots + 1, cache)
+        }
         .sum()
 
       code * length
     }
   }
-
-  private val bestCache = mutableMapOf<Triple<Vector2D, Vector2D, Int>, Int>()
 
   private fun bestPath(
     matrix: List<List<Char>>,
@@ -50,11 +60,13 @@ object Day21 : DayOf2024(21) {
     from: Vector2D,
     to: Vector2D,
     level: Int,
-  ): Int {
+    maxLevel: Int,
+    cache: MutableMap<Triple<Vector2D, Vector2D, Int>, Long>,
+  ): Long {
     val config = Triple(from, to, level)
     return when {
-      level == 3 -> 1
-      config in bestCache -> bestCache[config]!!
+      level == maxLevel -> 1
+      config in cache -> cache[config]!!
       from == to -> 1
       else -> {
         val delta = to - from
@@ -91,11 +103,11 @@ object Day21 : DayOf2024(21) {
             chars.zipWithNext().sumOf { (fromChar, toChar) ->
               val fromPoint = handler.find(fromChar)!!
               val toPoint = handler.find(toChar)!!
-              bestPath(handler, handler, fromPoint, toPoint, level + 1)
+              bestPath(handler, handler, fromPoint, toPoint, level + 1, maxLevel, cache)
             }
           }
 
-        bestCache[config] = best
+        cache[config] = best
         best
       }
     }
