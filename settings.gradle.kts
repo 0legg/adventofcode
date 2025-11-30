@@ -2,6 +2,8 @@
 
 import de.fayard.refreshVersions.core.StabilityLevel
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
   repositories {
     gradlePluginPortal()
