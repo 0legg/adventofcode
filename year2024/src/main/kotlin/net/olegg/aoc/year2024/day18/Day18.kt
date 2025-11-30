@@ -3,8 +3,8 @@ package net.olegg.aoc.year2024.day18
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.Directions.Companion.NEXT_4
 import net.olegg.aoc.utils.Vector2D
-import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.get
+import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.utils.set
 import net.olegg.aoc.year2024.DayOf2024
 
@@ -12,7 +12,7 @@ import net.olegg.aoc.year2024.DayOf2024
  * See [Year 2024, Day 18](https://adventofcode.com/2024/day/18)
  */
 object Day18 : DayOf2024(18) {
-  private val size = 71
+  private const val SIZE = 71
 
   override fun first(): Any? {
     val bytes = lines.map { line ->
@@ -20,10 +20,10 @@ object Day18 : DayOf2024(18) {
       Vector2D(x, y)
     }.take(1024).toSet()
 
-    val map = List(size) { y -> List(size) { x -> Vector2D(x, y) in bytes } }
+    val map = List(SIZE) { y -> List(SIZE) { x -> Vector2D(x, y) in bytes } }
 
     val start = Vector2D(0, 0) to 0
-    val finish = Vector2D(size - 1, size - 1)
+    val finish = Vector2D(SIZE - 1, SIZE - 1)
     val queue = ArrayDeque(listOf(start))
     val seen = mutableSetOf<Pair<Vector2D, Int>>()
 
@@ -58,7 +58,7 @@ object Day18 : DayOf2024(18) {
 
     while (right - left > 1) {
       val cut = bytes.take(mid).toSet()
-      val map = List(size) { y -> MutableList(size) { x -> Vector2D(x, y) in cut } }
+      val map = List(SIZE) { y -> MutableList(SIZE) { x -> Vector2D(x, y) in cut } }
 
       if (fill(map)) {
         left = mid
@@ -73,7 +73,7 @@ object Day18 : DayOf2024(18) {
 
   private fun fill(map: List<MutableList<Boolean>>): Boolean {
     val start = Vector2D(0, 0)
-    val finish = Vector2D(size - 1, size - 1)
+    val finish = Vector2D(SIZE - 1, SIZE - 1)
     val queue = ArrayDeque(listOf(start))
     val seen = mutableSetOf<Vector2D>()
 

@@ -14,7 +14,6 @@ buildConfig {
 }
 
 dependencies {
-  implementation(libs.kotlin.stdlib)
   implementation(libs.ktor.client.cio)
   implementation(libs.slf4j.simple)
 }
