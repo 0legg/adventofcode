@@ -3,7 +3,6 @@ package net.olegg.aoc.year2024.day2
 import net.olegg.aoc.someday.SomeDay
 import net.olegg.aoc.utils.parseInts
 import net.olegg.aoc.year2024.DayOf2024
-import kotlin.math.absoluteValue
 
 /**
  * See [Year 2024, Day 2](https://adventofcode.com/2024/day/2)

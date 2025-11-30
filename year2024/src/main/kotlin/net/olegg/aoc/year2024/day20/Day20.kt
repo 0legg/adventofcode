@@ -39,7 +39,7 @@ object Day20 : DayOf2024(20) {
       }
 
       queue += NEXT_4.map { curr + it.step }
-        .filter { it == end || matrix[it] == '.'}
+        .filter { it == end || matrix[it] == '.' }
         .filter { it !in seen }
         .map { it to step + 1 }
     }
