@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-  api(project(":core"))
+  api(projects.core)
 
   implementation(libs.kotlinx.serialization.json)
 }

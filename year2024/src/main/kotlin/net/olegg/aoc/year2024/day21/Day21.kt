@@ -39,77 +39,90 @@ object Day21 : DayOf2024(21) {
       }
     }.toMap()
 
+    val cache = mutableMapOf<Triple<Vector2D, Vector2D, Int>, Long>()
+
+    fun bestPath(
+      matrix: List<List<Char>>,
+      handler: List<List<Char>>,
+      from: Vector2D,
+      to: Vector2D,
+      level: Int,
+      maxLevel: Int,
+    ): Long {
+      val config = Triple(from, to, level)
+      return when {
+        level == maxLevel -> 1
+        config in cache -> cache[config]!!
+        from == to -> 1
+        else -> {
+          val delta = to - from
+          val basePath = buildList {
+            when {
+              delta.x > 0 -> repeat(delta.x) { add(Directions.R) }
+              delta.x < 0 -> repeat(-delta.x) { add(Directions.L) }
+            }
+            when {
+              delta.y > 0 -> repeat(delta.y) { add(Directions.D) }
+              delta.y < 0 -> repeat(-delta.y) { add(Directions.U) }
+            }
+          }
+
+          val best = basePath.permutations()
+            .filter { path ->
+              path.scan(from) { curr, dir -> curr + dir.step }.none { matrix[it] == ' ' }
+            }
+            .minOf { path ->
+              val chars = buildList {
+                add('A')
+                path.forEach {
+                  when (it) {
+                    Directions.L -> add('<')
+                    Directions.R -> add('>')
+                    Directions.U -> add('^')
+                    Directions.D -> add('v')
+                    else -> Unit
+                  }
+                }
+                add('A')
+              }
+
+              chars.zipWithNext().sumOf { (fromChar, toChar) ->
+                val fromPoint = handler.find(fromChar)!!
+                val toPoint = handler.find(toChar)!!
+                bestPath(
+                  matrix = handler,
+                  handler = handler,
+                  from = fromPoint,
+                  to = toPoint,
+                  level = level + 1,
+                  maxLevel = maxLevel,
+                )
+              }
+            }
+
+          cache[config] = best
+          best
+        }
+      }
+    }
+
     return lines.sumOf { line ->
       val code = pattern.find(line)?.value?.toIntOrNull() ?: 0
 
-      val cache = mutableMapOf<Triple<Vector2D, Vector2D, Int>, Long>()
-
       val length = "A$line"
         .zipWithNext { a, b ->
-          bestPath(digits, arms, digitsMap[a]!!, digitsMap[b]!!, 0, robots + 1, cache)
+          bestPath(
+            matrix = digits,
+            handler = arms,
+            from = digitsMap[a]!!,
+            to = digitsMap[b]!!,
+            level = 0,
+            maxLevel = robots + 1,
+          )
         }
         .sum()
 
       code * length
-    }
-  }
-
-  private fun bestPath(
-    matrix: List<List<Char>>,
-    handler: List<List<Char>>,
-    from: Vector2D,
-    to: Vector2D,
-    level: Int,
-    maxLevel: Int,
-    cache: MutableMap<Triple<Vector2D, Vector2D, Int>, Long>,
-  ): Long {
-    val config = Triple(from, to, level)
-    return when {
-      level == maxLevel -> 1
-      config in cache -> cache[config]!!
-      from == to -> 1
-      else -> {
-        val delta = to - from
-        val basePath = buildList {
-          when {
-            delta.x > 0 -> repeat(delta.x) { add(Directions.R) }
-            delta.x < 0 -> repeat(-delta.x) { add(Directions.L) }
-          }
-          when {
-            delta.y > 0 -> repeat(delta.y) { add(Directions.D) }
-            delta.y < 0 -> repeat(-delta.y) { add(Directions.U) }
-          }
-        }
-
-        val best = basePath.permutations()
-          .filter { path ->
-            path.scan(from) { curr, dir -> curr + dir.step }.none { matrix[it] == ' ' }
-          }
-          .minOf { path ->
-            val chars = buildList {
-              add('A')
-              path.forEach {
-                when (it) {
-                  Directions.L -> add('<')
-                  Directions.R -> add('>')
-                  Directions.U -> add('^')
-                  Directions.D -> add('v')
-                  else -> Unit
-                }
-              }
-              add('A')
-            }
-
-            chars.zipWithNext().sumOf { (fromChar, toChar) ->
-              val fromPoint = handler.find(fromChar)!!
-              val toPoint = handler.find(toChar)!!
-              bestPath(handler, handler, fromPoint, toPoint, level + 1, maxLevel, cache)
-            }
-          }
-
-        cache[config] = best
-        best
-      }
     }
   }
 }

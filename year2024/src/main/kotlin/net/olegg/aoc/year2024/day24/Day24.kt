@@ -144,20 +144,20 @@ object Day24 : DayOf2024(24) {
     return rawSwaps.flatMap { it.toList() }.sorted().joinToString(",")
   }
 
-  sealed interface Arg: Comparable<Arg> {
+  sealed interface Arg : Comparable<Arg> {
     val original: String
       get() = toString()
     val mapped: String
       get() = toString()
     val order: Int
 
-    sealed interface Input: Arg {
+    sealed interface Input : Arg {
       val num: Int
     }
 
     data class X(
       override val num: Int,
-    ): Input {
+    ) : Input {
       override val order = 0
 
       override fun toString() = "x%02d".format(num)
@@ -170,7 +170,7 @@ object Day24 : DayOf2024(24) {
 
     data class Y(
       override val num: Int,
-    ): Input {
+    ) : Input {
       override val order = 1
 
       override fun toString() = "y%02d".format(num)
@@ -183,7 +183,7 @@ object Day24 : DayOf2024(24) {
 
     data class Z(
       val num: Int,
-    ): Arg {
+    ) : Arg {
       override val order = 2
 
       override fun toString() = "z%02d".format(num)
@@ -196,7 +196,7 @@ object Day24 : DayOf2024(24) {
 
     data class Unmapped(
       val raw: String,
-    ): Arg {
+    ) : Arg {
       override val order = 100
 
       override fun toString() = raw
