@@ -21,6 +21,21 @@ object Day2 : DayOf2025(2) {
       }.sum()
     }
   }
+
+  override fun second(): Any? {
+    val ranges = data
+      .split(",")
+      .map { it.parseLongs("-").toPair() }
+
+    return ranges.sumOf { (start, end) ->
+      (start..end).filter { curr ->
+        val str = curr.toString()
+        (1..str.length / 2).any { len ->
+          str.length % len == 0 && str.take(len).repeat(str.length / len) == str
+        }
+      }.sum()
+    }
+  }
 }
 
 fun main() = SomeDay.mainify(Day2)
