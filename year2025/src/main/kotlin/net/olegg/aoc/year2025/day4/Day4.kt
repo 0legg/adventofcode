@@ -22,6 +22,31 @@ object Day4 : DayOf2025(4) {
       }.sum()
     }.sum()
   }
+
+  override fun second(): Any? {
+    val finalMatrix = generateSequence(matrix) { currMatrix ->
+      currMatrix.mapIndexed { y, row ->
+        row.mapIndexed { x, char ->
+          val pos = Vector2D(x, y)
+          when {
+            char != '@' -> char
+            Directions.NEXT_8.count { currMatrix[it.step + pos] == '@' } < 4 -> '.'
+            else -> char
+          }
+        }
+      }
+    }
+      .zipWithNext()
+      .first { it.first == it.second }
+      .first
+
+    return finalMatrix.mapIndexed { y, row ->
+      row.mapIndexed { x, char ->
+        val pos = Vector2D(x, y)
+        if (matrix[pos] != char) 1 else 0
+      }.sum()
+    }.sum()
+  }
 }
 
 fun main() = SomeDay.mainify(Day4)
