@@ -22,6 +22,23 @@ object Day5 : DayOf2025(5) {
       ranges.any { element in it }
     }
   }
+
+  override fun second(): Any? {
+    val events = lines
+      .takeWhile { it.isNotEmpty() }
+      .map { it.parseLongs("-") }
+      .flatMap { listOf(it.first() to 1, it.last() to -1) }
+      .sortedWith(compareBy({ it.first }, { -it.second }))
+
+    return events.fold(Triple(events.first().first - 1, 0, 0L)) { (start, depth, score), (pos, shift) ->
+      val newDepth = depth + shift
+      when {
+        depth == 0 -> Triple(pos, newDepth, score)
+        newDepth == 0 -> Triple(pos, newDepth, score + (pos - start + 1))
+        else -> Triple(start, newDepth, score)
+      }
+    }.third
+  }
 }
 
 fun main() = SomeDay.mainify(Day5)
