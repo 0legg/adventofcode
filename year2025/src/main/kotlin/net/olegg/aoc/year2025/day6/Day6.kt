@@ -25,6 +25,36 @@ object Day6 : DayOf2025(6) {
       }
       .sum()
   }
+
+  override fun second(): Any? {
+    val ops = lines
+      .last()
+      .split("\\s+".toRegex())
+      .filter { it.isNotEmpty() }
+      .reversed()
+
+    return matrix
+      .dropLast(1)
+      .map { it.reversed() }
+      .transpose()
+      .joinToString("\n") {
+        it.joinToString("").trim()
+      }
+      .split("\n\n")
+      .mapIndexed { chunk, value ->
+        val op: Long.(Long) -> Long = when (val rawOp = ops[chunk]) {
+          "+" -> Long::plus
+          "*" -> Long::times
+          else -> error("Unknown op $rawOp")
+        }
+
+        value
+          .lines()
+          .map { it.toLong() }
+          .reduce(op)
+      }
+      .sum()
+  }
 }
 
 fun main() = SomeDay.mainify(Day6)
