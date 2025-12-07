@@ -31,11 +31,48 @@ object Day7 : DayOf2025(7) {
           queue.add(next + R.step)
           splits.add(curr)
         }
+
         else -> Unit
       }
     }
 
     return splits.size
+  }
+
+  override fun second(): Any? {
+    val start = matrix.find('S')!!
+    val queue = ArrayDeque(listOf(start))
+    val times = mutableMapOf(start to 1L).withDefault { 0L }
+    val seen = mutableSetOf<Vector2D>()
+    while (queue.isNotEmpty()) {
+      val curr = queue.removeFirst()
+      if (!seen.add(curr)) {
+        continue
+      }
+      val next = curr + D.step
+      when (matrix[next]) {
+        '.' -> {
+          queue.add(next)
+          times[next] = times.getValue(next) + times.getValue(curr)
+        }
+
+        '^' -> {
+          val left = next + L.step
+          queue.add(left)
+          times[left] = times.getValue(left) + times.getValue(curr)
+          val right = next + R.step
+          queue.add(right)
+          times[right] = times.getValue(right) + times.getValue(curr)
+        }
+
+        else -> Unit
+      }
+    }
+
+    return times
+      .filterKeys { it.y == matrix.lastIndex }
+      .values
+      .sum()
   }
 }
 
