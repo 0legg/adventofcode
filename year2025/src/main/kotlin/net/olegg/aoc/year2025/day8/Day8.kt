@@ -49,6 +49,40 @@ object Day8 : DayOf2025(8) {
       .take(3)
       .reduce(Int::times)
   }
+
+  override fun second(): Any? {
+    val boxes = lines
+      .map { it.parseInts(",") }
+      .map { Vector3D(it[0], it[1], it[2]) }
+
+    val edges = boxes
+      .indices
+      .toList()
+      .pairs()
+      .map { (a, b) ->
+        Triple(
+          a,
+          b,
+          (boxes[b] - boxes[a]).run {
+            x.toLong() * x.toLong() + y.toLong() * y.toLong() + z.toLong() * z.toLong()
+          }
+        )
+      }
+    val queue = PriorityQueue<Triple<Int, Int, Long>>(compareBy { it.third })
+    queue.addAll(edges)
+    val uf = UnionFind(boxes.size)
+
+    while (uf.count > 1) {
+      val curr = queue.remove()
+      uf.union(curr.first, curr.second)
+
+      if (uf.count == 1) {
+        return boxes[curr.first].x.toLong() * boxes[curr.second].x.toLong()
+      }
+    }
+
+    return 0
+  }
 }
 
 fun main() = SomeDay.mainify(Day8)
