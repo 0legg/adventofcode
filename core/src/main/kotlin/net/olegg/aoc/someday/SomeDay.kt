@@ -18,6 +18,20 @@ open class SomeDay(val year: Int, val day: Int) {
 
   open fun second(): Any? = null
 
+  fun main() {
+    println("Year $year, day $day")
+    measureTimeMillis {
+      println("First: ${first()?.toString() ?: "unsolved"}")
+    }.run {
+      println("Time: ${this}ms")
+    }
+    measureTimeMillis {
+      println("Second: ${second()?.toString() ?: "unsolved"}")
+    }.run {
+      println("Time: ${this}ms")
+    }
+  }
+
   companion object {
     fun mainify(someday: SomeDay) {
       with(someday) {
