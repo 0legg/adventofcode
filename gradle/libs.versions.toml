@@ -30,7 +30,7 @@ kotlinx-serialization = "1.9.0"
 
 slf4j = "2.0.17"
 
-z3 = "4.8.14-v5"
+z3 = "4.14.1"
 
 [libraries]
 
@@ -44,4 +44,4 @@ ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 
 slf4j-simple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 
-z3 = { module = "io.github.p-org.solvers:z3", version.ref = "z3" }
+z3 = { module = "tools.aqua:z3-turnkey", version.ref = "z3" }
